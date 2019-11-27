@@ -17,3 +17,23 @@ UNITS {
         FARADAY = 96480 (coul)
         R       = 8.314 (volt-coul/degC)
 }
+
+PARAMETER {
+	KA = 
+	KN = 
+	KJ = 
+	NaA = 
+	NaN = 
+	NaI = 
+	CaA = 
+	CaN = 
+	CaI =  
+	ClA = 
+	ClN = 
+	ClI = 
+	VmA = 
+	VmN = 
+	GlutA = 
+	GlutB =
+	NMDAy =
+}

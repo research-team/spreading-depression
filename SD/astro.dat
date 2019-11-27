@@ -1,15 +1,15 @@
 &IN
-lUseCa=FALSE
+lUseCa=.FALSE.
 npresteps=400
 npreca=100
 npreiter=100
-multdelta=0.9
-gapIP3=0.0
+multdelta=0.9D0
+gapIP3=0.0D0
 
-startATP=15.0
+startATP=15.0D0
 vmaxraw=2D-12
-Krel=10.0
-kATPloss=30
+Krel=10.0D0
+kATPloss=30D0
 IP300=0.012
 latp=4
 gluuptrate=10.0
