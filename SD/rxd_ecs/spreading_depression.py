@@ -1,4 +1,3 @@
-
 from mpi4py import MPI
 from neuron import h, crxd as rxd
 from neuron.crxd import rxdmath
@@ -230,10 +229,7 @@ h.dt = 10
 def run(tstop):
 
     if pcid == 0:
-        # record the wave progress (shown in figure 2)
-        name = '' if not args.edema else '_edema'
-        name += '' if not args.buffer else '_buffer'
-        fout = open(os.path.join(outdir, 'wave_progress%s.txt' % name), 'a')
+        fout = open(os.path.join(outdir, 'wave_progress%s.txt' ), 'a')
 
     while pc.t(0) <= tstop:
         if int(pc.t(0)) % 100 == 0:
@@ -243,10 +239,7 @@ def run(tstop):
                                 'Potassium concentration; t = %6.0fms'
                                 % pc.t(0))
 
-            if pcid == nhost - 1 and args.buffer:
-                plot_image_data(AK[ecs].states3d.mean(2), 0, 10,
-                                'buffered_mean_%05d' % int(pc.t(0) / 100),
-                                'Buffered concentration; t = %6.0fms' % pc.t(0))
+            
         if pcid == 0: progress_bar(tstop)
         pc.psolve(pc.t(0) + h.dt)
         if pcid == 0:
