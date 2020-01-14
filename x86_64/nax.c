@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -88,6 +88,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -144,7 +153,7 @@ static void nrn_state(_NrnThread*, _Memb_list*, int);
 static void  nrn_jacob(_NrnThread*, _Memb_list*, int);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "nax",
  "imax_nax",
  0,
@@ -203,6 +212,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
  _mechtype = nrn_get_mechtype(_mechanism[1]);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 10, 8);
   hoc_register_dparam_semantics(_mechtype, 0, "ca_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "ca_ion");
@@ -213,7 +226,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
   hoc_register_dparam_semantics(_mechtype, 6, "na_ion");
   hoc_register_dparam_semantics(_mechtype, 7, "na_ion");
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 nax /Users/sulgod/spreading-depression/x86_64/nax.mod\n");
+ 	ivoc_help("help ?1 nax /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/nax.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -394,4 +407,63 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/nax.mod";
+static const char* nmodl_file_text = 
+  "TITLE sodium calcium exchange\n"
+  ": taken from Courtemanche et al Am J Physiol 1998 275:H301\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX nax\n"
+  "	USEION ca READ cao, cai WRITE ica\n"
+  "	USEION na READ nao, nai WRITE ina\n"
+  "	RANGE imax, ica, ina , itot\n"
+  "	GLOBAL kna, kca\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(mA) = (milliamp)\n"
+  "	(mV) = (millivolt)\n"
+  "	F = (faraday) (coulombs)\n"
+  "	R 	= (k-mole)	(joule/degC)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	imax	= 3.2       (mA/cm2)\n"
+  "	kna	=  87.5     (mM)\n"
+  "	kca	=  1.38     (mM)\n"
+  "	gamma	= .35		: voltage dependence factor\n"
+  "}\n"
+  "\n"
+  "ASSIGNED {\n"
+  "	celsius	(degC)\n"
+  "	v	(mV)\n"
+  "	ica	(mA/cm2)\n"
+  "	ina	(mA/cm2)\n"
+  "	itot	(mA/cm2)\n"
+  "	cao	(mM)\n"
+  "        cai	(mM)\n"
+  "	nao	(mM)\n"
+  "	nai	(mM)\n"
+  "}\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	LOCAL rate\n"
+  "	rate = pumprate(v,nai,nao,cai,cao)\n"
+  "	ina =  3*rate\n"
+  "	ica = -2*rate\n"
+  "	itot=ina+ica\n"
+  "}\n"
+  "\n"
+  "FUNCTION pumprate(v,nai,nao,cai,cao) {\n"
+  "	LOCAL q10, Kqa, KB, k\n"
+  "	k = R*(celsius + 273.14)/(F*1e-3)\n"
+  "	q10 = 3^((celsius - 37)/10 (degC))\n"
+  "	Kqa = exp(gamma*v/k)\n"
+  "	KB = exp( (gamma - 1)*v/k)\n"
+  "	pumprate = q10*imax*(Kqa*nai*nai*nai*cao-KB*nao*nao*nao*cai)/((kna*kna*kna + nao*nao*nao)*(kca + cao)*(1 + 0.1*KB))\n"
+  "}\n"
+  ;
 #endif

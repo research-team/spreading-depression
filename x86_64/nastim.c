@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -77,6 +77,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern Prop* nrn_point_prop_;
  static int _pointtype;
  static void* _hoc_create_pnt(_ho) Object* _ho; { void* create_point_process();
@@ -140,7 +149,7 @@ static void  nrn_jacob(_NrnThread*, _Memb_list*, int);
 }
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "nastim",
  "del",
  "dur",
@@ -200,13 +209,17 @@ extern void _cvode_abstol( Symbol**, double*, int);
  _mechtype = nrn_get_mechtype(_mechanism[1]);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 6, 4);
   hoc_register_dparam_semantics(_mechtype, 0, "area");
   hoc_register_dparam_semantics(_mechtype, 1, "pntproc");
   hoc_register_dparam_semantics(_mechtype, 2, "na_ion");
   hoc_register_dparam_semantics(_mechtype, 3, "na_ion");
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 nastim /Users/sulgod/spreading-depression/x86_64/nastim.mod\n");
+ 	ivoc_help("help ?1 nastim /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/nastim.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -352,4 +365,43 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/nastim.mod";
+static const char* nmodl_file_text = 
+  "NEURON {\n"
+  "	POINT_PROCESS nastim\n"
+  "	USEION na WRITE ina\n"
+  "	RANGE del, dur, amp, ina\n"
+  "	:NONSPECIFIC_CURRENT i\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(nA) = (nanoamp)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	del (ms)\n"
+  "	dur (ms)\n"
+  "	amp (nA)\n"
+  "}\n"
+  "\n"
+  "ASSIGNED { ina (nA) }\n"
+  "\n"
+  "INITIAL {\n"
+  "	ina = 0\n"
+  "}\n"
+  "\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	at_time(del)\n"
+  "	at_time(del+dur)\n"
+  "	if (t < del + dur && t > del) {\n"
+  "		ina = -amp\n"
+  "	}else{\n"
+  "		ina = 0\n"
+  "	}\n"
+  "}\n"
+  ;
 #endif

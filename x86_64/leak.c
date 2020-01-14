@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -107,6 +107,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -170,7 +179,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "leak",
  "gk_leak",
  "gna_leak",
@@ -266,6 +275,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 0, _thread_cleanup);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 22, 14);
   hoc_register_dparam_semantics(_mechtype, 0, "k_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -284,7 +297,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 leak /Users/sulgod/spreading-depression/x86_64/leak.mod\n");
+ 	ivoc_help("help ?1 leak /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/leak.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -711,4 +724,86 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/leak.mod";
+static const char* nmodl_file_text = 
+  "TITLE leak\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX leak\n"
+  "	USEION k READ ek WRITE ik\n"
+  "	USEION na READ ena WRITE ina\n"
+  "	USEION cl READ ecl WRITE icl VALENCE -1\n"
+  "	USEION a READ ea WRITE ia VALENCE -1\n"
+  "	RANGE gk, ik, gcl, icl, ga, ia, gna, ina\n"
+  "	RANGE qk, qna, qcl, qa\n"
+  "}\n"
+  "\n"
+  "UNITS { \n"
+  "	(mV) = (millivolt)  (mA) = (milliamp)\n"
+  "	PI		= (pi) (1)\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	gk	= 1e-5 (mho/cm2)\n"
+  "	gna	= 1e-5 (mho/cm2)\n"
+  "	gcl	= 1e-4 (mho/cm2)\n"
+  "	ga	= 0 (mho/cm2)\n"
+  "}\n"
+  "\n"
+  "ASSIGNED {\n"
+  "	v (mV)\n"
+  "	ik (mA/cm2)\n"
+  "	ek (mV)\n"
+  "	ina (mA/cm2)\n"
+  "	ena (mV)\n"
+  "	icl (mA/cm2)\n"
+  "	ecl (mV)\n"
+  "	ia (mA/cm2)\n"
+  "	ea (mV)\n"
+  "	diam (um)\n"
+  "}\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	:SOLVE stromen METHOD after_cvode\n"
+  "	ik = gk*(v-ek)\n"
+  "	ina = gna*(v-ena)\n"
+  "	icl = gcl*(v-ecl)\n"
+  "	ia = ga*(v-ea)\n"
+  "	SOLVE integreer METHOD sparse\n"
+  "}\n"
+  "STATE { qk qna qcl qa }\n"
+  "\n"
+  "INITIAL {\n"
+  "	ik = gk*(v-ek)\n"
+  "	ina = gna*(v-ena)\n"
+  "	icl = gcl*(v-ecl)\n"
+  "	ia = ga*(v-ea)\n"
+  "	qk = 0\n"
+  "	qna = 0\n"
+  "	qcl = 0\n"
+  "	qa = 0\n"
+  "}\n"
+  "\n"
+  "KINETIC integreer {\n"
+  "	\n"
+  "	COMPARTMENT diam*diam*PI/4 { qna qk qcl qa}\n"
+  "	\n"
+  "	~ qna << ((-ina*diam )*PI*(1e4)/FARADAY )\n"
+  "	~ qk  << (( -ik*diam )*PI*(1e4)/FARADAY )\n"
+  "	~ qcl << ((-icl*diam )*PI*(1e4)/FARADAY )\n"
+  "	~ qa  << (( -ia*diam )*PI*(1e4)/FARADAY )\n"
+  "\n"
+  "}\n"
+  "\n"
+  "FUNCTION itot(v(mV)) {\n"
+  "	itot=gk*(v-ek)+gna*(v-ena)+gcl*(v-ecl)+ga*(v-ea)\n"
+  "}\n"
+  "\n"
+  "PROCEDURE stromen() {\n"
+  "}\n"
+  ;
 #endif

@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -100,6 +100,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -196,7 +205,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "xiong",
  "g_xiong",
  0,
@@ -271,6 +280,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
      _nrn_thread_table_reg(_mechtype, _check_table_thread);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 16, 12);
   hoc_register_dparam_semantics(_mechtype, 0, "k_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -287,7 +300,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 xiong /Users/sulgod/spreading-depression/x86_64/xiong.mod\n");
+ 	ivoc_help("help ?1 xiong /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/xiong.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -692,4 +705,128 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/xiong.mod";
+static const char* nmodl_file_text = 
+  "TITLE xiong\n"
+  "\n"
+  "COMMENT\n"
+  "Extracellular concentrations of Ca21 change\n"
+  "rapidly and transiently in the brain during excitatory synaptic\n"
+  "activity. To test whether such changes in Ca21 can play a\n"
+  "signaling role we examined the effects of rapidly lowering\n"
+  "Ca21 on the excitability of acutely isolated CA1 and cultured\n"
+  "hippocampal neurons. Reducing Ca21 excited and depolarized\n"
+  "neurons by activating a previously undescribed nonselective\n"
+  "cation channel. This channel had a single-channel conductance\n"
+  "of 36 pS, and its frequency of opening was inversely\n"
+  "proportional to the concentration of Ca21. The inhibition of\n"
+  "gating of this channel was sensitive to ionic strength but\n"
+  "independent of membrane potential. The ability of this channel\n"
+  "to sense Ca21 provides a novel mechanism whereby\n"
+  "neurons can respond to alterations in the extracellular concentration\n"
+  "of this key signaling ion.\n"
+  "uit: \n"
+  "Proc. Natl. Acad. Sci. USA\n"
+  "Vol. 94, pp. 7012 7017, June 1997\n"
+  "Neurobiology\n"
+  "Extracellular calcium sensed by a novel cation channel in\n"
+  "hippocampal neurons\n"
+  "Z.-G. XIONG, W.-Y. LU, AND J. F. MACDONALD\n"
+  "\n"
+  "ENDCOMMENT\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX xiong\n"
+  "	USEION k READ ko, ki, ek WRITE ik\n"
+  "	USEION na READ nai, nao, ena WRITE ina\n"
+  "	USEION ca READ cao\n"
+  "	GLOBAL tauavg, rmax, ec50, Nh, n\n"
+  "	RANGE ik, ina, g, gpresent, itot\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(molar) = 	(1/liter)\n"
+  "	(mV) =	(millivolt)\n"
+  "	(mA) =	(milliamp)\n"
+  "	(mM) =	(millimolar)\n"
+  "	FARADAY	= (faraday) (coulomb)\n"
+  "	:FARADAY		= 96485.309 (coul)\n"
+  "	R = (k-mole) (joule/degC)\n"
+  "}\n"
+  "\n"
+  ":INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	celsius		(degC)\n"
+  "	g=1e-3	(mho/cm2)\n"
+  "	tau_ina=100	(ms)\n"
+  "	tau_act=992	(ms)\n"
+  "	rmax=1\n"
+  "	ec50=.145	(mM) : 1/2 - max. dosage: was .39 in eerste artikel xiong. deze waarde komt uit vervolg studie met lamotrigine uit 2001\n"
+  "	Nh=1.4		: hill coefficient\n"
+  "	n=4		: gates voor asymmetrie in tau's\n"
+  "	tauavg=300	(ms) : jbf-tau, ziet er aardig uit.\n"
+  "}\n"
+  "\n"
+  "ASSIGNED { \n"
+  "	v	(mV)	\n"
+  "	ina	(mA/cm2)\n"
+  "	ik	(mA/cm2)\n"
+  "	ena	(mV)\n"
+  "	ek	(mV)\n"
+  "	cao	(mM)\n"
+  "	ki\n"
+  "	ko\n"
+  "	nai\n"
+  "	nao\n"
+  "	gpresent\n"
+  "	itot\n"
+  "}\n"
+  "\n"
+  "STATE { m }\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE gatestate METHOD cnexp\n"
+  "	gpresent=g*m^n\n"
+  "	ina = gpresent*(v-ena)\n"
+  "	ik = gpresent*(v-ek)\n"
+  "	itot=ik+ina\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	m=hill(cao)\n"
+  "	gpresent=g*m^n\n"
+  "	ina = gpresent*(v-ena)\n"
+  "	ik = gpresent*(v-ek)\n"
+  "	itot=ik+ina\n"
+  "}\n"
+  "\n"
+  "DERIVATIVE gatestate {\n"
+  "	m' = ( (hill(cao)-m)/tauavg )\n"
+  "}\n"
+  "\n"
+  "FUNCTION hill(co) {\n"
+  "	TABLE DEPEND rmax, ec50, Nh, n FROM 0 TO 15 WITH 150\n"
+  "	hill = (rmax/(1+(co/ec50)^Nh))^(1/n)\n"
+  "}\n"
+  "\n"
+  "FUNCTION ghk(v(mV), ci(mM), co(mM)) (.001 coul/cm3) {\n"
+  "	LOCAL z, eci, eco\n"
+  "	z = (1e-3)*1*FARADAY*v/(R*(celsius+273.11247574))\n"
+  "	eco = co*efun(z)\n"
+  "	eci = ci*efun(-z)\n"
+  "	ghk = (.001)*1*FARADAY*(eci - eco)\n"
+  "}\n"
+  "\n"
+  "FUNCTION efun(z) {\n"
+  "	if (fabs(z) < 1e-4) {\n"
+  "		efun = 1 - z/2\n"
+  "	}else{\n"
+  "		efun = z/(exp(z) - 1)\n"
+  "	}\n"
+  "}\n"
+  ;
 #endif

@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -82,6 +82,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -122,7 +131,7 @@ static void nrn_state(_NrnThread*, _Memb_list*, int);
 static void  nrn_jacob(_NrnThread*, _Memb_list*, int);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "tot",
  0,
  "i_tot",
@@ -184,6 +193,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
  _mechtype = nrn_get_mechtype(_mechanism[1]);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 9, 5);
   hoc_register_dparam_semantics(_mechtype, 0, "na_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -191,7 +204,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
   hoc_register_dparam_semantics(_mechtype, 3, "ca_ion");
   hoc_register_dparam_semantics(_mechtype, 4, "diam");
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 tot /Users/sulgod/spreading-depression/x86_64/itot.mod\n");
+ 	ivoc_help("help ?1 tot /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/itot.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -344,4 +357,50 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/itot.mod";
+static const char* nmodl_file_text = 
+  "TITLE tot\n"
+  "\n"
+  "\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX tot\n"
+  "	USEION na READ ina\n"
+  "	USEION k  READ ik\n"
+  "	USEION cl READ icl VALENCE -1\n"
+  "	USEION ca READ ica VALENCE 2\n"
+  "        RANGE i, imem\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(mA)	= (milliamp)\n"
+  "	(mV)	= (millivolt)\n"
+  "	(mM)	= (milli/liter)\n"
+  "        FARADAY = 96480 (coul)\n"
+  "        R       = 8.314 (volt-coul/degC)\n"
+  "	PI	= (pi) (1)     \n"
+  "}\n"
+  "\n"
+  "\n"
+  "\n"
+  "ASSIGNED { \n"
+  "	i	(mA/cm2)\n"
+  "	imem	(nA)\n"
+  "	ina	(mA/cm2)\n"
+  "	ik	(mA/cm2)\n"
+  "	icl	(mA/cm2)\n"
+  "	ica	(mA/cm2)\n"
+  "	diam	(um)\n"
+  "	L	(um)\n"
+  "}\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	imem=ik+ina+icl+ica\n"
+  "	i=imem*diam*PI\n"
+  "}\n"
+  "	\n"
+  ;
 #endif

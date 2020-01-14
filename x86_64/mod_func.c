@@ -12,17 +12,18 @@ extern void _hzclampna_reg(void);
 extern void _it_reg(void);
 extern void _itot_reg(void);
 extern void _ka_reg(void);
-extern void _kdr_reg(void);
 extern void _kdrglia_reg(void);
+extern void _kdr_reg(void);
 extern void _kir_reg(void);
 extern void _leak_reg(void);
-extern void _na_reg(void);
 extern void _nakpump_reg(void);
+extern void _na_reg(void);
 extern void _nap_reg(void);
 extern void _nastim_reg(void);
 extern void _nax_reg(void);
 extern void _nmda_reg(void);
 extern void _sk_reg(void);
+extern void _taccumulation3_reg(void);
 extern void _xiong_reg(void);
 
 void modl_reg(){
@@ -38,17 +39,18 @@ void modl_reg(){
     fprintf(stderr," it.mod");
     fprintf(stderr," itot.mod");
     fprintf(stderr," ka.mod");
-    fprintf(stderr," kdr.mod");
     fprintf(stderr," kdrglia.mod");
+    fprintf(stderr," kdr.mod");
     fprintf(stderr," kir.mod");
     fprintf(stderr," leak.mod");
-    fprintf(stderr," na.mod");
     fprintf(stderr," nakpump.mod");
+    fprintf(stderr," na.mod");
     fprintf(stderr," nap.mod");
     fprintf(stderr," nastim.mod");
     fprintf(stderr," nax.mod");
     fprintf(stderr," nmda.mod");
     fprintf(stderr," sk.mod");
+    fprintf(stderr," taccumulation3.mod");
     fprintf(stderr," xiong.mod");
     fprintf(stderr, "\n");
   }
@@ -61,16 +63,17 @@ void modl_reg(){
   _it_reg();
   _itot_reg();
   _ka_reg();
-  _kdr_reg();
   _kdrglia_reg();
+  _kdr_reg();
   _kir_reg();
   _leak_reg();
-  _na_reg();
   _nakpump_reg();
+  _na_reg();
   _nap_reg();
   _nastim_reg();
   _nax_reg();
   _nmda_reg();
   _sk_reg();
+  _taccumulation3_reg();
   _xiong_reg();
 }

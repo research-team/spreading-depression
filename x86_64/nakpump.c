@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -92,6 +92,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -149,7 +158,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "nakpump",
  "km_k_nakpump",
  "km_na_nakpump",
@@ -223,6 +232,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 0, _thread_cleanup);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 14, 8);
   hoc_register_dparam_semantics(_mechtype, 0, "k_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -235,7 +248,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 nakpump /Users/sulgod/spreading-depression/x86_64/nakpump.mod\n");
+ 	ivoc_help("help ?1 nakpump /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/nakpump.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -586,4 +599,76 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/nakpump.mod";
+static const char* nmodl_file_text = 
+  "TITLE Natrium-Kalium Pump\n"
+  "\n"
+  "INDEPENDENT {t FROM 0 TO 1 WITH 10 (ms)}\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX nakpump\n"
+  "	USEION k READ ko WRITE ik\n"
+  "	USEION na READ nai WRITE ina\n"
+  "	RANGE ik, ina, km_k, km_na, totalpump, qna, qk\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(mV)	= (millivolt)\n"
+  "	(molar) = (1/liter)\n"
+  "	(mM)	= (millimolar)\n"
+  "	(um)	= (micron)\n"
+  "	(mA)	= (milliamp)\n"
+  "	(mol)	= (1)\n"
+  "	:FARADAY	= (faraday) (coulomb)\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "	PI	= (pi)		(1)\n"
+  "	R 	= (k-mole)	(joule/degC)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	celsius		(degC)\n"
+  "	km_k = 2		(mM) \n"
+  "	km_na = 10		(mM)\n"
+  "	totalpump = 1	(mol/cm2)  \n"
+  "	: set to 0 in hoc if this pump not wanted\n"
+  "}\n"
+  "\n"
+  "STATE { qna qk }\n"
+  "\n"
+  "ASSIGNED {\n"
+  "	ik		(mA/cm2)\n"
+  "	ina		(mA/cm2)\n"
+  "	ko		(mM)\n"
+  "	nai		(mM)\n"
+  "	diam		(um2)\n"
+  "	L		(um)\n"
+  "}\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE integreer METHOD sparse\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	qna=0\n"
+  "	qk=0\n"
+  "	ik = -2*totalpump*stroom(nai,ko)\n"
+  "	ina = ik * -3/2\n"
+  "}\n"
+  "\n"
+  "KINETIC integreer {\n"
+  "	ik = -2*totalpump*stroom(nai,ko)\n"
+  "	ina = ik * -3/2\n"
+  "\n"
+  "	COMPARTMENT diam*diam*PI/4 { qna qk }\n"
+  "	~ qna << (-ina*PI*diam*(1e4)/FARADAY)\n"
+  "	~ qk <<  ( -ik*PI*diam*(1e4)/FARADAY)\n"
+  "}\n"
+  "\n"
+  "FUNCTION stroom(na,k) {\n"
+  "	stroom = ( 1 / ((1+km_k/k)*(1+km_k/k)) ) * ( 1 / ((1+km_na/na)*(1+km_na/na)*(1+km_na/na)) )\n"
+  "}\n"
+  ;
 #endif

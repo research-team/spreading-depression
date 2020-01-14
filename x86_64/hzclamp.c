@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -83,6 +83,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern Prop* nrn_point_prop_;
  static int _pointtype;
  static void* _hoc_create_pnt(_ho) Object* _ho; { void* create_point_process();
@@ -151,7 +160,7 @@ static void  nrn_jacob(_NrnThread*, _Memb_list*, int);
 }
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "Hzclamp",
  "del",
  "dur",
@@ -209,11 +218,15 @@ extern void _cvode_abstol( Symbol**, double*, int);
 	 _hoc_create_pnt, _hoc_destroy_pnt, _member_func);
  _mechtype = nrn_get_mechtype(_mechanism[1]);
      _nrn_setdata_reg(_mechtype, _setdata);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 12, 2);
   hoc_register_dparam_semantics(_mechtype, 0, "area");
   hoc_register_dparam_semantics(_mechtype, 1, "pntproc");
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 Hzclamp /Users/sulgod/spreading-depression/x86_64/hzclamp.mod\n");
+ 	ivoc_help("help ?1 Hzclamp /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/hzclamp.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -441,4 +454,102 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/hzclamp.mod";
+static const char* nmodl_file_text = 
+  "COMMENT\n"
+  "hzclamp is een aanpassing op:\n"
+  "\n"
+  "	Periodic SEClamp\n"
+  "	Based on $NEURONHOME/src/nrnoc/svclmp.mod\n"
+  "	3/27/2000\n"
+  "\n"
+  "Alleen is dit een periodieke currentclamp met een trillingstijd \n"
+  "van 2*dt. Per dt verandert de te injecteren stroom van 0*amp.i\n"
+  "naar 2*amp.i zodat de total geinjecteerde stroom niet verschilt\n"
+  "van de reguliere current clamp, 1*amp.i.\n"
+  "\n"
+  "Wij gebruikten de hzclamp om de invloed van de currentclamp en de \n"
+  "celrespons op het extracellulaire veld te scheiden. waarschijnlijk\n"
+  "werkt deze stimulator in 'CVODE'-mode, m.a.w. de variabele tijdstap\n"
+  "integrator maar is in deze mode nog niet getest.\n"
+  "\n"
+  "veel succes, \n"
+  "Hans Kager, 20-6-2000\n"
+  "\n"
+  "netto geen stroom injectie, geen problemen meer met electroneutraliteit\n"
+  "\n"
+  "\n"
+  "SEClamp:\n"
+  "Although this model appears to work properly, we cannot guarantee \n"
+  "the absence of bugs, subtle or otherwise.  It is provided as a \n"
+  "convenience to NEURON users who may wish to try or modify it for \n"
+  "their own applications.\n"
+  "--Ted Carnevale\n"
+  "\n"
+  "ENDCOMMENT\n"
+  "\n"
+  "NEURON {\n"
+  "	POINT_PROCESS Hzclamp\n"
+  "	ELECTRODE_CURRENT i\n"
+  ":	NONSPECIFIC_CURRENT i\n"
+  "	RANGE del, dur, amp, freq, width, i, telpulse, stand\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(nA) = (nanoamp)\n"
+  "	(uS) = (micromho)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	del (ms)\n"
+  "	dur (ms)	<0,1e9>\n"
+  "	amp (nA)\n"
+  "	dt (ms)\n"
+  "	freq	(1/s)\n"
+  "	width	(ms)\n"
+  "}\n"
+  "\n"
+  "ASSIGNED {\n"
+  "	i (nA)\n"
+  "	i_amp (nA)\n"
+  "	telpulse\n"
+  "	stand\n"
+  "	notify\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	i_amp = 0\n"
+  "	stand = 0\n"
+  "	telpulse = 0\n"
+  "	notify=del\n"
+  "}\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE state METHOD after_cvode\n"
+  "	at_time(notify)\n"
+  "	i = i_amp\n"
+  "}\n"
+  "\n"
+  "PROCEDURE state() {\n"
+  "	if (t <= del + dur && t >= del) {\n"
+  "	  if (telpulse/(freq/1000) < t-del && t-del <= telpulse/(freq/1000)+width ) {\n"
+  "	    notify = del + telpulse/(freq/1000)+width\n"
+  "	    i_amp=amp\n"
+  "	    stand=1 \n"
+  "	  } else if (stand == 1 ) {\n"
+  "	    stand = 0\n"
+  "	    telpulse = telpulse + 1\n"
+  "	    i_amp = 0\n"
+  "	    notify = del + telpulse/(freq/1000)\n"
+  "	  } else {\n"
+  "	    i_amp = 0\n"
+  "	  }\n"
+  "	}else{\n"
+  "	  i_amp = 0\n"
+  "	}\n"
+  "}\n"
+  ;
 #endif
