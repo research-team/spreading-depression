@@ -9,7 +9,8 @@ import argparse
 import os
 import sys
 import pickle
-
+import matplotlib.pyplot as plt
+from neuron.units import ms, mV
 # when using multiple processes get the relevant id and number of hosts
 pc = h.ParallelContext()
 pcid = pc.id()
@@ -84,6 +85,7 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
+
         for mechanism in ['tnak', 'tnap', 'taccumulation3', 'kleak']:
             self.soma.insert(mechanism)
             self.dend.insert(mechanism)
@@ -97,6 +99,8 @@ class Neuron:
             self.somaV.record(self.soma(0.5)._ref_v, rec)
             self.dendV = h.Vector()
             self.dendV.record(self.dend(0.5)._ref_v, rec)
+            self.time = h.Vector().record(h._ref_t)
+
 
 
 
@@ -135,7 +139,7 @@ na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=133.574,
 pc.set_maxstep(100)
 
 # initialize and set the intracellular concentrations
-h.finitialize()
+h.finitialize() #!!!!!!!!!!!!!!!!!!!!!!!!!!!
 for sec in h.allsec():
     sec.nai = 4.297
 
@@ -223,14 +227,20 @@ def plot_image_data(data, min_val, max_val, filename, title):
     pyplot.savefig(os.path.join(outdir, filename))
     pyplot.close()
 
+def plot_spike_for_1_neu(volt, t):
+    fig, ax = plt.subplots()
+    ax.plot(t, volt)
+    plt.show()
+    fig.savefig(os.path.join(outdir, 'spike_1neu.png'))
 
 h.dt = 10
 
 def run(tstop):
+    
 
     if pcid == 0:
         fout = open(os.path.join(outdir, 'wave_progress%s.txt' ), 'a')
-
+        
     while pc.t(0) <= tstop:
         if int(pc.t(0)) % 100 == 0:
             if pcid == 0:
@@ -239,7 +249,8 @@ def run(tstop):
                                 'Potassium concentration; t = %6.0fms'
                                 % pc.t(0))
 
-            
+        #plt.plot(t, rec_neurons[0].somaV)
+        #plt.show()   
         if pcid == 0: progress_bar(tstop)
         pc.psolve(pc.t(0) + h.dt)
         if pcid == 0:
@@ -257,8 +268,14 @@ def run(tstop):
     if pcid == 0:
         progress_bar(tstop)
         fout.close()
+        print(rec_neurons[0].time.size())
+        print(rec_neurons[0].somaV.size())
+        #print(rec_neurons[0].time)
+        #print(rec_neurons[0].somaV)
+        plt.plot(numpy.array(rec_neurons[0].time), numpy.array(rec_neurons[0].somaV))
+        plt.show()
         print("\nSimulation complete. Plotting membrane potentials")
-
+    
     # save membrane potentials
     soma, dend, pos = [], [], []
     for n in rec_neurons:
@@ -271,6 +288,8 @@ def run(tstop):
     pc.barrier()
     if pcid == 0:
         plot_rec_neurons()
+        
+
 
 
 
