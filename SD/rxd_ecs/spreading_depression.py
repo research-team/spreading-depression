@@ -47,11 +47,10 @@ h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
 
-# simulation parameters
-Lx, Ly, Lz = 1000, 1000, 1000
+Lx, Ly, Lz = 100, 100, 1000
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
-Nrec = 1000
+Nrec = 300
 
 somaR = 11.0  # soma radius
 dendR = 1.4  # dendrite radius
@@ -60,15 +59,14 @@ doff = dendL + somaR
 
 alpha0, alpha1 = 0.07, 0.2  # anoxic and normoxic volume fractions
 tort0, tort1 = 1.8, 1.6  # anoxic and normoxic tortuosities
-r0 = 100  # radius for initial elevated K+
-
+r0 = 50  # radius for initial elevated K+
 
 class Neuron:
     """ A neuron with soma and dendrite with; fast and persistent sodium
     currents, potassium currents, passive leak and potassium leak and an
     accumulation mechanism. """
 
-    def __init__(self, x, y, z, rec=False):
+    def __init__(self, x, y, z, rec=True):
         self.x = x
         self.y = y
         self.z = z
@@ -86,20 +84,23 @@ class Neuron:
 
 
 
-        for mechanism in ['tnak', 'tnap', 'taccumulation3', 'kleak']:
+        for mechanism in ['tnak', 'tnap', 'taccumulation3', 'kleak', 'nap']:
             self.soma.insert(mechanism)
             self.dend.insert(mechanism)
 
         #
         self.soma(0.5).tnak.imax = 0
         self.dend(0.5).tnak.imax = 0
+        #self.soma(0.5).nap.gnabar_nap=0.000125
+        #self.dend(0.5).nap.gnabar_nap=1e-6
 
-        if rec:
-            self.somaV = h.Vector()
-            self.somaV.record(self.soma(0.5)._ref_v, rec)
-            self.dendV = h.Vector()
-            self.dendV.record(self.dend(0.5)._ref_v, rec)
-            self.time = h.Vector().record(h._ref_t)
+        
+        #if rec:
+        self.somaV = h.Vector()
+        self.somaV.record(self.soma(0.5)._ref_v)
+        self.dendV = h.Vector()
+        self.dendV.record(self.dend(0.5)._ref_v)
+        self.time = h.Vector().record(h._ref_t)
 
 
 
@@ -233,11 +234,11 @@ def plot_spike_for_1_neu(volt, t):
     plt.show()
     fig.savefig(os.path.join(outdir, 'spike_1neu.png'))
 
-h.dt = 10
+h.dt = 1
 
 def run(tstop):
     
-
+    #time = h.Vector().record(h._ref_t)
     if pcid == 0:
         fout = open(os.path.join(outdir, 'wave_progress%s.txt' ), 'a')
         
@@ -250,10 +251,12 @@ def run(tstop):
                                 % pc.t(0))
 
         #plt.plot(t, rec_neurons[0].somaV)
-        #plt.show()   
+        #plt.show()
+           
         if pcid == 0: progress_bar(tstop)
+
         pc.psolve(pc.t(0) + h.dt)
-        if pcid == 0:
+        if pcid == 0 and int(pc.t(0)) % 10 == 0:
             dist = 0
             dist1 = 1e9
             for nd in k.nodes:
@@ -272,7 +275,7 @@ def run(tstop):
         print(rec_neurons[0].somaV.size())
         #print(rec_neurons[0].time)
         #print(rec_neurons[0].somaV)
-        plt.plot(numpy.array(rec_neurons[0].time), numpy.array(rec_neurons[0].somaV))
+        plt.plot(rec_neurons[0].time, rec_neurons[0].somaV)
         plt.show()
         print("\nSimulation complete. Plotting membrane potentials")
     
@@ -283,6 +286,7 @@ def run(tstop):
         dend.append(n.dendV)
         pos.append([n.x, n.y, n.z])
     pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
+    #pickle.dump([soma[::10], dend[::10], pos], pout)
     pickle.dump([soma, dend, pos], pout)
     pout.close()
     pc.barrier()
