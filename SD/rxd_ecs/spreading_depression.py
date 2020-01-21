@@ -1,3 +1,4 @@
+import numpy as np
 from mpi4py import MPI
 from neuron import h, crxd as rxd
 from neuron.crxd import rxdmath
@@ -9,7 +10,7 @@ import argparse
 import os
 import sys
 import pickle
-import matplotlib.pyplot as plt
+
 from neuron.units import ms, mV
 # when using multiple processes get the relevant id and number of hosts
 pc = h.ParallelContext()
@@ -47,10 +48,10 @@ h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
 
-Lx, Ly, Lz = 100, 100, 1000
+Lx, Ly, Lz = 1000, 1000, 1000
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
-Nrec = 300
+Nrec = 1000
 
 somaR = 11.0  # soma radius
 dendR = 1.4  # dendrite radius
@@ -59,7 +60,7 @@ doff = dendL + somaR
 
 alpha0, alpha1 = 0.07, 0.2  # anoxic and normoxic volume fractions
 tort0, tort1 = 1.8, 1.6  # anoxic and normoxic tortuosities
-r0 = 50  # radius for initial elevated K+
+r0 = 100  # radius for initial elevated K+
 
 class Neuron:
     """ A neuron with soma and dendrite with; fast and persistent sodium
@@ -84,7 +85,7 @@ class Neuron:
 
 
 
-        for mechanism in ['tnak', 'tnap', 'taccumulation3', 'kleak', 'nap']:
+        for mechanism in ['tnak', 'tnap', 'taccumulation3', 'kleak']:
             self.soma.insert(mechanism)
             self.dend.insert(mechanism)
 
@@ -112,12 +113,14 @@ rec_neurons = [Neuron(
     for i in range(0, int(Nrec / nhost))]
 
 
+# must add parallel!!!!!!!!!!!!
+'''
 all_neurons = [Neuron(
     (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
     (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
     (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR))
     for i in range(int(Nrec / nhost), int(Ncell / nhost))]
-
+'''
 
 
 alpha = alpha1
@@ -164,50 +167,51 @@ def plot_rec_neurons():
         somaV.extend(sV)
         dendV.extend(dV)
         pos.extend(p)
-
+ 
         for idx in range(somaV[0].size()):
             # create a plot for each record (100ms)
+            if idx % 100 == 0:
 
-            fig = pyplot.figure()
-            ax = fig.add_subplot(111, projection='3d')
-            ax.set_position([0.0, 0.05, 0.9, 0.9])
-            ax.set_xlim([-Lx / 2.0, Lx / 2.0])
-            ax.set_ylim([-Ly / 2.0, Ly / 2.0])
-            ax.set_zlim([-Lz / 2.0, Lz / 2.0])
-            ax.set_xticks([int(Lx * i / 4.0) for i in range(-2, 3)])
-            ax.set_yticks([int(Ly * i / 4.0) for i in range(-2, 3)])
-            ax.set_zticks([int(Lz * i / 4.0) for i in range(-2, 3)])
+                fig = pyplot.figure()
+                ax = fig.add_subplot(111, projection='3d')
+                ax.set_position([0.0, 0.05, 0.9, 0.9])
+                ax.set_xlim([-Lx / 2.0, Lx / 2.0])
+                ax.set_ylim([-Ly / 2.0, Ly / 2.0])
+                ax.set_zlim([-Lz / 2.0, Lz / 2.0])
+                ax.set_xticks([int(Lx * i / 4.0) for i in range(-2, 3)])
+                ax.set_yticks([int(Ly * i / 4.0) for i in range(-2, 3)])
+                ax.set_zticks([int(Lz * i / 4.0) for i in range(-2, 3)])
 
-            cmap = pyplot.get_cmap('jet')
-            for i in range(Nrec):
-                x = pos[i]
-                soma_z = [x[2] - somaR, x[2] + somaR]
-                cell_x = [x[0], x[0]]
-                cell_y = [x[1], x[1]]
-                scolor = cmap((somaV[i].get(idx) + 70.0) / 70.0)
-                # plot the soma
-                ax.plot(cell_x, cell_y, soma_z, linewidth=2, color=scolor,
-                        alpha=0.5)
+                cmap = pyplot.get_cmap('jet')
+                for i in range(Nrec):
+                    x = pos[i]
+                    soma_z = [x[2] - somaR, x[2] + somaR]
+                    cell_x = [x[0], x[0]]
+                    cell_y = [x[1], x[1]]
+                    scolor = cmap((somaV[i].get(idx) + 70.0) / 70.0)
+                    # plot the soma
+                    ax.plot(cell_x, cell_y, soma_z, linewidth=2, color=scolor,
+                            alpha=0.5)
 
-                dcolor = cmap((dendV[i].get(idx) + 70.0) / 70.0)
-                dend_z = [x[2] - somaR, x[2] - somaR - dendL]
-                # plot the dendrite
-                ax.plot(cell_x, cell_y, dend_z, linewidth=0.5, color=dcolor,
-                        alpha=0.5)
+                    dcolor = cmap((dendV[i].get(idx) + 70.0) / 70.0)
+                    dend_z = [x[2] - somaR, x[2] - somaR - dendL]
+                    # plot the dendrite
+                    ax.plot(cell_x, cell_y, dend_z, linewidth=0.5, color=dcolor,
+                            alpha=0.5)
 
-            norm = colors.Normalize(vmin=-70, vmax=80)
-            pyplot.title('Neuron membrane potentials; t = %gms' % (idx * 100))
-
-
-            ax1 = fig.add_axes([0.88, 0.05, 0.04, 0.9])
-            cb1 = colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm,
-                                        orientation='vertical')
-            cb1.set_label('mV')
+                norm = colors.Normalize(vmin=-70, vmax=80)
+                pyplot.title('Neuron membrane potentials; t = %gms' % (idx))
 
 
-            filename = 'neurons_{:05d}.png'.format(idx)
-            pyplot.savefig(os.path.join(outdir, filename))
-            pyplot.close()
+                ax1 = fig.add_axes([0.88, 0.05, 0.04, 0.9])
+                cb1 = colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm,
+                                            orientation='vertical')
+                cb1.set_label('mV')
+
+
+                filename = 'neurons_{:05d}.png'.format(idx)
+                pyplot.savefig(os.path.join(outdir, filename))
+                pyplot.close()
 
 
 def plot_image_data(data, min_val, max_val, filename, title):
@@ -228,11 +232,17 @@ def plot_image_data(data, min_val, max_val, filename, title):
     pyplot.savefig(os.path.join(outdir, filename))
     pyplot.close()
 
-def plot_spike_for_1_neu(volt, t):
-    fig, ax = plt.subplots()
-    ax.plot(t, volt)
-    plt.show()
-    fig.savefig(os.path.join(outdir, 'spike_1neu.png'))
+def plot_spike_for_1_neu(volt, t, i, tstop):
+    #fig, ax = pyplot.subplots()
+    #ax.plot(t, volt)
+    pyplot.plot(t,volt)
+    pyplot.xticks(np.arange(0, tstop+1, 100.0))
+    #pyplot.yticks(np.arange(1,15,3))
+    #plt.show()
+    pyplot.grid()
+    #fig.savefig(os.path.join(outdir, 'spike_%i.png' % i))
+    pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
+    pyplot.close('all')
 
 h.dt = 1
 
@@ -240,7 +250,7 @@ def run(tstop):
     
     #time = h.Vector().record(h._ref_t)
     if pcid == 0:
-        fout = open(os.path.join(outdir, 'wave_progress%s.txt' ), 'a')
+        fout = open(os.path.join(outdir, 'wave_progress.txt' ), 'a')
         
     while pc.t(0) <= tstop:
         if int(pc.t(0)) % 100 == 0:
@@ -271,12 +281,15 @@ def run(tstop):
     if pcid == 0:
         progress_bar(tstop)
         fout.close()
-        print(rec_neurons[0].time.size())
-        print(rec_neurons[0].somaV.size())
+        #print(rec_neurons[0].time.size())
+        #print(rec_neurons[0].somaV.size())
         #print(rec_neurons[0].time)
         #print(rec_neurons[0].somaV)
-        plt.plot(rec_neurons[0].time, rec_neurons[0].somaV)
-        plt.show()
+        #plt.plot(rec_neurons[0].time, rec_neurons[0].somaV)
+        #plt.show()
+        for i in range(1000) :
+            plot_spike_for_1_neu(rec_neurons[i].somaV, rec_neurons[i].time, i ,tstop)
+        
         print("\nSimulation complete. Plotting membrane potentials")
     
     # save membrane potentials
