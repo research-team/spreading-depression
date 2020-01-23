@@ -112,7 +112,7 @@ tort = tort1
 
 
 ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
-                        -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=10,
+                        -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 50),  # dx - скорость распространнения в разные стороны - различны по осям
                         volume_fraction=alpha, tortuosity=tort)
 
 
@@ -123,7 +123,8 @@ if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=133.574,
                  ecs_boundary_conditions=133.574)
 
-
+kecs = h.Vector()
+kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
 pc.set_maxstep(100)
 
 # initialize and set the intracellular concentrations
@@ -171,12 +172,12 @@ def plot_rec_neurons():
                     soma_z = [x[2] - somaR, x[2] + somaR]
                     cell_x = [x[0], x[0]]
                     cell_y = [x[1], x[1]]
-                    scolor = cmap((somaV[i].get(idx) + 70.0) / 70.0)
+                    scolor = cmap((somaV[i].get(idx) + 20.0) / 70.0 )
                     # plot the soma
                     ax.plot(cell_x, cell_y, soma_z, linewidth=2, color=scolor,
                             alpha=0.5)
 
-                    dcolor = cmap((dendV[i].get(idx) + 70.0) / 70.0)
+                    dcolor = cmap((dendV[i].get(idx) + 20.0) / 70.0)
                     dend_z = [x[2] - somaR, x[2] - somaR - dendL]
                     # plot the dendrite
                     ax.plot(cell_x, cell_y, dend_z, linewidth=0.5, color=dcolor,
@@ -228,12 +229,18 @@ def plot_spike_for_1_neu(volt, t, i, tstop):
     pyplot.close('all')
 
 
+def plot_K_ecs_in_point_000(k, t):
+    pyplot.plot(t, k)
+    pyplot.grid()
+    pyplot.savefig(os.path.join(outdir, 'k_ecs.png'))
+    pyplot.close('all')
+
 h.dt = 1
 
 def run(tstop):
 
     if pcid == 0:
-        fout = open(os.path.join(outdir, 'wave_progress%s.txt' ), 'a')
+        fout = open(os.path.join(outdir, 'wave_progress.txt' ), 'a')
 
     while pc.t(0) <= tstop:
         if int(pc.t(0)) % 100 == 0:
@@ -261,9 +268,10 @@ def run(tstop):
     if pcid == 0:
         progress_bar(tstop)
         fout.close()
-        for i in range(1000) :
-            plot_spike_for_1_neu(rec_neurons[i].somaV, rec_neurons[i].time, i ,tstop)
+       # for i in range(1000) :
+           # plot_spike_for_1_neu(rec_neurons[i].somaV, rec_neurons[i].time, i ,tstop)
         print("\nSimulation complete. Plotting membrane potentials")
+        plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
 
     # save membrane potentials
     soma, dend, pos = [], [], []
