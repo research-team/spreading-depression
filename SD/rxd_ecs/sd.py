@@ -85,7 +85,7 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in ['tnak', 'tnap', 'taccumulation3', 'kleak']:
+        for mechanism in ['tnak', 'tnap', 'taccumulation3', 'leak']:
             self.soma.insert(mechanism)
             self.dend.insert(mechanism)
 
@@ -172,12 +172,12 @@ def plot_rec_neurons():
                     soma_z = [x[2] - somaR, x[2] + somaR]
                     cell_x = [x[0], x[0]]
                     cell_y = [x[1], x[1]]
-                    scolor = cmap((somaV[i].get(idx) + 20.0) / 70.0 )
+                    scolor = cmap((somaV[i].get(idx) + 40.0) / 80.0 )
                     # plot the soma
                     ax.plot(cell_x, cell_y, soma_z, linewidth=2, color=scolor,
                             alpha=0.5)
 
-                    dcolor = cmap((dendV[i].get(idx) + 20.0) / 70.0)
+                    dcolor = cmap((dendV[i].get(idx) + 40.0) / 80.0)
                     dend_z = [x[2] - somaR, x[2] - somaR - dendL]
                     # plot the dendrite
                     ax.plot(cell_x, cell_y, dend_z, linewidth=0.5, color=dcolor,
@@ -268,8 +268,8 @@ def run(tstop):
     if pcid == 0:
         progress_bar(tstop)
         fout.close()
-       # for i in range(1000) :
-           # plot_spike_for_1_neu(rec_neurons[i].somaV, rec_neurons[i].time, i ,tstop)
+        for i in range(1000) :
+            plot_spike_for_1_neu(rec_neurons[i].somaV, rec_neurons[i].time, i ,tstop)
         print("\nSimulation complete. Plotting membrane potentials")
         plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
 

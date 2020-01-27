@@ -12,6 +12,7 @@ ASSIGNED {
 }
 
 PARAMETER {
+    :NaP
     gnap = 0.4
     taubar = 10000
     thmp = -40
@@ -21,6 +22,8 @@ PARAMETER {
     vt = -49
     sig = 6
     phih = 0.05
+    F = 96485.309
+    pnap = 3e-08
 }
 
 STATE {
@@ -29,11 +32,11 @@ STATE {
 
 BREAKPOINT {
     SOLVE state METHOD derivimplicit
-    ina = 0.001 * (gnap * minf * hinf * (v - ena))
+    ina = 0.001 * (pnap * minf *hinf * h*  (v - ena))
 }
 
 INITIAL {
-    h = 0.9751
+    h = 0.995
 }
 
 PROCEDURE rates(v(mV)) {
