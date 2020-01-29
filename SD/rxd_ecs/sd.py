@@ -85,8 +85,10 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in ['tnak', 'tnap', 'taccumulation3', 'leak']:
+        for mechanism in ['tnak','tnap', 'taccumulation3', 'kleak']:
             self.soma.insert(mechanism)
+
+        for mechanism in ['tnak','tnap', 'taccumulation3', 'kleak', 'nmda']:
             self.dend.insert(mechanism)
 
         #
@@ -99,13 +101,21 @@ class Neuron:
         self.dendV.record(self.dend(0.5)._ref_v)
         self.time = h.Vector().record(h._ref_t)
 
+        #self.intracellular = rxd.Region([self.soma], name='cyt', nrn_region='i')
+        #self.mem = rxd.Region(h.allsec(), name='cell_mem', geometry=rxd.membrane())
+        #self.k = rxd.Species(self.intracellular, name='k', d=1, charge=1, initial=54.4 )
+        #self.na = rxd.Species(self.intracellular , name='na', d=1, charge=1, initial=10)
+
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+
 
 
 rec_neurons = [Neuron(
     (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
     (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
     (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 100)
-    for i in range(0, int(Nrec / nhost))]
+    for i in range(0, int(Nrec))]
 
 alpha = alpha1
 tort = tort1
@@ -123,14 +133,18 @@ if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=133.574,
                  ecs_boundary_conditions=133.574)
 
+
+
 kecs = h.Vector()
 kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
-pc.set_maxstep(100)
+pc.set_maxstep(10)
 
 # initialize and set the intracellular concentrations
 h.finitialize()
 for sec in h.allsec():
     sec.nai = 4.297
+    
+
 
 
 def progress_bar(tstop, size=40):
@@ -216,17 +230,41 @@ def plot_image_data(data, min_val, max_val, filename, title):
     pyplot.savefig(os.path.join(outdir, filename))
     pyplot.close()
 
-def plot_spike_for_1_neu(volt, t, i, tstop):
+def plot_spike_for_1_neu(volt_soma, volt_dend, t, i, tstop, k, na):
     #fig, ax = pyplot.subplots()
     #ax.plot(t, volt)
-    pyplot.plot(t,volt)
-    pyplot.xticks(np.arange(0, tstop+1, 100.0))
+    #pyplot.plot(t,volt_soma, lebel='soma')
+    #pyplot.plot(t, volt_dend, lebel='dend')
+    #pyplot.xticks(np.arange(0, tstop+1, 100.0))
+
     #pyplot.yticks(np.arange(1,15,3))
     #plt.show()
-    pyplot.grid()
+    #pyplot.grid()
+    #pyplot.legend()
     #fig.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
+    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
+    #pyplot.close('all')
+
+    fig = pyplot.figure(figsize=(16,10))
+    ax1 = fig.add_subplot(2,1,1)
+    soma_plot = ax1.plot(t , volt_soma , color='black', label='soma')
+    dend_plot = ax1.plot(t, volt_dend, color='red', label='dend')
+    ax1.legend()
+    ax1.set_ylabel('mV')
+    ax1.set_xticks([])
+
+    ax2 = fig.add_subplot(2,1,2)
+    k_plot = ax2.plot(t, k, color='blue', label='K')
+    na_plot = ax2.plot(t, na, color='yellow', label='Na')
+    ax2.legend()
+    ax2.set_ylabel('current (mA/cm$^2$)')
+    ax2.set_xlabel('time (ms)')
+    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
+    fig.savefig(os.path.join(outdir, 'spike_%i.png' % i))
     pyplot.close('all')
+
+
+
 
 
 def plot_K_ecs_in_point_000(k, t):
@@ -268,8 +306,8 @@ def run(tstop):
     if pcid == 0:
         progress_bar(tstop)
         fout.close()
-        for i in range(1000) :
-            plot_spike_for_1_neu(rec_neurons[i].somaV, rec_neurons[i].time, i ,tstop)
+        for i in range(200) :
+            plot_spike_for_1_neu(rec_neurons[i].somaV, rec_neurons[i].dendV, rec_neurons[i].time, i ,tstop, rec_neurons[i].k_vec, rec_neurons[i].na_vec)
         print("\nSimulation complete. Plotting membrane potentials")
         plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
 
