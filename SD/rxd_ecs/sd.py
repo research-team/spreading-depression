@@ -12,9 +12,11 @@ import pickle
 import numpy as np
 
 # when using multiple processes get the relevant id and number of hosts
+#h.nrnmpi_init()
 pc = h.ParallelContext()
 pcid = pc.id()
 nhost = pc.nhost()
+root = 0
 
 # set the save directory and if buffering or inhomogeneous tissue
 # characteristics are used.
@@ -27,13 +29,18 @@ try:
     parser.add_argument('dir', metavar='dir', type=str,
                         help='a directory to save the figures and data')
     args = parser.parse_args()
+
 except:
     os._exit(1)
 
 outdir = os.path.abspath(args.dir)
-if pcid == 0 and not os.path.exists(outdir):
+
+#os.mkdir(os.path.join(outdir, 'K_NA')) 
+k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
+if pcid == 0 and not os.path.exists(k_na_dir):
     try:
-        os.makedirs(outdir)
+        #os.makedirs(outdir)
+        os.makedirs(k_na_dir)
     except:
         print("Unable to create the directory %r for the data and figures"
               % outdir)
@@ -62,11 +69,26 @@ alpha0, alpha1 = 0.07, 0.2  # anoxic and normoxic volume fractions
 tort0, tort1 = 1.8, 1.6  # anoxic and normoxic tortuosities
 r0 = 100  # radius for initial elevated K+
 
+initmGluR =0.3e-3
+K1 = 0.28
+K2 = 0.016
+K_PLC = 5
+K_PIP2 = 160
+K_G=25
+kfplc = 0.83
+kbplc = 0.68
+Vmax1 = 0.58
+D5f = 15 
+D5b = 7.2 
+D6f = 1.8
+G2f = 100 
+G2b = 100 
+D7f = 9
+degGluRate = 1.0
+glu_per_spike = 1000
+
 
 class Neuron:
-    """ A neuron with soma and dendrite with; fast and persistent sodium
-    currents, potassium currents, passive leak and potassium leak and an
-    accumulation mechanism. """
 
     def __init__(self, x, y, z, rec=False):
         self.x = x
@@ -85,10 +107,10 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in ['tnak','tnap', 'taccumulation3', 'kleak']:
+        for mechanism in ['tnak','tnap', 'taccumulation3', 'leak']:
             self.soma.insert(mechanism)
 
-        for mechanism in ['tnak','tnap', 'taccumulation3', 'kleak', 'nmda']:
+        for mechanism in ['tnak','tnap', 'taccumulation3', 'leak', 'nmda']:
             self.dend.insert(mechanism)
 
         #
@@ -101,48 +123,93 @@ class Neuron:
         self.dendV.record(self.dend(0.5)._ref_v)
         self.time = h.Vector().record(h._ref_t)
 
-        #self.intracellular = rxd.Region([self.soma], name='cyt', nrn_region='i')
+        #self.intracellular = rxd.Region(self.soma, name='cyt', nrn_region='i')
         #self.mem = rxd.Region(h.allsec(), name='cell_mem', geometry=rxd.membrane())
-        #self.k = rxd.Species(self.intracellular, name='k', d=1, charge=1, initial=54.4 )
-        #self.na = rxd.Species(self.intracellular , name='na', d=1, charge=1, initial=10)
-
+        #self.k = rxd.Species(self.intracellular, name='k', d=1, charge=1 )
+        #self.na = rxd.Species(self.intracellular , name='na', d=1, charge=1)
+        # intracellular
+        
         self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.cyt = rxd.Region([self.soma], name='cyt', nrn_region='i')
+        #self.na = rxd.Species(self.cyt, name='na', charge=1)
+        #self.k = rxd.Species(self.cyt, name='k', charge=1)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
+        
+        '''        
+        self.Glu = rxd.Species(self.cyt, name='Glu', initial=0)
+        self.mGluR = rxd.Species(self.cyt,name="mGluR", initial=initmGluR)
+        self.Glu_mGluR = rxd.Species(self.cyt, name="Glu_mGluR", initial=0)
+        self.react1 = rxd.Reaction(self.Glu + self.mGluR, self.Glu_mGluR, K1, K2)
+
+        self.degGlu = rxd.Species(self.cyt, name="degGlu", initial=0)
+        self.react2 = rxd.Reaction(self.Glu, self.degGlu,degGluRate)
+
+        self.G = rxd.Species(self.cyt, name="G", initial=K_G)
+        self.GG_mGluR = rxd.Species(self.cyt, name="GG_mGluR", initial=0)
+        self.react3 = rxd.Reaction(self.Glu_mGluR + self.G, self.GG_mGluR,D5f,D5b)
+
+        self.aG = rxd.Species(self.cyt, name="aG",initial=0)
+        self.react4 = rxd.Reaction(self.GG_mGluR, self.aG + self.mGluR,D6f)
+        self.react5 = rxd.Reaction(self.aG, self.G,D7f)
+
+        self.PLC = rxd.Species(self.cyt, name="PLC", initial=K_PLC)
+        self.aPLC_aG = rxd.Species(self.cyt, name="aPLC_aG", initial=0)
+        self.react6 = rxd.Reaction(self.aG + self.PLC, self.aPLC_aG, G2f, G2b)
+
+        self.PIP2 = rxd.Species(self.cyt, name="PIP2",initial=K_PIP2)
+        self.aPLC_PIP2 = rxd.Species(self.cyt, name="aPLC_PIP2",initial=0)
+        self.react7 = rxd.Reaction(self.aPLC_aG+self.PIP2, self.aPLC_PIP2,kfplc,kbplc)
+
+        self.ip3 = rxd.Species(self.cyt, name="ip3",d=1.415, initial=0)
+        self.react8 = rxd.Reaction(self.aPLC_PIP2,self.ip3 ,Vmax1)
+        #h.setpointer(self.Glu.nodes[0]._ref_concentration,'G',self.dend)
+
+        self.Glu_vec = h.Vector().record(self.soma(0.5)._ref_Glui)
+        self.ip3_vec = h.Vector().record(self.soma(0.5)._ref_ip3i)
+        '''
+        
+rec_neurons=[] 
+
+
+if pcid!=0:
+
+    rec = [Neuron(
+        (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
+        (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
+        (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 100)
+        for i in range(0, int(Nrec/nhost-1))]    
+    print("%d: %d" % (pcid, nhost) )   
+    rec_neurons=pc.py_gather(rec, root)
+
+else:
+    alpha = alpha1
+    tort = tort1
+
+
+    ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
+                            -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 50),  # dx - скорость распространнения в разные стороны - различны по осям
+                            volume_fraction=alpha, tortuosity=tort)
+
+
+    k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
+    if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
+                    ecs_boundary_conditions=3.5)
+
+    na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=133.574,
+                     ecs_boundary_conditions=133.574)
 
 
 
-rec_neurons = [Neuron(
-    (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
-    (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
-    (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 100)
-    for i in range(0, int(Nrec))]
+    kecs = h.Vector()
+    kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
+    pc.set_maxstep(10)
 
-alpha = alpha1
-tort = tort1
-
-
-ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
-                        -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 50),  # dx - скорость распространнения в разные стороны - различны по осям
-                        volume_fraction=alpha, tortuosity=tort)
-
-
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
-if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
-                ecs_boundary_conditions=3.5)
-
-na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=133.574,
-                 ecs_boundary_conditions=133.574)
-
-
-
-kecs = h.Vector()
-kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
-pc.set_maxstep(10)
-
-# initialize and set the intracellular concentrations
-h.finitialize()
-for sec in h.allsec():
-    sec.nai = 4.297
+    # initialize and set the intracellular concentrations
+    h.finitialize()
+    for sec in h.allsec():
+        sec.nai = 4.297
     
 
 
@@ -230,7 +297,7 @@ def plot_image_data(data, min_val, max_val, filename, title):
     pyplot.savefig(os.path.join(outdir, filename))
     pyplot.close()
 
-def plot_spike_for_1_neu(volt_soma, volt_dend, t, i, tstop, k, na):
+def plot_spike_for_1_neu(volt_soma, volt_dend, t, i, tstop, k, na, k_in, na_in):
     #fig, ax = pyplot.subplots()
     #ax.plot(t, volt)
     #pyplot.plot(t,volt_soma, lebel='soma')
@@ -245,22 +312,31 @@ def plot_spike_for_1_neu(volt_soma, volt_dend, t, i, tstop, k, na):
     #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
     #pyplot.close('all')
 
-    fig = pyplot.figure(figsize=(16,10))
-    ax1 = fig.add_subplot(2,1,1)
+    fig = pyplot.figure(figsize=(20,16))
+    ax1 = fig.add_subplot(4,1,1)
     soma_plot = ax1.plot(t , volt_soma , color='black', label='soma')
     dend_plot = ax1.plot(t, volt_dend, color='red', label='dend')
     ax1.legend()
     ax1.set_ylabel('mV')
-    ax1.set_xticks([])
+   
 
-    ax2 = fig.add_subplot(2,1,2)
+    ax2 = fig.add_subplot(4,1,2)
     k_plot = ax2.plot(t, k, color='blue', label='K')
     na_plot = ax2.plot(t, na, color='yellow', label='Na')
     ax2.legend()
     ax2.set_ylabel('current (mA/cm$^2$)')
-    ax2.set_xlabel('time (ms)')
+  
+
+    ax3 = fig.add_subplot(4,1,3)
+    k_in_plot = ax3.plot(t, k_in, color='red', label='K')
+    ax3.legend()
+
+    ax4 = fig.add_subplot(4,1,4)
+    na_in_plot = ax4.plot(t, na_in, color='blue', label='Na')
+    ax4.legend()
+    ax4.set_xlabel('time (ms)')
     #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    fig.savefig(os.path.join(outdir, 'spike_%i.png' % i))
+    fig.savefig(os.path.join(k_na_dir, 'spike_%i.png' % i))
     pyplot.close('all')
 
 
@@ -307,7 +383,14 @@ def run(tstop):
         progress_bar(tstop)
         fout.close()
         for i in range(200) :
-            plot_spike_for_1_neu(rec_neurons[i].somaV, rec_neurons[i].dendV, rec_neurons[i].time, i ,tstop, rec_neurons[i].k_vec, rec_neurons[i].na_vec)
+            plot_spike_for_1_neu(rec_neurons[i].somaV,
+                                rec_neurons[i].dendV,
+                                rec_neurons[i].time,
+                                i,
+                                tstop, rec_neurons[i].k_vec,
+                                rec_neurons[i].na_vec,
+                                rec_neurons[i].k_concentration,
+                                rec_neurons[i].na_concentration)
         print("\nSimulation complete. Plotting membrane potentials")
         plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
 
