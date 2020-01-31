@@ -18,33 +18,15 @@ pcid = pc.id()
 nhost = pc.nhost()
 root = 0
 
-# set the save directory and if buffering or inhomogeneous tissue
-# characteristics are used.
-try:
-    parser = argparse.ArgumentParser(description='''Run the spreading
-                                     depression simulation''')
-    parser.add_argument('--tstop', nargs='?', type=float, default=200,
-                        help='''duration of the simulation in ms (defaults
-                        to 200ms)''')
-    parser.add_argument('dir', metavar='dir', type=str,
-                        help='a directory to save the figures and data')
-    args = parser.parse_args()
+print(pc.id())
 
-except:
-    os._exit(1)
 
-outdir = os.path.abspath(args.dir)
+
+outdir = os.path.abspath('tests/43')
 
 #os.mkdir(os.path.join(outdir, 'K_NA')) 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
-if pcid == 0 and not os.path.exists(k_na_dir):
-    try:
-        #os.makedirs(outdir)
-        os.makedirs(k_na_dir)
-    except:
-        print("Unable to create the directory %r for the data and figures"
-              % outdir)
-        os._exit(1)
+
 
 rxd.nthread(4)
 rxd.options.enable.extracellular = True
@@ -169,49 +151,49 @@ class Neuron:
         self.Glu_vec = h.Vector().record(self.soma(0.5)._ref_Glui)
         self.ip3_vec = h.Vector().record(self.soma(0.5)._ref_ip3i)
         '''
-        
-rec_neurons=[] 
+#rec_neurons=[]
+print("start")
+rec = [Neuron(
+    (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
+    (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
+    (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 100)
+    for i in range(0, int(Nrec/nhost))]
+
+rec = [1, 2, 3]    
+print("%d: %d :%s" % (pcid, nhost, rec ))  
+rec_neurons=pc.py_allgather(rec)
+print("********done********")
+print(rec_neurons)
+pc.done()
+alpha = alpha1
+tort = tort1
+
+print("*******************************************")
+print(len(rec_neurons))
+
+ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
+                        -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 50),  # dx - скорость распространнения в разные стороны - различны по осям
+                        volume_fraction=alpha, tortuosity=tort)
 
 
-if pcid!=0:
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
+if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
+                ecs_boundary_conditions=3.5)
 
-    rec = [Neuron(
-        (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
-        (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
-        (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 100)
-        for i in range(0, int(Nrec/nhost-1))]    
-    print("%d: %d" % (pcid, nhost) )   
-    rec_neurons=pc.py_gather(rec, root)
-
-else:
-    alpha = alpha1
-    tort = tort1
-
-
-    ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
-                            -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 50),  # dx - скорость распространнения в разные стороны - различны по осям
-                            volume_fraction=alpha, tortuosity=tort)
-
-
-    k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
-    if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
-                    ecs_boundary_conditions=3.5)
-
-    na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=133.574,
-                     ecs_boundary_conditions=133.574)
+na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=133.574,
+                 ecs_boundary_conditions=133.574)
 
 
 
-    kecs = h.Vector()
-    kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
-    pc.set_maxstep(10)
+kecs = h.Vector()
+kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
+#pc.set_maxstep(10)
 
-    # initialize and set the intracellular concentrations
-    h.finitialize()
-    for sec in h.allsec():
-        sec.nai = 4.297
-    
-
+# initialize and set the intracellular concentrations
+h.finitialize()
+for sec in h.allsec():
+    sec.nai = 4.297
+h.dt = 1
 
 
 def progress_bar(tstop, size=40):
@@ -349,12 +331,11 @@ def plot_K_ecs_in_point_000(k, t):
     pyplot.savefig(os.path.join(outdir, 'k_ecs.png'))
     pyplot.close('all')
 
-h.dt = 1
 
-def run(tstop):
 
-    if pcid == 0:
-        fout = open(os.path.join(outdir, 'wave_progress.txt' ), 'a')
+def run(tstop=200):
+
+    fout = open(os.path.join(outdir, 'wave_progress.txt' ), 'a')
 
     while pc.t(0) <= tstop:
         if int(pc.t(0)) % 100 == 0:
@@ -365,9 +346,10 @@ def run(tstop):
                                 % pc.t(0))
 
             
-        if pcid == 0: progress_bar(tstop)
-        pc.psolve(pc.t(0) + h.dt)
-        if pcid == 0 and int(pc.t(0)) % 10 == 0:
+        progress_bar(tstop)
+        pc.psolve(pc.
+            t(0) + h.dt)
+        if int(pc.t(0)) % 10 == 0:
             dist = 0
             dist1 = 1e9
             for nd in k.nodes:
@@ -379,20 +361,20 @@ def run(tstop):
 
             fout.write("%g\t%g\t%g\n" % (pc.t(0), dist, dist1))
             fout.flush()
-    if pcid == 0:
-        progress_bar(tstop)
-        fout.close()
-        for i in range(200) :
-            plot_spike_for_1_neu(rec_neurons[i].somaV,
-                                rec_neurons[i].dendV,
-                                rec_neurons[i].time,
-                                i,
-                                tstop, rec_neurons[i].k_vec,
-                                rec_neurons[i].na_vec,
-                                rec_neurons[i].k_concentration,
-                                rec_neurons[i].na_concentration)
-        print("\nSimulation complete. Plotting membrane potentials")
-        plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
+    
+    progress_bar(tstop)
+    fout.close()
+    for i in range(200) :
+        plot_spike_for_1_neu(rec_neurons[i].somaV,
+                            rec_neurons[i].dendV,
+                            rec_neurons[i].time,
+                            i,
+                            tstop, rec_neurons[i].k_vec,
+                            rec_neurons[i].na_vec,
+                            rec_neurons[i].k_concentration,
+                            rec_neurons[i].na_concentration)
+    print("\nSimulation complete. Plotting membrane potentials")
+    plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
 
     # save membrane potentials
     soma, dend, pos = [], [], []
@@ -403,10 +385,8 @@ def run(tstop):
     pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
     pickle.dump([soma, dend, pos], pout)
     pout.close()
-    pc.barrier()
-    if pcid == 0:
-        plot_rec_neurons()
+    
+    plot_rec_neurons()
 
 
-
-run(args.tstop)
+run()
