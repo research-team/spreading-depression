@@ -72,16 +72,8 @@ r0 = 100  # radius for initial elevated K+
 
 
 class SynapsemGLUR:
-    def __init__(self, sec, loc):
+    def __init__(self, sect, loc):
         self.syn = h.mGLUR(loc, sec=sect)
-
-class SynapseNMDA:
-  
-
-
-class SynapseGABAB:
-  #def __init__(self, sect, loc):
-    #self.syn = h.GABAB(loc, sec=sect)
 
 class Neuron:
 
@@ -108,9 +100,10 @@ class Neuron:
         for mechanism in ['tnak','tnap', 'taccumulation3', 'leak', 'nmda']:
             self.dend.insert(mechanism)
 
-        #
+        '''
         h.pt3dadd(0, 0, 0, somaR *2 , sec=self.soma)
         h.pt3dadd(0, 0, dendL+somaR*2, somaR, sec=self.soma)
+        '''
 
         self.soma(0.5).tnak.imax = 0
         self.dend(0.5).tnak.imax = 0
@@ -127,8 +120,8 @@ class Neuron:
         #self.mem = rxd.Region(h.allsec(), name='cell_mem', geometry=rxd.membrane())
         #self.k = rxd.Species(self.intracellular, name='k', d=1, charge=1 )
         #self.na = rxd.Species(self.intracellular , name='na', d=1, charge=1)
-        # intracellular
         
+        # intracellular 
         self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
         self.cyt = rxd.Region([self.soma], name='cyt', nrn_region='i')
@@ -138,40 +131,11 @@ class Neuron:
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
 
 
-    '''   
-              
-        self.Glu = rxd.Species(self.cyt, name='Glu', initial=0)
-        self.mGluR = rxd.Species(self.cyt,name="mGluR", initial=initmGluR)
-        self.Glu_mGluR = rxd.Species(self.cyt, name="Glu_mGluR", initial=0)
-        self.react1 = rxd.Reaction(self.Glu + self.mGluR, self.Glu_mGluR, K1, K2)
-        
-        #print(it)
-        self.degGlu = rxd.Species(self.cyt, name="degGlu", initial=0)
-        self.react2 = rxd.Reaction(self.Glu, self.degGlu, degGluRate)
-        #print(it)
-        self.G = rxd.Species(self.cyt, name="G", initial=K_G)
-        self.GG_mGluR = rxd.Species(self.cyt, name="GG_mGluR", initial=0)
-        self.react3 = rxd.Reaction(self.Glu_mGluR + self.G, self.GG_mGluR,D5f,D5b)
-        #print(it)
-        self.aG = rxd.Species(self.cyt, name="aG",initial=0)
-        self.react4 = rxd.Reaction(self.GG_mGluR, self.aG + self.mGluR,D6f)
-        self.react5 = rxd.Reaction(self.aG, self.G, D7f)
-        #print(it)
-        self.PLC = rxd.Species(self.cyt, name="PLC", initial=K_PLC)
-        self.aPLC_aG = rxd.Species(self.cyt, name="aPLC_aG", initial=0)
-        self.react6 = rxd.Reaction(self.aG + self.PLC, self.aPLC_aG, G2f, G2b)
-        #print(it)
-        self.PIP2 = rxd.Species(self.cyt, name="PIP2",initial=K_PIP2)
-        self.aPLC_PIP2 = rxd.Species(self.cyt, name="aPLC_PIP2",initial=0)
-        self.react7 = rxd.Reaction(self.aPLC_aG+self.PIP2, self.aPLC_PIP2, kfplc, kbplc)
-        #print(it)
-        self.ip3 = rxd.Species(self.cyt, name="ip3",d=1.415, initial=0)
-        self.react8 = rxd.Reaction(self.aPLC_PIP2,self.ip3 ,Vmax1)
-        #h.setpointer(self.Glu.nodes[0]._ref_concentration,'G',self.dend)
-        
-        self.Glu_vec = h.Vector().record(self.soma(0.5)._ref_Glui)
-        self.ip3_vec = h.Vector().record(self.soma(0.5)._ref_ip3i)
-    '''    
+        #set synapse
+        self.dendmGLUR = SynapsemGLUR(sect = self.dend, loc = 0.5)
+        self.Glu_vec = h.Vector().record(self.dend(0.5)._ref_Glui)
+        self.ip3_vec = h.Vector().record(self.dend(0.5)._ref_ip3i)
+        #rxdsec = [s for s in self.all_sec]
         
 rec_neurons = [Neuron(
     (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
@@ -294,20 +258,6 @@ def plot_image_data(data, min_val, max_val, filename, title):
     pyplot.close()
 
 def plot_spike_for_1_neu(volt_soma, volt_dend, t, i, tstop, k, na, k_in, na_in):
-    #fig, ax = pyplot.subplots()
-    #ax.plot(t, volt)
-    #pyplot.plot(t,volt_soma, lebel='soma')
-    #pyplot.plot(t, volt_dend, lebel='dend')
-    #pyplot.xticks(np.arange(0, tstop+1, 100.0))
-
-    #pyplot.yticks(np.arange(1,15,3))
-    #plt.show()
-    #pyplot.grid()
-    #pyplot.legend()
-    #fig.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    #pyplot.close('all')
-
     fig = pyplot.figure(figsize=(20,16))
     ax1 = fig.add_subplot(4,1,1)
     soma_plot = ax1.plot(t , volt_soma , color='black', label='soma')
@@ -345,7 +295,7 @@ def plot_K_ecs_in_point_000(k, t):
     pyplot.savefig(os.path.join(outdir, 'k_ecs.png'))
     pyplot.close('all')
 
-h.dt = 1
+h.dt = 0.1
 
 def run(tstop):
 
