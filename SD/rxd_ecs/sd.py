@@ -75,13 +75,6 @@ class SynapsemGLUR:
     def __init__(self, sec, loc):
         self.syn = h.mGLUR(loc, sec=sect)
 
-class SynapseNMDA:
-  
-
-
-class SynapseGABAB:
-  #def __init__(self, sect, loc):
-    #self.syn = h.GABAB(loc, sec=sect)
 
 class Neuron:
 
@@ -102,10 +95,10 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in ['tnak','tnap', 'taccumulation3', 'leak']:
+        for mechanism in ['tnak','tnap', 'taccumulation3', 'k_ion', 'na_ion',  'ca_ion' ]:
             self.soma.insert(mechanism)
 
-        for mechanism in ['tnak','tnap', 'taccumulation3', 'leak', 'nmda']:
+        for mechanism in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion', 'pas']:
             self.dend.insert(mechanism)
 
         #
@@ -113,7 +106,7 @@ class Neuron:
         h.pt3dadd(0, 0, dendL+somaR*2, somaR, sec=self.soma)
 
         self.soma(0.5).tnak.imax = 0
-        self.dend(0.5).tnak.imax = 0
+        #self.dend(0.5).tnak.imax = 0
 
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
