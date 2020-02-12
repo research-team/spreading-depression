@@ -37,10 +37,12 @@ outdir = os.path.abspath(args.dir)
 
 #os.mkdir(os.path.join(outdir, 'K_NA')) 
 glu_dir = os.path.abspath(os.path.join(outdir, 'Glu'))
+k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
 if pcid == 0 and not os.path.exists(glu_dir):
     try:
         #os.makedirs(outdir)
         os.makedirs(glu_dir)
+        os.makedirs(k_na_dir)
     except:
         print("Unable to create the directory %r for the data and figures"
               % outdir)
@@ -55,10 +57,10 @@ h.celsius = 37
 numpy.random.seed(6324555 + pcid)
 
 # simulation parameters
-Lx, Ly, Lz = 1000, 1000, 1000
+Lx, Ly, Lz = 5, 5, 150
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
-Nrec = 1000
+Nrec = 10
 
 somaR = 11.0  # soma radius
 dendR = 1.4  # dendrite radius
@@ -188,11 +190,14 @@ class Neuron:
         
         self.Glu_vec = h.Vector().record(self.soma(0.5)._ref_Glui)
         self.ip3_vec = h.Vector().record(self.soma(0.5)._ref_ip3i)
+        self.syn = h.mGLURRxD(self.dend(0.5))
+        h.setpointer(self.Glu.nodes[0]._ref_concentration,'G',self.syn)
+        print('hi')
         
 rec_neurons = [Neuron(
-    (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
-    (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
-    (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 100)
+    (numpy.random.random() /4.0) * (Lx/2.0  - somaR),
+    (numpy.random.random() /4.0) * (Ly/2.0  - somaR),
+    (numpy.random.random() /4.0)* (Lz/2.0  - somaR), 100)
     for i in range(0, int(Nrec))]
 
 alpha = alpha1
@@ -205,7 +210,7 @@ ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
                         volume_fraction=alpha, tortuosity=tort)
 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 30
 if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
                 ecs_boundary_conditions=3.5)
 
@@ -350,25 +355,25 @@ def plot_K_ecs_in_point_000(k, t):
     pyplot.savefig(os.path.join(outdir, 'k_ecs.png'))
     pyplot.close('all')
 
-h.dt = 0.1
+h.dt = 1
 
 def run(tstop):
-    print(5)
-    fout = open(os.path.join(outdir, 'wave_progress.txt' ), 'a')
-    print(6)
+
+    if pcid == 0:
+        fout = open(os.path.join(outdir, 'wave_progress.txt' ), 'a')
+
     while pc.t(0) <= tstop:
         if int(pc.t(0)) % 100 == 0:
-            print(int(pc.t(0)))
-            
-            plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
-                            'k_mean_%05d' % int(pc.t(0) / 100),
-                            'Potassium concentration; t = %6.0fms'
-                            % pc.t(0))
+            if pcid == 0:
+                plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
+                                'k_mean_%05d' % int(pc.t(0) / 100),
+                                'Potassium concentration; t = %6.0fms'
+                                % pc.t(0))
 
             
-            progress_bar(tstop)
+        if pcid == 0: progress_bar(tstop)
         pc.psolve(pc.t(0) + h.dt)
-        if  int(pc.t(0)) % 10 == 0:
+        if pcid == 0 and int(pc.t(0)) % 10 == 0:
             dist = 0
             dist1 = 1e9
             for nd in k.nodes:
@@ -380,21 +385,20 @@ def run(tstop):
 
             fout.write("%g\t%g\t%g\n" % (pc.t(0), dist, dist1))
             fout.flush()
-    print(7)
-    
-    progress_bar(tstop)
-    fout.close()
-    for i in range(200) :
-        plot_spike_for_1_neu(rec_neurons[i].somaV,
-                            rec_neurons[i].dendV,
-                            rec_neurons[i].time,
-                            i,
-                            tstop, rec_neurons[i].k_vec,
-                            rec_neurons[i].na_vec,
-                            rec_neurons[i].k_concentration,
-                            rec_neurons[i].na_concentration)
-    print("\nSimulation complete. Plotting membrane potentials")
-    plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
+    if pcid == 0:
+        progress_bar(tstop)
+        fout.close()
+        for i in range(10) :
+            plot_spike_for_1_neu(rec_neurons[i].somaV,
+                                rec_neurons[i].dendV,
+                                rec_neurons[i].time,
+                                i,
+                                tstop, rec_neurons[i].k_vec,
+                                rec_neurons[i].na_vec,
+                                rec_neurons[i].k_concentration,
+                                rec_neurons[i].na_concentration)
+        print("\nSimulation complete. Plotting membrane potentials")
+        plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
 
     # save membrane potentials
     soma, dend, pos = [], [], []
@@ -405,8 +409,9 @@ def run(tstop):
     pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
     pickle.dump([soma, dend, pos], pout)
     pout.close()
-    
-    plot_rec_neurons()
+    pc.barrier()
+    if pcid == 0:
+        plot_rec_neurons()
 
 
 
