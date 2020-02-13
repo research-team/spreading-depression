@@ -113,10 +113,10 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'taccumulation3']:
+        for mechanism in ['tnak','tnap', 'taccumulation3', 'leak', 'nmda']:
             self.soma.insert(mechanism)
 
-        for mechanism in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'taccumulation3']:
+        for mechanism in ['tnak','tnap', 'taccumulation3', 'leak', 'nmda']:
             self.dend.insert(mechanism)
 
         '''
@@ -192,7 +192,7 @@ class Neuron:
         self.ip3_vec = h.Vector().record(self.soma(0.5)._ref_ip3i)
         self.syn = h.mGLURRxD(self.dend(0.5))
         h.setpointer(self.Glu.nodes[0]._ref_concentration,'G',self.syn)
-        print('hi')
+        print('DONE')
         
 rec_neurons = [Neuron(
     (numpy.random.random() /4.0) * (Lx/2.0  - somaR),
@@ -210,7 +210,7 @@ ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
                         volume_fraction=alpha, tortuosity=tort)
 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 30
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
 if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
                 ecs_boundary_conditions=3.5)
 
@@ -221,7 +221,8 @@ kecs = h.Vector()
 kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
 
 print(2)
-glu = rxd.Species(ecs, name='Glu', initial=10)
+glu = rxd.Species(ecs, name='Glu', initial=100)
+
 
 glu_vect = h.Vector().record(glu[ecs].node_by_location(0, 0, 0)._ref_value)
 pc.set_maxstep(10)
@@ -342,7 +343,25 @@ def plot_spike_for_1_neu(volt_soma, volt_dend, t, i, tstop, k, na, k_in, na_in):
     ax4.legend()
     ax4.set_xlabel('time (ms)')
     #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    fig.savefig(os.path.join(glu_dir, 'spike_%i.png' % i))
+    fig.savefig(os.path.join(k_na_dir, 'spike_%i.png' % i))
+    pyplot.close('all')
+
+
+def plot_glu_ip3_in_1_neu(glu, ip3, t, i):
+    fig = pyplot.figure(figsize=(20,16))
+    ax1 = fig.add_subplot(2,1,1)
+    glu_plot = ax1.plot(t, glu,  color='red', label='Glu')
+    ax1.legend()
+    ax1.set_xlabel("t (ms)")
+    ax1.set_ylabel("Glu (uM)")
+
+    ax2 = fig.add_subplot(2,1,2)
+    ip3_plot = ax2.plot(t, ip3, color='blue', label='IP3')
+    ax2.legend()
+    ax2.set_xlabel("t (ms)")
+    ax2.set_ylabel("IP3 (nM)")
+
+    fig.savefig(os.path.join(glu_dir, 'neu_%i.png' % i))
     pyplot.close('all')
 
 
@@ -354,6 +373,16 @@ def plot_K_ecs_in_point_000(k, t):
     pyplot.grid()
     pyplot.savefig(os.path.join(outdir, 'k_ecs.png'))
     pyplot.close('all')
+
+
+
+
+def plot_glut_ecs_in_point_000(glu, t):
+    pyplot.plot(t, glu)
+    pyplot.grid()
+    pyplot.savefig(os.path.join(outdir, 'Glu_ecs.png'))
+    pyplot.close('all')
+
 
 h.dt = 1
 
@@ -397,8 +426,14 @@ def run(tstop):
                                 rec_neurons[i].na_vec,
                                 rec_neurons[i].k_concentration,
                                 rec_neurons[i].na_concentration)
+
+            plot_glu_ip3_in_1_neu(rec_neurons[i].Glu_vec,
+                                rec_neurons[i].ip3_vec,
+                                rec_neurons[i].time,
+                                i)
         print("\nSimulation complete. Plotting membrane potentials")
         plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
+        plot_glut_ecs_in_point_000(glu_vect, rec_neurons[0].time)
 
     # save membrane potentials
     soma, dend, pos = [], [], []
