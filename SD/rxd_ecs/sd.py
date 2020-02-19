@@ -95,7 +95,7 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in ['tnak','tnap', 'taccumulation3', 'k_ion', 'na_ion',  'ca_ion' ]:
+        for mechanism in [ 'tnak','tnap', 'taccumulation3', 'leak', 'na_ion', 'ca_ion' ,  ]:
             self.soma.insert(mechanism)
 
         for mechanism in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion', 'pas']:
@@ -107,7 +107,7 @@ class Neuron:
 
         self.soma(0.5).tnak.imax = 0
         #self.dend(0.5).tnak.imax = 0
-
+        print(self.dend.psection())
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
         self.dendV = h.Vector()
@@ -129,7 +129,13 @@ class Neuron:
         #self.k = rxd.Species(self.cyt, name='k', charge=1)
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
-
+        #self.soma(0.5)._ref_h_
+        #self.mvec = h.Vector().record(self.soma(0.5)_ref_m)
+        #self.nvec = h.Vector().record(self.soma(0.5)_ref_n)
+        #self.hvec = h.Vector().record(self.soma(0.5)_ref_h)
+        #self.mvec = h.Vector().record(self.soma(0.5).hh._ref_m)
+        #self.nvec = h.Vector().record(self.soma(0.5).hh._ref_n)
+        #self.hvec = h.Vector().record(self.soma(0.5).hh._ref_h)
 
     '''   
               
@@ -164,8 +170,35 @@ class Neuron:
         
         self.Glu_vec = h.Vector().record(self.soma(0.5)._ref_Glui)
         self.ip3_vec = h.Vector().record(self.soma(0.5)._ref_ip3i)
+
+        {'point_processes': {}, 'density_mechs': {'pas': {'g': [0.001], 'e': [-70.0], 
+        'i': [0.0]}, 'cagk': {'gbar': [0.01], 'ik': [0.0], 'gkca': [0.0], 'o': [0.0]}, 
+
+        'cal': {'gcalbar': [0.003], 'ggk': [0.0], 'ica': [0.0], 'gcal': [0.0], 'minf':
+         [0.0], 'tau': [0.0], 'm': [0.0]}, 'can': {'gcanbar': [0.0003], 'ica': [0.0], 'gcan': 
+         [0.0], 'minf': [0.0], 'hinf': [0.0], 'taum': [0.0], 'tauh': [0.0], 'm': [0.0], 'h': 
+         [0.0]}, 'cat': {'gcatbar': [0.003], 'ica': [0.0], 'gcat': [0.0], 'hinf': [0.0], 'htau':
+          [0.0], 'minf': [0.0], 'mtau': [0.0], 'm': [0.0], 'h': [0.0]}, 'ikc': {'gkbar': [0.003],
+           'taumin': [0.1], 'm_inf': [0.0], 'tau_m': [0.0], 'm': [0.0]}, 'iar': {'ghbar': [2e-05],
+            'k2': [0.0001], 'alpha': [0.0], 'beta': [0.0], 'm': [0.0], 'c1': [0.0], 'o1': [0.0],
+             'o2': [0.0], 'p0': [0.0], 'p1': [0.0]}, 'kap': {'sh': [0.0], 'gbar': [0.008], 'g': 
+             [0.0], 'n': [0.0], 'l': [0.0]}, 'kdr': {'gbar': [0.003], 'sh': [0.0], 'ninf': [0.0], 
+             'g': [0.0], 'taun': [0.0], 'n': [0.0]}, 'km': {'gmax': [10.0], 'i': [0.0], 'gk': [0.0],
+              'ninf': [0.0], 'ntau': [0.0], 'tadj': [0.0], 'n': [0.0]}, 'nax': {'sh': [0.0], 'gbar':
+               [0.01], 'm': [0.0], 'h': [0.0]}}, 'ions': {'na': {'ena': [50.0], 'nai': [10.0], 'nao':
+                [140.0], 'ina': [0.0], 'dina_dv_': [0.0]}, 'k': {'ek': [-77.0], 'ki': [54.4], 'ko':
+                 [2.5], 'ik': [0.0], 'dik_dv_': [0.0]}, 'ca': {'eca': [132.4579341637009], 'cai': [5e-05], 
+                 'cao': [2.0], 'ica': [0.0], 'dica_dv_': [0.0]}, 'h': {'eh': [0.0], 'hi': [1.0], 'ho': [1.0],
+                  'ih': [0.0], 'dih_dv_': [0.0]}}, 'morphology': {'L': 100.0, 'diam': [2.799999952316284],
+                   'pts3d': [(196.6820831298828, 30.027196884155273, 52.79754638671875, 2.799999952316284),
+                    (196.6820831298828, 30.027196884155273, -47.20245361328125, 2.799999952316284)], 
+                    'parent': <__main__.Neuron object at 0x7f010ee0b208>.soma(1), 'trueparent': <__main__
+                    .Neuron object at 0x7f010ee0b208>.soma(1)}, 'nseg': 1, 'Ra': 35.4, 'cm': [1.0], 'regions': 
+                    set(), 'species': set(), 'name': '<__main__.Neuron object at 0x7f010ee0b208>.dend',
+                     'hoc_internal_name': '__nrnsec_0x256a750', 'cell': <__main__.Neuron object at 0x7f010ee0b208>}
+
     '''    
-        
+   
 rec_neurons = [Neuron(
     (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
     (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
@@ -182,7 +215,7 @@ ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
                         volume_fraction=alpha, tortuosity=tort)
 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 20
 if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
                 ecs_boundary_conditions=3.5)
 
@@ -338,6 +371,31 @@ def plot_K_ecs_in_point_000(k, t):
     pyplot.savefig(os.path.join(outdir, 'k_ecs.png'))
     pyplot.close('all')
 
+
+
+def plot_n_m_h(t, n, m, h , i):
+    fig = pyplot.figure(figsize=(20,16))
+    ax1 = fig.add_subplot(1,1,1)
+    n_plot = ax1.plot(t , n , color='black', label='n')
+    m_plot = ax1.plot(t, m, color='red', label='m')
+    h_plot = ax1.plot(t , h , color='green', label='h')
+    ax1.legend()
+    ax1.set_ylabel('state')
+    ax1.set_xlabel('time (ms)')
+    pyplot.close('all')
+   
+'''
+    ax2 = fig.add_subplot(2,1,2)
+    nhh_plot = ax2.plot(t , nhh , color='black', label='n')
+    mhh_plot = ax2.plot(t, mhh, color='red', label='m')
+    hhh_plot = ax2.plot(t , hhh , color='green', label='h')
+    ax2.legend()
+    ax2.set_ylabel('state')
+    ax2.set_xlabel('time (ms)')
+    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
+    fig.savefig(os.path.join(outdir, 'nmh_%i.png' % i))
+    pyplot.close('all')
+'''
 h.dt = 1
 
 def run(tstop):
@@ -380,6 +438,14 @@ def run(tstop):
                                 rec_neurons[i].na_vec,
                                 rec_neurons[i].k_concentration,
                                 rec_neurons[i].na_concentration)
+            plot_n_m_h(rec_neurons[i].time,
+                        rec_neurons[i].nvec, 
+                        rec_neurons[i].mvec, 
+                        rec_neurons[i].hvec, 
+                        #rec_neurons[i].nvecHH, 
+                        #rec_neurons[i].mvecHH, 
+                        #rec_neurons[i].hvecHH, 
+                        i)
         print("\nSimulation complete. Plotting membrane potentials")
         plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
 
