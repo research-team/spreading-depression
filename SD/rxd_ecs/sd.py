@@ -37,10 +37,12 @@ outdir = os.path.abspath(args.dir)
 
 #os.mkdir(os.path.join(outdir, 'K_NA')) 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
+nmh_dir = os.path.abspath(os.path.join(outdir, 'n_m_h'))
 if pcid == 0 and not os.path.exists(k_na_dir):
     try:
         #os.makedirs(outdir)
         os.makedirs(k_na_dir)
+        os.makedirs(nmh_dir)
     except:
         print("Unable to create the directory %r for the data and figures"
               % outdir)
@@ -95,10 +97,10 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in [ 'tnak','tnap', 'taccumulation3', 'leak', 'na_ion', 'ca_ion' ,  ]:
+        for mechanism in [ 'tnak','tnap', 'taccumulation3', 'leak', 'na_ion', 'ca_ion'  ]:
             self.soma.insert(mechanism)
 
-        for mechanism in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion', 'pas']:
+        for mechanism in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion']:
             self.dend.insert(mechanism)
 
         #
@@ -107,13 +109,12 @@ class Neuron:
 
         self.soma(0.5).tnak.imax = 0
         #self.dend(0.5).tnak.imax = 0
-        print(self.dend.psection())
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
         self.time = h.Vector().record(h._ref_t)
-
+        
         #self.spine_neu = rxd.Region([self.soma],nrn_region='i')
 
         #self.intracellular = rxd.Region(self.soma, name='cyt', nrn_region='i')
@@ -130,12 +131,27 @@ class Neuron:
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         #self.soma(0.5)._ref_h_
-        #self.mvec = h.Vector().record(self.soma(0.5)_ref_m)
-        #self.nvec = h.Vector().record(self.soma(0.5)_ref_n)
-        #self.hvec = h.Vector().record(self.soma(0.5)_ref_h)
-        #self.mvec = h.Vector().record(self.soma(0.5).hh._ref_m)
-        #self.nvec = h.Vector().record(self.soma(0.5).hh._ref_n)
-        #self.hvec = h.Vector().record(self.soma(0.5).hh._ref_h)
+        #m
+        self.mvec_cal = h.Vector().record(self.dend(0.5).cal._ref_m)
+        self.mvec_can = h.Vector().record(self.dend(0.5).can._ref_m)
+        self.mvec_cat = h.Vector().record(self.dend(0.5).cat._ref_m)
+        self.mvec_ikc = h.Vector().record(self.dend(0.5).ikc._ref_m)
+        self.mvec_iar = h.Vector().record(self.dend(0.5).iar._ref_m)
+        self.mvec_nax = h.Vector().record(self.dend(0.5).nax._ref_m)
+        
+        #n
+        self.nvec_kap = h.Vector().record(self.dend(0.5).kap._ref_n)
+        self.nvec_kdr = h.Vector().record(self.dend(0.5).kdr._ref_n)
+        self.nvec_km = h.Vector().record(self.dend(0.5).km._ref_n)
+
+        #h
+        self.hvec_can = h.Vector().record(self.dend(0.5).can._ref_h)
+        self.hvec_cat = h.Vector().record(self.dend(0.5).cat._ref_h)
+        self.hvec_nax = h.Vector().record(self.dend(0.5).nax._ref_h)
+
+        #for soma
+        self.nvec = h.Vector().record(self.soma(0.5).tnak._ref_n)
+        self.hvec = h.Vector().record(self.soma(0.5).tnap._ref_h)
 
     '''   
               
@@ -174,28 +190,38 @@ class Neuron:
         {'point_processes': {}, 'density_mechs': {'pas': {'g': [0.001], 'e': [-70.0], 
         'i': [0.0]}, 'cagk': {'gbar': [0.01], 'ik': [0.0], 'gkca': [0.0], 'o': [0.0]}, 
 
-        'cal': {'gcalbar': [0.003], 'ggk': [0.0], 'ica': [0.0], 'gcal': [0.0], 'minf':
-         [0.0], 'tau': [0.0], 'm': [0.0]}, 'can': {'gcanbar': [0.0003], 'ica': [0.0], 'gcan': 
-         [0.0], 'minf': [0.0], 'hinf': [0.0], 'taum': [0.0], 'tauh': [0.0], 'm': [0.0], 'h': 
-         [0.0]}, 'cat': {'gcatbar': [0.003], 'ica': [0.0], 'gcat': [0.0], 'hinf': [0.0], 'htau':
-          [0.0], 'minf': [0.0], 'mtau': [0.0], 'm': [0.0], 'h': [0.0]}, 'ikc': {'gkbar': [0.003],
-           'taumin': [0.1], 'm_inf': [0.0], 'tau_m': [0.0], 'm': [0.0]}, 'iar': {'ghbar': [2e-05],
-            'k2': [0.0001], 'alpha': [0.0], 'beta': [0.0], 'm': [0.0], 'c1': [0.0], 'o1': [0.0],
-             'o2': [0.0], 'p0': [0.0], 'p1': [0.0]}, 'kap': {'sh': [0.0], 'gbar': [0.008], 'g': 
-             [0.0], 'n': [0.0], 'l': [0.0]}, 'kdr': {'gbar': [0.003], 'sh': [0.0], 'ninf': [0.0], 
-             'g': [0.0], 'taun': [0.0], 'n': [0.0]}, 'km': {'gmax': [10.0], 'i': [0.0], 'gk': [0.0],
-              'ninf': [0.0], 'ntau': [0.0], 'tadj': [0.0], 'n': [0.0]}, 'nax': {'sh': [0.0], 'gbar':
-               [0.01], 'm': [0.0], 'h': [0.0]}}, 'ions': {'na': {'ena': [50.0], 'nai': [10.0], 'nao':
-                [140.0], 'ina': [0.0], 'dina_dv_': [0.0]}, 'k': {'ek': [-77.0], 'ki': [54.4], 'ko':
-                 [2.5], 'ik': [0.0], 'dik_dv_': [0.0]}, 'ca': {'eca': [132.4579341637009], 'cai': [5e-05], 
-                 'cao': [2.0], 'ica': [0.0], 'dica_dv_': [0.0]}, 'h': {'eh': [0.0], 'hi': [1.0], 'ho': [1.0],
-                  'ih': [0.0], 'dih_dv_': [0.0]}}, 'morphology': {'L': 100.0, 'diam': [2.799999952316284],
-                   'pts3d': [(196.6820831298828, 30.027196884155273, 52.79754638671875, 2.799999952316284),
+        'cal': {'gcalbar': [0.003], 'ggk': [0.0], 'ica': [0.0], 'gcal': [0.0], 'minf':[0.0], 'tau': [0.0], 'm': [0.0]},
+        'can': {'gcanbar': [0.0003], 'ica': [0.0], 'gcan': [0.0], 'minf': [0.0], 'hinf': [0.0], 'taum': [0.0], 'tauh': [0.0], 'm': [0.0], 'h': [0.0]},
+        'cat': {'gcatbar': [0.003], 'ica': [0.0], 'gcat': [0.0], 'hinf': [0.0], 'htau':[0.0], 'minf': [0.0], 'mtau': [0.0], 'm': [0.0], 'h': [0.0]}, 
+        'ikc': {'gkbar': [0.003],'taumin': [0.1], 'm_inf': [0.0], 'tau_m': [0.0], 'm': [0.0]},
+        'iar': {'ghbar': [2e-05],'k2': [0.0001], 'alpha': [0.0], 'beta': [0.0], 'm': [0.0], 'c1': [0.0], 'o1': [0.0],'o2': [0.0], 'p0': [0.0], 'p1': [0.0]}, 
+        'kap': {'sh': [0.0], 'gbar': [0.008], 'g': [0.0], 'n': [0.0], 'l': [0.0]}, 
+        'kdr': {'gbar': [0.003], 'sh': [0.0], 'ninf': [0.0], 'g': [0.0], 'taun': [0.0], 'n': [0.0]}, 
+        'km': {'gmax': [10.0], 'i': [0.0], 'gk': [0.0],'ninf': [0.0], 'ntau': [0.0], 'tadj': [0.0], 'n': [0.0]}, 
+        'nax': {'sh': [0.0], 'gbar':[0.01], 'm': [0.0], 'h': [0.0]}}, 
+        'ions': {'na': {'ena': [50.0], 'nai': [10.0], 'nao':[140.0], 'ina': [0.0], 'dina_dv_': [0.0]}, 
+        'k': {'ek': [-77.0], 'ki': [54.4], 'ko':[2.5], 'ik': [0.0], 'dik_dv_': [0.0]}, 
+        'ca': {'eca': [132.4579341637009], 'cai': [5e-05], 'cao': [2.0], 'ica': [0.0], 'dica_dv_': [0.0]}, 
+        'h': {'eh': [0.0], 'hi': [1.0], 'ho': [1.0],'ih': [0.0], 'dih_dv_': [0.0]}}, 
+        'morphology': {'L': 100.0, 'diam': [2.799999952316284],'pts3d': [(196.6820831298828, 30.027196884155273, 52.79754638671875, 2.799999952316284),
                     (196.6820831298828, 30.027196884155273, -47.20245361328125, 2.799999952316284)], 
                     'parent': <__main__.Neuron object at 0x7f010ee0b208>.soma(1), 'trueparent': <__main__
                     .Neuron object at 0x7f010ee0b208>.soma(1)}, 'nseg': 1, 'Ra': 35.4, 'cm': [1.0], 'regions': 
                     set(), 'species': set(), 'name': '<__main__.Neuron object at 0x7f010ee0b208>.dend',
                      'hoc_internal_name': '__nrnsec_0x256a750', 'cell': <__main__.Neuron object at 0x7f010ee0b208>}
+
+
+        {'point_processes': {}, 'density_mechs': {
+        'leak': {'gk': [1e-05], 'gna': [1e-05], 'gcl': [0.0001], 'ga': [0.0], 'ik': [0.0], 'ina': [0.0], 'icl': [0.0], 'ia': [0.0], 'qk': [0.0], 'qna': [0.0], 'qcl': [0.0], 'qa': [0.0]}, 
+        'taccumulation3': {'c1': [0.0]}, 
+        'tnak': {'gk': [5.0], 'imax': [0.0], 'ileak': [0.0], 'minf': [0.0], 'ninf': [0.0], 'taun': [0.0], 'ipump': [0.0], 'n': [0.0]}, 
+        'tnap': {'gnap': [0.4], 'ina': [0.0], 'minf': [0.0], 'hinf': [0.0], 'tauh': [0.0], 'h': [0.0]}}, 
+        'ions': {'na': {'ena': [50.0], 'nai': [10.0], 'nao': [140.0], 'ina': [0.0], 'dina_dv_': [0.0]}, 
+        'k': {'ek': [-77.0], 'ki': [54.4], 'ko': [2.5], 'ik': [0.0], 'dik_dv_': [0.0]},
+         'ca': {'eca': [132.4579341637009], 'cai': [5e-05], 'cao': [2.0], 'ica': [0.0], 'dica_dv_': [0.0]}, 
+         'cl': {'ecl': [0.0], 'cli': [1.0], 'clo': [1.0], 'icl': [0.0], 'dicl_dv_': [0.0]}, 
+         'a': {'ea': [0.0], 'ai': [1.0], 'ao': [1.0], 'ia': [0.0], 'dia_dv_': [0.0]}}, 
+         'morphology': {'L': 596.9584103595818, 'diam': [20.875968596211216], 'pts3d': [(343.8056335449219, -50.5482063293457, -268.5406799316406, 22.0), (343.8056335449219, -50.5482063293457, -290.5406799316406, 22.0), (0.0, 0.0, 0.0, 22.0), (0.0, 0.0, 122.0, 11.0)], 'parent': None, 'trueparent': None}, 'nseg': 1, 'Ra': 35.4, 'cm': [1.0], 'regions': set(), 'species': set(), 'name': '<__main__.Neuron object at 0x7fafa6b2ed68>.soma', 'hoc_internal_name': '__nrnsec_0x3ce0cb0', 'cell': <__main__.Neuron object at 0x7fafa6b2ed68>}
 
     '''    
    
@@ -373,15 +399,41 @@ def plot_K_ecs_in_point_000(k, t):
 
 
 
-def plot_n_m_h(t, n, m, h , i):
+def plot_n_m_h(t, soma , i):
     fig = pyplot.figure(figsize=(20,16))
-    ax1 = fig.add_subplot(1,1,1)
-    n_plot = ax1.plot(t , n , color='black', label='n')
-    m_plot = ax1.plot(t, m, color='red', label='m')
-    h_plot = ax1.plot(t , h , color='green', label='h')
+    ax1 = fig.add_subplot(4,1,1)
+    n1_plot = ax1.plot(t , soma.nvec_kap , color='black', label='n cap')
+    n2_plot = ax1.plot(t , soma.nvec_kdr, color='orange', label='n kdr')
+    n3_plot = ax1.plot(t , soma.nvec_km , color='green', label='n km')
     ax1.legend()
     ax1.set_ylabel('state')
-    ax1.set_xlabel('time (ms)')
+
+    ax2 = fig.add_subplot(4,1,2)
+    m1_plot = ax2.plot(t , soma.mvec_nax , color='blue', label='m nax')
+    m2_plot = ax2.plot(t , soma.mvec_iar, color='pink', label='m iar')
+    m3_plot = ax2.plot(t , soma.mvec_ikc , color='grey', label='m ikc')
+    m4_plot = ax2.plot(t , soma.mvec_cat , color='yellow', label='m cat')
+    m5_plot = ax2.plot(t , soma.mvec_can , color='red', label='m can')
+    m6_plot = ax2.plot(t , soma.mvec_cal , color='aqua', label='m cal')
+    ax2.legend()
+    ax2.set_ylabel('state')
+
+    ax3 = fig.add_subplot(4,1,3)
+    h1_plot = ax3.plot(t , soma.hvec_nax , color='blue', label='h nax')
+    h2_plot = ax3.plot(t , soma.hvec_cat, color='yellow', label='h cat')
+    h3_plot = ax3.plot(t , soma.hvec_can , color='red', label='h can')
+    ax3.legend()
+    ax3.set_ylabel('state')
+
+    ax4 = fig.add_subplot(4,1,4)
+    n_plot = ax4.plot(t , soma.nvec , color='lime', label='n (in soma)')
+    h_plot = ax4.plot(t , soma.hvec, color='olive', label='h (in soma)')
+    ax4.legend()
+    ax4.set_ylabel('state')
+
+
+    ax4.set_xlabel('time (ms)')
+    fig.savefig(os.path.join(nmh_dir, 'nmh_%i.png' % i))
     pyplot.close('all')
    
 '''
@@ -439,12 +491,7 @@ def run(tstop):
                                 rec_neurons[i].k_concentration,
                                 rec_neurons[i].na_concentration)
             plot_n_m_h(rec_neurons[i].time,
-                        rec_neurons[i].nvec, 
-                        rec_neurons[i].mvec, 
-                        rec_neurons[i].hvec, 
-                        #rec_neurons[i].nvecHH, 
-                        #rec_neurons[i].mvecHH, 
-                        #rec_neurons[i].hvecHH, 
+                        rec_neurons[i], 
                         i)
         print("\nSimulation complete. Plotting membrane potentials")
         plot_K_ecs_in_point_000(kecs ,rec_neurons[0].time)
