@@ -97,10 +97,10 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in [ 'tnak','tnap', 'taccumulation3', 'leak', 'na_ion', 'ca_ion'  ]:
+        for mechanism in [ 'tnak','tnap', 'taccumulation3', 'kleak'  ]:
             self.soma.insert(mechanism)
 
-        for mechanism in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion']:
+        for mechanism in ['tnak','tnap', 'taccumulation3', 'kleak', 'nmda']:
             self.dend.insert(mechanism)
 
         #
@@ -108,7 +108,7 @@ class Neuron:
         h.pt3dadd(0, 0, dendL+somaR*2, somaR, sec=self.soma)
 
         self.soma(0.5).tnak.imax = 0
-        #self.dend(0.5).tnak.imax = 0
+        self.dend(0.5).tnak.imax = 0
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
         self.dendV = h.Vector()
@@ -131,6 +131,9 @@ class Neuron:
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         #self.soma(0.5)._ref_h_
+        self.nvec = h.Vector().record(self.soma(0.5).tnak._ref_n)
+        self.hvec = h.Vector().record(self.soma(0.5).tnap._ref_h)
+        '''
         #m
         self.mvec_cal = h.Vector().record(self.dend(0.5).cal._ref_m)
         self.mvec_can = h.Vector().record(self.dend(0.5).can._ref_m)
@@ -150,9 +153,10 @@ class Neuron:
         self.hvec_nax = h.Vector().record(self.dend(0.5).nax._ref_h)
 
         #for soma
-        self.nvec = h.Vector().record(self.soma(0.5).tnak._ref_n)
-        self.hvec = h.Vector().record(self.soma(0.5).tnap._ref_h)
-
+        self.nvec = h.Vector().record(self.soma(0.5).kdr._ref_n)
+        self.hvec = h.Vector().record(self.soma(0.5).nax._ref_h)
+        self.mvec = h.Vector().record(self.soma(0.5).ikc._ref_m)
+        '''
     '''   
               
         self.Glu = rxd.Species(self.cyt, name='Glu', initial=0)
@@ -241,7 +245,7 @@ ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
                         volume_fraction=alpha, tortuosity=tort)
 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 20
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
 if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
                 ecs_boundary_conditions=3.5)
 
@@ -401,7 +405,29 @@ def plot_K_ecs_in_point_000(k, t):
 
 def plot_n_m_h(t, soma , i):
     fig = pyplot.figure(figsize=(20,16))
-    ax1 = fig.add_subplot(4,1,1)
+    ax1 = fig.add_subplot(1,1,1)
+    n_plot = ax1.plot(t , soma.nvec , color='red', label='n (in soma)')
+    h_plot = ax1.plot(t , soma.hvec, color='blue', label='h (in soma)')
+    ax1.legend()
+    ax1.set_ylabel('state')
+
+
+    ax1.set_xlabel('time (ms)')
+    fig.savefig(os.path.join(nmh_dir, 'nmh_%i.png' % i))
+    pyplot.close('all')
+   
+'''
+    ax2 = fig.add_subplot(2,1,2)
+    nhh_plot = ax2.plot(t , nhh , color='black', label='n')
+    mhh_plot = ax2.plot(t, mhh, color='red', label='m')
+    hhh_plot = ax2.plot(t , hhh , color='green', label='h')
+    ax2.legend()
+    ax2.set_ylabel('state')
+    ax2.set_xlabel('time (ms)')
+    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
+    fig.savefig(os.path.join(outdir, 'nmh_%i.png' % i))
+    pyplot.close('all')
+
     n1_plot = ax1.plot(t , soma.nvec_kap , color='black', label='n cap')
     n2_plot = ax1.plot(t , soma.nvec_kdr, color='orange', label='n kdr')
     n3_plot = ax1.plot(t , soma.nvec_km , color='green', label='n km')
@@ -424,29 +450,6 @@ def plot_n_m_h(t, soma , i):
     h3_plot = ax3.plot(t , soma.hvec_can , color='red', label='h can')
     ax3.legend()
     ax3.set_ylabel('state')
-
-    ax4 = fig.add_subplot(4,1,4)
-    n_plot = ax4.plot(t , soma.nvec , color='lime', label='n (in soma)')
-    h_plot = ax4.plot(t , soma.hvec, color='olive', label='h (in soma)')
-    ax4.legend()
-    ax4.set_ylabel('state')
-
-
-    ax4.set_xlabel('time (ms)')
-    fig.savefig(os.path.join(nmh_dir, 'nmh_%i.png' % i))
-    pyplot.close('all')
-   
-'''
-    ax2 = fig.add_subplot(2,1,2)
-    nhh_plot = ax2.plot(t , nhh , color='black', label='n')
-    mhh_plot = ax2.plot(t, mhh, color='red', label='m')
-    hhh_plot = ax2.plot(t , hhh , color='green', label='h')
-    ax2.legend()
-    ax2.set_ylabel('state')
-    ax2.set_xlabel('time (ms)')
-    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    fig.savefig(os.path.join(outdir, 'nmh_%i.png' % i))
-    pyplot.close('all')
 '''
 h.dt = 1
 
