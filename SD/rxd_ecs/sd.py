@@ -71,13 +71,6 @@ alpha0, alpha1 = 0.07, 0.2  # anoxic and normoxic volume fractions
 tort0, tort1 = 1.8, 1.6  # anoxic and normoxic tortuosities
 r0 = 100  # radius for initial elevated K+
 
-
-
-class SynapsemGLUR:
-    def __init__(self, sec, loc):
-        self.syn = h.mGLUR(loc, sec=sect)
-
-
 class Neuron:
 
     def __init__(self, x, y, z, rec=False):
@@ -97,15 +90,14 @@ class Neuron:
         self.dend.connect(self.soma, 1, 0)
 
 
-        for mechanism in [ 'tnak','tnap', 'taccumulation3', 'kleak'  ]:
-            self.soma.insert(mechanism)
+        for mechanism_s in [ 'tnak','tnap', 'taccumulation3', 'kleak']:
+            self.soma.insert(mechanism_s)
 
-        for mechanism in ['tnak','tnap', 'taccumulation3', 'kleak', 'nmda']:
-            self.dend.insert(mechanism)
+        for mechanism_d in ['tnak','tnap', 'taccumulation3', 'kleak']:
+            self.dend.insert(mechanism_d)
 
-        #
-        h.pt3dadd(0, 0, 0, somaR *2 , sec=self.soma)
-        h.pt3dadd(0, 0, dendL+somaR*2, somaR, sec=self.soma)
+        h.pt3dadd(0, 0, 0, 1000 **3, sec=self.soma)
+        h.pt3dadd(0, 0, 0, somaR**2 + dendL*dendR, sec=self.soma)
 
         self.soma(0.5).tnak.imax = 0
         self.dend(0.5).tnak.imax = 0
@@ -232,7 +224,7 @@ class Neuron:
 rec_neurons = [Neuron(
     (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
     (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
-    (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 100)
+    (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 1000)
     for i in range(0, int(Nrec))]
 
 alpha = alpha1
@@ -241,7 +233,7 @@ tort = tort1
 
 
 ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
-                        -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 50),  # dx - скорость распространнения в разные стороны - различны по осям
+                        -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 20),  # dx - скорость распространнения в разные стороны - различны по осям
                         volume_fraction=alpha, tortuosity=tort)
 
 
@@ -404,7 +396,7 @@ def plot_K_ecs_in_point_000(k, t):
 
 
 def plot_n_m_h(t, soma , i):
-    fig = pyplot.figure(figsize=(20,16))
+    fig = pyplot.figure(figsize=(20,5))
     ax1 = fig.add_subplot(1,1,1)
     n_plot = ax1.plot(t , soma.nvec , color='red', label='n (in soma)')
     h_plot = ax1.plot(t , soma.hvec, color='blue', label='h (in soma)')
