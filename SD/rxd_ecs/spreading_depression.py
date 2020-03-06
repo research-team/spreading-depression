@@ -21,7 +21,7 @@ try:
                                      depression simulation''')
     
     parser.add_argument('--edema', dest='edema', action='store_const',
-                        const=True, default=False,
+                        const=True, default=True,
                         help='''Use inhomogeneous tortuosity and volume
                         fraction to simulate edema''')
     parser.add_argument('--buffer', dest='buffer', action='store_const',
@@ -69,8 +69,8 @@ dendL = 100.0    # dendrite length
 doff = dendL + somaR
 
 alpha0, alpha1 = 0.07, 0.2  # anoxic and normoxic volume fractions 
-tort0, tort1 = 1.8, 1.6     # anoxic and normoxic tortuosities 
-r0 = 100                    # radius for initial elevated K+
+tort0, tort1 = 1.8, 1.2     # anoxic and normoxic tortuosities 
+r0 = 100                   # radius for initial elevated K+
 
 class Neuron:
     def __init__(self, x, y, z, rec=False):
@@ -136,8 +136,8 @@ if args.edema:
                 else max(tort1, tort0 - (tort0-tort1)
                 *((x**2+y**2+z**2)**0.5-r0)/(Lx/2)))
 else:
-    alpha = alpha0
-    tort = tort0
+    alpha = alpha1
+    tort = tort1
 
 
 
@@ -171,7 +171,7 @@ if args.buffer:
 
     buffering = rxd.Reaction(k + A, AK, kf, kb)
 
-pc.set_maxstep(100) 
+pc.set_maxstep(10) 
 
 h.finitialize()
 for sec in h.allsec():
@@ -329,7 +329,7 @@ def run(tstop):
     while pc.t(0) <= tstop:
         if int(pc.t(0)) % 100 == 0:
             if pcid == 0:
-                plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
+                plot_image_data(k[ecs].states3d.mean(2), 3.5, 60,
                                 'k_mean_%05d' % int(pc.t(0)/100),
                                 'Potassium concentration; t = %6.0fms'
                                 % pc.t(0))
@@ -389,3 +389,4 @@ def run(tstop):
     if pcid == 0:
         plot_rec_neurons()
 run(args.tstop)
+
