@@ -57,9 +57,9 @@ dendL = 50.0
 doff = dendL + somaR
 alpha = 0.2  
 tort = 1.6  
-r0 = 25
+r0 = 5
 x, y, z =0, 0, 30
-Lx, Ly, Lz = 100, 100, 100 
+Lx, Ly, Lz = 20, 20, 60 
 
 
 class Neuron:
@@ -67,10 +67,12 @@ class Neuron:
     def __init__(self):
 
         self.soma = h.Section(name='soma', cell=self)
+        self.soma.pt3dclear()
         self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
         self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
 
         self.dend = h.Section(name='dend', cell=self)
+        self.dend.pt3dclear()
         self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
         self.dend.nseg = 10 
@@ -93,12 +95,13 @@ class Neuron:
         
         self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
-        self.cyt = rxd.Region([self.soma], name='cyt', nrn_region='i')
-        #self.na = rxd.Species(self.cyt, name='na', charge=1)
-        #self.k = rxd.Species(self.cyt, name='k', charge=1)
+        self.cyt = rxd.Region(h.allsec(), name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=14)
+        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=120)
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         #self.soma(0.5)._ref_h_
+        
         self.nvec = h.Vector().record(self.soma(0.5).tnak._ref_n)
         self.hvec = h.Vector().record(self.soma(0.5).tnap._ref_h)
  
@@ -107,6 +110,8 @@ class Neuron:
 sys.stdout.write('\nrun')
 sys.stdout.flush()
 
+
+# show ion in extracellular space
 def video(species, min_conc=3, max_conc=40, frames=200):
     
     fig = pyplot.figure()
@@ -126,16 +131,22 @@ def video(species, min_conc=3, max_conc=40, frames=200):
     anim.save(os.path.join(outdir,'basic_animation.mp4'))
     pyplot.close()
 
+
+
 for sec in h.allsec():
     sec.nai = 4.297
+
+#Create cell
 cell = Neuron()
+
+
 time = h.Vector().record(h._ref_t)
 
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
-                        -Lz/2.0, Lx/2.0, Ly/2.0, Lz/2.0, dx=7,
+                        -Lz/2.0, Lx/2.0, Ly/2.0, Lz/2.0, dx=1,
                         volume_fraction=alpha, tortuosity=tort) 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40 
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 60 
                 if nd.x3d**2 + nd.y3d**2 + nd.z3d**2 < r0**2 else 10,
                 ecs_boundary_conditions=10)
 
@@ -265,7 +276,7 @@ def plot_image_data(data, min_val, max_val, filename, title):
     """Plot a 2d image of the data"""
     sb = scalebar.ScaleBar(1e-6)
     sb.location='lower left'
-    pyplot.imshow(data, extent=k[ecs].extent('xy'), vmin=min_val,
+    pyplot.imshow(data, extent=k[ecs].extent('xz'), vmin=min_val,
                   vmax=max_val, interpolation='nearest', origin='lower')
     pyplot.colorbar()
     sb = scalebar.ScaleBar(1e-6)
@@ -280,16 +291,23 @@ def plot_image_data(data, min_val, max_val, filename, title):
     pyplot.savefig(os.path.join(outdir,filename))
     pyplot.close()
 
+'''
+def plot_image_region(data, min_val, max_val, filename, x , region):
+    for sec in h.allsec():
+    	pyplot.plot([sec.x3d(i) for i in range(sec.n3d())],[sec.y3d(i) for i in range(sec.n3d())],'o')
 
-    
+	
+    pyplot.savefig(os.path.join(outdir,filename))
+    pyplot.close()
 
-
+'''
 def run(tstop):
     fout = open(os.path.join(outdir,'wave_progress.txt' ),'a')
     plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
                 'k_mean_%05d' % int(h.t/100),
                 'Potassium concentration; t = %6.0fms'
                 % h.t)
+    #plot_image_region(cell.k.nodes.concentration, 2.5, 140, 'Potassium intracellular; t = %6.0fms' % h.t, cell.k, cell.cyt)
     h.continuerun(300 * ms)
     sys.stdout.write('\ndone, wait\n')
     sys.stdout.flush()
@@ -300,9 +318,9 @@ def run(tstop):
                     'Potassium concentration; t = %6.0fms'
                     % h.t)
 
-    
+    #plot_image_region(cell.k.nodes.concentration, 2.5, 140, 'Potassium intracellular; t = %6.0fms' % h.t, cell.k, cell.cyt)
     fout.close()
-    
+    print(cell.k)
     plot_spike(cell.somaV,
                 cell.dendV,
                 time,
