@@ -57,9 +57,9 @@ dendL = 50.0
 doff = dendL + somaR
 alpha = 0.2  
 tort = 1.6  
-r0 = 5
+r0 = 30
 x, y, z =0, 0, 30
-Lx, Ly, Lz = 20, 20, 60 
+Lx, Ly, Lz = 40, 40, 100 
 
 
 class Neuron:
@@ -98,6 +98,9 @@ class Neuron:
         self.cyt = rxd.Region(h.allsec(), name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=14)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=120)
+        self.k_i= self.k[self.cyt]
+        #print(numpy.array(self.k_i))
+        #print(numpy.array(self.k.nodes.concentration)) 11 count
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         #self.soma(0.5)._ref_h_
@@ -154,8 +157,9 @@ na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
                  ecs_boundary_conditions=142)
 
 
-kecs = h.Vector()
-kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
+k_0_0_0=h.Vector().record(k[ecs].node_by_location(0, 0, 0)._ref_value)
+k_10_10_20=h.Vector().record(k[ecs].node_by_location(10, 10, -20)._ref_value)
+k_20_20_50=h.Vector().record(k[ecs].node_by_location(17, 17, -48)._ref_value)
 h.finitialize(-65 * mV)
 video(k)
 sys.stdout.write('\ninit')
@@ -164,7 +168,8 @@ sys.stdout.flush()
 def progress_bar(tstop, size=40):
     prog = h.t/float(tstop)
     fill = int(size*prog)
-    empt = size - fill
+    empt = size - fill3
+    2
     progress = '#' * fill + '-' * empt
     sys.stdout.write('[%s] %2.1f%% %6.1fms of %6.1fms\r' % (progress, 100*prog, h.t, tstop))
     sys.stdout.flush()
@@ -250,10 +255,10 @@ def plot_spike(volt_soma, volt_dend, t, k, na, k_in, na_in):
 
 
 
-
-
-def plot_K_ecs_in_point_000(k, t):
-    pyplot.plot(t, k)
+def plot_K_ecs_in_points(x, t):
+    for i in x:
+        pyplot.plot(t, i)
+    pyplot.legend(['0 0 0','10 10 -20','20 20 -50'])
     pyplot.grid()
     pyplot.savefig(os.path.join(outdir, 'k_ecs.png'))
     pyplot.close('all')
@@ -287,20 +292,53 @@ def plot_image_data(data, min_val, max_val, filename, title):
     ax.add_artist(sb)
     pyplot.title(title)
     pyplot.xlim(k[ecs].extent('x'))
-    pyplot.ylim(k[ecs].extent('y'))
+    pyplot.ylim(k[ecs].extent('z'))
     pyplot.savefig(os.path.join(outdir,filename))
     pyplot.close()
 
-'''
-def plot_image_region(data, min_val, max_val, filename, x , region):
-    for sec in h.allsec():
-    	pyplot.plot([sec.x3d(i) for i in range(sec.n3d())],[sec.y3d(i) for i in range(sec.n3d())],'o')
 
-	
+def plot_cell( filename):
+    somaV, dendV, pos = [], [], []
+    
+    fin = open(os.path.join(outdir,'membrane_potential.pkl'),'rb')
+    [sV, dV, p] = pickle.load(fin)
+    fin.close()
+    somaV.extend(sV) #list
+    dendV.extend(dV) #list
+    pos.extend(p) #list.len()=3
+
+     
+    fig = pyplot.figure()
+    ax = fig.add_subplot(1,1,1)
+   
+    
+
+    cmap = pyplot.get_cmap('jet')
+    
+    x = pos
+    soma_z = [x[2]-somaR,x[2]+somaR]
+    cell_x = [x[0],x[0]]
+    cell_y = [x[1],x[1]]
+    scolor = cmap((somaV[0]+70.0)/70.0)
+    # plot the soma
+    ax.plot(cell_x, soma_z, linewidth=2, color=scolor, 
+            alpha=0.5)
+
+    dcolor = cmap((dendV[0]+70.0)/70.0)
+    dend_z = [x[2]-somaR, x[2]-somaR - dendL]
+    # plot the dendrite
+    ax.plot(cell_x, dend_z, linewidth=0.5, color=dcolor, 
+            alpha=0.5)
+    ax.set_xlim([-Lx/2,Lx/2])
+    ax.set_ylim([-Lz/2,Lz/2])
+
+    norm = colors.Normalize(vmin=-70,vmax=0)
+
+    filename = filename+'.png'
     pyplot.savefig(os.path.join(outdir,filename))
     pyplot.close()
 
-'''
+
 def run(tstop):
     fout = open(os.path.join(outdir,'wave_progress.txt' ),'a')
     plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
@@ -320,7 +358,7 @@ def run(tstop):
 
     #plot_image_region(cell.k.nodes.concentration, 2.5, 140, 'Potassium intracellular; t = %6.0fms' % h.t, cell.k, cell.cyt)
     fout.close()
-    print(cell.k)
+    print(numpy.array(cell.k))
     plot_spike(cell.somaV,
                 cell.dendV,
                 time,
@@ -332,11 +370,13 @@ def run(tstop):
                 cell)
     sys.stdout.write('Simulation complete. Plotting membrane potentials')
     sys.stdout.flush()
-    plot_K_ecs_in_point_000(kecs ,time)
+    plot_K_ecs_in_points([k_0_0_0,k_10_10_20, k_20_20_50 ] ,time)
     pos = [x, y, z]
     pout = open(os.path.join(outdir,"membrane_potential.pkl"),'wb')
     pickle.dump([cell.somaV, cell.dendV, pos],pout)
-    pout.close()    
+    pout.close()
+    plot_cell('cell')    
     plot_rec_neurons()
 
 run(args.tstop)
+
