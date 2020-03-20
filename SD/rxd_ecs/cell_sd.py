@@ -31,7 +31,7 @@ numpy.random.seed(6324555+pcid)
 
 
 
-outdir = os.path.abspath('tests/243')
+outdir = os.path.abspath('tests/255')
 
 
 
@@ -51,6 +51,10 @@ if not os.path.exists(k_na_dir):
               % outdir)
         os._exit(1)
 
+h_gbar=0.0025
+ihscale=1.0
+erevh = -30.0
+
 
 somaR = 6.0  
 dendR = 1.4  
@@ -58,10 +62,13 @@ dendL = 50.0
 doff = dendL + somaR
 alpha = 0.2  
 tort = 1.6  
-r0 = 35
+r0 = 60
 x, y, z =0, 0, 30
-Lx, Ly, Lz = 60, 60, 100 
+Lx, Ly, Lz = 100, 100, 100 
 Kceil = 15.0 
+
+
+
 
 class Neuron:
 
@@ -76,40 +83,60 @@ class Neuron:
         self.dend.pt3dclear()
         self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
+        self.dend.nseg = 100
 
         self.dend.connect(self.soma, 1, 0)
 
-        for mechanism_s in [ 'tnak','tnap', 'taccumulation3', 'kleak']:
+        for mechanism_s in [ 'kdmc', 'k_ion','na_ion','ca_ion', 'iar', 'nax' , 'kdr','kap'  ]:
             self.soma.insert(mechanism_s)
-
-        for mechanism_d in ['tnak','tnap', 'taccumulation3', 'kleak']:
+#'iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion'
+        for mechanism_d in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion']:
             self.dend.insert(mechanism_d)
 
-        self.soma(0.5).tnak.imax = 0
-        self.dend(0.5).tnak.imax = 0
+        #self.soma(0.5).pas.g = 0.001
+        #self.dend(0.5).pas.g = 0.001
+        #self.soma(0.5).pas.e = -65
+        #self.dend(0.5).pas.e = -65
+
         
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
         
-        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
 
-        #self.cyt = rxd.Region(h.allsec(), name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        #self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=18)
-        #self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=135)
-        #self.k_i= self.k[self.cyt]
+        self.cyt = rxd.Region([self.soma, self.dend], name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=15)
+        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=138)
+        self.k_i= self.k[self.cyt]
         #print(numpy.array(self.k_i))
         #print(numpy.array(self.k.nodes.concentration)) 11 count
 
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
 
-        self.nvec = h.Vector().record(self.soma(0.5).tnak._ref_n)
-        self.hvec = h.Vector().record(self.soma(0.5).tnap._ref_h)
- 
+        #self.nvec = h.Vector().record(self.soma(0.5).tnak._ref_n)
+        #self.hvec = h.Vector().record(self.soma(0.5).tnap._ref_h)
+        #m
+        self.mvec_cal = h.Vector().record(self.dend(0.5).cal._ref_m)
+        self.mvec_can = h.Vector().record(self.dend(0.5).can._ref_m)
+        self.mvec_cat = h.Vector().record(self.dend(0.5).cat._ref_m)
+        self.mvec_ikc = h.Vector().record(self.dend(0.5).ikc._ref_m)
+        self.mvec_iar = h.Vector().record(self.dend(0.5).iar._ref_m)
+        self.mvec_nax = h.Vector().record(self.dend(0.5).nax._ref_m)
+
+        #n
+        self.nvec_kap = h.Vector().record(self.dend(0.5).kap._ref_n)
+        self.nvec_kdr = h.Vector().record(self.dend(0.5).kdr._ref_n)
+        self.nvec_km = h.Vector().record(self.dend(0.5).km._ref_n)
+
+        #h
+        self.hvec_can = h.Vector().record(self.dend(0.5).can._ref_h)
+        self.hvec_cat = h.Vector().record(self.dend(0.5).cat._ref_h)
+        self.hvec_nax = h.Vector().record(self.dend(0.5).nax._ref_h)
+
 
 
 sys.stdout.write('\nrun')
@@ -151,7 +178,7 @@ ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
                         -Lz/2.0, Lx/2.0, Ly/2.0, Lz/2.0, dx=1,
                         volume_fraction=alpha, tortuosity=tort) 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 30 
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 50 
                 if nd.x3d**2 + nd.y3d**2 + nd.z3d**2 < r0**2 else 3,
                 ecs_boundary_conditions=3)
 
@@ -189,44 +216,44 @@ def plot_rec_neurons():
 
     for idx in range(len(somaV)):
         if idx%100==0:  
-	        fig = pyplot.figure()
-	        ax = fig.add_subplot(111,projection='3d')
-	        ax.set_position([0.0,0.05,0.9,0.9])
-	        ax.set_xlim([-Lx/2.0, Lx/2.0])
-	        ax.set_ylim([-Ly/2.0, Ly/2.0])
-	        ax.set_zlim([-Lz/2.0, Lz/2.0])
-	        
+            fig = pyplot.figure()
+            ax = fig.add_subplot(111,projection='3d')
+            ax.set_position([0.0,0.05,0.9,0.9])
+            ax.set_xlim([-Lx/2.0, Lx/2.0])
+            ax.set_ylim([-Ly/2.0, Ly/2.0])
+            ax.set_zlim([-Lz/2.0, Lz/2.0])
+            
 
-	        cmap = pyplot.get_cmap('jet')
-	        
-	        x = pos
-	        soma_z = [x[2]-somaR,x[2]+somaR]
-	        cell_x = [x[0],x[0]]
-	        cell_y = [x[1],x[1]]
-	        scolor = cmap((somaV[idx]+70.0)/70.0)
-	        # plot the soma
-	        ax.plot(cell_x, cell_y, soma_z, linewidth=2, color=scolor, 
-	                alpha=0.5)
+            cmap = pyplot.get_cmap('jet')
+            
+            x = pos
+            soma_z = [x[2]-somaR,x[2]+somaR]
+            cell_x = [x[0],x[0]]
+            cell_y = [x[1],x[1]]
+            scolor = cmap((somaV[idx]+70.0)/70.0)
+            # plot the soma
+            ax.plot(cell_x, cell_y, soma_z, linewidth=2, color=scolor, 
+                    alpha=0.5)
 
-	        dcolor = cmap((dendV[idx]+70.0)/70.0)
-	        dend_z = [x[2]-somaR, x[2]-somaR - dendL]
-	        # plot the dendrite
-	        ax.plot(cell_x, cell_y, dend_z, linewidth=0.5, color=dcolor, 
-	                alpha=0.5)
+            dcolor = cmap((dendV[idx]+70.0)/70.0)
+            dend_z = [x[2]-somaR, x[2]-somaR - dendL]
+            # plot the dendrite
+            ax.plot(cell_x, cell_y, dend_z, linewidth=0.5, color=dcolor, 
+                    alpha=0.5)
 
-	        norm = colors.Normalize(vmin=-70,vmax=0)
-	        pyplot.title('Neuron membrane potentials; t = %gms' % (idx * 100))
+            norm = colors.Normalize(vmin=-70,vmax=0)
+            pyplot.title('Neuron membrane potentials; t = %gms' % (idx * 100))
 
-	        # add a colorbar 
-	        ax1 = fig.add_axes([0.88,0.05,0.04,0.9])
-	        cb1 = colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm,
-	                                            orientation='vertical')
-	        cb1.set_label('mV')
-	        
-	        # save the plot
-	        filename = 'neurons_{:05d}.png'.format(idx)
-	        pyplot.savefig(os.path.join(outdir,filename))
-	        pyplot.close()
+            # add a colorbar 
+            ax1 = fig.add_axes([0.88,0.05,0.04,0.9])
+            cb1 = colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm,
+                                                orientation='vertical')
+            cb1.set_label('mV')
+            
+            # save the plot
+            filename = 'neurons_{:05d}.png'.format(idx)
+            pyplot.savefig(os.path.join(outdir,filename))
+            pyplot.close()
 
 def plot_spike(volt_soma, volt_dend, t, k, na, k_in, na_in):
 
@@ -269,15 +296,35 @@ def plot_K_ecs_in_points(x, t):
 
 
 def plot_n_m_h(t, soma):
-    fig = pyplot.figure(figsize=(20,5))
-    ax1 = fig.add_subplot(1,1,1)
-    n_plot = ax1.plot(t , soma.nvec , color='red', label='n (in soma)')
-    h_plot = ax1.plot(t , soma.hvec, color='blue', label='h (in soma)')
+    fig = pyplot.figure(figsize=(20,16))
+    ax1 = fig.add_subplot(3,1,1)
+    n1_plot = ax1.plot(t , soma.nvec_kap , color='black', label='n cap')
+    n2_plot = ax1.plot(t , soma.nvec_kdr, color='orange', label='n kdr')
+    n3_plot = ax1.plot(t , soma.nvec_km , color='green', label='n km')
     ax1.legend()
     ax1.set_ylabel('state')
 
+    ax2 = fig.add_subplot(3,1,2)
+    m1_plot = ax2.plot(t , soma.mvec_nax , color='blue', label='m nax')
+    m2_plot = ax2.plot(t , soma.mvec_iar, color='pink', label='m iar')
+    m3_plot = ax2.plot(t , soma.mvec_ikc , color='grey', label='m ikc')
+    m4_plot = ax2.plot(t , soma.mvec_cat , color='yellow', label='m cat')
+    m5_plot = ax2.plot(t , soma.mvec_can , color='red', label='m can')
+    m6_plot = ax2.plot(t , soma.mvec_cal , color='aqua', label='m cal')
+    ax2.legend()
+    ax2.set_ylabel('state')
 
-    ax1.set_xlabel('time (ms)')
+    ax3 = fig.add_subplot(3,1,3)
+    h1_plot = ax3.plot(t , soma.hvec_nax , color='blue', label='h nax')
+    h2_plot = ax3.plot(t , soma.hvec_cat, color='yellow', label='h cat')
+    h3_plot = ax3.plot(t , soma.hvec_can , color='red', label='h can')
+    ax3.legend()
+    ax3.set_ylabel('state')
+
+    
+
+
+    ax3.set_xlabel('time (ms)')
     fig.savefig(os.path.join(nmh_dir, 'nmh.png'))
     pyplot.close('all')
 def plot_image_data(data, min_val, max_val, filename, title):
@@ -332,12 +379,16 @@ def plot_cell( filename):
     # plot the dendrite
     ax.plot(cell_x, dend_z, linewidth=0.5, color=dcolor, 
             alpha=0.5)
+    ax.plot(0,0, color='g', marker='*' )
+    ax.plot(10,20, color='y', marker='*')
+    ax.plot(20,50, color='r', marker='*')
     ax.set_xlim([-Lx/2,Lx/2])
     ax.set_ylim([-Lz/2,Lz/2])
 
     norm = colors.Normalize(vmin=-70,vmax=0)
 
     filename = filename+'.png'
+    pyplot.grid()
     pyplot.savefig(os.path.join(outdir,filename))
     pyplot.close()
 
@@ -386,8 +437,7 @@ def run(tstop):
                     cell.na_vec,
                     cell.k_concentration,
                     cell.na_concentration)
-        plot_n_m_h(time,
-                    cell)
+        plot_n_m_h(time, cell)
         sys.stdout.write('Simulation complete. Plotting membrane potentials')
         sys.stdout.flush()
         plot_K_ecs_in_points([k_0_0_0,k_10_10_20, k_20_20_50 ] ,time)
@@ -401,4 +451,3 @@ def run(tstop):
     exit(0)
 
 run(300)
-
