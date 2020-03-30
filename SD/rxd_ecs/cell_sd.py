@@ -31,7 +31,7 @@ numpy.random.seed(6324555+pcid)
 
 
 
-outdir = os.path.abspath('tests/255')
+outdir = os.path.abspath('tests/280')
 
 
 
@@ -83,20 +83,30 @@ class Neuron:
         self.dend.pt3dclear()
         self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 100
+        self.dend.nseg = 1000
 
         self.dend.connect(self.soma, 1, 0)
 
-        for mechanism_s in [ 'kdmc', 'k_ion','na_ion','ca_ion', 'iar', 'nax' , 'kdr','kap'  ]:
+        for mechanism_s in ['k_ion','na_ion','ca_ion', 'IA', 'kdrcr' ,'km', 'Ksoma', 'nap', 'kap', 'hNa', 'kadcr', 'kad']:
             self.soma.insert(mechanism_s)
+
+        for mechanism_d in ['k_ion','na_ion','ca_ion', 'IA', 'Kdend', 'kdrcr', 'km', 'Nadend', 'nap', 'kap', 'hNa', 'kadcr' ,'kad']:
+            self.dend.insert(mechanism_s)
+
+
+        
+            
 #'iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion'
-        for mechanism_d in ['iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion']:
-            self.dend.insert(mechanism_d)
+        
+            
 
         #self.soma(0.5).pas.g = 0.001
         #self.dend(0.5).pas.g = 0.001
-        #self.soma(0.5).pas.e = -65
-        #self.dend(0.5).pas.e = -65
+        #self.soma(0.5).pas.e = -70
+        #self.dend(0.5).pas.e = -70
+        #h.ccanl.catau = 10
+        #h.ccanl.caiinf = 5.e-6
+        #h.ccanl.cao = 2
 
         
         self.somaV = h.Vector()
@@ -104,15 +114,18 @@ class Neuron:
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
         
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
+        
 
         self.cyt = rxd.Region([self.soma, self.dend], name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=15)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=138)
+        self.ca = rxd.Species([self.cyt], name='ca', charge=2, d=1.0, initial=138)
         self.k_i= self.k[self.cyt]
+
+        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         #print(numpy.array(self.k_i))
-        #print(numpy.array(self.k.nodes.concentration)) 11 count
+        #print(nu mpy.array(self.k.nodes.concentration)) 11 count
 
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
@@ -120,7 +133,8 @@ class Neuron:
         #self.nvec = h.Vector().record(self.soma(0.5).tnak._ref_n)
         #self.hvec = h.Vector().record(self.soma(0.5).tnap._ref_h)
         #m
-        self.mvec_cal = h.Vector().record(self.dend(0.5).cal._ref_m)
+        '''
+        self.mvec_cal = h.Vector().record(h.allsec().cal._ref_m)
         self.mvec_can = h.Vector().record(self.dend(0.5).can._ref_m)
         self.mvec_cat = h.Vector().record(self.dend(0.5).cat._ref_m)
         self.mvec_ikc = h.Vector().record(self.dend(0.5).ikc._ref_m)
@@ -137,7 +151,7 @@ class Neuron:
         self.hvec_cat = h.Vector().record(self.dend(0.5).cat._ref_h)
         self.hvec_nax = h.Vector().record(self.dend(0.5).nax._ref_h)
 
-
+        '''
 
 sys.stdout.write('\nrun')
 sys.stdout.flush()
@@ -171,7 +185,10 @@ for sec in h.allsec():
 #Create cell
 cell = Neuron()
 
-
+stim = h.IClamp(cell.dend(1))
+stim.delay = 100
+stim.dur = 1
+stim.amp = 1
 time = h.Vector().record(h._ref_t)
 
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
@@ -298,7 +315,7 @@ def plot_K_ecs_in_points(x, t):
 def plot_n_m_h(t, soma):
     fig = pyplot.figure(figsize=(20,16))
     ax1 = fig.add_subplot(3,1,1)
-    n1_plot = ax1.plot(t , soma.nvec_kap , color='black', label='n cap')
+    n1_plot = ax1.plot(t , soma.nvec_kap , color='black', label='n kap')
     n2_plot = ax1.plot(t , soma.nvec_kdr, color='orange', label='n kdr')
     n3_plot = ax1.plot(t , soma.nvec_km , color='green', label='n km')
     ax1.legend()
@@ -437,7 +454,7 @@ def run(tstop):
                     cell.na_vec,
                     cell.k_concentration,
                     cell.na_concentration)
-        plot_n_m_h(time, cell)
+        #plot_n_m_h(time, cell)
         sys.stdout.write('Simulation complete. Plotting membrane potentials')
         sys.stdout.flush()
         plot_K_ecs_in_points([k_0_0_0,k_10_10_20, k_20_20_50 ] ,time)
@@ -450,4 +467,4 @@ def run(tstop):
     if pcid == 0: plot_rec_neurons()
     exit(0)
 
-run(300)
+run(200)
