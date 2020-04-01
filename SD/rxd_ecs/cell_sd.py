@@ -31,7 +31,7 @@ numpy.random.seed(6324555+pcid)
 
 
 
-outdir = os.path.abspath('tests/280')
+outdir = os.path.abspath('tests/301')
 
 
 
@@ -67,8 +67,9 @@ x, y, z =0, 0, 30
 Lx, Ly, Lz = 100, 100, 100 
 Kceil = 15.0 
 
-
-
+Rm = 28000 # Ohm.cm^2 (Migliore value)
+gka_soma = 0.0075
+gh_soma  = 0.00005
 
 class Neuron:
 
@@ -83,23 +84,143 @@ class Neuron:
         self.dend.pt3dclear()
         self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 1000
+        self.dend.nseg = 10
 
         self.dend.connect(self.soma, 1, 0)
-
-        for mechanism_s in ['k_ion','na_ion','ca_ion', 'IA', 'kdrcr' ,'km', 'Ksoma', 'nap', 'kap', 'hNa', 'kadcr', 'kad']:
+        self.all = [self.soma, self.dend]
+        self.m_vec={}
+        self.n_vec={}
+        self.h_vec={}
+        #---------------soma----------------
+        for mechanism_s in [ 'hha2', 'pas', 'h', 'kap', 'km', 'kca', 'cad']:
             self.soma.insert(mechanism_s)
 
-        for mechanism_d in ['k_ion','na_ion','ca_ion', 'IA', 'Kdend', 'kdrcr', 'km', 'Nadend', 'nap', 'kap', 'hNa', 'kadcr' ,'kad']:
-            self.dend.insert(mechanism_s)
+        self.soma(0.5).hha2.gnabar = 0.007
+        self.soma(0.5).hha2.gkbar = 0.007/10
+        self.soma(0.5).hha2.gl = 0
+        self.soma(0.5).hha2.el = -65
 
+        self.soma(0.5).pas.g = 1/Rm
 
+        self.soma(0.5).h.ghdbar=gka_soma
+        self.soma(0.5).h.vhalfl = -73
+        #self.soma(0.5).kap.gkabar=gka_soma   self.soma(0.5).km.gbar = 0.06
+        self.soma(0.5).kca.gbar = 15*0.0001
+
+        self.n_hha2 = h.Vector().record(self.soma(0.5).hha2._ref_n)
+        self.h_hha2 = h.Vector().record(self.soma(0.5).hha2._ref_h)
+        self.m_hha2 = h.Vector().record(self.soma(0.5).hha2._ref_m)
+
+        self.n_kap = h.Vector().record(self.soma(0.5).kap._ref_n)
+
+        self.m_kca = h.Vector().record(self.soma(0.5).kca._ref_m)
+
+        self.n_km = h.Vector().record(self.soma(0.5).km._ref_n)
+        '''
+        'pas': {'g': [3.571428571428572e-05], 'e': [-70.0], 'i': [0.0]}, 
+        'cad': {'ca': [0.0]}, 
+        'hha2': {'ar2': [1.0], 'W': [0.016], 'gnabar': [0.007], 'gkbar': [0.0007], 'gl': [0.0], 'el': [-65.0], 'il': [0.0], 'inf': [[0.0, 0.0, 0.0, 0.0]], 'fac': [[0.0, 0.0, 0.0, 0.0]], 'tau': [[0.0, 0.0, 0.0, 0.0]], 'm': [0.0], 'h': [0.0], 'n': [0.0], 's': [0.0]},
+         'h': {'ghdbar': [0.0075], 'vhalfl': [-73.0], 'i': [0.0], 'l': [0.0]}, 
+         'kap': {'gkabar': [0.0075], 'gka': [0.0], 'n': [0.0], 'l': [0.0]}, 
+         'kca': {'gbar': [0.0015], 'gk': [0.0], 'm_inf': [0.0], 'tau_m': [0.0], 'm': [0.0]},
+          'km': {'gbar': [0.06], 'gk': [0.0], 'ninf': [0.0], 'ntau': [0.0], 'n': [0.0]}}, 
+          'ions': {'na': {'ena': [50.0], 'nai': [10.0], 'nao': [140.0], 'ina': [0.0], 'dina_dv_': [0.0]},
+           'k': {'ek': [-77.0], 'ki': [54.4], 'ko': [2.5], 'ik': [0.0], 'dik_dv_': [0.0]}, 
+           'ca': {'eca': [132.4579341637009], 'cai': [5e-05], 'cao': [2.0], 'ica': [0.0], 'dica_dv_': [0.0]}}, 
+           'morphology': {'L': 12.0, 'diam': [12.0], 'pts3d': [(0.0, 0.0, 36.0, 12.0), (0.0, 0.0, 24.0, 12.0)], 'parent': None, 'trueparent': None}
+        for mechanism_s in [ 'hha2', 'pas', 'h', 'kap', 'km', 'kca', 'cad']:
+            try: 
+                s=mechanism_s+'m'
+                self.s = h.Vector().record(self.soma(0.5).mechanism_s._ref_m)
+            except Exception as e:
+                continue
+            try: 
+                s=mechanism_s+'n'
+                self.s = h.Vector().record(self.soma(0.5).mechanism_s._ref_n)
+            except Exception as e:
+                continue
+            try: 
+                s=mechanism_s+'h'
+                self.s = h.Vector().record(self.soma(0.5).mechanism_s._ref_h)
+            except Exception as e:
+                continue
+        '''
         
-            
-#'iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion'
-        
-            
+        #---------------dend----------------
+        for mechanism_d in ['k_ion','na_ion','ca_ion', 'h', 'car', 'calH', 'cat', 'cad', 'kca', 'km', 'kap', 'kad', 'hha_old', 'nap', 'Nadend', 'Kdend']:
+            self.dend.insert(mechanism_d)
+            '''
+            try: 
+                m.append(h.Vector().record(self.dend(0.5).mechanism_d._ref_m))
+            except Exception as e:
+                continue
+            try: 
+                n.append(h.Vector().record(self.dend(0.5).mechanism_d._ref_n))
+            except Exception as e:
+                continue
+            try: 
+                h.append(h.Vector().record(self.dend(0.5).mechanism_d._ref_h))
+            except Exception as e:
+                continue
 
+
+            'density_mechs': {'cad': {'ca': [0.0]}, 
+            'calH': {'gcalbar': [0.0031635], 'inf': [[0.0, 0.0]], 'fac': [[0.0, 0.0]], 'tau': [[0.0, 0.0]], 'm': [0.0], 'h': [0.0]}, 
+            'car': {'gcabar': [2.9999999999999997e-05], 'inf': [[0.0, 0.0]], 'fac': [[0.0, 0.0]], 'tau': [[0.0, 0.0]], 'm': [0.0], 'h': [0.0]}, 
+            'cat': {'gcatbar': [0.0001], 'ica': [0.0], 'gcat': [0.0], 'hinf': [0.0], 'htau': [0.0], 'minf': [0.0], 'mtau': [0.0], 'm': [0.0], 'h': [0.0]},
+             'hha_old': {'ar2': [1.0], 'W': [0.016], 'gnabar': [0.007], 'gkbar': [0.0008679479231246125], 'gl': [0.0], 'el': [-65.0], 'il': [0.0], 'inf': [[0.0, 0.0, 0.0, 0.0]], 'fac': [[0.0, 0.0, 0.0, 0.0]], 'tau': [[0.0, 0.0, 0.0, 0.0]], 'm': [0.0], 'h': [0.0], 'n': [0.0], 's': [0.0]}, 
+             'h': {'ghdbar': [0.00035], 'vhalfl': [-81.0], 'i': [0.0], 'l': [0.0]}, 
+             'kad': {'gkabar': [0.00030000000000000003], 'gka': [0.0], 'n': [0.0], 'l': [0.0]},
+              'kap': {'gkabar': [0.0], 'gka': [0.0], 'n': [0.0], 'l': [0.0]},
+               'kca': {'gbar': [5e-05], 'gk': [0.0], 'm_inf': [0.0], 'tau_m': [0.0], 'm': [0.0]},
+                'km': {'gbar': [0.06], 'gk': [0.0], 'ninf': [0.0], 'ntau': [0.0], 'n': [0.0]}},
+                 'ions': {'na': {'ena': [50.0], 'nai': [10.0], 'nao': [140.0], 'ina': [0.0], 'dina_dv_': [0.0]}, 
+                 'k': {'ek': [-77.0], 'ki': [54.4], 'ko': [2.5], 'ik': [0.0], 'dik_dv_': [0.0]},
+                  'ca': {'eca': [132.4579341637009], 'cai': [5e-05], 'cao': [2.0], 'ica': [0.0], 'dica_dv_': [0.0]}}, 
+                  'morphology': {'L': 50.0, 'diam': [2.799999952316284], 'pts3d': [(0.0, 0.0, 24.0, 2.799999952316284), (0.0, 0.0, -26.0, 2.799999952316284)],
+            '''
+        self.dend(0.5).h.ghdbar = 7*gh_soma
+        self.dend(0.5).h.vhalfl = -81
+
+        self.dend(0.5).car.gcabar = 0.1*0.0003
+        self.dend(0.5).calH.gcalbar = 10*0.00031635
+        self.dend(0.5).cat.gcatbar = 0.0001
+        self.dend(0.5).kca.gbar = 0.5*0.0001
+        self.dend(0.5).km.gbar = 0.06
+        self.dend(0.5).kap.gkabar = 0
+        self.dend(0.5).kad.gkabar = 6*gh_soma
+        self.dend(0.5).hha_old.gnabar = 0.007
+        self.dend(0.5).hha_old.gkbar = 0.007/8.065
+        self.dend(0.5).hha_old.el = -65
+
+        self.Dm_calH = h.Vector().record(self.dend(0.5).calH._ref_m)
+        self.Dh_calH = h.Vector().record(self.dend(0.5).calH._ref_h)
+
+        self.Dh_car = h.Vector().record(self.dend(0.5).car._ref_h)
+        self.Dm_car = h.Vector().record(self.dend(0.5).car._ref_m)
+
+        self.Dh_cat = h.Vector().record(self.dend(0.5).cat._ref_h)
+        self.Dm_cat = h.Vector().record(self.dend(0.5).cat._ref_m)
+
+        self.Dn_hha_old = h.Vector().record(self.dend(0.5).hha_old._ref_n)
+        self.Dh_hha_old = h.Vector().record(self.dend(0.5).hha_old._ref_h)
+        self.Dm_hha_old = h.Vector().record(self.dend(0.5).hha_old._ref_m)
+
+        self.Dn_kap = h.Vector().record(self.dend(0.5).kap._ref_n)
+
+        self.Dm_kca = h.Vector().record(self.dend(0.5).kca._ref_m)
+
+        self.Dn_km = h.Vector().record(self.dend(0.5).km._ref_n)
+
+        self.Dn_Kdend = h.Vector().record(self.dend(0.5).Kdend._ref_n)
+
+        self.Dm_nap = h.Vector().record(self.dend(0.5).nap._ref_m)
+
+        self.Dm_Nadend = h.Vector().record(self.dend(0.5).Nadend._ref_m)
+        self.Dh_Nadend = h.Vector().record(self.dend(0.5).Nadend._ref_h)
+        #print(self.dend.psection())
+
+#'iar', 'kap','km','cagk', 'cat', 'ikc', 'cal','can', 'k_ion','kdr',  'nax', 'na_ion', 'ca_ion' 'k_ion','na_ion','ca_ion', 'IA', 'kdrcr' ,'km', 'Ksoma', 'nap', 'kap', 'hNa', 'kadcr', 'kad',
         #self.soma(0.5).pas.g = 0.001
         #self.dend(0.5).pas.g = 0.001
         #self.soma(0.5).pas.e = -70
@@ -107,51 +228,32 @@ class Neuron:
         #h.ccanl.catau = 10
         #h.ccanl.caiinf = 5.e-6
         #h.ccanl.cao = 2
-
-        
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
-        
-        
-
+        '''
         self.cyt = rxd.Region([self.soma, self.dend], name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=15)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=138)
         self.ca = rxd.Species([self.cyt], name='ca', charge=2, d=1.0, initial=138)
         self.k_i= self.k[self.cyt]
-
+        '''
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         #print(numpy.array(self.k_i))
         #print(nu mpy.array(self.k.nodes.concentration)) 11 count
-
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
-
-        #self.nvec = h.Vector().record(self.soma(0.5).tnak._ref_n)
-        #self.hvec = h.Vector().record(self.soma(0.5).tnap._ref_h)
-        #m
-        '''
-        self.mvec_cal = h.Vector().record(h.allsec().cal._ref_m)
-        self.mvec_can = h.Vector().record(self.dend(0.5).can._ref_m)
-        self.mvec_cat = h.Vector().record(self.dend(0.5).cat._ref_m)
-        self.mvec_ikc = h.Vector().record(self.dend(0.5).ikc._ref_m)
-        self.mvec_iar = h.Vector().record(self.dend(0.5).iar._ref_m)
-        self.mvec_nax = h.Vector().record(self.dend(0.5).nax._ref_m)
-
-        #n
-        self.nvec_kap = h.Vector().record(self.dend(0.5).kap._ref_n)
-        self.nvec_kdr = h.Vector().record(self.dend(0.5).kdr._ref_n)
-        self.nvec_km = h.Vector().record(self.dend(0.5).km._ref_n)
-
-        #h
-        self.hvec_can = h.Vector().record(self.dend(0.5).can._ref_h)
-        self.hvec_cat = h.Vector().record(self.dend(0.5).cat._ref_h)
-        self.hvec_nax = h.Vector().record(self.dend(0.5).nax._ref_h)
-
-        '''
+        
+        
+        for sec in self.all:
+            ek = -80
+            ena = 50
+            e_pas = -70
+            g_pas = 1/Rm        
+            Ra = 150
+            cm = 1
 
 sys.stdout.write('\nrun')
 sys.stdout.flush()
@@ -184,11 +286,12 @@ for sec in h.allsec():
 
 #Create cell
 cell = Neuron()
-
-stim = h.IClamp(cell.dend(1))
-stim.delay = 100
-stim.dur = 1
+'''
+stim = h.IClamp(cell.soma(0.5))
+stim.delay = 50
+stim.dur = 50
 stim.amp = 1
+'''
 time = h.Vector().record(h._ref_t)
 
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
@@ -199,8 +302,8 @@ k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 50
                 if nd.x3d**2 + nd.y3d**2 + nd.z3d**2 < r0**2 else 3,
                 ecs_boundary_conditions=3)
 
-na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
-                 ecs_boundary_conditions=142)
+na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=148,
+                 ecs_boundary_conditions=148)
 
 # points for record concetration
 k_0_0_0=h.Vector().record(k[ecs].node_by_location(0, 0, 0)._ref_value)
@@ -315,26 +418,20 @@ def plot_K_ecs_in_points(x, t):
 def plot_n_m_h(t, soma):
     fig = pyplot.figure(figsize=(20,16))
     ax1 = fig.add_subplot(3,1,1)
-    n1_plot = ax1.plot(t , soma.nvec_kap , color='black', label='n kap')
-    n2_plot = ax1.plot(t , soma.nvec_kdr, color='orange', label='n kdr')
-    n3_plot = ax1.plot(t , soma.nvec_km , color='green', label='n km')
+    ax1.plot(t, soma.n_km, label='km')
+    ax1.plot(t, soma.n_kap, label='kap')
+    ax1.plot(t, soma.n_hha2, label='hha2')
     ax1.legend()
     ax1.set_ylabel('state')
 
     ax2 = fig.add_subplot(3,1,2)
-    m1_plot = ax2.plot(t , soma.mvec_nax , color='blue', label='m nax')
-    m2_plot = ax2.plot(t , soma.mvec_iar, color='pink', label='m iar')
-    m3_plot = ax2.plot(t , soma.mvec_ikc , color='grey', label='m ikc')
-    m4_plot = ax2.plot(t , soma.mvec_cat , color='yellow', label='m cat')
-    m5_plot = ax2.plot(t , soma.mvec_can , color='red', label='m can')
-    m6_plot = ax2.plot(t , soma.mvec_cal , color='aqua', label='m cal')
+    ax2.plot(t, soma.m_hha2, label='hha2')
+    ax2.plot(t, soma.m_kca, label='kca')
     ax2.legend()
     ax2.set_ylabel('state')
 
     ax3 = fig.add_subplot(3,1,3)
-    h1_plot = ax3.plot(t , soma.hvec_nax , color='blue', label='h nax')
-    h2_plot = ax3.plot(t , soma.hvec_cat, color='yellow', label='h cat')
-    h3_plot = ax3.plot(t , soma.hvec_can , color='red', label='h can')
+    ax3.plot(t , soma.h_hha2 , label='hha2')
     ax3.legend()
     ax3.set_ylabel('state')
 
@@ -342,8 +439,44 @@ def plot_n_m_h(t, soma):
 
 
     ax3.set_xlabel('time (ms)')
-    fig.savefig(os.path.join(nmh_dir, 'nmh.png'))
+    fig.savefig(os.path.join(nmh_dir, 'nmhSOMA.png'))
     pyplot.close('all')
+
+def plot_n_m_h_Dend(t, soma):
+    fig = pyplot.figure(figsize=(20,16))
+    ax1 = fig.add_subplot(3,1,1)
+    ax1.plot(t, soma.Dn_km, label='km')
+    ax1.plot(t, soma.Dn_kap, label='kap')
+    ax1.plot(t, soma.Dn_hha_old, label='hha_old')
+    ax1.plot(t, soma.Dn_Kdend, label='Kdend')
+    ax1.legend()
+    ax1.set_ylabel('state')
+
+    ax2 = fig.add_subplot(3,1,2)
+    ax2.plot(t, soma.Dm_kca, label='kca')
+    ax2.plot(t, soma.Dm_cat, label='cat')
+    ax2.plot(t, soma.Dm_car, label='car')
+    ax2.plot(t, soma.Dm_hha_old, label='hha_old')
+    ax2.plot(t, soma.Dm_calH, label='calH')
+    ax2.plot(t, soma.Dm_Nadend, label='Nadend')
+    ax2.plot(t, soma.Dm_nap, label='nap')
+    ax2.legend()
+    ax2.set_ylabel('state')
+
+    ax3 = fig.add_subplot(3,1,3)
+    ax3.plot(t , soma.Dh_hha_old , label='hha_old')
+    ax3.plot(t , soma.Dh_cat , label='cat')
+    ax3.plot(t , soma.Dh_car , label='car')
+    ax3.plot(t , soma.Dh_calH , label='calH')
+    ax3.plot(t , soma.Dh_Nadend , label='Nadend')
+    ax3.legend()
+    ax3.set_ylabel('state')
+
+    ax3.set_xlabel('time (ms)')
+    fig.savefig(os.path.join(nmh_dir, 'nmhDEND.png'))
+    pyplot.close('all')
+
+
 def plot_image_data(data, min_val, max_val, filename, title):
     """Plot a 2d image of the data"""
     sb = scalebar.ScaleBar(1e-6)
@@ -454,7 +587,8 @@ def run(tstop):
                     cell.na_vec,
                     cell.k_concentration,
                     cell.na_concentration)
-        #plot_n_m_h(time, cell)
+        plot_n_m_h(time, cell)
+        plot_n_m_h_Dend(time, cell)
         sys.stdout.write('Simulation complete. Plotting membrane potentials')
         sys.stdout.flush()
         plot_K_ecs_in_points([k_0_0_0,k_10_10_20, k_20_20_50 ] ,time)
