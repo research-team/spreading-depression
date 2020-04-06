@@ -31,7 +31,7 @@ numpy.random.seed(6324555+pcid)
 
 
 
-outdir = os.path.abspath('tests/311')
+outdir = os.path.abspath('tests/334')
 
 
 
@@ -51,10 +51,6 @@ if not os.path.exists(k_na_dir):
               % outdir)
         os._exit(1)
 
-h_gbar=0.0025
-ihscale=1.0
-erevh = -30.0
-
 
 somaR = 6.0  
 dendR = 1.4  
@@ -68,9 +64,8 @@ Lx, Ly, Lz = 100, 100, 100
 Kceil = 15.0 
 
 Rm = 28000 # Ohm.cm^2 (Migliore value)
-gka_soma = 0.0075
-gh_soma  = 0.00005
-
+cm = 1.2
+Ra = 150
 class Neuron:
 
     def __init__(self):
@@ -90,7 +85,9 @@ class Neuron:
         self.all = [self.soma, self.dend]
 
         #---------------soma----------------
-        for mechanism_s in [ 'IA', 'Ih','Nasoma','Ksoma']:
+#        for mechanism_s in ['h','hNa','hha2', 'IA','kadcr','borgka','Ih','Ihvip', 'kap', 'km' ,'pas', 'Nafcr', 'kdrcr', 'IKscr', 'iCcr', 'kadcr']:
+ #           self.soma.insert(mechanism_s)
+        for mechanism_s in ['extracellular','h','hNa','hha2', 'IA', 'Ih','Nasoma','km','Ksoma','pas', 'k_ion', 'na_ion', 'kap','nap', 'kdrcr', 'Nafcr','IKscr' ]:
             self.soma.insert(mechanism_s)
 
         self.soma(0.5).IA.gkAbar = 0.0165
@@ -104,37 +101,77 @@ class Neuron:
         self.h_Nasoma = h.Vector().record(self.soma(0.5).Nasoma._ref_h)
         self.m_Nasoma = h.Vector().record(self.soma(0.5).Nasoma._ref_m)
 
+
+        self.soma(0.5).h.ghdbar = 0.00005
+        self.soma(0.5).h.vhalfl = -73
+        self.soma(0.5).Ih.gkhbar = 0.00035*0.1
+        self.soma(0.5).km.gbar = 0.06
+        #self.soma(0.5).borgka.gkabar = 0.00015*4*0.5
+        #self.soma(0.5).kadcr.gkabar = 0.003
+        self.soma(0.5).hha2.gnabar = 0.007
+        self.soma(0.5).hha2.gkbar = 0.007/10
+        self.soma(0.5).hha2.gl = 0
+        self.soma(0.5).hha2.el = -70
+        #self.soma(0.5).pas.g = 1/Rm
+        #self.soma(0.5).pas.e = -70
+        self.soma(0.5).Nafcr.gnafbar = 0.015
+        self.soma(0.5).kdrcr.gkdrbar = 0.018
+        self.soma(0.5).IKscr.gKsbar = 0.000725
+        #self.soma(0.5).iCcr.gkcbar = 0.00003
+        #self.soma(0.5).kadcr.gkabar = 0.003 
+
+        #print(self.soma.psection())
+        #self.n_Ksoma = h.Vector().record(self.soma(0.5).Ksoma._ref_n)
+        #self.h_Nasoma = h.Vector().record(self.soma(0.5).Nasoma._ref_h)
+        #self.m_Nasoma = h.Vector().record(self.soma(0.5).Nasoma._ref_m)
+
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
         
         #---------------dend----------------
         
-        for mechanism_d in [ 'IA','Nadend','Kdend', 'nap', 'kap', 'hNa', 'Nafcr', 'IKscr', 'km']:
+        for mechanism_d in ['Nadend','Kdend','hha_old', 'h', 'hNa','IA','kap', 'pas', 'Nafcr', 'kdrcr', 'nap', 'k_ion', 'na_ion', 'Ihvip', 'kad']:
             self.dend.insert(mechanism_d)
-
         self.dend(0.5).IA.gkAbar = 0.004*1.2
         #self.dend1(0.5).Ih.gkhbar = 0.00035*0.1
         self.dend(0.5).Nadend.gnadend = 2*0.0117
         self.dend(0.5).Nadend.gl = 1/Rm
         self.dend(0.5).Nadend.el = -65
         self.dend(0.5).Kdend.gkdend = 20*0.023
+        self.dend(0.5).h.ghdbar = 0.00005 * 4
+        self.dend(0.5).h.vhalfl = -81
+        self.dend(0.5).IA.gkAbar = 0.004*1.2
+        self.dend(0.5).kad.gkabar = 0
+        #self.dend(0.5).km.gbar = 0.06
+        #self.dend(0.5).borgka.gkabar = 0.00015*4*0.5
+        self.dend(0.5).hha_old.gnabar = 0.007
+        self.dend(0.5).hha_old.gkbar = 0.007/8.065
+        self.dend(0.5).hha_old.el = -70
+        self.dend(0.5).hha_old.gl = 0
+        #self.dend(0.5).pas.g = 1/20000
+        #self.dend(0.5).pas.e = -70
 
-        self.Dn_Kdend = h.Vector().record(self.dend(0.5).Kdend._ref_n)
-        self.Dh_Nadend = h.Vector().record(self.dend(0.5).Nadend._ref_h)
-        self.Dm_Nadend = h.Vector().record(self.dend(0.5).Nadend._ref_m)
+        self.dend(0.5).Nafcr.gnafbar = 0.018*5
+        self.dend(0.5).kdrcr.gkdrbar = 0.018*0.5
+        #self.Dn_Kdend = h.Vector().record(self.dend(0.5).Kdend._ref_n)
+        #self.Dh_Nadend = h.Vector().record(self.dend(0.5).Nadend._ref_h)
+        #self.Dm_Nadend = h.Vector().record(self.dend(0.5).Nadend._ref_m)
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        #print(numpy.array(self.k_i))
-        #print(nu mpy.array(self.k.nodes.concentration)) 11 count
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
-        
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
+        self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         
         for sec in self.all:        
             Ra = 150
-            cm = 1
+            cm = 1.2
+
+        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=14)
+        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=120)
+        self.k_i= self.k[self.cyt]
 
 sys.stdout.write('\nrun')
 sys.stdout.flush()
@@ -167,12 +204,12 @@ for sec in h.allsec():
 
 #Create cell
 cell = Neuron()
-'''
+
 stim = h.IClamp(cell.soma(0.5))
-stim.delay = 50
-stim.dur = 50
+stim.delay = 150
+stim.dur = 1
 stim.amp = 1
-'''
+
 time = h.Vector().record(h._ref_t)
 
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
@@ -183,8 +220,8 @@ k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 50
                 if nd.x3d**2 + nd.y3d**2 + nd.z3d**2 < r0**2 else 3,
                 ecs_boundary_conditions=3)
 
-na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=148,
-                 ecs_boundary_conditions=148)
+na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
+                 ecs_boundary_conditions=142)
 print(2)
 # points for record concetration
 #k_0_0_0=h.Vector().record(k[ecs].node_by_location(0, 0, 0)._ref_value)
@@ -192,7 +229,7 @@ print(2)
 #k_20_20_50=h.Vector().record(k[ecs].node_by_location(17, 17, -48)._ref_value)
 print(3)
 
-h.finitialize(-65 * mV)
+h.finitialize(-70 * mV)
 
 sys.stdout.write('\ninit')
 sys.stdout.flush()
@@ -243,7 +280,7 @@ def plot_rec_neurons():
                     alpha=0.5)
 
             norm = colors.Normalize(vmin=-70,vmax=0)
-            pyplot.title('Neuron membrane potentials; t = %gms' % (idx * 100))
+            pyplot.title('Neuron membrane potentials; t = %gms' % (idx))
 
             # add a colorbar 
             ax1 = fig.add_axes([0.88,0.05,0.04,0.9])
@@ -256,12 +293,13 @@ def plot_rec_neurons():
             pyplot.savefig(os.path.join(outdir,filename))
             pyplot.close()
 
-def plot_spike(volt_soma, volt_dend, t, k, na, k_in, na_in):
+def plot_spike(volt_soma, volt_dend, t, k, na, k_in, na_in,v):
 
     fig = pyplot.figure(figsize=(20,16))
     ax1 = fig.add_subplot(4,1,1)
     soma_plot = ax1.plot(t , volt_soma , color='black', label='soma')
     dend_plot = ax1.plot(t, volt_dend, color='red', label='dend')
+    v=ax1.plot(t, v, color='blue', label='v')
     ax1.legend()
     ax1.set_ylabel('mV')
    
@@ -439,6 +477,7 @@ def run(tstop):
         if pcid == 0: progress_bar(tstop)
 
         pc.psolve(pc.t(0) + h.dt)
+        '''
         if pcid == 0 and int(pc.t(0)) % 10 == 0:
             dist = 0
             dist1 = 1e9
@@ -451,6 +490,7 @@ def run(tstop):
             
             fout.write("%g\t%g\t%g\n" %(pc.t(0), dist, dist1))
             fout.flush()
+        '''
     #plot_image_region(cell.k.nodes.concentration, 2.5, 140, 'Potassium intracellular; t = %6.0fms' % h.t, cell.k, cell.cyt)
     
     sys.stdout.write('\ndone, wait\n')
@@ -460,7 +500,7 @@ def run(tstop):
     
     if pcid == 0:
     #plot_image_region(cell.k.nodes.concentration, 2.5, 140, 'Potassium intracellular; t = %6.0fms' % h.t, cell.k, cell.cyt)
-        fout.close()
+        #fout.close()
     
         plot_spike(cell.somaV,
                     cell.dendV,
@@ -468,7 +508,7 @@ def run(tstop):
                     cell.k_vec,
                     cell.na_vec,
                     cell.k_concentration,
-                    cell.na_concentration)
+                    cell.na_concentration, cell.v_vec)
         #plot_n_m_h(time, cell)
         #plot_n_m_h_Dend(time, cell)
         sys.stdout.write('Simulation complete. Plotting membrane potentials')
