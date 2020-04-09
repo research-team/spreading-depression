@@ -1,3 +1,6 @@
+import random
+import pandas as pd
+import plotly.express as px
 from mpi4py import MPI
 from neuron import h, crxd as rxd
 from neuron.crxd import rxdmath
@@ -11,15 +14,14 @@ import sys
 import pickle
 import numpy as np
 import plotly.graph_objects as go
-# when using multiple processes get the relevant id and number of hosts
-#h.nrnmpi_init()
+
+from cells import *
+
+h.nrnmpi_init()
 pc = h.ParallelContext()
 pcid = pc.id()
 nhost = pc.nhost()
 root = 0
-
-# set the save directory and if buffering or inhomogeneous tissue
-# characteristics are used.
 
 rxd.options.enable.extracellular = True
 
@@ -27,11 +29,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/392(100 - 300ms)W')
-
-
-
-
+outdir = os.path.abspath('tests/403W')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -48,12 +46,31 @@ if not os.path.exists(k_na_dir):
         os._exit(1)
 
 # simulation parameters
-Lx, Ly, Lz = 1000, 1000, 1000
+Lx, Ly, Lz = 100, 100, 1700 
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
-Nrec = 1000
 
-somaR = 11.0  # soma radius
+#L2/3 (0-400)
+Nbask23 = 90 #59
+Naxax23 = 90 #59
+NLTS23 = 90 #59
+
+#L4 (400-700)
+Nspinstel4 = 240
+NtuftIB5 = 800
+
+#L5 (700-1200)
+NtuftRS5 = 200
+Nbask56 = 100
+
+#L5/6 (700-1700)
+Naxax56 = 100
+NLTS56 = 500
+
+#L6(1200-1700)
+NnontuftRS6 = 500
+
+somaR = 11  # soma radius
 dendR = 1.4  # dendrite radius
 dendL = 100.0  # dendrite length
 doff = dendL + somaR
@@ -64,94 +81,79 @@ r0 = 100  # radius for initial elevated K+
 
 
 
-Rm = 28000 # Ohm.cm^2 (Migliore value)
-cm = 1.2
-Ra = 150
-class Neuron:
-
-    def __init__(self, x, y, z, rec=False):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-
-        self.dend.connect(self.soma, 1, 0)
-        self.all = [self.soma, self.dend]
-        #---------------soma----------------
-        for mechanism_s in [ 'IA', 'Ih','Nasoma','Ksoma']:
-            self.soma.insert(mechanism_s)
-
-        self.soma(0.5).IA.gkAbar = 0.0165
-        self.soma(0.5).Ih.gkhbar = 0.00035*0.1
-        self.soma(0.5).Nasoma.gnasoma = 0.0107*1.2
-        self.soma(0.5).Nasoma.gl = 1/Rm
-        self.soma(0.5).Nasoma.el = -67
-        self.soma(0.5).Ksoma.gksoma = 0.0319*1.5
-        #print(self.soma.psection())
-        self.n_Ksoma = h.Vector().record(self.soma(0.5).Ksoma._ref_n)
-        self.h_Nasoma = h.Vector().record(self.soma(0.5).Nasoma._ref_h)
-        self.m_Nasoma = h.Vector().record(self.soma(0.5).Nasoma._ref_m)
-
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
-        
-        #---------------dend----------------
-        
-        for mechanism_d in [ 'extracellular', 'IA','Nadend','Kdend', 'Nafcr', 'IKscr', ]:
-            self.dend.insert(mechanism_d)
-
-        self.dend(0.5).IA.gkAbar = 0.004*1.2
-        #self.dend1(0.5).Ih.gkhbar = 0.00035*0.1
-        self.dend(0.5).Nadend.gnadend = 2*0.0117
-        self.dend(0.5).Nadend.gl = 1/Rm
-        self.dend(0.5).Nadend.el = -65
-        self.dend(0.5).Kdend.gkdend = 20*0.023
-
-        self.Dn_Kdend = h.Vector().record(self.dend(0.5).Kdend._ref_n)
-        self.Dh_Nadend = h.Vector().record(self.dend(0.5).Nadend._ref_h)
-        self.Dm_Nadend = h.Vector().record(self.dend(0.5).Nadend._ref_m)
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        #print(numpy.array(self.k_i))
-        #print(nu mpy.array(self.k.nodes.concentration)) 11 count
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
-        
-        
-        for sec in self.all:        
-            Ra = 150
-            cm = 1
-
-        self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        
-
-        #self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        #self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        #self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        #self.k_i= self.k[self.cyt]
-        #self.stim = h.IClamp(self.soma(0.5))
-        #self.stim.delay = 50
-        #self.stim.dur = 1
-        #self.stim.amp = 1
 
 
-  
-rec_neurons = [Neuron(
-    (numpy.random.random() * 2.0 - 1.0) * (Lx / 2.0 - somaR),
-    (numpy.random.random() * 2.0 - 1.0) * (Ly / 2.0 - somaR),
-    (numpy.random.random() * 2.0 - 1.0) * (Lz / 2.0 - somaR), 100)
-    for i in range(0, int(Nrec))]
+#0-400
+rec_neurons1 = [LTS23(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(somaR,400))
+    for i in range(0, int(NLTS23))]
+rec_neurons2=[Bask23(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(somaR,400))
+    for i in range(0, int(Nbask23))]
+
+
+rec_neurons3=[Axax23(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(somaR,400))
+    for i in range(0, int(Naxax23))]
+
+
+#400-700
+rec_neurons4=[Spinstel4(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(400,700))
+    for i in range(0, int(Nspinstel4))]
+
+
+rec_neurons5=[TuftIB5(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(400,700))
+    for i in range(0, int(NtuftIB5))]
+
+
+#700-1200
+rec_neurons6=[TuftRS5(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(700,1200))
+    for i in range(0, int(NtuftRS5))]
+
+rec_neurons7=[Bask56(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(700,1200))
+    for i in range(0, int(Nbask56))]
+
+
+
+#700-1700
+rec_neurons8=[Axax56(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(700,1700))
+    for i in range(0, int(Naxax56))]
+
+rec_neurons9=[LTS56(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(700,1700))
+    for i in range(0, int(NLTS56))]
+
+
+rec_neurons10=[NontuftRS6(
+    random.randint(somaR,Lx-somaR),
+    random.randint(somaR,Ly-somaR),
+    random.randint(1200,1700-somaR))
+    for i in range(0, int(NnontuftRS6))]
+
+cell=[rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10]
 
 alpha = alpha1
 tort = tort1
@@ -192,16 +194,23 @@ def progress_bar(tstop, size=40):
     sys.stdout.write('[%s] %2.1f%% %6.1fms of %6.1fms\r' % (progress, 100 * prog, pc.t(0), tstop))
     sys.stdout.flush()
 
+def plot_3D_data(data):
+    print(5)
+    fig = px.scatter_3d(data, x='x', y='y', z='z', color='id')
+    print(6)
+    fig.write_html(os.path.join(outdir, 'data3D.html'))
+
 
 def plot_rec_neurons():
-    somaV, dendV, pos = [], [], []
+    somaV, dendV, pos, data = [], [], [], []
     for i in range(nhost):
         fin = open(os.path.join(outdir, 'membrane_potential_%i.pkl' % i), 'rb')
-        [sV, dV, p] = pickle.load(fin)
+        [sV, dV, p, id] = pickle.load(fin)
         fin.close()
         somaV.extend(sV)
         dendV.extend(dV)
         pos.extend(p)
+        data.extend(id)
 
         for idx in range(somaV[0].size()):
             # create a plot for each record (100ms)
@@ -351,41 +360,7 @@ def plot_n_m_h(t, soma , i):
     fig.savefig(os.path.join(nmh_dir, 'nmh_%i.png' % i))
     pyplot.close('all')
    
-'''
-    ax2 = fig.add_subplot(2,1,2)
-    nhh_plot = ax2.plot(t , nhh , color='black', label='n')
-    mhh_plot = ax2.plot(t, mhh, color='red', label='m')
-    hhh_plot = ax2.plot(t , hhh , color='green', label='h')
-    ax2.legend()
-    ax2.set_ylabel('state')
-    ax2.set_xlabel('time (ms)')
-    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    fig.savefig(os.path.join(outdir, 'nmh_%i.png' % i))
-    pyplot.close('all')
 
-    n1_plot = ax1.plot(t , soma.nvec_kap , color='black', label='n cap')
-    n2_plot = ax1.plot(t , soma.nvec_kdr, color='orange', label='n kdr')
-    n3_plot = ax1.plot(t , soma.nvec_km , color='green', label='n km')
-    ax1.legend()
-    ax1.set_ylabel('state')
-
-    ax2 = fig.add_subplot(4,1,2)
-    m1_plot = ax2.plot(t , soma.mvec_nax , color='blue', label='m nax')
-    m2_plot = ax2.plot(t , soma.mvec_iar, color='pink', label='m iar')
-    m3_plot = ax2.plot(t , soma.mvec_ikc , color='grey', label='m ikc')
-    m4_plot = ax2.plot(t , soma.mvec_cat , color='yellow', label='m cat')
-    m5_plot = ax2.plot(t , soma.mvec_can , color='red', label='m can')
-    m6_plot = ax2.plot(t , soma.mvec_cal , color='aqua', label='m cal')
-    ax2.legend()
-    ax2.set_ylabel('state')
-
-    ax3 = fig.add_subplot(4,1,3)
-    h1_plot = ax3.plot(t , soma.hvec_nax , color='blue', label='h nax')
-    h2_plot = ax3.plot(t , soma.hvec_cat, color='yellow', label='h cat')
-    h3_plot = ax3.plot(t , soma.hvec_can , color='red', label='h can')
-    ax3.legend()
-    ax3.set_ylabel('state')
-'''
 h.dt = 1
 
 def run(tstop):
@@ -405,35 +380,39 @@ def run(tstop):
         
     if pcid == 0:
         progress_bar(tstop)
-        for i in [0, 108] :
-            plot_spike(rec_neurons[i], time , i)
-            #plot_spike_for_1_neu(rec_neurons[i].somaV,
-             #                   rec_neurons[i].dendV,
-              #                  time,
-               #                 i,
-                #                tstop, rec_neurons[i].k_vec,
-                 #               rec_neurons[i].na_vec,
-                   #             rec_neurons[i].k_concentration,
-                    #            rec_neurons[i].na_concentration, rec_neurons[i].v_vec)
-            #plot_n_m_h(time,
-              #          rec_neurons[i], 
-               #         i)
+       # for i in [0, 108] :
+            #plot_spike(rec_neurons[i], time , i)
         print("\nSimulation complete. Plotting membrane potentials")
         plot_K_ecs_in_point_000(kecs ,time)
 
     # save membrane potentials
-    soma, dend, pos = [], [], []
-    for n in rec_neurons:
-        soma.append(n.somaV)
-        dend.append(n.dendV)
-        pos.append([n.x, n.y, n.z])
-    pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
-    pickle.dump([soma, dend, pos], pout)
-    pout.close()
+    soma, dend, pos, data = [], [], [], []
+    x_pos,y_pos,z_pos,id_color = [],[],[],[]
+
+    for j in cell:
+        print(1)
+        for n in j:
+            soma.append(n.somaV)
+            dend.append(n.dendV)
+            pos.append([n.x, n.y, n.z])
+            data.append([n.id])
+            x_pos.append(n.x)
+            y_pos.append(n.y)
+            z_pos.append(n.z)
+            id_color.append(n.id)
+
+    #pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
+    #pickle.dump([soma, dend, pos, data], pout)
+    #pout.close()
+    print(2)
+    d3_data = pd.DataFrame(dict(x=x_pos, y=y_pos, z=z_pos, id=id_color))
     pc.barrier()
+    print(3)
     if pcid == 0:
-        plot_rec_neurons()
+        print(4)
+        plot_3D_data(d3_data)
+        #plot_rec_neurons()
     exit(0)
 
 
-run(300)
+run(100)
