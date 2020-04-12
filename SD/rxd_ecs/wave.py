@@ -29,7 +29,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/403W')
+outdir = os.path.abspath('tests/409W')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -85,74 +85,75 @@ r0 = 100  # radius for initial elevated K+
 
 #0-400
 rec_neurons1 = [LTS23(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(somaR,400))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(somaR,400))
     for i in range(0, int(NLTS23))]
+    
 rec_neurons2=[Bask23(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(somaR,400))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(somaR,400))
     for i in range(0, int(Nbask23))]
 
 
 rec_neurons3=[Axax23(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(somaR,400))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(somaR,400))
     for i in range(0, int(Naxax23))]
 
 
 #400-700
 rec_neurons4=[Spinstel4(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(400,700))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(400,700))
     for i in range(0, int(Nspinstel4))]
 
 
 rec_neurons5=[TuftIB5(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(400,700))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(400,700))
     for i in range(0, int(NtuftIB5))]
 
 
 #700-1200
 rec_neurons6=[TuftRS5(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(700,1200))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(700,1200))
     for i in range(0, int(NtuftRS5))]
 
 rec_neurons7=[Bask56(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(700,1200))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(700,1200))
     for i in range(0, int(Nbask56))]
 
 
 
 #700-1700
 rec_neurons8=[Axax56(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(700,1700))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(700,1700))
     for i in range(0, int(Naxax56))]
 
 rec_neurons9=[LTS56(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(700,1700))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(700,1700))
     for i in range(0, int(NLTS56))]
 
 
 rec_neurons10=[NontuftRS6(
-    random.randint(somaR,Lx-somaR),
-    random.randint(somaR,Ly-somaR),
-    random.randint(1200,1700-somaR))
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(1200,1700-somaR))
     for i in range(0, int(NnontuftRS6))]
-
+#2710
 cell=[rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10]
 
 alpha = alpha1
@@ -196,8 +197,24 @@ def progress_bar(tstop, size=40):
 
 def plot_3D_data(data):
     print(5)
-    fig = px.scatter_3d(data, x='x', y='y', z='z', color='id')
+    data.head(10)
+    fig = px.scatter_3d(data, x='x', y='y', z='z', color='name')
     print(6)
+    fig.update_layout(
+    scene = dict(
+        aspectratio = dict(
+            x = 1,
+            y = 1,
+            z = 16
+        )
+    ),
+    margin = dict(
+        t = 20,
+        b = 20,
+        l = 20,
+        r = 20
+    )
+)
     fig.write_html(os.path.join(outdir, 'data3D.html'))
 
 
@@ -387,7 +404,7 @@ def run(tstop):
 
     # save membrane potentials
     soma, dend, pos, data = [], [], [], []
-    x_pos,y_pos,z_pos,id_color = [],[],[],[]
+    x_pos,y_pos,z_pos,id_color, listname = [],[],[],[], []
 
     for j in cell:
         print(1)
@@ -400,12 +417,13 @@ def run(tstop):
             y_pos.append(n.y)
             z_pos.append(n.z)
             id_color.append(n.id)
+            listname.append(n.name)
 
     #pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
     #pickle.dump([soma, dend, pos, data], pout)
     #pout.close()
     print(2)
-    d3_data = pd.DataFrame(dict(x=x_pos, y=y_pos, z=z_pos, id=id_color))
+    d3_data = pd.DataFrame(dict(x=x_pos, y=y_pos, z=z_pos, id=id_color, name=listname))
     pc.barrier()
     print(3)
     if pcid == 0:
