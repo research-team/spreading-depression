@@ -14,11 +14,12 @@ from neuron.units import ms, mV
 from matplotlib import pyplot, animation
 from IPython.display import HTML
 from cells import *
-# mpiexec -n 1 nrniv -mpi -python cell_sd.py
+import plotly.graph_objects as go
+h.nrnmpi_init()
 pc = h.ParallelContext()
 pcid = pc.id()
 nhost = pc.nhost()
-rxd.nthread()
+#rxd.nthread()
 
 
 rxd.options.enable.extracellular = True
@@ -31,7 +32,7 @@ numpy.random.seed(6324555+pcid)
 
 
 
-outdir = os.path.abspath('tests/500')
+outdir = os.path.abspath('tests/504-TuftIB5')
 
 
 
@@ -58,9 +59,9 @@ dendL = 50.0
 doff = dendL + somaR
 alpha = 0.2  
 tort = 1.6  
-r0 = 60
+r0 = 100
 x, y, z =0, 0, 30
-Lx, Ly, Lz = 100, 100, 100 
+Lx, Ly, Lz = 500, 500, 500 
 Kceil = 15.0 
 
 
@@ -68,7 +69,7 @@ Kceil = 15.0
 sys.stdout.write('\nrun')
 sys.stdout.flush()
 
-cells = [Bask23(0,0,0), Axax23(1,1,1), LTS23(2,2,2), Spinstel4(4,4,4), TuftIB5(5,5,5), TuftRS5(6,6,6), Bask56(7,7,7), Axax56(8,8,8), LTS56(9,9,9), NontuftRS6(10,10,10)]
+#, Axax23(1,1,1), LTS23(2,2,2), Spinstel4(4,4,4), TuftIB5(5,5,5), TuftRS5(6,6,6), Bask56(7,7,7), Axax56(8,8,8), LTS56(9,9,9), NontuftRS6(10,10,10)]
 
 
 
@@ -78,26 +79,24 @@ for sec in h.allsec():
 #Create cell
 
 
-stim = h.IClamp(cell.soma(0.5))
-stim.delay = 150
-stim.dur = 1
-stim.amp = 1
 
+cells = [TuftIB5(0,0,0)]
 time = h.Vector().record(h._ref_t)
 
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
-                        -Lz/2.0, Lx/2.0, Ly/2.0, Lz/2.0, dx=1,
+                        -Lz/2.0, Lx/2.0, Ly/2.0, Lz/2.0, dx=20,
                         volume_fraction=alpha, tortuosity=tort) 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 50 
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 10 
                 if nd.x3d**2 + nd.y3d**2 + nd.z3d**2 < r0**2 else 3,
                 ecs_boundary_conditions=3)
 
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
                  ecs_boundary_conditions=142)
 
+pc.set_maxstep(100)
+h.finitialize(-70)
 
-h.finitialize(-70 * mV)
 
 sys.stdout.write('\ninit')
 sys.stdout.flush()
@@ -112,12 +111,14 @@ def progress_bar(tstop, size=40):
 
 
 
-def plot_spike(volt_soma, volt_dend, k, na, k_in, na_in, name):
+def plot_spike(volt_soma, volt_dend,t, k, na, k_in, na_in, name, axonV, v):
 
     fig = pyplot.figure(figsize=(20,16))
     ax1 = fig.add_subplot(4,1,1)
     soma_plot = ax1.plot(t , volt_soma , color='black', label='soma')
     dend_plot = ax1.plot(t, volt_dend, color='red', label='dend')
+    axon_plot = ax1.plot(t, axonV, color='blue', label='axon')
+    v_plot = ax1.plot(t, v, color='green', label='v')
     ax1.legend()
     ax1.set_ylabel('mV')
    
@@ -140,7 +141,16 @@ def plot_spike(volt_soma, volt_dend, k, na, k_in, na_in, name):
     fig.savefig(os.path.join(k_na_dir, '%i.png' %name))
     pyplot.close('all')
 
-
+def plot_spike_html(cell, time, i):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(y=cell.somaV, x=time, mode='lines', name='soma'))
+    fig.add_trace(go.Scatter(y=cell.dendV, x=time, mode='lines', name='dendrite'))
+    fig.add_trace(go.Scatter(y=cell.v_vec, x=time, mode='lines', name='v'))
+    fig.add_trace(go.Scatter(y=cell.axonV, x=time, mode='lines', name='axon'))
+    fig.update_layout(title='Voltage of Neuron %i' % i,
+                   xaxis_title='ms',
+                   yaxis_title='mV')
+    fig.write_html(os.path.join(k_na_dir, 'spike%i.html' % i))
 
 
 
@@ -162,8 +172,8 @@ def run(tstop):
                         cell.k_vec,
                         cell.na_vec,
                         cell.k_concentration,
-                        cell.na_concentration, cell.id)
-        
+                        cell.na_concentration, cell.id, cell.axonV, cell.v_vec)
+            plot_spike_html(cell, time, cell.id)
         sys.stdout.write('Simulation complete. Plotting membrane potentials')
         sys.stdout.flush()
       
