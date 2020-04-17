@@ -66,10 +66,10 @@ class Bask23:
             self.dend.insert(mechanism_d)
             #print(mechanism_d)
 
-        self.dend(0.5).naf2.gbar =   0.01
+        self.dend(0.5).naf2.gbar =   0.001
         self.dend(0.5).nap.gbar =   0.0001
         self.dend(0.5).kdr_fs.gbar =   0.01
-        self.dend(0.5).kc_fast.gbar =   0.025
+        self.dend(0.5).kc_fast.gbar =   0.000025
         self.dend(0.5).ka.gbar =   0.001
         self.dend(0.5).km.gbar =   0.0005
         self.dend(0.5).k2.gbar =   0.0005
@@ -96,26 +96,12 @@ class Bask23:
         self.axon.Ra = 100
 
         for sec in self.all:        
-            cm = 1
+            sec.cm = 1
            # ek = -100.
             #e = -65.
             #ena = 50.
             #vca = 125.
 
-#n km /
-#m ar cal cat k2 kahp_slower ka kc_fast kdr_fs naf2 nap/ k2 ka kdr_fs naf2
-#h cat k2 ka naf2/ k2 ka naf2
-        #h.topology()
-        '''
-        {'point_processes': {}, 'density_mechs': {'pas': {'g': [0.001], 'e': [-70.0], 'i': [0.0]}, 
-        'k2': {'gbar': [0.0005], 'ik': [0.0], 'm': [0.0], 'h': [0.0]}, 
-        'ka': {'gbar': [0.001], 'ik': [0.0], 'mtau': [0.0], 'htau': [0.0], 'alphah': [0.0], 'betah': [0.0], 'alpham': [0.0], 'betam': [0.0], 'm': [0.0], 'h': [0.0]},
-         'kdr_fs': {'gbar': [0.4], 'ik': [0.0], 'minf': [0.0], 'mtau': [0.0], 'm': [0.0]}, 
-         'naf2': {'fastNa_shift': [0.0], 'a': [0.0], 'b': [0.0], 'c': [0.0], 'd': [0.0], 'gbar': [0.4], 'ina': [0.0], 'minf': [0.0], 'mtau': [0.0], 'df': [0.0], 'm': [0.0], 'h': [0.0]}}, 
-         'ions': {'na': {'ena': [50.0], 'nai': [10.0], 'nao': [140.0], 'ina': [0.0], 'dina_dv_': [0.0]}, 'k': {'ek': [-77.0], 'ki': [54.4], 'ko': [2.5], 'ik': [0.0], 'dik_dv_': [0.0]}},
-          'morphology': {'L': 150.0, 'diam': [4.0], 'pts3d': [(0.0, 0.0, 2.0, 4.0), (0.0, 0.0, 152.0, 4.0)], 'parent': <cells.Bask23 object at 0x7f83344ffc18>.soma(0), 'trueparent': None}, 'nseg': 1, 'Ra': 100.0, 'cm': [1.0], 'regions': set(), 'species': set(), 'name': '<cells.Bask23 object at 0x7f83344ffc18>.axon', 'hoc_internal_name': '__nrnsec_0x55a88e284920', 'cell': <cells.Bask23 object at 0x7f83344ffc18>}
-
-        '''
         self.n_km = h.Vector().record(self.dend(0.5).km._ref_n)
         self.h_cat = h.Vector().record(self.dend(0.5).cat._ref_h)
         self.h_k2 = h.Vector().record(self.dend(0.5).k2._ref_h)
@@ -160,12 +146,14 @@ class Bask23:
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
         #self.stim.dur = 1
         #self.stim.amp = 1
-        print(self.id)
+        #print(self.id)
         #print(self.axon.psection())
 
 class Axax23: #
@@ -258,7 +246,9 @@ class Axax23: #
         self.axon.Ra = 100.
         
         for sec in self.all:        
-            cm = 0.9
+            sec.cm = 0.9
+            sec.ena =   50.
+            #sec.eca =   125.
 
 
         self.dendV = h.Vector()
@@ -275,12 +265,13 @@ class Axax23: #
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i= self.k[self.cyt]
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
 
 
 class LTS23:  #
@@ -373,7 +364,8 @@ class LTS23:  #
         self.axon.Ra = 100.
 
         for sec in self.all:        
-            cm = 1
+            sec.cm = 1
+            sec.ena = 50.
 
 
         self.dendV = h.Vector()
@@ -390,12 +382,13 @@ class LTS23:  #
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
 
 class Spinstel4:  #
     def __init__(self, x, y, z):
@@ -486,7 +479,8 @@ class Spinstel4:  #
         self.axon.Ra = 100.
 
         for sec in self.all:        
-            cm = 0.9
+            sec.cm = 0.9
+            sec.ena = 50.
 
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
@@ -502,12 +496,13 @@ class Spinstel4:  #
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
 
 class TuftIB5:  #
     def __init__(self, x, y, z):
@@ -552,6 +547,7 @@ class TuftIB5:  #
         self.soma(0.5).cal.gbar = 0.0004
         self.soma(0.5).cat.gbar = 0.0001
         self.soma(0.5).ar.gbar = 0.0001
+        self.soma(0.5).ar.erev =  -40.
         self.soma(0.5).cad.beta  = 0.01
         self.soma(0.5).cad.phi =  4333.33333
         self.soma(0.5).pas.g = 2.E-05
@@ -578,6 +574,7 @@ class TuftIB5:  #
         self.dend(0.5).cal.gbar =   0.0004
         self.dend(0.5).cat.gbar =   0.0001
         self.dend(0.5).ar.gbar =   0.0001
+        self.dend(0.5).ar.erev =  -40.
         self.dend(0.5).cad.beta  =   0.02
         self.dend(0.5).cad.phi =   86666.6667
         self.dend(0.5).pas.g = 2.E-05
@@ -598,7 +595,8 @@ class TuftIB5:  #
         self.axon.Ra = 100.
 
         for sec in self.all:        
-            cm = 0.9
+            sec.cm = 0.9
+            sec.ena = 50.
 
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
@@ -614,12 +612,14 @@ class TuftIB5:  #
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
 
 class TuftRS5:  #
     def __init__(self, x, y, z):
@@ -649,9 +649,9 @@ class TuftRS5:  #
         self.dend.connect(self.soma, 1, 0)
         self.all = [self.soma, self.dend]
         # ---------------soma----------------
-        for mechanism_s in ['extracellular', 'naf', 'nap', 'kdr', 'kc', 'ka', 'km', 'kahp_deeppyr', 'k2', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_s in ['extracellular', 'pas', 'naf', 'nap', 'kdr', 'kc', 'ka', 'km', 'kahp_deeppyr', 'k2', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
-            print(mechanism_s)
+            #print(mechanism_s)
 
         self.soma(0.5).naf.gbar =   0.02
         self.soma(0.5).nap.gbar = 0.0008
@@ -666,15 +666,18 @@ class TuftRS5:  #
         self.soma(0.5).ar.gbar =   0.0001
         self.soma(0.5).cad.beta  =   0.02
         self.soma(0.5).cad.phi =   4333.33333
+        self.soma(0.5).pas.g = 2.E-05
+        self.soma(0.5).pas.e = -70.
+        self.soma.Ra =   250.
 
 
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
-        for mechanism_d in ['naf', 'nap', 'kdr', 'kc', 'ka', 'km', 'kahp_deeppyr', 'k2', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_d in ['naf', 'pas', 'nap', 'kdr', 'kc', 'ka', 'km', 'kahp_deeppyr', 'k2', 'cal', 'cat', 'ar', 'cad']:
             self.dend.insert(mechanism_d)
-            print(mechanism_d)
+            #print(mechanism_d)
 
         self.dend(0.5).naf.gbar =   0.075
         self.dend(0.5).nap.gbar = 0.0003
@@ -689,20 +692,33 @@ class TuftRS5:  #
         self.dend(0.5).ar.gbar =   0.0001
         self.dend(0.5).cad.beta  =   0.02
         self.dend(0.5).cad.phi =   86666.6667
+        self.dend(0.5).pas.g = 2.E-05
+        self.dend(0.5).pas.e =  -70.
+        self.dend.Ra =   250.
 
         # ---------------axon----------------
-        for mechanism_a in ['naf', 'kdr', 'ka', 'k2', 'km']:
+        for mechanism_a in ['naf', 'kdr', 'ka', 'k2', 'km', 'pas']:
             self.axon.insert(mechanism_a)
-            print(mechanism_a)
+            #print(mechanism_a)
 
         self.axon(0.5).naf.gbar = 0.45
         self.axon(0.5).kdr.gbar = 0.45
         self.axon(0.5).ka.gbar = 0.0006
         self.axon(0.5).k2.gbar = 0.0005
         self.axon(0.5).km.gbar = 0.03
+        self.axon(0.5).pas.g = 0.001
+        self.axon(0.5).pas.e =  -70.
+        self.axon.Ra =   100.
+
+        for sec in self.all:        
+            sec.cm = 0.9
+            sec.ena = 50.
+            sec.ek =  -95.
 
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
+        self.axonV = h.Vector()
+        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -713,12 +729,14 @@ class TuftRS5:  #
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
 
 
 class Bask56:  #
@@ -749,9 +767,9 @@ class Bask56:  #
         self.dend.connect(self.soma, 1, 0)
         self.all = [self.soma, self.dend]
         # ---------------soma----------------
-        for mechanism_s in ['extracellular','naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_s in ['extracellular','naf2', 'pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
-            print(mechanism_s)
+            #print(mechanism_s)
 
         self.soma(0.5).naf2.gbar = 0.06
         self.soma(0.5).nap.gbar = 0.0006
@@ -764,17 +782,21 @@ class Bask56:  #
         self.soma(0.5).cal.gbar = 0.0001
         self.soma(0.5).cat.gbar = 5.E-05
         self.soma(0.5).ar.gbar = 2.5E-05
+        self.soma(0.5).ar.erev = -40
         self.soma(0.5).cad.beta  = 0.02
         self.soma(0.5).cad.phi =  260000.
+        self.soma(0.5).pas.e = -65
+        self.soma(0.5).pas.g = 4.E-05
+        self.soma.Ra = 200.
 
 
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
-        for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_d in ['naf2', 'pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.dend.insert(mechanism_d)
-            print(mechanism_d)
+            #print(mechanism_d)
 
         self.dend(0.5).naf2.gbar =   0.06
         self.dend(0.5).nap.gbar = 0.0006
@@ -787,21 +809,35 @@ class Bask56:  #
         self.dend(0.5).cal.gbar =   0.0001
         self.dend(0.5).cat.gbar =   5.E-05
         self.dend(0.5).ar.gbar =   2.5E-05
+        self.dend(0.5).ar.erev = -40
         self.dend(0.5).cad.beta  =   0.05
         self.dend(0.5).cad.phi =   520000.
+        self.dend(0.5).pas.e = -65
+        self.dend(0.5).pas.g = 4.E-05
+        self.dend.Ra = 200.
 
         # ---------------axon----------------
-        for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2']:
+        for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2', 'pas']:
             self.axon.insert(mechanism_a)
-            print(mechanism_a)
+            #print(mechanism_a)
 
         self.axon(0.5).naf2.gbar = 0.4
         self.axon(0.5).kdr_fs.gbar = 0.4
         self.axon(0.5).ka.gbar = 0.001
         self.axon(0.5).k2.gbar = 0.0005
+        self.axon(0.5).pas.g = 0.001
+        self.axon(0.5).pas.e = -65
+        self.axon.Ra = 100
+
+        for sec in self.all:        
+            sec.cm = 1
+            sec.ena = 50.
+            sec.ek =  -100.
 
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
+        self.axonV = h.Vector()
+        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -812,12 +848,13 @@ class Bask56:  #
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
 
 
 class Axax56:  #
@@ -848,9 +885,9 @@ class Axax56:  #
         self.dend.connect(self.soma, 1, 0)
         self.all = [self.soma, self.dend]
         # ---------------soma----------------
-        for mechanism_s in ['extracellular','naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_s in ['extracellular','naf2','pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
-            print(mechanism_s)
+            #print(mechanism_s)
 
         self.soma(0.5).naf2.gbar = 0.06
         self.soma(0.5).nap.gbar = 0.0006
@@ -863,17 +900,21 @@ class Axax56:  #
         self.soma(0.5).cal.gbar = 0.0001
         self.soma(0.5).cat.gbar = 5.E-05
         self.soma(0.5).ar.gbar = 2.5E-05
+        self.soma(0.5).ar.erev = -40
         self.soma(0.5).cad.beta  = 0.02
         self.soma(0.5).cad.phi =  260000.
+        self.soma(0.5).pas.e = -65
+        self.soma(0.5).pas.g = 4.E-05
+        self.soma.Ra = 200.
 
 
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
-        for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_d in ['naf2', 'pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.dend.insert(mechanism_d)
-            print(mechanism_d)
+            #print(mechanism_d)
 
         self.dend(0.5).naf2.gbar =   0.06
         self.dend(0.5).nap.gbar = 0.0006
@@ -886,21 +927,35 @@ class Axax56:  #
         self.dend(0.5).cal.gbar =   0.0001
         self.dend(0.5).cat.gbar =   5.E-05
         self.dend(0.5).ar.gbar =   2.5E-05
+        self.dend(0.5).ar.erev = -40
         self.dend(0.5).cad.beta  =   0.05
         self.dend(0.5).cad.phi =   520000.
+        self.dend(0.5).pas.e = -65
+        self.dend(0.5).pas.g = 4.E-05
+        self.dend.Ra = 200.
 
         # ---------------axon----------------
-        for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2']:
+        for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2', 'pas']:
             self.axon.insert(mechanism_a)
-            print(mechanism_a)
+            #print(mechanism_a)
 
         self.axon(0.5).naf2.gbar = 0.4
         self.axon(0.5).kdr_fs.gbar = 0.4
         self.axon(0.5).ka.gbar = 0.001
         self.axon(0.5).k2.gbar = 0.0005
+        self.axon(0.5).pas.g = 0.001
+        self.axon(0.5).pas.e = -65
+        self.axon.Ra = 100
+
+        for sec in self.all:        
+            sec.cm = 1
+            sec.ena = 50.
+            sec.ek =  -100.
 
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
+        self.axonV = h.Vector()
+        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -911,12 +966,14 @@ class Axax56:  #
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
 
 
 class LTS56:  #
@@ -947,9 +1004,9 @@ class LTS56:  #
         self.dend.connect(self.soma, 1, 0)
         self.all = [self.soma, self.dend]
         # ---------------soma----------------
-        for mechanism_s in ['extracellular','naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_s in ['extracellular','naf2', 'pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
-            print(mechanism_s)
+            #print(mechanism_s)
 
         self.soma(0.5).naf2.gbar = 0.06
         self.soma(0.5).nap.gbar = 0.0006
@@ -962,17 +1019,21 @@ class LTS56:  #
         self.soma(0.5).cal.gbar = 0.0001
         self.soma(0.5).cat.gbar = 5.E-05
         self.soma(0.5).ar.gbar = 2.5E-05
+        self.soma(0.5).ar.erev = -40
         self.soma(0.5).cad.beta  = 0.02
         self.soma(0.5).cad.phi =  260000.
+        self.soma(0.5).pas.e = -65
+        self.soma(0.5).pas.g = 4.E-05
+        self.soma.Ra = 200.
 
 
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
-        for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_d in ['naf2', 'nap', 'pas', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.dend.insert(mechanism_d)
-            print(mechanism_d)
+            #print(mechanism_d)
 
         self.dend(0.5).naf2.gbar =   0.06
         self.dend(0.5).nap.gbar = 0.0006
@@ -985,21 +1046,35 @@ class LTS56:  #
         self.dend(0.5).cal.gbar =   0.0001
         self.dend(0.5).cat.gbar =   5.E-05
         self.dend(0.5).ar.gbar =   2.5E-05
+        self.soma(0.5).ar.erev = -40
         self.dend(0.5).cad.beta  =   0.05
         self.dend(0.5).cad.phi =   520000.
+        self.dend(0.5).pas.e = -65
+        self.dend(0.5).pas.g = 4.E-05
+        self.dend.Ra = 200.
 
         # ---------------axon----------------
-        for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2']:
+        for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2', 'pas']:
             self.axon.insert(mechanism_a)
-            print(mechanism_a)
+            #print(mechanism_a)
 
         self.axon(0.5).naf2.gbar = 0.4
         self.axon(0.5).kdr_fs.gbar = 0.4
         self.axon(0.5).ka.gbar = 0.001
         self.axon(0.5).k2.gbar = 0.0005
+        self.axon(0.5).pas.g = 0.001
+        self.axon(0.5).pas.e = -65
+        self.axon.Ra = 100
+
+        for sec in self.all:        
+            sec.cm = 1
+            sec.ena = 50.
+            sec.ek =  -100.
 
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
+        self.axonV = h.Vector()
+        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -1010,12 +1085,13 @@ class LTS56:  #
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
 
 
 class NontuftRS6:  #
@@ -1046,9 +1122,9 @@ class NontuftRS6:  #
         self.dend.connect(self.soma, 1, 0)
         self.all = [self.soma, self.dend]
         # ---------------soma----------------
-        for mechanism_s in ['extracellular','napf', 'naf2', 'kdr_fs', 'kc', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat_a', 'ar', 'cad']:
+        for mechanism_s in ['extracellular','napf', 'pas', 'naf2', 'kdr_fs', 'kc', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat_a', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
-            print(mechanism_s)
+            #print(mechanism_s)
 
         self.soma(0.5).naf2.gbar = 0.06
         self.soma(0.5).napf.gbar = 0.0006
@@ -1063,15 +1139,18 @@ class NontuftRS6:  #
         self.soma(0.5).ar.gbar = 2.5E-05
         self.soma(0.5).cad.beta  = 0.02
         self.soma(0.5).cad.phi =  10400.
+        self.soma(0.5).pas.e = -70
+        self.soma(0.5).pas.g = 2.E-05
+        self.soma.Ra = 250.
 
 
         self.somaV = h.Vector()
         self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
-        for mechanism_d in ['naf2', 'napf', 'kdr_fs', 'kc', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat_a', 'ar', 'cad']:
+        for mechanism_d in ['naf2', 'napf', 'pas', 'kdr_fs', 'kc', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat_a', 'ar', 'cad']:
             self.dend.insert(mechanism_d)
-            print(mechanism_d)
+            #print(mechanism_d)
 
         self.dend(0.5).naf2.gbar =   0.06
         self.dend(0.5).napf.gbar = 0.0006
@@ -1086,19 +1165,32 @@ class NontuftRS6:  #
         self.dend(0.5).ar.gbar =   2.5E-05
         self.dend(0.5).cad.beta  =   0.05
         self.dend(0.5).cad.phi =   260000.
+        self.dend(0.5).pas.e = -70
+        self.dend(0.5).pas.g = 2.E-05
+        self.dend.Ra = 250.
 
         # ---------------axon----------------
-        for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2']:
+        for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2', 'pas']:
             self.axon.insert(mechanism_a)
-            print(mechanism_a)
+            #print(mechanism_a)
 
         self.axon(0.5).naf2.gbar = 0.4
         self.axon(0.5).kdr_fs.gbar = 0.4
         self.axon(0.5).ka.gbar = 0.001
         self.axon(0.5).k2.gbar = 0.0005
+        self.axon(0.5).pas.g = 0.001
+        self.axon(0.5).pas.e = -70
+        self.axon.Ra = 100
+
+        for sec in self.all:        
+            sec.cm = 0.9
+            sec.ena = 50.
+            sec.ek =  -95.
 
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
+        self.axonV = h.Vector()
+        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -1109,10 +1201,11 @@ class NontuftRS6:  #
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
-        self.stim = h.IClamp(self.soma(0.5))
-        self.stim.delay = 50
-        self.stim.dur = 1
-        self.stim.amp = 1
-        print(self.id)
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+       # print(self.id)
 
