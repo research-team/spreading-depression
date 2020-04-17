@@ -102,8 +102,49 @@ class Bask23:
             #ena = 50.
             #vca = 125.
 
-
+#n km /
+#m ar cal cat k2 kahp_slower ka kc_fast kdr_fs naf2 nap/ k2 ka kdr_fs naf2
+#h cat k2 ka naf2/ k2 ka naf2
         #h.topology()
+        '''
+        {'point_processes': {}, 'density_mechs': {'pas': {'g': [0.001], 'e': [-70.0], 'i': [0.0]}, 
+        'k2': {'gbar': [0.0005], 'ik': [0.0], 'm': [0.0], 'h': [0.0]}, 
+        'ka': {'gbar': [0.001], 'ik': [0.0], 'mtau': [0.0], 'htau': [0.0], 'alphah': [0.0], 'betah': [0.0], 'alpham': [0.0], 'betam': [0.0], 'm': [0.0], 'h': [0.0]},
+         'kdr_fs': {'gbar': [0.4], 'ik': [0.0], 'minf': [0.0], 'mtau': [0.0], 'm': [0.0]}, 
+         'naf2': {'fastNa_shift': [0.0], 'a': [0.0], 'b': [0.0], 'c': [0.0], 'd': [0.0], 'gbar': [0.4], 'ina': [0.0], 'minf': [0.0], 'mtau': [0.0], 'df': [0.0], 'm': [0.0], 'h': [0.0]}}, 
+         'ions': {'na': {'ena': [50.0], 'nai': [10.0], 'nao': [140.0], 'ina': [0.0], 'dina_dv_': [0.0]}, 'k': {'ek': [-77.0], 'ki': [54.4], 'ko': [2.5], 'ik': [0.0], 'dik_dv_': [0.0]}},
+          'morphology': {'L': 150.0, 'diam': [4.0], 'pts3d': [(0.0, 0.0, 2.0, 4.0), (0.0, 0.0, 152.0, 4.0)], 'parent': <cells.Bask23 object at 0x7f83344ffc18>.soma(0), 'trueparent': None}, 'nseg': 1, 'Ra': 100.0, 'cm': [1.0], 'regions': set(), 'species': set(), 'name': '<cells.Bask23 object at 0x7f83344ffc18>.axon', 'hoc_internal_name': '__nrnsec_0x55a88e284920', 'cell': <cells.Bask23 object at 0x7f83344ffc18>}
+
+        '''
+        self.n_km = h.Vector().record(self.dend(0.5).km._ref_n)
+        self.h_cat = h.Vector().record(self.dend(0.5).cat._ref_h)
+        self.h_k2 = h.Vector().record(self.dend(0.5).k2._ref_h)
+        self.h_ka = h.Vector().record(self.dend(0.5).ka._ref_h)
+        self.h_naf2 = h.Vector().record(self.dend(0.5).naf2._ref_h)
+        self.m_ar = h.Vector().record(self.dend(0.5).ar._ref_m)
+        self.m_cal = h.Vector().record(self.dend(0.5).cal._ref_m)
+        self.m_cat = h.Vector().record(self.dend(0.5).cat._ref_m)
+        self.m_k2 = h.Vector().record(self.dend(0.5).k2._ref_m)
+        self.m_kahp_slower = h.Vector().record(self.dend(0.5).kahp_slower._ref_m)
+        self.m_ka = h.Vector().record(self.dend(0.5).ka._ref_m)
+        self.m_kc_fast = h.Vector().record(self.dend(0.5).kc_fast._ref_m)
+        self.m_kdr_fs = h.Vector().record(self.dend(0.5).kdr_fs._ref_m)
+        self.m_naf2 = h.Vector().record(self.dend(0.5).naf2._ref_m)
+        self.m_nap = h.Vector().record(self.dend(0.5).nap._ref_m)
+
+        self.nmh_list_dend =[self.n_km, self.h_cat, self.h_k2, self.h_ka, self.h_naf2, self.m_ar, self.m_cal, 
+                            self.m_cat, self.m_k2, self.m_kahp_slower, self.m_ka, self.m_kc_fast, self.m_kdr_fs, self.m_naf2, self.m_nap ]
+
+        self.m_k2_axon = h.Vector().record(self.axon(0.5).k2._ref_m)
+        self.m_ka_axon = h.Vector().record(self.axon(0.5).ka._ref_m)
+        self.m_kdr_fs_axon = h.Vector().record(self.axon(0.5).kdr_fs._ref_m)
+        self.m_naf2_axon = h.Vector().record(self.axon(0.5).naf2._ref_m)
+        self.h_k2_axon = h.Vector().record(self.axon(0.5).k2._ref_h)
+        self.h_ka_axon = h.Vector().record(self.axon(0.5).ka._ref_h)
+        self.h_naf2_axon = h.Vector().record(self.axon(0.5).naf2._ref_h)
+
+        self.nmh_list_axon = [self.m_k2_axon, self.m_ka_axon, self.m_kdr_fs_axon, self.m_naf2_axon, self.h_k2_axon, self.h_ka_axon,self.h_naf2_axon]
+
 
         self.dendV = h.Vector()
         self.dendV.record(self.dend(0.5)._ref_v)
@@ -125,6 +166,7 @@ class Bask23:
         #self.stim.dur = 1
         #self.stim.amp = 1
         print(self.id)
+        #print(self.axon.psection())
 
 class Axax23: #
     def __init__(self, x, y, z):

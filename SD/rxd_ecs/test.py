@@ -32,7 +32,7 @@ numpy.random.seed(6324555+pcid)
 
 
 
-outdir = os.path.abspath('tests/504-TuftIB5')
+outdir = os.path.abspath('tests/505')
 
 
 
@@ -80,7 +80,7 @@ for sec in h.allsec():
 
 
 
-cells = [TuftIB5(0,0,0)]
+cells = [Bask23(0,0,0)]
 time = h.Vector().record(h._ref_t)
 
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
@@ -152,6 +152,14 @@ def plot_spike_html(cell, time, i):
                    yaxis_title='mV')
     fig.write_html(os.path.join(k_na_dir, 'spike%i.html' % i))
 
+def plot_nmh(name, list, time):
+    fig = go.Figure()
+    for i in  range(len(list)):
+        fig.add_trace(go.Scatter(y=list[i], x=time, mode='lines', name='%i' %i))
+    fig.update_layout(title='nmh',
+                   xaxis_title='ms',
+                   yaxis_title='')
+    fig.write_html(os.path.join(k_na_dir, '%s.html' % name))
 
 
 
@@ -174,6 +182,8 @@ def run(tstop):
                         cell.k_concentration,
                         cell.na_concentration, cell.id, cell.axonV, cell.v_vec)
             plot_spike_html(cell, time, cell.id)
+            plot_nmh("nmh_in_dend", cell.nmh_list_dend, time)
+            plot_nmh("nmh_in_axon", cell.nmh_list_axon, time)
         sys.stdout.write('Simulation complete. Plotting membrane potentials')
         sys.stdout.flush()
       
