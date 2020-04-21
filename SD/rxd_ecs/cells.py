@@ -1,11 +1,13 @@
 from neuron import h, crxd as rxd
-
+from neuron.units import ms, mV
 somaR = 11.0  # soma radius
 dendR = 1.4  # dendrite radius
 dendL = 100.0  # dendrite length
 axonR = 2
 axonL = 150
 doff = dendL + somaR
+
+
 
 class Bask23:
     def __init__(self, x, y, z):
@@ -148,6 +150,32 @@ class Bask23:
         self.k_i = self.k[self.cyt]
 
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        
+        self._spike_detector = h.NetCon(self.soma(0.5)._ref_v, None, sec=self.soma)
+        self.spike_times = h.Vector()
+        self._spike_detector.record(self.spike_times)
+        
+        self._ncs = []
+        self.synlistex = []
+
+
+        self.syn=h.AMPA(self.soma(0.8))
+        self.syn.tau = 0.1
+        self.syn.e = 1000
+
+
+
+        self.synlistex.append(self.syn)
+
+
+
+    def conect(self, source):
+        self.nc = h.NetCon(source.soma(0.5)._ref_v, self.syn, sec=source.soma)
+        self.nc.weight[0] = 100
+        self.nc.delay = 5
+        source._ncs.append(self.nc) 
+
+
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
