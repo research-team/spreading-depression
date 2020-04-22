@@ -7,9 +7,7 @@ axonR = 2
 axonL = 150
 doff = dendL + somaR
 
-
-
-class Bask23:
+class Cell:
     def __init__(self, x, y, z):
         self.id = 1
         self.x = x
@@ -36,6 +34,41 @@ class Bask23:
         self.axon.connect(self.soma, 0, 1)
 
         self.all = [self.soma, self.dend]
+        self.somaV = h.Vector()
+        self.somaV.record(self.soma(0.5)._ref_v)
+
+        self.dendV = h.Vector()
+        self.dendV.record(self.dend(0.5)._ref_v)
+        self.axonV = h.Vector()
+        self.axonV.record(self.axon(0.5)._ref_v)
+        
+        self._spike_detector = h.NetCon(self.soma(0.5)._ref_v, None, sec=self.soma)
+        self.spike_times = h.Vector()
+        self._spike_detector.record(self.spike_times)
+        
+        self._ncs = []
+        self.synlistex = []
+
+        self.synE=h.AMPA(self.soma(0.8))
+        self.synE.tau = 1
+        self.synE.e = 50
+        self.synlistex.append(self.synE)
+
+        self.synI=h.GABAA(self.soma(0.8))
+        self.synI.tau = 1
+        self.synI.e = -50
+        self.synlistex.append(self.synI)
+
+
+        
+
+class Bask23(Cell):
+    def __init__(self, x, y, z):
+        super().__init__(x , y, z)
+        self.id = 1
+        self.Excitatory = 1
+        self.name = 'superficial interneurons basket'
+        
         # ---------------soma----------------
         for mechanism_s in ['extracellular','naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
             self.soma.insert(mechanism_s)
@@ -58,10 +91,6 @@ class Bask23:
         self.soma.Ra = 200
         self.soma(0.5).ar.erev =  -40.
         self.soma(0.5).pas.e=-65
-
-
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
@@ -133,11 +162,6 @@ class Bask23:
 
         self.nmh_list_axon = [self.m_k2_axon, self.m_ka_axon, self.m_kdr_fs_axon, self.m_naf2_axon, self.h_k2_axon, self.h_ka_axon,self.h_naf2_axon]
 
-
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -151,30 +175,12 @@ class Bask23:
 
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         
-        self._spike_detector = h.NetCon(self.soma(0.5)._ref_v, None, sec=self.soma)
-        self.spike_times = h.Vector()
-        self._spike_detector.record(self.spike_times)
-        
-        self._ncs = []
-        self.synlistex = []
 
-
-        self.syn=h.AMPA(self.soma(0.8))
-        self.syn.tau = 0.1
-        self.syn.e = 1000
-
-
-
-        self.synlistex.append(self.syn)
-
-
-
-    def conect(self, source):
-        self.nc = h.NetCon(source.soma(0.5)._ref_v, self.syn, sec=source.soma)
-        self.nc.weight[0] = 100
-        self.nc.delay = 5
-        source._ncs.append(self.nc) 
-
+    def conect(self, target):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -418,33 +424,13 @@ class LTS23:  #
         #self.stim.amp = 1
         #print(self.id)
 
-class Spinstel4:  #
+class Spinstel4(Cell):  #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 4
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = -1
         self.name = 'spiny stellate'
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        self.dend.connect(self.soma, 1, 0)
-        self.all = [self.soma, self.dend]
+        
         # ---------------soma----------------
         for mechanism_s in ['extracellular','naf2', 'pas' ,'napf_spinstell', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
@@ -468,8 +454,6 @@ class Spinstel4:  #
         self.soma.Ra =   250.
 
 
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'napf_spinstell','pas', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
@@ -510,10 +494,6 @@ class Spinstel4:  #
             sec.cm = 0.9
             sec.ena = 50.
 
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -525,6 +505,15 @@ class Spinstel4:  #
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+
+
+
+    def conect(self, target):
+        self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
+        self.nc.weight[0] = 10
+        self.nc.delay = 5
+        target._ncs.append(self.nc)
+
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50

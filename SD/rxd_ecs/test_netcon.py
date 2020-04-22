@@ -32,7 +32,7 @@ numpy.random.seed(6324555+pcid)
 
 
 
-outdir = os.path.abspath('tests/507-netcon')
+outdir = os.path.abspath('tests/509-netcon')
 
 
 
@@ -78,9 +78,9 @@ sys.stdout.flush()
 
 
 
-cells = [Bask23(0,0,0), Bask23(100,50,50) ]
+cells = [Bask23(0,0,0),  Spinstel4(100,50,50) ]
 time = h.Vector().record(h._ref_t)
-cells[1].conect(cells[0])
+cells[0].conect(cells[1])
 
 stim = h.IClamp(cells[0].soma(0.5))
 stim.delay = 50
