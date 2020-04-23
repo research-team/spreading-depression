@@ -174,7 +174,8 @@ class Bask23(Cell):
         self.k_i = self.k[self.cyt]
 
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
-        
+        #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
+        #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli) 
 
     def conect(self, target):
             self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
@@ -190,33 +191,12 @@ class Bask23(Cell):
         #print(self.id)
         #print(self.axon.psection())
 
-class Axax23: #
+class Axax23(Cell): #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 2
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = 1
         self.name = 'superficial interneurons axoaxonic'
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-        self.dend.connect(self.soma, 1, 0)
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        self.all = [self.soma, self.dend]
         # ---------------soma----------------
         for mechanism_s in ['extracellular','naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
             self.soma.insert(mechanism_s)
@@ -238,10 +218,6 @@ class Axax23: #
         self.soma(0.5).pas.g = 2.E-05
         self.soma(0.5).pas.e = -65
         self.soma.Ra =   250.
-
-
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
@@ -284,15 +260,11 @@ class Axax23: #
             sec.ena =   50.
             #sec.eca =   125.
 
-
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)      
+        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
@@ -306,36 +278,19 @@ class Axax23: #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
+    def conect(self, target):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
 
 
-class LTS23:  #
+class LTS23(Cell):  #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 3
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = 1
         self.name = 'superficial interneurons low threshold spiking'
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-        self.dend.connect(self.soma, 1, 0)
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        
-        self.all = [self.soma, self.dend]
         # ---------------soma----------------
         for mechanism_s in ['extracellular','naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
             self.soma.insert(mechanism_s)
@@ -357,11 +312,6 @@ class LTS23:  #
         self.soma(0.5).pas.g = 4.E-05
         self.soma(0.5).pas.e = -65
         self.soma.Ra =   250.
-
-
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
-
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
             self.dend.insert(mechanism_d)
@@ -401,11 +351,6 @@ class LTS23:  #
             sec.cm = 1
             sec.ena = 50.
 
-
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -423,6 +368,11 @@ class LTS23:  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
+    def conect(self, target):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
 
 class Spinstel4(Cell):  #
     def __init__(self, x, y, z):
@@ -505,7 +455,8 @@ class Spinstel4(Cell):  #
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
-
+        #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
+        #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli) 
 
 
     def conect(self, target):
@@ -521,33 +472,13 @@ class Spinstel4(Cell):  #
         #self.stim.amp = 1
         #print(self.id)
 
-class TuftIB5:  #
+class TuftIB5(Cell):  #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 5
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = -1
         self.name = 'pyramidal tufted intrinsic bursting'
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        self.dend.connect(self.soma, 1, 0)
-        self.all = [self.soma, self.dend]
+        
         # ---------------soma----------------
         for mechanism_s in ['extracellular','naf','pas', 'nap', 'kdr', 'kc', 'ka_ib', 'km', 'kahp_deeppyr', 'k2', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
@@ -572,8 +503,7 @@ class TuftIB5:  #
         self.soma.Ra =   250.
 
 
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
+
 
         # ---------------dend----------------
         for mechanism_d in ['naf', 'nap','pas', 'kdr', 'kc', 'ka_ib', 'km', 'k2', 'kahp_deeppyr', 'cal', 'cat', 'ar', 'cad']:
@@ -615,10 +545,6 @@ class TuftIB5:  #
             sec.cm = 0.9
             sec.ena = 50.
 
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -637,34 +563,19 @@ class TuftIB5:  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
+    def conect(self, target):
+        self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
+        self.nc.weight[0] = 10
+        self.nc.delay = 5
+        target._ncs.append(self.nc)
 
-class TuftRS5:  #
+class TuftRS5(Cell):  #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 6
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = -1
         self.name = 'pyramidal tufted regular spiking'
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        self.dend.connect(self.soma, 1, 0)
-        self.all = [self.soma, self.dend]
+        
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'pas', 'naf', 'nap', 'kdr', 'kc', 'ka', 'km', 'kahp_deeppyr', 'k2', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
@@ -686,10 +597,6 @@ class TuftRS5:  #
         self.soma(0.5).pas.g = 2.E-05
         self.soma(0.5).pas.e = -70.
         self.soma.Ra =   250.
-
-
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
         for mechanism_d in ['naf', 'pas', 'nap', 'kdr', 'kc', 'ka', 'km', 'kahp_deeppyr', 'k2', 'cal', 'cat', 'ar', 'cad']:
@@ -732,10 +639,6 @@ class TuftRS5:  #
             sec.ena = 50.
             sec.ek =  -95.
 
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -754,35 +657,19 @@ class TuftRS5:  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
+    def conect(self, target):
+        self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
+        self.nc.weight[0] = 10
+        self.nc.delay = 5
+        target._ncs.append(self.nc)
 
 
-class Bask56:  #
+class Bask56(Cell):  #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 7
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = 1
         self.name = 'deep interneurons basket'
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        self.dend.connect(self.soma, 1, 0)
-        self.all = [self.soma, self.dend]
         # ---------------soma----------------
         for mechanism_s in ['extracellular','naf2', 'pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
@@ -805,10 +692,6 @@ class Bask56:  #
         self.soma(0.5).pas.e = -65
         self.soma(0.5).pas.g = 4.E-05
         self.soma.Ra = 200.
-
-
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
@@ -851,10 +734,6 @@ class Bask56:  #
             sec.ena = 50.
             sec.ek =  -100.
 
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -872,35 +751,20 @@ class Bask56:  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
+    def conect(self, target):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
 
 
-class Axax56:  #
+class Axax56(Cell):  #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 8
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = 1
         self.name = 'deep interneurons axoaxonic'
         self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        self.dend.connect(self.soma, 1, 0)
-        self.all = [self.soma, self.dend]
         # ---------------soma----------------
         for mechanism_s in ['extracellular','naf2','pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
@@ -925,9 +789,6 @@ class Axax56:  #
         self.soma.Ra = 200.
 
 
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
-
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.dend.insert(mechanism_d)
@@ -966,13 +827,9 @@ class Axax56:  #
 
         for sec in self.all:        
             sec.cm = 1
-            sec.ena = 50.
-            sec.ek =  -100.
+            #sec.ena = 50.
+            #sec.ek =  -100.
 
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -991,35 +848,20 @@ class Axax56:  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
+    def conect(self, target):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
 
 
-class LTS56:  #
+class LTS56(Cell):  #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 9
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = 1
         self.name ='deep interneurons low threshold spiking'
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        self.dend.connect(self.soma, 1, 0)
-        self.all = [self.soma, self.dend]
+        
         # ---------------soma----------------
         for mechanism_s in ['extracellular','naf2', 'pas', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
@@ -1042,10 +884,6 @@ class LTS56:  #
         self.soma(0.5).pas.e = -65
         self.soma(0.5).pas.g = 4.E-05
         self.soma.Ra = 200.
-
-
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'nap', 'pas', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
@@ -1088,10 +926,6 @@ class LTS56:  #
             sec.ena = 50.
             sec.ek =  -100.
 
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -1109,35 +943,20 @@ class LTS56:  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
+    def conect(self, target):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
 
 
-class NontuftRS6:  #
+class NontuftRS6(Cell):  #
     def __init__(self, x, y, z):
+        super().__init__(x , y, z)
         self.id = 10
-        self.x = x
-        self.y = y
-        self.z = z
         self.Excitatory = -1
         self.name ='pyramidal nontufted regular spiking'
-        self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-
-        self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z - axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z - axonR - axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 0)
-
-        self.dend.connect(self.soma, 1, 0)
-        self.all = [self.soma, self.dend]
+        
         # ---------------soma----------------
         for mechanism_s in ['extracellular','napf', 'pas', 'naf2', 'kdr_fs', 'kc', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat_a', 'ar', 'cad']:
             self.soma.insert(mechanism_s)
@@ -1159,10 +978,6 @@ class NontuftRS6:  #
         self.soma(0.5).pas.e = -70
         self.soma(0.5).pas.g = 2.E-05
         self.soma.Ra = 250.
-
-
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
 
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'napf', 'pas', 'kdr_fs', 'kc', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat_a', 'ar', 'cad']:
@@ -1204,10 +1019,6 @@ class NontuftRS6:  #
             sec.ena = 50.
             sec.ek =  -95.
 
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
@@ -1225,4 +1036,9 @@ class NontuftRS6:  #
         #self.stim.dur = 1
         #self.stim.amp = 1
        # print(self.id)
+    def conect(self, target):
+        self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
+        self.nc.weight[0] = 10
+        self.nc.delay = 5
+        target._ncs.append(self.nc)
 
