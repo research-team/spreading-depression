@@ -9,11 +9,9 @@ doff = dendL + somaR
 
 class Cell:
     def __init__(self, x, y, z):
-        self.id = 1
         self.x = x
         self.y = y
         self.z = z
-        self.Excitatory = 1
         self.name = 'superficial interneurons basket'
         self.soma = h.Section(name='soma', cell=self)
         self.soma.pt3dclear()
@@ -1042,3 +1040,85 @@ class NontuftRS6(Cell):  #
         self.nc.delay = 5
         target._ncs.append(self.nc)
 
+
+class Bask4(Cell):  #
+    def __init__(self, x, y, z):
+        super().__init__(x , y, z)
+        self.id = 11
+        self.Excitatory = 1
+        self.name ='bask 4'
+        #self.soma.nseg = 1+2*int(somaR*2/40)
+        
+        # ---------------soma----------------
+        for mechanism_s in ['extracellular', 'pas','Ih', 'NaV', 'Kd', 'Kv2like', 'Kv3_1', 'K_T', 'Im_v2', 'SK', 'Ca_HVA', 'Ca_LVA', 'CaDynamics']:
+            self.soma.insert(mechanism_s)
+            #print(mechanism_s)
+
+        self.soma(0.5).Ih.gbar = 0.00080878256233100009
+        self.soma(0.5).NaV.gbar = 0.22494483174199997
+        self.soma(0.5).Kd.gbar = 0.0
+        self.soma(0.5).Kv2like.gbar = 0.634543840079
+        self.soma(0.5).Kv3_1.gbar = 0.566198697679
+        self.soma(0.5).K_T.gbar = 0.056532023518500001
+        self.soma(0.5).Im_v2.gbar = 0.018603641341
+        self.soma(0.5).SK.gbar = 0.0
+        self.soma(0.5).Ca_HVA.gbar = 0.00022584367833099997
+        self.soma(0.5).Ca_LVA.gbar = 0.00574872727545
+        self.soma(0.5).CaDynamics.gamma = 0.024961434791900005
+        self.soma(0.5).CaDynamics.decay = 465.51479610500002
+        self.soma(0.5).pas.e = -85.15087381998698
+        self.soma(0.5).pas.g = 1.3446992367900001e-05
+        self.soma.ek = -107.0
+        self.soma.ena = 53
+
+
+        # ---------------dend----------------
+        self.dend.nseg = 1+2*int(dendL/40)
+        for mechanism_d in ['pas']:
+            self.dend.insert(mechanism_d)
+            #print(mechanism_d)
+
+        
+        self.dend(0.5).pas.e = -85.15087381998698
+        self.dend(0.5).pas.g = 2.90017977354e-06
+        
+
+        # ---------------axon----------------
+        self.soma.nseg = 1+2*int(axonL/40)
+        for mechanism_a in ['pas']:
+            self.axon.insert(mechanism_a)
+            #print(mechanism_a)
+
+
+        self.axon(0.5).pas.g = 3.0949651596799999e-05
+        self.axon(0.5).pas.e = -85.15087381998698
+        self.axon.Ra = 100
+
+        for sec in self.all:        
+            sec.cm = 4.65
+            sec.Ra = 65.22
+            #sec.pas.e = -85.15087381998698
+
+
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
+        self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
+        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        #------for test-----------
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
+    def conect(self, target):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
