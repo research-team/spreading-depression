@@ -14,7 +14,7 @@ import sys
 import pickle
 import numpy as np
 import plotly.graph_objects as go
-
+import pandas as pd
 from cells import *
 
 h.nrnmpi_init()
@@ -29,7 +29,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/409W')
+outdir = os.path.abspath('tests/603W')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -58,7 +58,7 @@ NLTS23 = 90 #59
 #L4 (400-700)
 Nspinstel4 = 240
 NtuftIB5 = 800
-
+Bask_4 = 235 #235 bask4
 #L5 (700-1200)
 NtuftRS5 = 200
 Nbask56 = 100
@@ -79,7 +79,7 @@ alpha0, alpha1 = 0.07, 0.2  # anoxic and normoxic volume fractions
 tort0, tort1 = 1.8, 1.6  # anoxic and normoxic tortuosities
 r0 = 100  # radius for initial elevated K+
 
-
+num=0
 
 
 
@@ -87,74 +87,103 @@ r0 = 100  # radius for initial elevated K+
 rec_neurons1 = [LTS23(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(somaR,400))
+    random.uniform(somaR,400),
+    i)
     for i in range(0, int(NLTS23))]
-    
+
+num+=NLTS23
 rec_neurons2=[Bask23(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(somaR,400))
-    for i in range(0, int(Nbask23))]
+    random.uniform(somaR,400), 
+    i)
+    for i in range(num, int(num+Nbask23))]
 
-
+num+=Nbask23
 rec_neurons3=[Axax23(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(somaR,400))
-    for i in range(0, int(Naxax23))]
+    random.uniform(somaR,400), 
+    i)
+    for i in range(num, int(num+Naxax23))]
 
-
+num+=Naxax23
 #400-700
 rec_neurons4=[Spinstel4(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(400,700))
-    for i in range(0, int(Nspinstel4))]
+    random.uniform(400,700), i)
+    for i in range(num, int(num+Nspinstel4))]
 
-
+num+=Nspinstel4
 rec_neurons5=[TuftIB5(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(400,700))
-    for i in range(0, int(NtuftIB5))]
+    random.uniform(400,700), i)
+    for i in range(num, int(num+NtuftIB5))]
+num+=NtuftIB5
+rec_neurons11 = [Bask4(
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(400,700), i)
+    for i in range(num, num+Bask_4)]
 
-
+num+=Bask_4
 #700-1200
 rec_neurons6=[TuftRS5(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(700,1200))
-    for i in range(0, int(NtuftRS5))]
-
+    random.uniform(700,1200), i)
+    for i in range(num, int(num+NtuftRS5))]
+num+=NtuftRS5
 rec_neurons7=[Bask56(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(700,1200))
-    for i in range(0, int(Nbask56))]
+    random.uniform(700,1200), i)
+    for i in range(num, int(num+Nbask56))]
 
-
+num+=Nbask56
 
 #700-1700
 rec_neurons8=[Axax56(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(700,1700))
-    for i in range(0, int(Naxax56))]
-
+    random.uniform(700,1700), i)
+    for i in range(num, int(num+Naxax56))]
+num+=Naxax56
 rec_neurons9=[LTS56(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(700,1700))
-    for i in range(0, int(NLTS56))]
+    random.uniform(700,1700), i)
+    for i in range(num, int(num+NLTS56))]
 
-
+num+=NLTS56
 rec_neurons10=[NontuftRS6(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(1200,1700-somaR))
-    for i in range(0, int(NnontuftRS6))]
+    random.uniform(1200,1700-somaR), i)
+    for i in range(num, int(num+NnontuftRS6))]
 #2710
-cell=[rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10]
+cell=[rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10, rec_neurons11]
+
+for i in rec_neurons1:
+    i.connect(rec_neurons3[random.randint(0,Naxax23-1)])
+    i.connect(rec_neurons2[random.randint(0,Nbask23-1)])
+    i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
+    i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)])
+
+for i in rec_neurons3:
+    i.connect(rec_neurons1[random.randint(0,NLTS23-1)])
+    i.connect(rec_neurons2[random.randint(0,Nbask23-1)])
+    i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
+    i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)])
+
+for i in rec_neurons2:
+    i.connect(rec_neurons1[random.randint(0,NLTS23-1)])
+    i.connect(rec_neurons3[random.randint(0,Naxax23-1)])
+    i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
+    i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)])
+
 
 alpha = alpha1
 tort = tort1
@@ -181,9 +210,24 @@ pc.set_maxstep(100)
 
 # initialize and set the intracellular concentrations
 h.finitialize(-70)
+print('initialize')
 
 
 
+
+
+
+
+
+
+df = pd.DataFrame({
+    'id' : [j.id for i in cell for j in i],
+    'name' : [j.name for i in cell for j in i],
+    'number' : [j.number for i in cell for j in i],
+    'count' : [j.count for i in cell for j in i],
+    'cells' : [j.cells for i in cell for j in i]
+    })
+df.to_csv(os.path.join(outdir,'data_cells.csv'))
 
 
 def progress_bar(tstop, size=40):
@@ -196,10 +240,8 @@ def progress_bar(tstop, size=40):
     sys.stdout.flush()
 
 def plot_3D_data(data):
-    print(5)
     data.head(10)
     fig = px.scatter_3d(data, x='x', y='y', z='z', color='name')
-    print(6)
     fig.update_layout(
     scene = dict(
         aspectratio = dict(
@@ -407,7 +449,6 @@ def run(tstop):
     x_pos,y_pos,z_pos,id_color, listname = [],[],[],[], []
 
     for j in cell:
-        print(1)
         for n in j:
             soma.append(n.somaV)
             dend.append(n.dendV)
@@ -422,12 +463,10 @@ def run(tstop):
     #pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
     #pickle.dump([soma, dend, pos, data], pout)
     #pout.close()
-    print(2)
     d3_data = pd.DataFrame(dict(x=x_pos, y=y_pos, z=z_pos, id=id_color, name=listname))
     pc.barrier()
-    print(3)
     if pcid == 0:
-        print(4)
+
         plot_3D_data(d3_data)
         #plot_rec_neurons()
     exit(0)

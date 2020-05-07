@@ -8,7 +8,7 @@ axonL = 150
 doff = dendL + somaR
 
 class Cell:
-    def __init__(self, x, y, z):
+    def __init__(self, x, y, z, num):
         self.x = x
         self.y = y
         self.z = z
@@ -46,6 +46,10 @@ class Cell:
         
         self._ncs = []
         self.synlistex = []
+        self.count=0
+        self.number=num
+        self.cells={}
+
 
         self.synE=h.AMPA(self.soma(0.8))
         self.synE.tau = 1
@@ -61,8 +65,8 @@ class Cell:
         
 
 class Bask23(Cell):
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 1
         self.Excitatory = 1
         self.name = 'superficial interneurons basket'
@@ -175,11 +179,13 @@ class Bask23(Cell):
         #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
         #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli) 
 
-    def conect(self, target):
+    def connect(self, target):
             self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
             self.nc.weight[0] = 10
             self.nc.delay = 5
             target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -190,8 +196,8 @@ class Bask23(Cell):
         #print(self.axon.psection())
 
 class Axax23(Cell): #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 2
         self.Excitatory = 1
         self.name = 'superficial interneurons axoaxonic'
@@ -276,16 +282,18 @@ class Axax23(Cell): #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def conect(self, target):
+    def connect(self, target):
             self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
             self.nc.weight[0] = 10
             self.nc.delay = 5
             target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
 
 
 class LTS23(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 3
         self.Excitatory = 1
         self.name = 'superficial interneurons low threshold spiking'
@@ -366,15 +374,17 @@ class LTS23(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def conect(self, target):
+    def connect(self, target):
             self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
             self.nc.weight[0] = 10
             self.nc.delay = 5
             target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
 
 class Spinstel4(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 4
         self.Excitatory = -1
         self.name = 'spiny stellate'
@@ -457,11 +467,13 @@ class Spinstel4(Cell):  #
         #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli) 
 
 
-    def conect(self, target):
+    def connect(self, target):
         self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
         self.nc.weight[0] = 10
         self.nc.delay = 5
         target._ncs.append(self.nc)
+        target.count+=1
+        target.cells[self.number]=self.id
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -471,8 +483,8 @@ class Spinstel4(Cell):  #
         #print(self.id)
 
 class TuftIB5(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 5
         self.Excitatory = -1
         self.name = 'pyramidal tufted intrinsic bursting'
@@ -561,15 +573,17 @@ class TuftIB5(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def conect(self, target):
+    def connect(self, target):
         self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
         self.nc.weight[0] = 10
         self.nc.delay = 5
         target._ncs.append(self.nc)
+        target.count+=1
+        target.cells[self.number]=self.id
 
 class TuftRS5(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 6
         self.Excitatory = -1
         self.name = 'pyramidal tufted regular spiking'
@@ -655,16 +669,18 @@ class TuftRS5(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def conect(self, target):
+    def connect(self, target):
         self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
         self.nc.weight[0] = 10
         self.nc.delay = 5
         target._ncs.append(self.nc)
+        target.count+=1
+        target.cells[self.number]=self.id
 
 
 class Bask56(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 7
         self.Excitatory = 1
         self.name = 'deep interneurons basket'
@@ -749,16 +765,18 @@ class Bask56(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def conect(self, target):
+    def connect(self, target):
             self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
             self.nc.weight[0] = 10
             self.nc.delay = 5
             target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
 
 
 class Axax56(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 8
         self.Excitatory = 1
         self.name = 'deep interneurons axoaxonic'
@@ -846,16 +864,18 @@ class Axax56(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def conect(self, target):
+    def connect(self, target):
             self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
             self.nc.weight[0] = 10
             self.nc.delay = 5
             target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
 
 
 class LTS56(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 9
         self.Excitatory = 1
         self.name ='deep interneurons low threshold spiking'
@@ -941,16 +961,18 @@ class LTS56(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def conect(self, target):
+    def connect(self, target):
             self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
             self.nc.weight[0] = 10
             self.nc.delay = 5
             target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
 
 
 class NontuftRS6(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 10
         self.Excitatory = -1
         self.name ='pyramidal nontufted regular spiking'
@@ -1034,16 +1056,18 @@ class NontuftRS6(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
        # print(self.id)
-    def conect(self, target):
+    def connect(self, target):
         self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
         self.nc.weight[0] = 10
         self.nc.delay = 5
         target._ncs.append(self.nc)
+        target.count+=1
+        target.cells[self.number]=self.id
 
 
 class Bask4(Cell):  #
-    def __init__(self, x, y, z):
-        super().__init__(x , y, z)
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
         self.id = 11
         self.Excitatory = 1
         self.name ='bask 4'
@@ -1117,8 +1141,10 @@ class Bask4(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def conect(self, target):
+    def connect(self, target):
             self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
             self.nc.weight[0] = 10
             self.nc.delay = 5
             target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
