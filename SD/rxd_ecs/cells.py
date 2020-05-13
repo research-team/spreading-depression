@@ -1063,7 +1063,7 @@ class NontuftRS6(Cell):  #
         target._ncs.append(self.nc)
         target.count+=1
         target.cells[self.number]=self.id
-
+'''
 
 class Bask4(Cell):  #
     def __init__(self, x, y, z, num):
@@ -1117,6 +1117,94 @@ class Bask4(Cell):  #
         self.axon(0.5).pas.g = 3.0949651596799999e-05
         self.axon(0.5).pas.e = -85.15087381998698
         self.axon.Ra = 100
+
+        for sec in self.all:        
+            sec.cm = 4.65
+            sec.Ra = 65.22
+            #sec.pas.e = -85.15087381998698
+
+
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
+        self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
+        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        #------for test-----------
+        #self.stim = h.IClamp(self.soma(0.5))
+        #self.stim.delay = 50
+        #self.stim.dur = 1
+        #self.stim.amp = 1
+        #print(self.id)
+    def connect(self, target):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
+'''
+
+class SyppyrFRB(Cell):  #
+    def __init__(self, x, y, z, num):
+        super().__init__(x , y, z, num)
+        self.id = 12
+        #self.Excitatory = 1
+        self.name ='pyramidal fast rythmic bursting'
+        #self.soma.nseg = 1+2*int(somaR*2/40)
+        
+        # ---------------soma----------------
+        for mechanism_s in ['extracellular', 'pas', 'naf', 'nap', 'kdr', 'kc', 'ka', 'km', 'k2', 'kahp', 'cal', 'cat', 'ar', 'cad' ]:
+            self.soma.insert(mechanism_s)
+            #print(mechanism_s)
+
+        self.soma(0.5).naf.gbar = 0.15
+        self.soma(0.5).nap.gbar = 0.0006
+        self.soma(0.5).kdr.gbar = 0.1
+        self.soma(0.5).kc.gbar = 0.0075
+        self.soma(0.5).ka.gbar = 0.03
+        self.soma(0.5).km.gbar = 0.00375
+        self.soma(0.5).k2.gbar = 0.0001
+        self.soma(0.5).kahp.gbar = 0.0001
+        self.soma(0.5).cal.gbar = 0.001
+        self.soma(0.5).cat.gbar = 0.0001 
+        self.soma(0.5).ar.gbar =   0.00025
+        self.soma(0.5).cad.beta  =   0.01
+        self.soma(0.5).cad.phi =   26000.
+
+        self.soma(0.5).pas.e = -85.15087381998698
+        self.soma(0.5).pas.g = 1.3446992367900001e-05
+        self.soma.ek = -107.0
+        self.soma.ena = 53
+
+
+        # ---------------dend----------------
+        self.dend.nseg = 1+2*int(dendL/40)
+        for mechanism_d in ['pas']:
+            self.dend.insert(mechanism_d)
+            #print(mechanism_d)
+
+        
+        self.dend(0.5).pas.e = -85.15087381998698
+        self.dend(0.5).pas.g = 2.90017977354e-06
+        
+
+        # ---------------axon----------------
+        self.soma.nseg = 1+2*int(axonL/40)
+        for mechanism_a in ['pas', 'naf', 'kdr', 'ka', 'k2']:
+            self.axon.insert(mechanism_a)
+            #print(mechanism_a)
+
+        self.axon(0.5).naf.gbar = 0.4
+        self.axon(0.5).kdr.gbar = 0.4
+        self.axon(0.5).ka.gbar = 0.002
+        self.axon(0.5).k2.gbar = 0.0001
+        self.axon.Ra = 
 
         for sec in self.all:        
             sec.cm = 4.65

@@ -29,7 +29,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/603W')
+outdir = os.path.abspath('tests/606W')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -81,7 +81,8 @@ r0 = 100  # radius for initial elevated K+
 
 num=0
 
-
+count_cells = 0
+count_syn = 0
 
 #0-400
 rec_neurons1 = [LTS23(
@@ -171,18 +172,85 @@ for i in rec_neurons1:
     i.connect(rec_neurons2[random.randint(0,Nbask23-1)])
     i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
     i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)])
+    count_syn+=4
+    count_cells+=1
 
 for i in rec_neurons3:
     i.connect(rec_neurons1[random.randint(0,NLTS23-1)])
     i.connect(rec_neurons2[random.randint(0,Nbask23-1)])
     i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
     i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)])
+    count_syn+=4
+    count_cells+=1
 
 for i in rec_neurons2:
     i.connect(rec_neurons1[random.randint(0,NLTS23-1)])
     i.connect(rec_neurons3[random.randint(0,Naxax23-1)])
     i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
     i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)])
+    count_syn+=4
+    count_cells+=1
+
+
+for i in rec_neurons4:
+    i.connect(rec_neurons3[random.randint(0,Naxax23-1)])
+    i.connect(rec_neurons2[random.randint(0,Nbask23-1)])
+    i.connect(rec_neurons1[random.randint(0,NLTS23-1)])
+    i.connect(rec_neurons11[random.randint(0,Bask_4-1)])
+    i.connect(rec_neurons8[random.randint(0,Naxax56-1)])
+    i.connect(rec_neurons9[random.randint(0,NLTS56-1)])
+    count_syn+=6
+    count_cells+=1
+
+for i in rec_neurons5:
+    i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
+    count_syn+=1
+    count_cells+=1
+
+for i in rec_neurons6:
+    i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
+    count_syn+=1
+    count_cells+=1
+
+for i in rec_neurons7:
+    i.connect(rec_neurons6[random.randint(0,NtuftRS5-1)])
+    i.connect(rec_neurons9[random.randint(0,NLTS56-1)])
+    i.connect(rec_neurons8[random.randint(0,Naxax56-1)])
+    count_syn+=3
+    count_cells+=1
+
+for i in rec_neurons8:
+    i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
+    i.connect(rec_neurons10[random.randint(0,NnontuftRS6-1)])
+    count_syn+=2
+    count_cells+=1
+
+for i in rec_neurons9:
+    i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
+    i.connect(rec_neurons10[random.randint(0,NnontuftRS6-1)])
+    count_syn+=2
+    count_cells+=1
+
+for i in rec_neurons10:
+    i.connect(rec_neurons9[random.randint(0,NLTS56-1)])
+    i.connect(rec_neurons8[random.randint(0,Naxax56-1)])
+    count_syn+=2
+    count_cells+=1
+
+for i in rec_neurons11:
+    i.connect(rec_neurons1[random.randint(0,NLTS23-1)])
+    i.connect(rec_neurons3[random.randint(0,Naxax23-1)])
+    i.connect(rec_neurons2[random.randint(0,Nbask23-1)])
+    i.connect(rec_neurons9[random.randint(0,NLTS56-1)])
+    i.connect(rec_neurons8[random.randint(0,Naxax56-1)])
+    i.connect(rec_neurons7[random.randint(0,Nbask56-1)])
+    i.connect(rec_neurons4[random.randint(0,Nspinstel4-1)])
+    count_syn+=7
+    count_cells+=1
+
+
+
+
 
 
 alpha = alpha1
@@ -215,11 +283,6 @@ print('initialize')
 
 
 
-
-
-
-
-
 df = pd.DataFrame({
     'id' : [j.id for i in cell for j in i],
     'name' : [j.name for i in cell for j in i],
@@ -228,6 +291,12 @@ df = pd.DataFrame({
     'cells' : [j.cells for i in cell for j in i]
     })
 df.to_csv(os.path.join(outdir,'data_cells.csv'))
+
+dg = pd.DataFrame({
+    'count_cells' : [count_cells],
+    'count_syn' : [count_syn]
+    })
+dg.to_csv(os.path.join(outdir,'info.csv'))
 
 
 def progress_bar(tstop, size=40):
@@ -419,6 +488,16 @@ def plot_n_m_h(t, soma , i):
     fig.savefig(os.path.join(nmh_dir, 'nmh_%i.png' % i))
     pyplot.close('all')
    
+def plot_spike_html(cell, time, i):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(y=cell.somaV, x=time, mode='lines', name='soma'))
+    fig.add_trace(go.Scatter(y=cell.dendV, x=time, mode='lines', name='dendrite'))
+    fig.add_trace(go.Scatter(y=cell.v_vec, x=time, mode='lines', name='v'))
+    fig.add_trace(go.Scatter(y=cell.axonV, x=time, mode='lines', name='axon'))
+    fig.update_layout(title='Voltage of Neuron %i' % i,
+                   xaxis_title='ms',
+                   yaxis_title='mV')
+    fig.write_html(os.path.join(k_na_dir, 'spike%i.html' % i))
 
 h.dt = 1
 
@@ -459,6 +538,7 @@ def run(tstop):
             z_pos.append(n.z)
             id_color.append(n.id)
             listname.append(n.name)
+            plot_spike_html(n, time, n.number)
 
     #pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
     #pickle.dump([soma, dend, pos, data], pout)
