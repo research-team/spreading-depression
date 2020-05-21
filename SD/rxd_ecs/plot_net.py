@@ -12,12 +12,16 @@ print( data.keys())
 N=len(data['cells'])
 print(N)
 
-L=len(data['links'])
-Edges=[(data['links'][k]['source'], data['links'][k]['target']) for k in range(L)]
+Li=len(data['ing'])
+Le=len(data['exc'])
+Edges_i=[(data['ing'][k]['source'], data['ing'][k]['target']) for k in range(Li)]
+Edges_e=[(data['exc'][k]['source'], data['exc'][k]['target']) for k in range(Le)]
 
-G=ig.Graph(Edges, directed=False)
+Gi=ig.Graph(Edges_i, directed=False)
+Ge=ig.Graph(Edges_e, directed=False)
 
 print(data['cells'][0])
+#print(data['links'][0])
 
 name=[]
 id=[]
@@ -25,6 +29,14 @@ num = []
 x=[]
 y=[]
 z=[]
+c=[]
+xi=[]
+yi=[]
+zi=[]
+
+xe=[]
+ye=[]
+ze=[]
 for cell in data['cells']:
     name.append(cell['name'])
     id.append(cell['id'])
@@ -33,14 +45,38 @@ for cell in data['cells']:
     y.append(cell['y'])
     z.append(cell['z'])
 
-trace1=go.Scatter3d(x=x,
-               y=y,
-               z=z,
+for e in data['ing']:
+    s=e['source']
+    t=e['target']
+    xi+=[x[num.index(s)], x[num.index(t)], None]
+    yi += [y[num.index(s)], y[num.index(t)], None]
+    zi += [z[num.index(s)], z[num.index(t)], None]
+
+for e in data['exc']:
+    s=e['source']
+    t=e['target']
+    xe+=[x[num.index(s)], x[num.index(t)], None]
+    ye += [y[num.index(s)], y[num.index(t)], None]
+    ze += [z[num.index(s)], z[num.index(t)], None]
+
+trace1=go.Scatter3d(x=xi,
+               y=yi,
+               z=zi,
                mode='lines',
-               line=dict(color='rgb(125,125,125)', width=1),
+               line=dict(color='red', width=1,),
+               name='ing',
+               showlegend=True,
                hoverinfo='none'
                )
 
+trace3=go.Scatter3d(x=xe,
+               y=ye,
+               z=ze,
+               mode='lines',
+               line=dict(color='blue', width=1,),
+               name= 'exc',
+               hoverinfo='none'
+               )
 trace2=go.Scatter3d(x=x,
                y=y,
                z=z,
@@ -56,46 +92,10 @@ trace2=go.Scatter3d(x=x,
                hoverinfo='text'
                )
 
-axis=dict(showbackground=False,
-          showline=False,
-          zeroline=False,
-          showgrid=False,
-          showticklabels=False,
-          title=''
-          )
 
-layout = go.Layout(
-         title="Network (3D visualization)",
-         width=1000,
-         height=1000,
-         showlegend=False,
-         scene=dict(
-             xaxis=dict(axis),
-             yaxis=dict(axis),
-             zaxis=dict(axis),
-        ),
-     margin=dict(
-        t=100
-    ),
-    hovermode='closest',
-    annotations=[
-           dict(
-           showarrow=False,
-            text="kek",
-            xref='paper',
-            yref='paper',
-            x=0,
-            y=0.1,
-            xanchor='left',
-            yanchor='bottom',
-            font=dict(
-            size=14
-            )
-            )
-        ],    )
 
-data=[trace1, trace2]
+data=[trace1, trace2, trace3]
 print(1)
-fig=go.Figure(data=data, layout=layout)
+fig=go.Figure(data=data)
 print(2)
 fig.write_html('net.html')

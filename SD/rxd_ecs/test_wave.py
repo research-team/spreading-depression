@@ -30,7 +30,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/702W')
+outdir = os.path.abspath('tests/704W')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -318,11 +318,12 @@ num += NnontuftRS6
 #2710
 cell=[rec_neurons12, rec_neurons13, rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10]
 
-data['links']=[]
+data['exc']=[]
+data['ing']=[]
 for i in rec_neurons13:
     n=rec_neurons13[random.randint(0, NsyppyrRS - 1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source' : i.number,
         'target' : n.number,
         'id' : 1
@@ -330,7 +331,7 @@ for i in rec_neurons13:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -338,14 +339,14 @@ for i in rec_neurons13:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -353,7 +354,7 @@ for i in rec_neurons13:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -361,7 +362,7 @@ for i in rec_neurons13:
 
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -369,7 +370,7 @@ for i in rec_neurons13:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -377,7 +378,7 @@ for i in rec_neurons13:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -385,7 +386,7 @@ for i in rec_neurons13:
 
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -393,7 +394,7 @@ for i in rec_neurons13:
 
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -401,7 +402,7 @@ for i in rec_neurons13:
 
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -413,7 +414,7 @@ for i in rec_neurons13:
 for i in rec_neurons12:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -421,7 +422,7 @@ for i in rec_neurons12:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -429,7 +430,7 @@ for i in rec_neurons12:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -437,7 +438,7 @@ for i in rec_neurons12:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -445,7 +446,7 @@ for i in rec_neurons12:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -453,7 +454,7 @@ for i in rec_neurons12:
 
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -461,7 +462,7 @@ for i in rec_neurons12:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -469,7 +470,7 @@ for i in rec_neurons12:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -477,21 +478,21 @@ for i in rec_neurons12:
 
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -504,7 +505,7 @@ for i in rec_neurons12:
 for i in rec_neurons4:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -512,7 +513,7 @@ for i in rec_neurons4:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -520,7 +521,7 @@ for i in rec_neurons4:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -528,7 +529,7 @@ for i in rec_neurons4:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -536,7 +537,7 @@ for i in rec_neurons4:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -544,7 +545,7 @@ for i in rec_neurons4:
 
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -552,7 +553,7 @@ for i in rec_neurons4:
 
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -560,14 +561,14 @@ for i in rec_neurons4:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -578,14 +579,14 @@ for i in rec_neurons4:
 for i in rec_neurons2:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -593,7 +594,7 @@ for i in rec_neurons2:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -601,7 +602,7 @@ for i in rec_neurons2:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -609,7 +610,7 @@ for i in rec_neurons2:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -617,7 +618,7 @@ for i in rec_neurons2:
 
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -627,7 +628,7 @@ for i in rec_neurons2:
 for i in rec_neurons3:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -635,7 +636,7 @@ for i in rec_neurons3:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -643,7 +644,7 @@ for i in rec_neurons3:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -651,7 +652,7 @@ for i in rec_neurons3:
 
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -659,7 +660,7 @@ for i in rec_neurons3:
 
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -667,7 +668,7 @@ for i in rec_neurons3:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -675,7 +676,7 @@ for i in rec_neurons3:
 
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -686,7 +687,7 @@ for i in rec_neurons3:
 for i in rec_neurons1:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -694,7 +695,7 @@ for i in rec_neurons1:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -702,7 +703,7 @@ for i in rec_neurons1:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -710,7 +711,7 @@ for i in rec_neurons1:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -718,21 +719,21 @@ for i in rec_neurons1:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -740,7 +741,7 @@ for i in rec_neurons1:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -748,7 +749,7 @@ for i in rec_neurons1:
 
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -756,7 +757,7 @@ for i in rec_neurons1:
 
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -764,7 +765,7 @@ for i in rec_neurons1:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -772,7 +773,7 @@ for i in rec_neurons1:
 
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -783,84 +784,84 @@ for i in rec_neurons1:
 for i in rec_neurons5:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -871,49 +872,49 @@ for i in rec_neurons5:
 for i in rec_neurons7:
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n, -1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,-1)
-    data['links'].append({
+    data['ing'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -923,7 +924,7 @@ for i in rec_neurons7:
 for i in rec_neurons6:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -931,7 +932,7 @@ for i in rec_neurons6:
 
     n =rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -939,7 +940,7 @@ for i in rec_neurons6:
 
     n =rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -947,7 +948,7 @@ for i in rec_neurons6:
 
     n =rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -955,7 +956,7 @@ for i in rec_neurons6:
 
     n =rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -963,7 +964,7 @@ for i in rec_neurons6:
 
     n =rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -971,7 +972,7 @@ for i in rec_neurons6:
 
     n =rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -979,7 +980,7 @@ for i in rec_neurons6:
 
     n = rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -987,7 +988,7 @@ for i in rec_neurons6:
 
     n =rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -995,7 +996,7 @@ for i in rec_neurons6:
 
     n =rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1003,7 +1004,7 @@ for i in rec_neurons6:
 
     n =rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1011,7 +1012,7 @@ for i in rec_neurons6:
 
     n =rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['links'].append({
+    data['exc'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1021,42 +1022,224 @@ for i in rec_neurons6:
 
 
 for i in rec_neurons10:
-    i.connect(rec_neurons13[random.randint(0,NsyppyrRS-1)],1)
-    i.connect(rec_neurons12[random.randint(0,NsyppyrFRB-1)],1)
-    i.connect(rec_neurons3[random.randint(0,Naxax23-1)],1)
-    i.connect(rec_neurons2[random.randint(0,Nbask23-1)],1)
-    
-    i.connect(rec_neurons7[random.randint(0,Nbask56-1)],1)
-    i.connect(rec_neurons4[random.randint(0,Nspinstel4-1)],1)
-    i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)],1)
-    i.connect(rec_neurons6[random.randint(0,NtuftRS5-1)],1)
-    i.connect(rec_neurons8[random.randint(0,Naxax56-1)],1)
-    i.connect(rec_neurons9[random.randint(0,NLTS56-1)],1)
-    i.connect(rec_neurons10[random.randint(0,NnontuftRS6-1)],1)
+    n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons3[random.randint(0,Naxax23-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons2[random.randint(0,Nbask23-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons7[random.randint(0,Nbask56-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons4[random.randint(0,Nspinstel4-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons5[random.randint(0,NtuftIB5-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons6[random.randint(0,NtuftRS5-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons8[random.randint(0,Naxax56-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons9[random.randint(0,NLTS56-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
+    n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
+    i.connect(n,1)
+    data['exc'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': 1
+    })
+
     count_syn+=11
     #count_cells+=1
 
 for i in rec_neurons8:
-    i.connect(rec_neurons13[random.randint(0,NsyppyrRS-1)],-1)
-    i.connect(rec_neurons12[random.randint(0,NsyppyrFRB-1)],-1) 
-    i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)],-1)
-    i.connect(rec_neurons6[random.randint(0,NtuftRS5-1)],-1)
-    i.connect(rec_neurons10[random.randint(0,NnontuftRS6-1)],-1)
+    n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+
+    n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+
+    n=rec_neurons5[random.randint(0,NtuftIB5-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+
+    n=rec_neurons6[random.randint(0,NtuftRS5-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+
+    n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
     count_syn+=5
 
 for i in rec_neurons9:
-    i.connect(rec_neurons13[random.randint(0,NsyppyrRS-1)],-1)
-    i.connect(rec_neurons12[random.randint(0,NsyppyrFRB-1)],-1)
-    i.connect(rec_neurons2[random.randint(0,Nbask23-1)],-1)
-    i.connect(rec_neurons3[random.randint(0,Naxax23-1)],-1)
-    i.connect(rec_neurons1[random.randint(0,NLTS23-1)],-1)
-    i.connect(rec_neurons4[random.randint(0,Nspinstel4-1)],-1)
-    i.connect(rec_neurons5[random.randint(0,NtuftIB5-1)],-1)
-    i.connect(rec_neurons6[random.randint(0,NtuftRS5-1)],-1)
-    i.connect(rec_neurons10[random.randint(0,NnontuftRS6-1)],-1)
-    i.connect(rec_neurons8[random.randint(0,Naxax56-1)],-1)
-    i.connect(rec_neurons9[random.randint(0,NLTS56-1)],-1)
-    i.connect(rec_neurons7[random.randint(0,Nbask56-1)],-1)
+    n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons2[random.randint(0,Nbask23-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons3[random.randint(0,Naxax23-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons1[random.randint(0,NLTS23-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons4[random.randint(0,Nspinstel4-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons5[random.randint(0,NtuftIB5-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons6[random.randint(0,NtuftRS5-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons8[random.randint(0,Naxax56-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons9[random.randint(0,NLTS56-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
+    n=rec_neurons7[random.randint(0,Nbask56-1)]
+    i.connect(n,-1)
+    data['ing'].append({
+        'source': i.number,
+        'target': n.number,
+        'id': -1
+    })
     count_syn+=12
 
 '''
