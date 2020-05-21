@@ -11,7 +11,7 @@ print( data.keys())
 
 N=len(data['cells'])
 print(N)
-
+'''
 Li=len(data['ing'])
 Le=len(data['exc'])
 Edges_i=[(data['ing'][k]['source'], data['ing'][k]['target']) for k in range(Li)]
@@ -21,6 +21,8 @@ Gi=ig.Graph(Edges_i, directed=False)
 Ge=ig.Graph(Edges_e, directed=False)
 
 print(data['cells'][0])
+'''
+
 #print(data['links'][0])
 
 name=[]
@@ -30,13 +32,14 @@ x=[]
 y=[]
 z=[]
 c=[]
-xi=[]
-yi=[]
-zi=[]
 
-xe=[]
-ye=[]
-ze=[]
+x13=[]
+y13=[]
+z13=[]
+
+x12=[]
+y12=[]
+z12=[]
 for cell in data['cells']:
     name.append(cell['name'])
     id.append(cell['id'])
@@ -45,39 +48,39 @@ for cell in data['cells']:
     y.append(cell['y'])
     z.append(cell['z'])
 
-for e in data['ing']:
+for c13 in data['pyramidal regular spiking']:
+    s=c13['source']
+    t=c13['target']
+    x13+=[x[num.index(s)], x[num.index(t)], None]
+    y13 += [y[num.index(s)], y[num.index(t)], None]
+    z13 += [z[num.index(s)], z[num.index(t)], None]
+
+for e in data['pyramidal fast rythmic bursting']:
     s=e['source']
     t=e['target']
-    xi+=[x[num.index(s)], x[num.index(t)], None]
-    yi += [y[num.index(s)], y[num.index(t)], None]
-    zi += [z[num.index(s)], z[num.index(t)], None]
+    x12+=[x[num.index(s)], x[num.index(t)], None]
+    y12 += [y[num.index(s)], y[num.index(t)], None]
+    z12 += [z[num.index(s)], z[num.index(t)], None]
 
-for e in data['exc']:
-    s=e['source']
-    t=e['target']
-    xe+=[x[num.index(s)], x[num.index(t)], None]
-    ye += [y[num.index(s)], y[num.index(t)], None]
-    ze += [z[num.index(s)], z[num.index(t)], None]
-
-trace1=go.Scatter3d(x=xi,
-               y=yi,
-               z=zi,
+trace13=go.Scatter3d(x=x13,
+               y=y13,
+               z=z13,
                mode='lines',
                line=dict(color='red', width=1,),
-               name='ing',
+               name='pyramidal regular spiking',
                showlegend=True,
                hoverinfo='none'
                )
 
-trace3=go.Scatter3d(x=xe,
-               y=ye,
-               z=ze,
+trace12=go.Scatter3d(x=x12,
+               y=y12,
+               z=z12,
                mode='lines',
-               line=dict(color='blue', width=1,),
-               name= 'exc',
+               line=dict(color='red', width=1,),
+               name= 'pyramidal fast rythmic bursting',
                hoverinfo='none'
                )
-trace2=go.Scatter3d(x=x,
+trace=go.Scatter3d(x=x,
                y=y,
                z=z,
                mode='markers',
@@ -88,13 +91,13 @@ trace2=go.Scatter3d(x=x,
                              colorscale='Viridis',
                              line=dict(color='rgb(50,50,50)', width=0.5)
                              ),
-               text=num,
+               text=name,
                hoverinfo='text'
                )
 
 
 
-data=[trace1, trace2, trace3]
+data=[trace, trace12, trace13]
 print(1)
 fig=go.Figure(data=data)
 print(2)

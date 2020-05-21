@@ -30,7 +30,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/704W')
+outdir = os.path.abspath('tests/705W')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -318,12 +318,11 @@ num += NnontuftRS6
 #2710
 cell=[rec_neurons12, rec_neurons13, rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10]
 
-data['exc']=[]
-data['ing']=[]
+data['pyramidal regular spiking']=[] #13
 for i in rec_neurons13:
     n=rec_neurons13[random.randint(0, NsyppyrRS - 1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source' : i.number,
         'target' : n.number,
         'id' : 1
@@ -331,7 +330,7 @@ for i in rec_neurons13:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -339,14 +338,14 @@ for i in rec_neurons13:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -354,7 +353,7 @@ for i in rec_neurons13:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -362,7 +361,7 @@ for i in rec_neurons13:
 
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -370,7 +369,7 @@ for i in rec_neurons13:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -378,7 +377,7 @@ for i in rec_neurons13:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -386,7 +385,7 @@ for i in rec_neurons13:
 
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -394,7 +393,7 @@ for i in rec_neurons13:
 
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -402,7 +401,7 @@ for i in rec_neurons13:
 
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -410,11 +409,11 @@ for i in rec_neurons13:
 
     count_syn+=11
     #count_cells+=1
-
+data['pyramidal fast rythmic bursting']=[]
 for i in rec_neurons12:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -422,7 +421,7 @@ for i in rec_neurons12:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -430,7 +429,7 @@ for i in rec_neurons12:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -438,7 +437,7 @@ for i in rec_neurons12:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -446,7 +445,7 @@ for i in rec_neurons12:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -454,7 +453,7 @@ for i in rec_neurons12:
 
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -462,7 +461,7 @@ for i in rec_neurons12:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -470,7 +469,7 @@ for i in rec_neurons12:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -478,21 +477,21 @@ for i in rec_neurons12:
 
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal fast rythmic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -500,8 +499,8 @@ for i in rec_neurons12:
 
     count_syn+=11
     #count_cells+=1
-
-
+data['ing']=[]
+data['exc']=[]
 for i in rec_neurons4:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
@@ -1361,7 +1360,7 @@ def plot_rec_neurons():
                 ax.set_zticks([int(Lz * i / 4.0) for i in range(-2, 3)])
 
                 cmap = pyplot.get_cmap('jet')
-                for i in range(Nrec):
+                for i in range(num):
                     x = pos[i]
                     soma_z = [x[2] - somaR, x[2] + somaR]
                     cell_x = [x[0], x[0]]
