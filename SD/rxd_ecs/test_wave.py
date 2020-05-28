@@ -30,7 +30,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/705W')
+outdir = os.path.abspath('tests/707W')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -499,12 +499,12 @@ for i in rec_neurons12:
 
     count_syn+=11
     #count_cells+=1
-data['ing']=[]
-data['exc']=[]
+data['spiny stellate']=[]
+
 for i in rec_neurons4:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -512,7 +512,7 @@ for i in rec_neurons4:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -520,7 +520,7 @@ for i in rec_neurons4:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -528,7 +528,7 @@ for i in rec_neurons4:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -536,7 +536,7 @@ for i in rec_neurons4:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -544,7 +544,7 @@ for i in rec_neurons4:
 
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -552,7 +552,7 @@ for i in rec_neurons4:
 
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -560,32 +560,32 @@ for i in rec_neurons4:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['spiny stellate'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     count_syn+=9
     #count_cells+=1
-
+data['superficial interneurons axoaxonic']=[]
 for i in rec_neurons2:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -593,7 +593,7 @@ for i in rec_neurons2:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -601,7 +601,7 @@ for i in rec_neurons2:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -609,7 +609,7 @@ for i in rec_neurons2:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -617,17 +617,18 @@ for i in rec_neurons2:
 
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     count_syn+=6
 
+data['superficial interneurons low threshold spiking']=[]
 for i in rec_neurons3:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -635,7 +636,7 @@ for i in rec_neurons3:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -643,7 +644,7 @@ for i in rec_neurons3:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -651,7 +652,7 @@ for i in rec_neurons3:
 
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -659,7 +660,7 @@ for i in rec_neurons3:
 
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -667,7 +668,7 @@ for i in rec_neurons3:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -675,18 +676,18 @@ for i in rec_neurons3:
 
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
 
     count_syn+=7
-
+data['superficial interneurons basket']=[]
 for i in rec_neurons1:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -694,7 +695,7 @@ for i in rec_neurons1:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -702,7 +703,7 @@ for i in rec_neurons1:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -710,7 +711,7 @@ for i in rec_neurons1:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -718,21 +719,21 @@ for i in rec_neurons1:
 
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -740,7 +741,7 @@ for i in rec_neurons1:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -748,7 +749,7 @@ for i in rec_neurons1:
 
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -756,7 +757,7 @@ for i in rec_neurons1:
 
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -764,7 +765,7 @@ for i in rec_neurons1:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -772,158 +773,158 @@ for i in rec_neurons1:
 
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['superficial interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     count_syn+=12
 
-
+data['pyramidal tufted intrinsic bursting']=[]
 for i in rec_neurons5:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted intrinsic bursting'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
     })
     count_syn+=12
     #count_cells+=1
-
+data['deep interneurons basket']=[]
 for i in rec_neurons7:
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n, -1)
-    data['ing'].append({
+    data['deep interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons basket'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     count_syn+=7
-
+data['pyramidal tufted regular spiking']=[]
 for i in rec_neurons6:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -931,7 +932,7 @@ for i in rec_neurons6:
 
     n =rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -939,7 +940,7 @@ for i in rec_neurons6:
 
     n =rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -947,7 +948,7 @@ for i in rec_neurons6:
 
     n =rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -955,7 +956,7 @@ for i in rec_neurons6:
 
     n =rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -963,7 +964,7 @@ for i in rec_neurons6:
 
     n =rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -971,7 +972,7 @@ for i in rec_neurons6:
 
     n =rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -979,7 +980,7 @@ for i in rec_neurons6:
 
     n = rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -987,7 +988,7 @@ for i in rec_neurons6:
 
     n =rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -995,7 +996,7 @@ for i in rec_neurons6:
 
     n =rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1003,7 +1004,7 @@ for i in rec_neurons6:
 
     n =rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1011,7 +1012,7 @@ for i in rec_neurons6:
 
     n =rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal tufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1019,11 +1020,11 @@ for i in rec_neurons6:
     count_syn+=12
     #count_cells+=1
 
-
+data['pyramidal nontufted regular spiking']=[]
 for i in rec_neurons10:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1031,7 +1032,7 @@ for i in rec_neurons10:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1039,7 +1040,7 @@ for i in rec_neurons10:
 
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1047,7 +1048,7 @@ for i in rec_neurons10:
 
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1055,7 +1056,7 @@ for i in rec_neurons10:
 
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1063,7 +1064,7 @@ for i in rec_neurons10:
 
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1071,7 +1072,7 @@ for i in rec_neurons10:
 
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1079,7 +1080,7 @@ for i in rec_neurons10:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1087,7 +1088,7 @@ for i in rec_neurons10:
 
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1095,7 +1096,7 @@ for i in rec_neurons10:
 
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1103,7 +1104,7 @@ for i in rec_neurons10:
 
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,1)
-    data['exc'].append({
+    data['pyramidal nontufted regular spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': 1
@@ -1111,11 +1112,11 @@ for i in rec_neurons10:
 
     count_syn+=11
     #count_cells+=1
-
+data['deep interneurons axoaxonic']=[]
 for i in rec_neurons8:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -1123,7 +1124,7 @@ for i in rec_neurons8:
 
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -1131,7 +1132,7 @@ for i in rec_neurons8:
 
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -1139,7 +1140,7 @@ for i in rec_neurons8:
 
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
@@ -1147,94 +1148,94 @@ for i in rec_neurons8:
 
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons axoaxonic'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     count_syn+=5
-
+data['deep interneurons low threshold spiking']=[]
 for i in rec_neurons9:
     n=rec_neurons13[random.randint(0,NsyppyrRS-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons12[random.randint(0,NsyppyrFRB-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons2[random.randint(0,Nbask23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons3[random.randint(0,Naxax23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons1[random.randint(0,NLTS23-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons4[random.randint(0,Nspinstel4-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons5[random.randint(0,NtuftIB5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons6[random.randint(0,NtuftRS5-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons10[random.randint(0,NnontuftRS6-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons8[random.randint(0,Naxax56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons9[random.randint(0,NLTS56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1
     })
     n=rec_neurons7[random.randint(0,Nbask56-1)]
     i.connect(n,-1)
-    data['ing'].append({
+    data['deep interneurons low threshold spiking'].append({
         'source': i.number,
         'target': n.number,
         'id': -1

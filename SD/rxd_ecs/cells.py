@@ -12,7 +12,7 @@ class Cell:
         self.x = x
         self.y = y
         self.z = z
-        self.name = 'superficial interneurons basket'
+
         self.soma = h.Section(name='soma', cell=self)
         self.soma.pt3dclear()
         self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
@@ -60,6 +60,22 @@ class Cell:
         self.synI.tau = 1
         self.synI.e = -50
         self.synlistex.append(self.synI)
+
+    def connect(self, target, type):
+        if(type==1):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
+        elif(type==-1):
+            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
+            self.nc.weight[0] = 10
+            self.nc.delay = 5
+            target._ncs.append(self.nc)
+            target.count+=1
+            target.cells[self.number]=self.id
 
 
         
@@ -179,13 +195,7 @@ class Bask23(Cell):
         #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
         #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli) 
 
-    def connect(self, target):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
+    
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -282,13 +292,7 @@ class Axax23(Cell): #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def connect(self, target):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
+    
 
 
 class LTS23(Cell):  #
@@ -374,13 +378,6 @@ class LTS23(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def connect(self, target):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
 
 class Spinstel4(Cell):  #
     def __init__(self, x, y, z, num):
@@ -467,13 +464,8 @@ class Spinstel4(Cell):  #
         #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli) 
 
 
-    def connect(self, target):
-        self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
-        self.nc.weight[0] = 10
-        self.nc.delay = 5
-        target._ncs.append(self.nc)
-        target.count+=1
-        target.cells[self.number]=self.id
+
+        
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -573,13 +565,7 @@ class TuftIB5(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def connect(self, target):
-        self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
-        self.nc.weight[0] = 10
-        self.nc.delay = 5
-        target._ncs.append(self.nc)
-        target.count+=1
-        target.cells[self.number]=self.id
+    
 
 class TuftRS5(Cell):  #
     def __init__(self, x, y, z, num):
@@ -669,13 +655,7 @@ class TuftRS5(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def connect(self, target):
-        self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
-        self.nc.weight[0] = 10
-        self.nc.delay = 5
-        target._ncs.append(self.nc)
-        target.count+=1
-        target.cells[self.number]=self.id
+    
 
 
 class Bask56(Cell):  #
@@ -765,13 +745,7 @@ class Bask56(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def connect(self, target):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
+    
 
 
 class Axax56(Cell):  #
@@ -864,13 +838,7 @@ class Axax56(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def connect(self, target):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
+    
 
 
 class LTS56(Cell):  #
@@ -960,15 +928,7 @@ class LTS56(Cell):  #
         #self.stim.delay = 50
         #self.stim.dur = 1
         #self.stim.amp = 1
-        #print(self.id)
-    def connect(self, target):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
-
+   
 
 class NontuftRS6(Cell):  #
     def __init__(self, x, y, z, num):
@@ -1056,13 +1016,7 @@ class NontuftRS6(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
        # print(self.id)
-    def connect(self, target):
-        self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
-        self.nc.weight[0] = 10
-        self.nc.delay = 5
-        target._ncs.append(self.nc)
-        target.count+=1
-        target.cells[self.number]=self.id
+  
 '''
 
 class Bask4(Cell):  #
@@ -1246,13 +1200,7 @@ class SyppyrFRB(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def connect(self, target):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
+
 
 
 class SyppyrRS(Cell):  #
@@ -1260,7 +1208,7 @@ class SyppyrRS(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 13
         #self.Excitatory = 1
-        self.name ='pyramidal fast rythmic bursting'
+        self.name ='pyramidal regular spiking'
         #self.soma.nseg = 1+2*int(somaR*2/40)
         
         # ---------------soma----------------
@@ -1351,10 +1299,4 @@ class SyppyrRS(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    def connect(self, target):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
+    
