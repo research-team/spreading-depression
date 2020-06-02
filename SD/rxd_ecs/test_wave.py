@@ -24,13 +24,15 @@ pcid = pc.id()
 nhost = pc.nhost()
 root = 0
 
+
+#time =300
 rxd.options.enable.extracellular = True
 
 h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/707W')
+outdir = os.path.abspath('tests/713W')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -1335,6 +1337,12 @@ def plot_3D_data(data):
 )
     fig.write_html(os.path.join(outdir, 'data3D.html'))
 
+def plot_volt(data):
+    fig = px.scatter(data, x='x', y='y', z='z', animation_frame="v", animation_group="v",
+                      color="v")
+
+    fig["layout"].pop("updatemenus")
+    fig.write_html(os.path.join(outdir, 'volt.html'))
 
 def plot_rec_neurons():
     somaV, dendV, pos, data = [], [], [], []
@@ -1509,9 +1517,21 @@ def plot_spike_html(cell, time, i):
 h.dt = 1
 
 def run(tstop):
-
+    volt = []
     
     while pc.t(0) <= tstop:
+        if int(pc.t(0)) % 10 == 0 and int(pc.t(0))>0 :
+            for j in cell:
+                for n in j:
+                    volt.append({"t" : int(pc.t(0)),
+                                 "x" : n.x,
+                                 "y" : n.y,
+                                 "z" : n.z,
+                                 "v" : n.somaV[-1],
+                                 "id": n.id,
+                                 "num": n.number})
+
+
         if int(pc.t(0)) % 100 == 0:
             if pcid == 0:
                 plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
@@ -1524,11 +1544,11 @@ def run(tstop):
         pc.psolve(pc.t(0) + h.dt)
         
     if pcid == 0:
-        progress_bar(tstop)
+        #progress_bar(tstop)
        # for i in [0, 108] :
             #plot_spike(rec_neurons[i], time , i)
         print("\nSimulation complete. Plotting membrane potentials")
-        plot_K_ecs_in_point_000(kecs ,time)
+        #plot_K_ecs_in_point_000(kecs ,range(0,tstop))
 
     # save membrane potentials
     soma, dend, pos, data = [], [], [], []
@@ -1545,7 +1565,8 @@ def run(tstop):
             z_pos.append(n.z)
             id_color.append(n.id)
             listname.append(n.name)
-            plot_spike_html(n, time, n.number)
+            #plot_spike_html(n, time, n.number)
+
 
     #pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
     #pickle.dump([soma, dend, pos, data], pout)
@@ -1554,9 +1575,12 @@ def run(tstop):
     pc.barrier()
     if pcid == 0:
 
-        plot_3D_data(d3_data)
+        #plot_3D_data(d3_data)
+        voltToCSV = pd.DataFrame(volt)
+        voltToCSV.to_csv(os.path.join(outdir, 'volt.csv'))
+        #plot_volt(volt)
         #plot_rec_neurons()
     exit(0)
 
 
-run(100)
+run(200)
