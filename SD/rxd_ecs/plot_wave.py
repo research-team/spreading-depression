@@ -39,9 +39,11 @@ for step in Time:
     y=df.loc[filter_t]['y']
     z=df.loc[filter_t]['z']
     v=df.loc[filter_t]['v']
+    id = df.loc[filter_t]['id']
     fig.add_trace(
         go.Scatter3d(
             x=x, y=y, z=z, mode='markers',
+            text=id,
             marker=dict(symbol='circle',
                              size=6,
                              color=v,
@@ -60,7 +62,7 @@ for i in range(len(fig.data)):
     step = dict(
         method="update",
         args=[{"visible": [False] * len(fig.data)},
-              {"title": "Time: " + str(i*10)}],  # layout attribute
+              {"title": "Time: " + str(i*10+10)}],  # layout attribute
     )
     step["args"][0]["visible"][i] = True  # Toggle i'th trace to "visible"
     steps.append(step)
@@ -75,7 +77,7 @@ sliders = [dict(
 fig.update_layout(
     sliders=sliders
 )
-fig.write_html('wave.html')
+fig.write_html('wave_test.html')
 fig.show()
 
 

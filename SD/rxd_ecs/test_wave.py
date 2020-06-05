@@ -32,7 +32,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/713W')
+outdir = os.path.abspath('tests/721_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -319,6 +319,37 @@ num += NnontuftRS6
 
 #2710
 cell=[rec_neurons12, rec_neurons13, rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10]
+#------for test----------
+#i4 = random.randint(0, Nspinstel4)
+#i5=random.randint(0, NtuftIB5)
+#i6 = random.randint(0, NtuftRS5)
+
+
+
+'''
+stim4 = h.IClamp(rec_neurons4[random.randint(0, Nspinstel4)].soma(0.5))
+stim4.delay = 10
+stim4.dur = 1
+stim4.amp = 1
+
+stim = h.NetStim(rec_neurons4[random.randint(0, Nspinstel4)].soma(0.5))
+stim.number = 5
+stim.start = 10
+'''
+
+
+'''
+stim5 = h.IClamp(rec_neurons5[random.randint(0, NtuftIB5)].soma(0.5))
+stim5.delay = 10
+stim5.dur = 1
+stim5.amp = 1
+
+stim6 = h.IClamp(rec_neurons6[random.randint(0, NtuftRS5)].soma(0.5))
+stim6.delay = 10
+stim6.dur = 1
+stim6.amp = 1
+'''
+
 
 data['pyramidal regular spiking']=[] #13
 for i in rec_neurons13:
@@ -1267,26 +1298,33 @@ tort = tort1
 
 
 time = h.Vector().record(h._ref_t)
+'''
 ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
                         -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 20),  # dx - скорость распространнения в разные стороны - различны по осям
                         volume_fraction=alpha, tortuosity=tort)
 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 40
-if nd.x3d ** 2 + nd.y3d ** 2 + nd.z3d ** 2 < r0 ** 2 else 3.5,
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial= 3.5,
                 ecs_boundary_conditions=3.5)
 
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
                  ecs_boundary_conditions=142)
 
+'''
 
+stim = h.NetStim()
+stim.number = 5
+stim.start = 10
+ncstim = h.NetCon(stim, rec_neurons4[random.randint(0, Nspinstel4)].synlistex[0])
+ncstim.delay = 1
+ncstim.weight[0] = 0.5
 
-kecs = h.Vector()
-kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
+#kecs = h.Vector()
+#kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
 pc.set_maxstep(100)
 
 # initialize and set the intracellular concentrations
-h.finitialize(-70)
+h.finitialize()
 print('initialize')
 
 
@@ -1520,24 +1558,24 @@ def run(tstop):
     volt = []
     
     while pc.t(0) <= tstop:
-        if int(pc.t(0)) % 10 == 0 and int(pc.t(0))>0 :
-            for j in cell:
-                for n in j:
-                    volt.append({"t" : int(pc.t(0)),
-                                 "x" : n.x,
-                                 "y" : n.y,
-                                 "z" : n.z,
-                                 "v" : n.somaV[-1],
-                                 "id": n.id,
-                                 "num": n.number})
+
+        for j in cell:
+            for n in j:
+                volt.append({"t" : int(pc.t(0)),
+                                "x" : n.x,
+                                "y" : n.y,
+                                "z" : n.z,
+                                "v" : n.somaV[-1],
+                                "id": n.id,
+                                "num": n.number})
 
 
-        if int(pc.t(0)) % 100 == 0:
-            if pcid == 0:
-                plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
-                                'k_mean_%05d' % int(pc.t(0) / 100),
-                                'Potassium concentration; t = %6.0fms'
-                                % pc.t(0))
+        #if int(pc.t(0)) % 100 == 0:
+         #   if pcid == 0:
+                #plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
+                             #   'k_mean_%05d' % int(pc.t(0) / 100),
+                             #   'Potassium concentration; t = %6.0fms'
+                             #   % pc.t(0))
 
             
         if pcid == 0: progress_bar(tstop)

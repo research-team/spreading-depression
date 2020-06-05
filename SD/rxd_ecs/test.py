@@ -1,3 +1,6 @@
+import random
+import pandas as pd
+import plotly.express as px
 from mpi4py import MPI
 from neuron import h, crxd as rxd
 from neuron.crxd import rxdmath
@@ -10,29 +13,33 @@ import os
 import sys
 import pickle
 import numpy as np
-from neuron.units import ms, mV
-from matplotlib import pyplot, animation
-from IPython.display import HTML
-from cells import *
 import plotly.graph_objects as go
+import pandas as pd
+from cells import *
+import json
+
+
+
 h.nrnmpi_init()
 pc = h.ParallelContext()
 pcid = pc.id()
 nhost = pc.nhost()
-#rxd.nthread()
+root = 0
 
 
+#time =300
 rxd.options.enable.extracellular = True
 
 h.load_file('stdrun.hoc')
 h.celsius = 37
-numpy.random.seed(6324555+pcid)
+
+numpy.random.seed(6324555 + pcid)
 
 
 
 
 
-outdir = os.path.abspath('tests/505')
+outdir = os.path.abspath('tests/722_c4')
 
 
 
@@ -61,7 +68,7 @@ alpha = 0.2
 tort = 1.6  
 r0 = 100
 x, y, z =0, 0, 30
-Lx, Ly, Lz = 500, 500, 500 
+Lx, Ly, Lz = 1000, 1000, 1000 
 Kceil = 15.0 
 
 
@@ -73,34 +80,45 @@ sys.stdout.flush()
 
 
 
-for sec in h.allsec():
-    sec.nai = 4.297
 
 #Create cell
 
+print(1)
 
-
-cells = [Bask23(0,0,0)]
+cells = [Spinstel4(0,0,0,1), Spinstel4(10,24,24,2)]
 time = h.Vector().record(h._ref_t)
+print(2)
+cells[0].connect(cells[1],1)
+stim = h.NetStim()
+stim.number = 1
+stim.start = 50
+ncstim = h.NetCon(stim, cells[0].synlistex[0])
+ncstim.delay = 1
+ncstim.weight[0] = 0.5
 
+
+print(3)
+'''
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
                         -Lz/2.0, Lx/2.0, Ly/2.0, Lz/2.0, dx=20,
                         volume_fraction=alpha, tortuosity=tort) 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=lambda nd: 10 
-                if nd.x3d**2 + nd.y3d**2 + nd.z3d**2 < r0**2 else 3,
-                ecs_boundary_conditions=3)
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=3.5,
+                ecs_boundary_conditions=3.5)
 
-na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
-                 ecs_boundary_conditions=142)
+na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=145,
+                 ecs_boundary_conditions=145)
 
+ca = rxd.Species(ecs, name='ca', d=0.08, charge=2, initial=25,
+                 ecs_boundary_conditions=25)
+'''
 pc.set_maxstep(100)
-h.finitialize(-70)
+h.finitialize()
 
 
 sys.stdout.write('\ninit')
 sys.stdout.flush()
-
+print(4)
 def progress_bar(tstop, size=40):
     prog = h.t / float(tstop)
     fill = int(size * prog)
@@ -174,16 +192,17 @@ def run(tstop):
         pc.psolve(pc.t(0) + h.dt)
     if pcid == 0:
         for cell in cells:
+            print(cell.somaV)
             plot_spike(cell.somaV,
                         cell.dendV,
                         time,
                         cell.k_vec,
                         cell.na_vec,
                         cell.k_concentration,
-                        cell.na_concentration, cell.id, cell.axonV, cell.v_vec)
-            plot_spike_html(cell, time, cell.id)
-            plot_nmh("nmh_in_dend", cell.nmh_list_dend, time)
-            plot_nmh("nmh_in_axon", cell.nmh_list_axon, time)
+                        cell.na_concentration, cell.number, cell.axonV, cell.v_vec)
+            plot_spike_html(cell, time, cell.number)
+            #plot_nmh("nmh_in_dend", cell.nmh_list_dend, time)
+            #plot_nmh("nmh_in_axon", cell.nmh_list_axon, time)
         sys.stdout.write('Simulation complete. Plotting membrane potentials')
         sys.stdout.flush()
       
