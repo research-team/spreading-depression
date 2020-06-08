@@ -51,28 +51,28 @@ class Cell:
         self.cells={}
 
 
-        self.synE=h.AMPA(self.soma(0.8))
+        self.synE=h.AMPA(self.dend(0.2))
         self.synE.tau = 1
-        self.synE.e = 50
+        self.synE.e = 80
         self.synlistex.append(self.synE)
 
-        self.synI=h.GABAA(self.soma(0.8))
+        self.synI=h.GABAA(self.dend(0.8))
         self.synI.tau = 1
         self.synI.e = -50
         self.synlistex.append(self.synI)
 
     def connect(self, target, type):
         if(type==1):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synE, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
+            self.nc = h.NetCon(self.dend(0.5)._ref_v, target.synE, sec=self.dend)
+            self.nc.weight[0] = 0.5
+            self.nc.delay = 10
             target._ncs.append(self.nc)
             target.count+=1
             target.cells[self.number]=self.id
         elif(type==-1):
-            self.nc = h.NetCon(self.soma(0.5)._ref_v, target.synI, sec=self.soma)
-            self.nc.weight[0] = 10
-            self.nc.delay = 5
+            self.nc = h.NetCon(self.dend(0.5)._ref_v, target.synI, sec=self.dend)
+            self.nc.weight[0] = 0.3
+            self.nc.delay = 10
             target._ncs.append(self.nc)
             target.count+=1
             target.cells[self.number]=self.id
@@ -391,10 +391,10 @@ class Spinstel4(Cell):  #
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf2.gbar = 0.15
+        self.soma(0.5).naf2.gbar = 0.55
         self.soma(0.5).napf_spinstell.gbar = 0.00015
         self.soma(0.5).kdr_fs.gbar = 0.1
-        self.soma(0.5).kc_fast.gbar = 0.01
+        self.soma(0.5).kc_fast.gbar = 0.001
         self.soma(0.5).ka.gbar = 0.03
         self.soma(0.5).km.gbar = 0.00375
         self.soma(0.5).k2.gbar = 0.0001
@@ -404,10 +404,20 @@ class Spinstel4(Cell):  #
         self.soma(0.5).ar.gbar = 0.00025
         self.soma(0.5).cad.beta  = 0.02
         self.soma(0.5).cad.phi =  260000.
-        self.soma(0.5).pas.g = 2.E-05
+        self.soma(0.5).pas.g = 0.02
         self.soma(0.5).pas.e = -65
         self.soma.Ra =   250.
 
+        self.v1=h.Vector().record(self.soma(0.5)._ref_ina_naf2)
+        self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_napf_spinstell)
+        self.v3 = h.Vector().record(self.soma(0.5)._ref_ik_kdr_fs)
+        self.v4 = h.Vector().record(self.soma(0.5)._ref_ik_ka)
+        self.v5 = h.Vector().record(self.soma(0.5)._ref_ik_kc_fast)
+        #self.v6 = h.Vector().record(self.soma(0.5)._ref_ik_km)
+        self.v7 = h.Vector().record(self.soma(0.5)._ref_ik_k2)
+        self.v8 = h.Vector().record(self.soma(0.5)._ref_ik_kahp_slower)
+        self.v9 = h.Vector().record(self.soma(0.5)._ref_ica_cal)
+       # self.v10 = h.Vector().record(self.soma(0.5)._ref_ica_cad)
 
 
         # ---------------dend----------------
@@ -415,9 +425,9 @@ class Spinstel4(Cell):  #
             self.dend.insert(mechanism_d)
             #print(mechanism_d)
 
-        self.dend(0.5).naf2.gbar =   0.075
+        self.dend(0.5).naf2.gbar =   0.75
         self.dend(0.5).napf_spinstell.gbar = 7.5E-05
-        self.dend(0.5).kdr_fs.gbar =   0.075
+        self.dend(0.5).kdr_fs.gbar =   0.0075
         self.dend(0.5).kc_fast.gbar =   0.01
         self.dend(0.5).ka.gbar =   0.03
         self.dend(0.5).km.gbar =   0.00375
@@ -428,17 +438,28 @@ class Spinstel4(Cell):  #
         self.dend(0.5).ar.gbar =   0.00025
         self.dend(0.5).cad.beta  =   0.05
         self.dend(0.5).cad.phi =   260000.
-        self.dend(0.5).pas.g = 2.E-05
+        self.dend(0.5).pas.g = 0.02
         self.dend(0.5).pas.e = -65
         self.dend.Ra =   250.
+
+        self.vd1 = h.Vector().record(self.dend(0.5)._ref_ina_naf2)
+        self.vd2 = h.Vector().record(self.dend(0.5)._ref_ina_napf_spinstell)
+        self.vd3 = h.Vector().record(self.dend(0.5)._ref_ik_kdr_fs)
+        self.vd4 = h.Vector().record(self.dend(0.5)._ref_ik_ka)
+        self.vd5 = h.Vector().record(self.dend(0.5)._ref_ik_kc_fast)
+        self.vd7 = h.Vector().record(self.dend(0.5)._ref_ik_k2)
+        self.vd8 = h.Vector().record(self.dend(0.5)._ref_ik_kahp_slower)
+        self.vd9 = h.Vector().record(self.dend(0.5)._ref_ica_cal)
+
+
 
         # ---------------axon----------------
         for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2', 'pas']:
             self.axon.insert(mechanism_a)
             #print(mechanism_a)
 
-        self.axon(0.5).naf2.gbar = 0.4
-        self.axon(0.5).kdr_fs.gbar = 0.4
+        self.axon(0.5).naf2.gbar = 0.1
+        self.axon(0.5).kdr_fs.gbar = 0.9
         self.axon(0.5).ka.gbar = 0.002
         self.axon(0.5).k2.gbar = 0.0001
         self.axon(0.5).pas.g = 0.001
@@ -448,20 +469,24 @@ class Spinstel4(Cell):  #
         for sec in self.all:        
             sec.cm = 0.9
             sec.ena = 50.
+            sec.ek = -90
 
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
+        '''
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
                               geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        '''
+
         #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
-        #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli) 
+        #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli)
 
 
 
@@ -488,7 +513,7 @@ class TuftIB5(Cell):  #
 
         self.soma(0.5).naf.gbar = 0.2
         self.soma(0.5).nap.gbar = 0.0008
-        self.soma(0.5).kdr.gbar = 0.17
+        self.soma(0.5).kdr.gbar = 0.0017
         self.soma(0.5).kc.gbar = 0.008
         self.soma(0.5).ka_ib.gbar = 0.02
         self.soma(0.5).km.gbar = 0.0085
@@ -500,12 +525,19 @@ class TuftIB5(Cell):  #
         self.soma(0.5).ar.erev =  -40.
         self.soma(0.5).cad.beta  = 0.01
         self.soma(0.5).cad.phi =  4333.33333
-        self.soma(0.5).pas.g = 2.E-05
+        self.soma(0.5).pas.g = 0.023
         self.soma(0.5).pas.e = -70
         self.soma.Ra =   250.
 
-
-
+        self.v1 = h.Vector().record(self.soma(0.5)._ref_ina_naf)
+        #self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_nap)
+        self.v3 = h.Vector().record(self.soma(0.5)._ref_ik_kdr)
+        self.v4 = h.Vector().record(self.soma(0.5)._ref_ik_ka_ib)
+        self.v5 = h.Vector().record(self.soma(0.5)._ref_ik_kc)
+        # self.v6 = h.Vector().record(self.soma(0.5)._ref_ik_km)
+        self.v7 = h.Vector().record(self.soma(0.5)._ref_ik_k2)
+        self.v8 = h.Vector().record(self.soma(0.5)._ref_ik_kahp_deeppyr)
+        #self.v9 = h.Vector().record(self.soma(0.5)._ref_ica_cal)
 
         # ---------------dend----------------
         for mechanism_d in ['naf', 'nap','pas', 'kdr', 'kc', 'ka_ib', 'km', 'k2', 'kahp_deeppyr', 'cal', 'cat', 'ar', 'cad']:
@@ -514,7 +546,7 @@ class TuftIB5(Cell):  #
 
         self.dend(0.5).naf.gbar =   0.075
         self.dend(0.5).nap.gbar = 0.0003
-        self.dend(0.5).kdr.gbar =   0.075
+        self.dend(0.5).kdr.gbar =   0.0075
         self.dend(0.5).kc.gbar =   0.008
         self.dend(0.5).ka_ib.gbar =   0.008
         self.dend(0.5).km.gbar =   0.00375
@@ -526,9 +558,19 @@ class TuftIB5(Cell):  #
         self.dend(0.5).ar.erev =  -40.
         self.dend(0.5).cad.beta  =   0.02
         self.dend(0.5).cad.phi =   86666.6667
-        self.dend(0.5).pas.g = 2.E-05
+        self.dend(0.5).pas.g = 0.023
         self.dend(0.5).pas.e = -70
         self.dend.Ra =   250.
+
+        self.vd1 = h.Vector().record(self.dend(0.5)._ref_ina_naf)
+        #self.vd2 = h.Vector().record(self.dend(0.5)._ref_ina_nap)
+        self.vd3 = h.Vector().record(self.dend(0.5)._ref_ik_kdr)
+        self.vd4 = h.Vector().record(self.dend(0.5)._ref_ik_ka_ib)
+        self.vd5 = h.Vector().record(self.dend(0.5)._ref_ik_kc)
+        self.vd7 = h.Vector().record(self.dend(0.5)._ref_ik_k2)
+        self.vd8 = h.Vector().record(self.dend(0.5)._ref_ik_kahp_deeppyr)
+        #self.vd9 = h.Vector().record(self.dend(0.5)._ref_ica_cal)
+
 
         # ---------------axon----------------
         for mechanism_a in ['naf', 'kdr', 'ka_ib', 'km', 'pas']:
@@ -546,18 +588,24 @@ class TuftIB5(Cell):  #
         for sec in self.all:        
             sec.cm = 0.9
             sec.ena = 50.
+            sec.ek = -90
 
         self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+
+
+'''
+    self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+                          geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+    self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+    self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+    self.k_i = self.k[self.cyt]
+    self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+'''
+
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
