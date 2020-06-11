@@ -39,7 +39,7 @@ numpy.random.seed(6324555 + pcid)
 
 
 
-outdir = os.path.abspath('tests/722_c4')
+outdir = os.path.abspath('tests/748_c4')
 
 
 
@@ -93,25 +93,38 @@ stim = h.NetStim()
 stim.number = 1
 stim.start = 50
 ncstim = h.NetCon(stim, cells[0].synlistex[0])
-ncstim.delay = 1
-ncstim.weight[0] = 0.5
-
-
-print(3)
+ncstim.delay = 10
+ncstim.weight[0] = 1
 '''
+stim1 = h.NetStim()
+stim1.number = 1
+stim1.start = 50
+ncstim1 = h.NetCon(stim, cells[0].synlistex[1])
+ncstim1.delay = 10
+ncstim1.weight[0] = 1
+
+stim2 = h.NetStim()
+stim2.number = 1
+stim2.start = 50
+ncstim = h.NetCon(stim, cells[0].synlistex[2])
+ncstim.delay = 10
+ncstim.weight[0] = 1
+'''
+print(3)
+
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
                         -Lz/2.0, Lx/2.0, Ly/2.0, Lz/2.0, dx=20,
                         volume_fraction=alpha, tortuosity=tort) 
 
-k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=3.5,
-                ecs_boundary_conditions=3.5)
+k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial=1,
+                ecs_boundary_conditions=1)
 
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=145,
                  ecs_boundary_conditions=145)
 
 ca = rxd.Species(ecs, name='ca', d=0.08, charge=2, initial=25,
                  ecs_boundary_conditions=25)
-'''
+
 pc.set_maxstep(100)
 h.finitialize()
 
@@ -129,12 +142,13 @@ def progress_bar(tstop, size=40):
 
 
 
-def plot_spike(volt_soma, volt_dend,t, k, na, k_in, na_in, name, axonV, v):
+def plot_spike(volt_soma, volt_dend,t, k, na, k_in, na_in, name, axonV, v, d1):
 
     fig = pyplot.figure(figsize=(20,16))
     ax1 = fig.add_subplot(4,1,1)
     soma_plot = ax1.plot(t , volt_soma , color='black', label='soma')
     dend_plot = ax1.plot(t, volt_dend, color='red', label='dend')
+    dend_plot1 = ax1.plot(t, d1, color='yellow', label='dend1')
     axon_plot = ax1.plot(t, axonV, color='blue', label='axon')
     v_plot = ax1.plot(t, v, color='green', label='v')
     ax1.legend()
@@ -163,6 +177,10 @@ def plot_spike_html(cell, time, i):
     fig = go.Figure()
     fig.add_trace(go.Scatter(y=cell.somaV, x=time, mode='lines', name='soma'))
     fig.add_trace(go.Scatter(y=cell.dendV, x=time, mode='lines', name='dendrite'))
+    fig.add_trace(go.Scatter(y=cell.dendV1, x=time, mode='lines', name='dendrite1'))
+    fig.add_trace(go.Scatter(y=cell.dendV2, x=time, mode='lines', name='dendrite2'))
+    fig.add_trace(go.Scatter(y=cell.dendV3, x=time, mode='lines', name='dendrite3'))
+    fig.add_trace(go.Scatter(y=cell.dendV4, x=time, mode='lines', name='dendrite4'))
     fig.add_trace(go.Scatter(y=cell.v_vec, x=time, mode='lines', name='v'))
     fig.add_trace(go.Scatter(y=cell.axonV, x=time, mode='lines', name='axon'))
     fig.update_layout(title='Voltage of Neuron %i' % i,
@@ -179,11 +197,26 @@ def plot_nmh(name, list, time):
                    yaxis_title='')
     fig.write_html(os.path.join(k_na_dir, '%s.html' % name))
 
+def plot_is(data, name, id):
+    fig = go.Figure()
+    for i in range(len(name)):
+        fig.add_trace(go.Scatter(y=data[i], x=time, mode='lines', name=name[i]))
+    fig.update_layout(title='i',
+                      xaxis_title='ms',
+                      yaxis_title='')
+    fig.write_html(os.path.join(k_na_dir, '%s_soma.html' % id))
+
+def plot_id(data, name, id):
+    fig = go.Figure()
+    for i in range(len(name)):
+        fig.add_trace(go.Scatter(y=data[i], x=time, mode='lines', name=name[i]))
+    fig.update_layout(title='i',
+                      xaxis_title='ms',
+                      yaxis_title='')
+    fig.write_html(os.path.join(k_na_dir, '%s_dend.html' % id))
 
 
-
-
-h.dt=1
+h.dt=0.1
 
 def run(tstop):
         
@@ -192,20 +225,46 @@ def run(tstop):
         pc.psolve(pc.t(0) + h.dt)
     if pcid == 0:
         for cell in cells:
-            print(cell.somaV)
+
+            d=[]
+            d.append(cell.v1)
+            d.append(cell.v2)
+            d.append(cell.v3)
+            d.append(cell.v4)
+            d.append(cell.v5)
+            #d.append(cell.v6)
+            d.append(cell.v7)
+            d.append(cell.v8)
+            d.append(cell.v9)
+            #d.append(cell.v10)
+            d2 =[]
+            d2.append(cell.vd1)
+            d2.append(cell.vd2)
+            d2.append(cell.vd3)
+            d2.append(cell.vd4)
+            d2.append(cell.vd5)
+            #2 d.append(celld.v6)
+            d2.append(cell.vd7)
+            d2.append(cell.vd8)
+            d2.append(cell.vd9)
+            plot_is(d,["ina_naf2", 'ina_napf_spinstell', 'ik_kdr_fs', 'ik_ka', 'ik_kc_fast',  'ik_k2', 'ik_kahp_slower', 'ica_cal'], cell.number)
+            plot_id(d2, ["ina_naf2", 'ina_napf_spinstell', 'ik_kdr_fs', 'ik_ka', 'ik_kc_fast', 'ik_k2', 'ik_kahp_slower',
+                       'ica_cal'], cell.number)
             plot_spike(cell.somaV,
                         cell.dendV,
                         time,
                         cell.k_vec,
                         cell.na_vec,
                         cell.k_concentration,
-                        cell.na_concentration, cell.number, cell.axonV, cell.v_vec)
+                        cell.na_concentration, cell.number, cell.axonV, cell.v_vec, cell.dendV1)
             plot_spike_html(cell, time, cell.number)
             #plot_nmh("nmh_in_dend", cell.nmh_list_dend, time)
             #plot_nmh("nmh_in_axon", cell.nmh_list_axon, time)
         sys.stdout.write('Simulation complete. Plotting membrane potentials')
         sys.stdout.flush()
-      
+
+
+
     pc.barrier()
     exit(0)
 
