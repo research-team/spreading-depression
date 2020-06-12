@@ -17,7 +17,7 @@ import plotly.graph_objects as go
 import pandas as pd
 from cells import *
 import json
-
+import  random
 
 
 h.nrnmpi_init()
@@ -39,7 +39,7 @@ numpy.random.seed(6324555 + pcid)
 
 
 
-outdir = os.path.abspath('tests/748_c4')
+outdir = os.path.abspath('tests/765_c4')
 
 
 
@@ -89,12 +89,19 @@ cells = [Spinstel4(0,0,0,1), Spinstel4(10,24,24,2)]
 time = h.Vector().record(h._ref_t)
 print(2)
 cells[0].connect(cells[1],1)
-stim = h.NetStim()
-stim.number = 1
-stim.start = 50
-ncstim = h.NetCon(stim, cells[0].synlistex[0])
-ncstim.delay = 10
-ncstim.weight[0] = 1
+stims = []
+for syn in cells[0].synlistex:
+    stim = h.NetStim()
+    stim.number = 10
+    stim.start = random.randint(50,60)
+    ncstim = h.NetCon(stim, syn)
+    ncstim.delay = 1
+    ncstim.weight[0] = 1
+    stims.append(stim)
+    stims.append(ncstim)
+
+
+    #cells[0]._ncs.append(ncstim)
 '''
 stim1 = h.NetStim()
 stim1.number = 1

@@ -3,7 +3,7 @@ import  random
 from neuron.units import ms, mV
 somaR = 11.0  # soma radius
 dendR = 1.4  # dendrite radius
-dendL = 1000.0  # dendrite length
+dendL = 300.0  # dendrite length
 axonR = 2
 axonL = 150
 doff = dendL + somaR
@@ -23,8 +23,8 @@ class Cell:
         self.dend.pt3dclear()
         self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 10
-        self.dend.connect(self.soma(0))
+        self.dend.nseg = 3
+        self.dend.connect(self.soma)
 
         self.axon = h.Section(name='axon', cell=self)
         self.axon.pt3dclear()
@@ -61,37 +61,48 @@ class Cell:
         self.dend1.pt3dclear()
         self.dend1.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend1.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend1.nseg = 10
+        self.dend1.nseg = 3
         self.dend1.connect(self.soma(0))
 
         self.dend2 = h.Section(name='dend2', cell=self)
         self.dend2.pt3dclear()
         self.dend2.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend2.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend2.nseg = 10
+        self.dend2.nseg = 3
         self.dend2.connect(self.soma(0))
 
         self.dend3 = h.Section(name='dend3', cell=self)
         self.dend3.pt3dclear()
         self.dend3.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend3.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend3.nseg = 10
+        self.dend3.nseg = 3
         self.dend3.connect(self.soma(0))
 
         self.dend4 = h.Section(name='dend4', cell=self)
         self.dend4.pt3dclear()
         self.dend4.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend4.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend4.nseg = 10
+        self.dend4.nseg = 3
         self.dend4.connect(self.soma(0))
 
 
         self.dends=[self.dend, self.dend1,self.dend2, self.dend3, self.dend4]
-        for i in self.dends:
-            self.synE = h.AMPA(i(0))
-            self.synE.tau = 1
-            self.synE.e = 30
-            self.synlistex.append(self.synE)
+        '''
+                for d in self.dends:
+            synE = h.AMPA(d(0.5))
+            synE.tau = 1
+            synE.e = 30
+            self.synlistex.append(synE)
+        '''
+
+
+
+        for i in range(0,10):
+            synE = h.AMPA(self.dend(0.3))
+            synE.tau = 1
+            synE.e = 30
+            self.synlistex.append(synE)
+
 
         self.synI=h.GABAA(self.dend(0.8))
         self.synI.tau = 1
@@ -100,11 +111,11 @@ class Cell:
 
     def connect(self, target, type):
         if(type==1):
-            for i in self.dends:
-                self.nc = h.NetCon(i(0.5)._ref_v, target.synlistex[random.randint(0,4)], sec=i)
-                self.nc.weight[0] = random.randint(1,10) 
-                self.nc.delay = random.randint(10,30)
-                target._ncs.append(self.nc)
+            for sec in self.dends:
+                nc = h.NetCon(sec(0.5)._ref_v, target.synlistex[random.randint(0,len(self.synlistex)-1)], sec=sec)
+                nc.weight[0] = 1
+                nc.delay = 20
+                target._ncs.append(nc)
                 target.count+=1
                 target.cells[self.number]=self.id
         elif(type==-1):
