@@ -3,11 +3,11 @@ import numpy as np
 import logging
 from matplotlib import pyplot as plt
 
-
 logging.basicConfig(format='[%(funcName)s]: %(message)s', level=logging.INFO)
 logger = logging.getLogger()
 
-filename = '../19n28000.abf'
+#filename = '../19n28000.abf'
+filename = '../2011 may 04 rat P33 BCX rust/2011_05_04_0002.abf'
 r = neo.io.AxonIO(filename)
 block = r.read_block()
 logger.info(block)
