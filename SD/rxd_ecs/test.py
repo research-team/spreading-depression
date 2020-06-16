@@ -18,6 +18,7 @@ import pandas as pd
 from cells import *
 import json
 import  random
+import gc
 
 
 h.nrnmpi_init()
@@ -39,7 +40,7 @@ numpy.random.seed(6324555 + pcid)
 
 
 
-outdir = os.path.abspath('tests/765_c4')
+outdir = os.path.abspath('tests/780_c1')
 
 
 
@@ -85,15 +86,17 @@ sys.stdout.flush()
 
 print(1)
 
-cells = [Spinstel4(0,0,0,1), Spinstel4(10,24,24,2)]
+cells = [Bask23(0,0,0,1), Bask23(10,24,24,2)]
 time = h.Vector().record(h._ref_t)
 print(2)
 cells[0].connect(cells[1],1)
 stims = []
+print(len(cells[0].synlistex))
 for syn in cells[0].synlistex:
     stim = h.NetStim()
-    stim.number = 10
-    stim.start = random.randint(50,60)
+    stim.number = 1
+    stim.start = random.randint(10,100)
+    print(stim.start)
     ncstim = h.NetCon(stim, syn)
     ncstim.delay = 1
     ncstim.weight[0] = 1
@@ -233,9 +236,11 @@ def run(tstop):
     if pcid == 0:
         for cell in cells:
 
+
+            
             d=[]
             d.append(cell.v1)
-            d.append(cell.v2)
+            #d.append(cell.v2)
             d.append(cell.v3)
             d.append(cell.v4)
             d.append(cell.v5)
@@ -246,7 +251,7 @@ def run(tstop):
             #d.append(cell.v10)
             d2 =[]
             d2.append(cell.vd1)
-            d2.append(cell.vd2)
+            #d2.append(cell.vd2)
             d2.append(cell.vd3)
             d2.append(cell.vd4)
             d2.append(cell.vd5)
@@ -254,9 +259,10 @@ def run(tstop):
             d2.append(cell.vd7)
             d2.append(cell.vd8)
             d2.append(cell.vd9)
-            plot_is(d,["ina_naf2", 'ina_napf_spinstell', 'ik_kdr_fs', 'ik_ka', 'ik_kc_fast',  'ik_k2', 'ik_kahp_slower', 'ica_cal'], cell.number)
-            plot_id(d2, ["ina_naf2", 'ina_napf_spinstell', 'ik_kdr_fs', 'ik_ka', 'ik_kc_fast', 'ik_k2', 'ik_kahp_slower',
+            plot_is(d,["ina_naf2", 'ik_kdr_fs', 'ik_ka', 'ik_kc_fast',  'ik_k2', 'ik_kahp_slower', 'ica_cal'], cell.number)
+            plot_id(d2, ["ina_naf2",  'ik_kdr_fs', 'ik_ka', 'ik_kc_fast', 'ik_k2', 'ik_kahp_slower',
                        'ica_cal'], cell.number)
+
             plot_spike(cell.somaV,
                         cell.dendV,
                         time,
@@ -273,6 +279,7 @@ def run(tstop):
 
 
     pc.barrier()
+    gc.collect()
     exit(0)
 
 run(200)

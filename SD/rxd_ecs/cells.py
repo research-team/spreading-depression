@@ -2,10 +2,13 @@ from neuron import h, crxd as rxd
 import  random
 from neuron.units import ms, mV
 somaR = 11.0  # soma radius
-dendR = 1.4  # dendrite radius
-dendL = 300.0  # dendrite length
+dendR = 4  # dendrite radius
+dendL = 300.0
+dendL1 = 350.0
+dendL2 = 400.0
+dendL3 = 420.0# dendrite length
 axonR = 2
-axonL = 150
+axonL = 100
 doff = dendL + somaR
 
 class Cell:
@@ -13,7 +16,7 @@ class Cell:
         self.x = x
         self.y = y
         self.z = z
-
+        self.Excitatory = 0
         self.soma = h.Section(name='soma', cell=self)
         self.soma.pt3dclear()
         self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
@@ -23,8 +26,8 @@ class Cell:
         self.dend.pt3dclear()
         self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend.nseg = 3
-        self.dend.connect(self.soma)
+        self.dend.nseg = 10
+        self.dend.connect(self.soma(1))
 
         self.axon = h.Section(name='axon', cell=self)
         self.axon.pt3dclear()
@@ -41,10 +44,7 @@ class Cell:
         self.axonV = h.Vector()
         self.axonV.record(self.axon(0.5)._ref_v)
 
-        self.dendV1 = h.Vector().record(self.dend(0.5)._ref_v)
-        self.dendV2 = h.Vector().record(self.dend(0.5)._ref_v)
-        self.dendV3 = h.Vector().record(self.dend(0.5)._ref_v)
-        self.dendV4 = h.Vector().record(self.dend(0.5)._ref_v)
+
 
 
         self._spike_detector = h.NetCon(self.soma(0.5)._ref_v, None, sec=self.soma)
@@ -60,31 +60,35 @@ class Cell:
         self.dend1 = h.Section(name='dend1', cell=self)
         self.dend1.pt3dclear()
         self.dend1.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend1.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend1.nseg = 3
+        self.dend1.pt3dadd(x, y, z - somaR - dendL1, 2.0 * dendR)
+        self.dend1.nseg = 10
         self.dend1.connect(self.soma(0))
 
         self.dend2 = h.Section(name='dend2', cell=self)
         self.dend2.pt3dclear()
         self.dend2.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend2.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend2.nseg = 3
-        self.dend2.connect(self.soma(0))
+        self.dend2.pt3dadd(x, y, z - somaR - dendL2, 2.0 * dendR)
+        self.dend2.nseg = 10
+        self.dend2.connect(self.soma(0.5))
 
         self.dend3 = h.Section(name='dend3', cell=self)
         self.dend3.pt3dclear()
         self.dend3.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend3.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend3.nseg = 3
-        self.dend3.connect(self.soma(0))
+        self.dend3.pt3dadd(x, y, z - somaR - dendL3, 2.0 * dendR)
+        self.dend3.nseg = 10
+        self.dend3.connect(self.soma(1))
 
         self.dend4 = h.Section(name='dend4', cell=self)
         self.dend4.pt3dclear()
         self.dend4.pt3dadd(x, y, z - somaR, 2.0 * dendR)
         self.dend4.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
-        self.dend4.nseg = 3
-        self.dend4.connect(self.soma(0))
+        self.dend4.nseg = 10
+        self.dend4.connect(self.soma(0.8))
 
+        self.dendV1 = h.Vector().record(self.dend1(0.5)._ref_v)
+        self.dendV2 = h.Vector().record(self.dend2(0.5)._ref_v)
+        self.dendV3 = h.Vector().record(self.dend3(0.5)._ref_v)
+        self.dendV4 = h.Vector().record(self.dend4(0.5)._ref_v)
 
         self.dends=[self.dend, self.dend1,self.dend2, self.dend3, self.dend4]
         '''
@@ -96,18 +100,22 @@ class Cell:
         '''
 
 
+        for d in self.dends:
+           for i in range(0,10):
+               synE = h.AMPA(d(0.5))
+               synE.tau = 1
+               synE.e = random.randint(30,70)
+               self.synlistex.append(synE)
 
-        for i in range(0,10):
-            synE = h.AMPA(self.dend(0.3))
-            synE.tau = 1
-            synE.e = 30
-            self.synlistex.append(synE)
+        '''
+                    for d in self.dends:
+                for i in range(0,10):
+                    synI = h.GABAA(d((random.randint(0,10)) * 0.1))
+                    synI.tau = 1
+                    synI.e = -50
+                    self.synlistex.append(synI)
+        '''
 
-
-        self.synI=h.GABAA(self.dend(0.8))
-        self.synI.tau = 1
-        self.synI.e = -50
-        self.synlistex.append(self.synI)
 
     def connect(self, target, type):
         if(type==1):
@@ -119,12 +127,13 @@ class Cell:
                 target.count+=1
                 target.cells[self.number]=self.id
         elif(type==-1):
-            self.nc = h.NetCon(self.dend(0.5)._ref_v, target.synI, sec=self.dend)
-            self.nc.weight[0] = 0.3
-            self.nc.delay = 10
-            target._ncs.append(self.nc)
-            target.count+=1
-            target.cells[self.number]=self.id
+            for sec in self.dends:
+                nc = h.NetCon(sec(0.5)._ref_v, target.synlistex[random.randint(0,len(self.synlistex)-1)], sec=sec)
+                nc.weight[0] = 0.3
+                nc.delay = 20
+                target._ncs.append(self.nc)
+                target.count+=1
+                target.cells[self.number]=self.id
 
 
         
@@ -141,10 +150,10 @@ class Bask23(Cell):
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf2.gbar = 0.06
-        self.soma(0.5).nap.gbar = 0.0006
-        self.soma(0.5).kdr_fs.gbar = 0.1
-        self.soma(0.5).kc_fast.gbar = 0
+        self.soma(0.5).naf2.gbar = 0.005
+        self.soma(0.5).nap.gbar = 0.06
+        self.soma(0.5).kdr_fs.gbar = 0.6
+        self.soma(0.5).kc_fast.gbar = 0.2
         self.soma(0.5).ka.gbar = 0.001
         self.soma(0.5).km.gbar = 0.0005
         self.soma(0.5).k2.gbar = 0.0005
@@ -154,20 +163,35 @@ class Bask23(Cell):
         self.soma(0.5).ar.gbar = 2.5E-05
         self.soma(0.5).cad.beta  = 0.02
         self.soma(0.5).cad.phi =  260000.
-        self.soma(0.5).pas.g = 4.E-05
+        self.soma(0.5).pas.g = 0.9
+        self.soma(0.5).pas.e = -65
         self.soma.Ra = 200
         self.soma(0.5).ar.erev =  -40.
         self.soma(0.5).pas.e=-65
 
+        self.v1 = h.Vector().record(self.soma(0.5)._ref_ina_naf2)
+        #self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_nap)
+        self.v3 = h.Vector().record(self.soma(0.5)._ref_ik_kdr_fs)
+        self.v4 = h.Vector().record(self.soma(0.5)._ref_ik_ka)
+        self.v5 = h.Vector().record(self.soma(0.5)._ref_ik_kc_fast)
+        # self.v6 = h.Vector().record(self.soma(0.5)._ref_ik_km)
+        self.v7 = h.Vector().record(self.soma(0.5)._ref_ik_k2)
+        self.v8 = h.Vector().record(self.soma(0.5)._ref_ik_kahp_slower)
+        self.v9 = h.Vector().record(self.soma(0.5)._ref_ica_cal)
+
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
             self.dend.insert(mechanism_d)
+            self.dend1.insert(mechanism_d)
+            self.dend2.insert(mechanism_d)
+            self.dend3.insert(mechanism_d)
+            self.dend4.insert(mechanism_d)
             #print(mechanism_d)
 
-        self.dend(0.5).naf2.gbar =   0.001
+        self.dend(0.5).naf2.gbar =   0.2
         self.dend(0.5).nap.gbar =   0.0001
-        self.dend(0.5).kdr_fs.gbar =   0.01
-        self.dend(0.5).kc_fast.gbar =   0.000025
+        self.dend(0.5).kdr_fs.gbar =   0.0001
+        self.dend(0.5).kc_fast.gbar =   0.5
         self.dend(0.5).ka.gbar =   0.001
         self.dend(0.5).km.gbar =   0.0005
         self.dend(0.5).k2.gbar =   0.0005
@@ -177,24 +201,112 @@ class Bask23(Cell):
         self.dend(0.5).ar.gbar =   2.5E-05
         self.dend(0.5).cad.beta  =   0.05
         self.dend(0.5).cad.phi =   520000.
-        self.dend(0.5).pas.g = 4.E-05
+        self.dend(0.5).pas.g = 0.01
+        self.dend(0.5).pas.e = -65
         self.dend.Ra = 200
-        self.soma(0.5).ar.erev =  -40.
+        self.dend(0.5).ar.erev =  -40.
+
+        self.dend1(0.5).naf2.gbar = 0.4
+        self.dend1(0.5).nap.gbar = 0.0001
+        self.dend1(0.5).kdr_fs.gbar = 0.3
+        self.dend1(0.5).kc_fast.gbar = 0.000025
+        self.dend1(0.5).ka.gbar = 0.001
+        self.dend1(0.5).km.gbar = 0.0005
+        self.dend1(0.5).k2.gbar = 0.0005
+        self.dend1(0.5).kahp_slower.gbar = 0.0001
+        self.dend1(0.5).cal.gbar = 0.0002
+        self.dend1(0.5).cat.gbar = 0.002
+        self.dend1(0.5).ar.gbar = 2.5E-05
+        self.dend1(0.5).cad.beta = 0.05
+        self.dend1(0.5).cad.phi = 520000.
+        self.dend1(0.5).pas.g = 0.02
+        self.dend1(0.5).pas.e = -65
+        self.dend1.Ra = 200
+        self.dend1(0.5).ar.erev = -40.
+
+        self.dend2(0.5).naf2.gbar = 0.4
+        self.dend2(0.5).nap.gbar = 0.0001
+        self.dend2(0.5).kdr_fs.gbar = 0.3
+        self.dend2(0.5).kc_fast.gbar = 0.000025
+        self.dend2(0.5).ka.gbar = 0.001
+        self.dend2(0.5).km.gbar = 0.0005
+        self.dend2(0.5).k2.gbar = 0.0005
+        self.dend2(0.5).kahp_slower.gbar = 0.0001
+        self.dend2(0.5).cal.gbar = 0.0002
+        self.dend2(0.5).cat.gbar = 0.002
+        self.dend2(0.5).ar.gbar = 2.5E-05
+        self.dend2(0.5).cad.beta = 0.05
+        self.dend2(0.5).cad.phi = 520000.
+        self.dend2(0.5).pas.g = 0.02
+        self.dend2(0.5).pas.e = -65
+        self.dend2.Ra = 200
+        self.dend2(0.5).ar.erev = -40.
+
+        self.dend3(0.5).naf2.gbar = 0.4
+        self.dend3(0.5).nap.gbar = 0.0001
+        self.dend3(0.5).kdr_fs.gbar = 0.3
+        self.dend3(0.5).kc_fast.gbar = 0.000025
+        self.dend3(0.5).ka.gbar = 0.001
+        self.dend3(0.5).km.gbar = 0.0005
+        self.dend3(0.5).k2.gbar = 0.0005
+        self.dend3(0.5).kahp_slower.gbar = 0.0001
+        self.dend3(0.5).cal.gbar = 0.0002
+        self.dend3(0.5).cat.gbar = 0.002
+        self.dend3(0.5).ar.gbar = 2.5E-05
+        self.dend3(0.5).cad.beta = 0.05
+        self.dend3(0.5).cad.phi = 520000.
+        self.dend3(0.5).pas.g = 0.02
+        self.dend3(0.5).pas.e = -65
+        self.dend3.Ra = 200
+        self.dend3(0.5).ar.erev = -40.
+
+        self.dend4(0.5).naf2.gbar = 0.4
+        self.dend4(0.5).nap.gbar = 0.0001
+        self.dend4(0.5).kdr_fs.gbar = 0.3
+        self.dend4(0.5).kc_fast.gbar = 0.000025
+        self.dend4(0.5).ka.gbar = 0.001
+        self.dend4(0.5).km.gbar = 0.0005
+        self.dend4(0.5).k2.gbar = 0.0005
+        self.dend4(0.5).kahp_slower.gbar = 0.0001
+        self.dend4(0.5).cal.gbar = 0.0002
+        self.dend4(0.5).cat.gbar = 0.002
+        self.dend4(0.5).ar.gbar = 2.5E-05
+        self.dend4(0.5).cad.beta = 0.05
+        self.dend4(0.5).cad.phi = 520000.
+        self.dend4(0.5).pas.g = 0.02
+        self.dend4(0.5).pas.e = -65
+        self.dend4.Ra = 200
+        self.dend4(0.5).ar.erev = -40.
+
+        self.vd1 = h.Vector().record(self.dend(0.5)._ref_ina_naf2)
+        #self.vd2 = h.Vector().record(self.dend(0.5)._ref_ina_napf_spinstell)
+        self.vd3 = h.Vector().record(self.dend(0.5)._ref_ik_kdr_fs)
+        self.vd4 = h.Vector().record(self.dend(0.5)._ref_ik_ka)
+        self.vd5 = h.Vector().record(self.dend(0.5)._ref_ik_kc_fast)
+        self.vd7 = h.Vector().record(self.dend(0.5)._ref_ik_k2)
+        self.vd8 = h.Vector().record(self.dend(0.5)._ref_ik_kahp_slower)
+        self.vd9 = h.Vector().record(self.dend(0.5)._ref_ica_cal)
+
+
 
         # ---------------axon----------------
         for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2', 'pas']:
             self.axon.insert(mechanism_a)
             #print(mechanism_a)
 
-        self.axon(0.5).naf2.gbar = 0.4
-        self.axon(0.5).kdr_fs.gbar = 0.4
+        self.axon(0.5).naf2.gbar = 0.004
+        self.axon(0.5).kdr_fs.gbar = 0.004
         self.axon(0.5).ka.gbar = 0.001
         self.axon(0.5).k2.gbar = 0.0005
         self.axon(0.5).pas.g = 0.001
+        self.axon(0.5).pas.e = -70
         self.axon.Ra = 100
 
         for sec in self.all:        
             sec.cm = 1
+            sec.cm = 0.9
+            sec.ena = 50.
+            sec.ek = -90
            # ek = -100.
             #e = -65.
             #ena = 50.
@@ -285,6 +397,10 @@ class Axax23(Cell): #
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
             self.dend.insert(mechanism_d)
+            self.dend1.insert(mechanism_d)
+            self.dend2.insert(mechanism_d)
+            self.dend3.insert(mechanism_d)
+            self.dend4.insert(mechanism_d)
             #print(mechanism_d)
 
         self.dend(0.5).naf2.gbar =   0.06
@@ -304,6 +420,90 @@ class Axax23(Cell): #
         self.dend(0.5).pas.e = -65
         self.dend.Ra =   250.
 
+        self.dend1(0.5).naf2.gbar = 0.06
+        self.dend1(0.5).nap.gbar = 0.0006
+        self.dend1(0.5).kdr_fs.gbar = 0.01
+        self.dend1(0.5).kc_fast.gbar = 0.025
+        self.dend1(0.5).ka.gbar = 0.001
+        self.dend1(0.5).km.gbar = 0.0005
+        self.dend1(0.5).k2.gbar = 0.0005
+        self.dend1(0.5).kahp_slower.gbar = 0.0001
+        self.dend1(0.5).cal.gbar = 0.0001
+        self.dend1(0.5).cat.gbar = 5.E-05
+        self.dend1(0.5).ar.gbar = 2.5E-05
+        self.dend1(0.5).cad.beta = 0.05
+        self.dend1(0.5).cad.phi = 520000.
+        self.dend1(0.5).pas.g = 2.E-05
+        self.dend1(0.5).pas.e = -65
+        self.dend1.Ra = 250.
+
+        self.dend2(0.5).naf2.gbar = 0.06
+        self.dend2(0.5).nap.gbar = 0.0006
+        self.dend2(0.5).kdr_fs.gbar = 0.01
+        self.dend2(0.5).kc_fast.gbar = 0.025
+        self.dend2(0.5).ka.gbar = 0.001
+        self.dend2(0.5).km.gbar = 0.0005
+        self.dend2(0.5).k2.gbar = 0.0005
+        self.dend2(0.5).kahp_slower.gbar = 0.0001
+        self.dend2(0.5).cal.gbar = 0.0001
+        self.dend2(0.5).cat.gbar = 5.E-05
+        self.dend2(0.5).ar.gbar = 2.5E-05
+        self.dend2(0.5).cad.beta = 0.05
+        self.dend2(0.5).cad.phi = 520000.
+        self.dend2(0.5).pas.g = 2.E-05
+        self.dend2(0.5).pas.e = -65
+        self.dend2.Ra = 250.
+
+        self.dend2(0.5).naf2.gbar = 0.06
+        self.dend2(0.5).nap.gbar = 0.0006
+        self.dend2(0.5).kdr_fs.gbar = 0.01
+        self.dend2(0.5).kc_fast.gbar = 0.025
+        self.dend2(0.5).ka.gbar = 0.001
+        self.dend2(0.5).km.gbar = 0.0005
+        self.dend2(0.5).k2.gbar = 0.0005
+        self.dend2(0.5).kahp_slower.gbar = 0.0001
+        self.dend2(0.5).cal.gbar = 0.0001
+        self.dend2(0.5).cat.gbar = 5.E-05
+        self.dend2(0.5).ar.gbar = 2.5E-05
+        self.dend2(0.5).cad.beta = 0.05
+        self.dend2(0.5).cad.phi = 520000.
+        self.dend2(0.5).pas.g = 2.E-05
+        self.dend2(0.5).pas.e = -65
+        self.dend2.Ra = 250.
+
+        self.dend3(0.5).naf2.gbar = 0.06
+        self.dend3(0.5).nap.gbar = 0.0006
+        self.dend3(0.5).kdr_fs.gbar = 0.01
+        self.dend3(0.5).kc_fast.gbar = 0.025
+        self.dend3(0.5).ka.gbar = 0.001
+        self.dend3(0.5).km.gbar = 0.0005
+        self.dend3(0.5).k2.gbar = 0.0005
+        self.dend3(0.5).kahp_slower.gbar = 0.0001
+        self.dend3(0.5).cal.gbar = 0.0001
+        self.dend3(0.5).cat.gbar = 5.E-05
+        self.dend3(0.5).ar.gbar = 2.5E-05
+        self.dend3(0.5).cad.beta = 0.05
+        self.dend3(0.5).cad.phi = 520000.
+        self.dend3(0.5).pas.g = 2.E-05
+        self.dend3(0.5).pas.e = -65
+        self.dend3.Ra = 250.
+
+        self.dend4(0.5).naf2.gbar = 0.06
+        self.dend4(0.5).nap.gbar = 0.0006
+        self.dend4(0.5).kdr_fs.gbar = 0.01
+        self.dend4(0.5).kc_fast.gbar = 0.025
+        self.dend4(0.5).ka.gbar = 0.001
+        self.dend4(0.5).km.gbar = 0.0005
+        self.dend4(0.5).k2.gbar = 0.0005
+        self.dend4(0.5).kahp_slower.gbar = 0.0001
+        self.dend4(0.5).cal.gbar = 0.0001
+        self.dend4(0.5).cat.gbar = 5.E-05
+        self.dend4(0.5).ar.gbar = 2.5E-05
+        self.dend4(0.5).cad.beta = 0.05
+        self.dend4(0.5).cad.phi = 520000.
+        self.dend4(0.5).pas.g = 2.E-05
+        self.dend4(0.5).pas.e = -65
+        self.dend4.Ra = 250.
 
         # ---------------axon----------------
         for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2', 'pas']:
@@ -374,6 +574,10 @@ class LTS23(Cell):  #
         # ---------------dend----------------
         for mechanism_d in ['naf2', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
             self.dend.insert(mechanism_d)
+            self.dend1.insert(mechanism_d)
+            self.dend2.insert(mechanism_d)
+            self.dend3.insert(mechanism_d)
+            self.dend4.insert(mechanism_d)
             #print(mechanism_d)
 
         self.dend(0.5).naf2.gbar =   0.06
@@ -392,6 +596,74 @@ class LTS23(Cell):  #
         self.dend(0.5).pas.g = 4.E-05
         self.dend(0.5).pas.e = -65
         self.dend.Ra =   250.
+
+        self.dend1(0.5).naf2.gbar = 0.06
+        self.dend1(0.5).nap.gbar = 0.0006
+        self.dend1(0.5).kdr_fs.gbar = 0.01
+        self.dend1(0.5).kc_fast.gbar = 0.025
+        self.dend1(0.5).ka.gbar = 0.001
+        self.dend1(0.5).km.gbar = 0.0005
+        self.dend1(0.5).k2.gbar = 0.0005
+        self.dend1(0.5).kahp_slower.gbar = 0.0001
+        self.dend1(0.5).cal.gbar = 0.0001
+        self.dend1(0.5).cat.gbar = 5.E-05
+        self.dend1(0.5).ar.gbar = 2.5E-05
+        self.dend1(0.5).cad.beta = 0.05
+        self.dend1(0.5).cad.phi = 520000.
+        self.dend1(0.5).pas.g = 4.E-05
+        self.dend1(0.5).pas.e = -65
+        self.dend1.Ra = 250.
+
+        self.dend2(0.5).naf2.gbar = 0.06
+        self.dend2(0.5).nap.gbar = 0.0006
+        self.dend2(0.5).kdr_fs.gbar = 0.01
+        self.dend2(0.5).kc_fast.gbar = 0.025
+        self.dend2(0.5).ka.gbar = 0.001
+        self.dend2(0.5).km.gbar = 0.0005
+        self.dend2(0.5).k2.gbar = 0.0005
+        self.dend2(0.5).kahp_slower.gbar = 0.0001
+        self.dend2(0.5).cal.gbar = 0.0001
+        self.dend2(0.5).cat.gbar = 5.E-05
+        self.dend2(0.5).ar.gbar = 2.5E-05
+        self.dend2(0.5).cad.beta = 0.05
+        self.dend2(0.5).cad.phi = 520000.
+        self.dend2(0.5).pas.g = 4.E-05
+        self.dend2(0.5).pas.e = -65
+        self.dend2.Ra = 250.
+
+        self.dend3(0.5).naf2.gbar = 0.06
+        self.dend3(0.5).nap.gbar = 0.0006
+        self.dend3(0.5).kdr_fs.gbar = 0.01
+        self.dend3(0.5).kc_fast.gbar = 0.025
+        self.dend3(0.5).ka.gbar = 0.001
+        self.dend3(0.5).km.gbar = 0.0005
+        self.dend3(0.5).k2.gbar = 0.0005
+        self.dend3(0.5).kahp_slower.gbar = 0.0001
+        self.dend3(0.5).cal.gbar = 0.0001
+        self.dend3(0.5).cat.gbar = 5.E-05
+        self.dend3(0.5).ar.gbar = 2.5E-05
+        self.dend3(0.5).cad.beta = 0.05
+        self.dend3(0.5).cad.phi = 520000.
+        self.dend3(0.5).pas.g = 4.E-05
+        self.dend3(0.5).pas.e = -65
+        self.dend3.Ra = 250.
+
+        self.dend4(0.5).naf2.gbar = 0.06
+        self.dend4(0.5).nap.gbar = 0.0006
+        self.dend4(0.5).kdr_fs.gbar = 0.01
+        self.dend4(0.5).kc_fast.gbar = 0.025
+        self.dend4(0.5).ka.gbar = 0.001
+        self.dend4(0.5).km.gbar = 0.0005
+        self.dend4(0.5).k2.gbar = 0.0005
+        self.dend4(0.5).kahp_slower.gbar = 0.0001
+        self.dend4(0.5).cal.gbar = 0.0001
+        self.dend4(0.5).cat.gbar = 5.E-05
+        self.dend4(0.5).ar.gbar = 2.5E-05
+        self.dend4(0.5).cad.beta = 0.05
+        self.dend4(0.5).cad.phi = 520000.
+        self.dend4(0.5).pas.g = 4.E-05
+        self.dend4(0.5).pas.e = -65
+        self.dend4.Ra = 250.
 
         # ---------------axon----------------
         for mechanism_a in ['naf2', 'kdr_fs', 'ka', 'k2', 'pas']:
@@ -609,7 +881,32 @@ class Spinstel4(Cell):  #
         #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
         #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli)
 
-
+        '''
+        d=[]
+            d.append(cell.v1)
+            d.append(cell.v2)
+            d.append(cell.v3)
+            d.append(cell.v4)
+            d.append(cell.v5)
+            #d.append(cell.v6)
+            d.append(cell.v7)
+            d.append(cell.v8)
+            d.append(cell.v9)
+            #d.append(cell.v10)
+            d2 =[]
+            d2.append(cell.vd1)
+            d2.append(cell.vd2)
+            d2.append(cell.vd3)
+            d2.append(cell.vd4)
+            d2.append(cell.vd5)
+            #2 d.append(celld.v6)
+            d2.append(cell.vd7)
+            d2.append(cell.vd8)
+            d2.append(cell.vd9)
+            plot_is(d,["ina_naf2", 'ina_napf_spinstell', 'ik_kdr_fs', 'ik_ka', 'ik_kc_fast',  'ik_k2', 'ik_kahp_slower', 'ica_cal'], cell.number)
+            plot_id(d2, ["ina_naf2", 'ina_napf_spinstell', 'ik_kdr_fs', 'ik_ka', 'ik_kc_fast', 'ik_k2', 'ik_kahp_slower',
+                       'ica_cal'], cell.number)
+        '''
 
         
 
@@ -632,7 +929,7 @@ class TuftIB5(Cell):  #
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf.gbar = 0.2
+        self.soma(0.5).naf.gbar = 0.4
         self.soma(0.5).nap.gbar = 0.0008
         self.soma(0.5).kdr.gbar = 0.0017
         self.soma(0.5).kc.gbar = 0.008
@@ -663,9 +960,14 @@ class TuftIB5(Cell):  #
         # ---------------dend----------------
         for mechanism_d in ['naf', 'nap','pas', 'kdr', 'kc', 'ka_ib', 'km', 'k2', 'kahp_deeppyr', 'cal', 'cat', 'ar', 'cad']:
             self.dend.insert(mechanism_d)
+            self.dend1.insert(mechanism_d)
+            self.dend2.insert(mechanism_d)
+            self.dend3.insert(mechanism_d)
+            self.dend4.insert(mechanism_d)
+
             #print(mechanism_d)
 
-        self.dend(0.5).naf.gbar =   0.075
+        self.dend(0.5).naf.gbar =   0.75
         self.dend(0.5).nap.gbar = 0.0003
         self.dend(0.5).kdr.gbar =   0.0075
         self.dend(0.5).kc.gbar =   0.008
@@ -682,6 +984,78 @@ class TuftIB5(Cell):  #
         self.dend(0.5).pas.g = 0.023
         self.dend(0.5).pas.e = -70
         self.dend.Ra =   250.
+
+        self.dend1(0.5).naf.gbar = 0.75
+        self.dend1(0.5).nap.gbar = 0.0003
+        self.dend1(0.5).kdr.gbar = 0.0075
+        self.dend1(0.5).kc.gbar = 0.008
+        self.dend1(0.5).ka_ib.gbar = 0.008
+        self.dend1(0.5).km.gbar = 0.00375
+        self.dend1(0.5).k2.gbar = 0.0005
+        self.dend1(0.5).kahp_deeppyr.gbar = 0.0002
+        self.dend1(0.5).cal.gbar = 0.0004
+        self.dend1(0.5).cat.gbar = 0.0001
+        self.dend1(0.5).ar.gbar = 0.0001
+        self.dend1(0.5).ar.erev = -40.
+        self.dend1(0.5).cad.beta = 0.02
+        self.dend1(0.5).cad.phi = 86666.6667
+        self.dend1(0.5).pas.g = 0.023
+        self.dend1(0.5).pas.e = -70
+        self.dend1.Ra = 250.
+
+        self.dend2(0.5).naf.gbar = 0.75
+        self.dend2(0.5).nap.gbar = 0.0003
+        self.dend2(0.5).kdr.gbar = 0.0075
+        self.dend2(0.5).kc.gbar = 0.008
+        self.dend2(0.5).ka_ib.gbar = 0.008
+        self.dend2(0.5).km.gbar = 0.00375
+        self.dend2(0.5).k2.gbar = 0.0005
+        self.dend2(0.5).kahp_deeppyr.gbar = 0.0002
+        self.dend2(0.5).cal.gbar = 0.0004
+        self.dend2(0.5).cat.gbar = 0.0001
+        self.dend2(0.5).ar.gbar = 0.0001
+        self.dend2(0.5).ar.erev = -40.
+        self.dend2(0.5).cad.beta = 0.02
+        self.dend2(0.5).cad.phi = 86666.6667
+        self.dend2(0.5).pas.g = 0.023
+        self.dend2(0.5).pas.e = -70
+        self.dend2.Ra = 250.
+
+        self.dend3(0.5).naf.gbar = 0.75
+        self.dend3(0.5).nap.gbar = 0.0003
+        self.dend3(0.5).kdr.gbar = 0.0075
+        self.dend3(0.5).kc.gbar = 0.008
+        self.dend3(0.5).ka_ib.gbar = 0.008
+        self.dend3(0.5).km.gbar = 0.00375
+        self.dend3(0.5).k2.gbar = 0.0005
+        self.dend3(0.5).kahp_deeppyr.gbar = 0.0002
+        self.dend3(0.5).cal.gbar = 0.0004
+        self.dend3(0.5).cat.gbar = 0.0001
+        self.dend3(0.5).ar.gbar = 0.0001
+        self.dend3(0.5).ar.erev = -40.
+        self.dend3(0.5).cad.beta = 0.02
+        self.dend3(0.5).cad.phi = 86666.6667
+        self.dend3(0.5).pas.g = 0.023
+        self.dend3(0.5).pas.e = -70
+        self.dend3.Ra = 250.
+
+        self.dend4(0.5).naf.gbar = 0.75
+        self.dend4(0.5).nap.gbar = 0.0003
+        self.dend4(0.5).kdr.gbar = 0.0075
+        self.dend4(0.5).kc.gbar = 0.008
+        self.dend4(0.5).ka_ib.gbar = 0.008
+        self.dend4(0.5).km.gbar = 0.00375
+        self.dend4(0.5).k2.gbar = 0.0005
+        self.dend4(0.5).kahp_deeppyr.gbar = 0.0002
+        self.dend4(0.5).cal.gbar = 0.0004
+        self.dend4(0.5).cat.gbar = 0.0001
+        self.dend4(0.5).ar.gbar = 0.0001
+        self.dend4(0.5).ar.erev = -40.
+        self.dend4(0.5).cad.beta = 0.02
+        self.dend4(0.5).cad.phi = 86666.6667
+        self.dend4(0.5).pas.g = 0.023
+        self.dend4(0.5).pas.e = -70
+        self.dend4.Ra = 250.
 
         self.vd1 = h.Vector().record(self.dend(0.5)._ref_ina_naf)
         #self.vd2 = h.Vector().record(self.dend(0.5)._ref_ina_nap)
@@ -748,9 +1122,9 @@ class TuftRS5(Cell):  #
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf.gbar =   0.02
+        self.soma(0.5).naf.gbar =   0.2
         self.soma(0.5).nap.gbar = 0.0008
-        self.soma(0.5).kdr.gbar =   0.17
+        self.soma(0.5).kdr.gbar =   0.017
         self.soma(0.5).kc.gbar =   0.008
         self.soma(0.5).ka.gbar =   0.02
         self.soma(0.5).km.gbar =   0.0085
@@ -768,11 +1142,15 @@ class TuftRS5(Cell):  #
         # ---------------dend----------------
         for mechanism_d in ['naf', 'pas', 'nap', 'kdr', 'kc', 'ka', 'km', 'kahp_deeppyr', 'k2', 'cal', 'cat', 'ar', 'cad']:
             self.dend.insert(mechanism_d)
+            self.dend1.insert(mechanism_d)
+            self.dend2.insert(mechanism_d)
+            self.dend3.insert(mechanism_d)
+            self.dend4.insert(mechanism_d)
             #print(mechanism_d)
 
-        self.dend(0.5).naf.gbar =   0.075
+        self.dend(0.5).naf.gbar =   0.75
         self.dend(0.5).nap.gbar = 0.0003
-        self.dend(0.5).kdr.gbar =   0.075
+        self.dend(0.5).kdr.gbar =   0.0075
         self.dend(0.5).kc.gbar =   0.008
         self.dend(0.5).ka.gbar =   0.008
         self.dend(0.5).km.gbar =   0.0136
@@ -786,6 +1164,74 @@ class TuftRS5(Cell):  #
         self.dend(0.5).pas.g = 2.E-05
         self.dend(0.5).pas.e =  -70.
         self.dend.Ra =   250.
+
+        self.dend1(0.5).naf.gbar = 0.075
+        self.dend1(0.5).nap.gbar = 0.0003
+        self.dend1(0.5).kdr.gbar = 0.075
+        self.dend1(0.5).kc.gbar = 0.008
+        self.dend1(0.5).ka.gbar = 0.008
+        self.dend1(0.5).km.gbar = 0.0136
+        self.dend1(0.5).k2.gbar = 0.0005
+        self.dend1(0.5).kahp_deeppyr.gbar = 0.0002
+        self.dend1(0.5).cal.gbar = 0.0004
+        self.dend1(0.5).cat.gbar = 0.0001
+        self.dend1(0.5).ar.gbar = 0.0001
+        self.dend1(0.5).cad.beta = 0.02
+        self.dend1(0.5).cad.phi = 86666.6667
+        self.dend1(0.5).pas.g = 2.E-05
+        self.dend1(0.5).pas.e = -70.
+        self.dend1.Ra = 250.
+
+        self.dend2(0.5).naf.gbar = 0.075
+        self.dend2(0.5).nap.gbar = 0.0003
+        self.dend2(0.5).kdr.gbar = 0.075
+        self.dend2(0.5).kc.gbar = 0.008
+        self.dend2(0.5).ka.gbar = 0.008
+        self.dend2(0.5).km.gbar = 0.0136
+        self.dend2(0.5).k2.gbar = 0.0005
+        self.dend2(0.5).kahp_deeppyr.gbar = 0.0002
+        self.dend2(0.5).cal.gbar = 0.0004
+        self.dend2(0.5).cat.gbar = 0.0001
+        self.dend2(0.5).ar.gbar = 0.0001
+        self.dend2(0.5).cad.beta = 0.02
+        self.dend2(0.5).cad.phi = 86666.6667
+        self.dend2(0.5).pas.g = 2.E-05
+        self.dend2(0.5).pas.e = -70.
+        self.dend2.Ra = 250.
+
+        self.dend3(0.5).naf.gbar = 0.075
+        self.dend3(0.5).nap.gbar = 0.0003
+        self.dend3(0.5).kdr.gbar = 0.075
+        self.dend3(0.5).kc.gbar = 0.008
+        self.dend3(0.5).ka.gbar = 0.008
+        self.dend3(0.5).km.gbar = 0.0136
+        self.dend3(0.5).k2.gbar = 0.0005
+        self.dend3(0.5).kahp_deeppyr.gbar = 0.0002
+        self.dend3(0.5).cal.gbar = 0.0004
+        self.dend3(0.5).cat.gbar = 0.0001
+        self.dend3(0.5).ar.gbar = 0.0001
+        self.dend3(0.5).cad.beta = 0.02
+        self.dend3(0.5).cad.phi = 86666.6667
+        self.dend3(0.5).pas.g = 2.E-05
+        self.dend3(0.5).pas.e = -70.
+        self.dend3.Ra = 250.
+
+        self.dend4(0.5).naf.gbar = 0.075
+        self.dend4(0.5).nap.gbar = 0.0003
+        self.dend4(0.5).kdr.gbar = 0.075
+        self.dend4(0.5).kc.gbar = 0.008
+        self.dend4(0.5).ka.gbar = 0.008
+        self.dend4(0.5).km.gbar = 0.0136
+        self.dend4(0.5).k2.gbar = 0.0005
+        self.dend4(0.5).kahp_deeppyr.gbar = 0.0002
+        self.dend4(0.5).cal.gbar = 0.0004
+        self.dend4(0.5).cat.gbar = 0.0001
+        self.dend4(0.5).ar.gbar = 0.0001
+        self.dend4(0.5).cad.beta = 0.02
+        self.dend4(0.5).cad.phi = 86666.6667
+        self.dend4(0.5).pas.g = 2.E-05
+        self.dend4(0.5).pas.e = -70.
+        self.dend4.Ra = 250.
 
         # ---------------axon----------------
         for mechanism_a in ['naf', 'kdr', 'ka', 'k2', 'km', 'pas']:
