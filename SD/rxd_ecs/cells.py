@@ -173,39 +173,58 @@ class Bask23(Cell):
         #self.v9 = h.Vector().record(self.soma(0.5)._ref_ica_cal)
 
         # ---------------dend----------------
-        for mechanism_d in ['Nafin', 'nap', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad', 'pas']:
+        for mechanism_d in ['Nafx', 'kdrin','kapin', 'pas']:
             self.dend.insert(mechanism_d)
+            self.dend1.insert(mechanism_d)
+            self.dend2.insert(mechanism_d)
+            self.dend3.insert(mechanism_d)
+            self.dend4.insert(mechanism_d)
 
             #print(mechanism_d)
 
         #self.dend(0.5).naf2.gbar =   0.2
-        self.dend(0.5).nap.gbar =   0.001
-        self.dend(0.5).kdr_fs.gbar =   0.0001
-        self.dend(0.5).kc_fast.gbar =   0.05
-        self.dend(0.5).ka.gbar =   0.001
-        self.dend(0.5).km.gbar =   0.0005
-        self.dend(0.5).k2.gbar =   0.0005
-        self.dend(0.5).kahp_slower.gbar =   0.0001
-        self.dend(0.5).cal.gbar =   0.000002
-        self.dend(0.5).cat.gbar =   0.002
-        self.dend(0.5).ar.gbar =   2.5E-05
-        self.dend(0.5).cad.beta  =   0.05
-        self.dend(0.5).cad.phi =   520000.
-        self.dend(0.5).pas.g = 0.02
-        self.dend(0.5).pas.e = -80
-        self.dend.Ra = 200
-        self.dend(0.5).ar.erev =  -40.
+        self.dend(0.5).Nafx.gnafbar = 0.018*5
+        self.dend(0.5).kdrin.gkdrbar = 0.018*0.5
+        self.dend(0.5).kapin.gkabar = 0.0032*15*10
+
+        self.dend(0.5).pas.g = 1/10000
+        self.dend(0.5).pas.e = -73
+        self.dend.Ra = 150
+
+        self.dend1(0.5).Nafx.gnafbar = 0.018 * 5
+        self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
+        self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
+        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.e = -73
+        self.dend1.Ra = 150
+
+        self.dend2(0.5).Nafx.gnafbar = 0.018 * 5
+        self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
+        self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
+        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.e = -73
+        self.dend2.Ra = 150
+
+        self.dend3(0.5).Nafx.gnafbar = 0.018 * 5
+        self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
+        self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
+        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.e = -73
+        self.dend3.Ra = 150
+
+        self.dend4(0.5).Nafx.gnafbar = 0.018 * 5
+        self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
+        self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
+        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.e = -73
+        self.dend4.Ra = 150
 
 
-
-        self.vd1 = h.Vector().record(self.dend(0.5)._ref_ina_Nafin)
+        self.vd1 = h.Vector().record(self.dend(0.5)._ref_ina_Nafx)
         #self.vd2 = h.Vector().record(self.dend(0.5)._ref_ina_napf_spinstell)
-        self.vd3 = h.Vector().record(self.dend(0.5)._ref_ik_kdr_fs)
-        self.vd4 = h.Vector().record(self.dend(0.5)._ref_ik_ka)
-        self.vd5 = h.Vector().record(self.dend(0.5)._ref_ik_kc_fast)
-        self.vd7 = h.Vector().record(self.dend(0.5)._ref_ik_k2)
-        self.vd8 = h.Vector().record(self.dend(0.5)._ref_ik_kahp_slower)
-        self.vd9 = h.Vector().record(self.dend(0.5)._ref_ica_cal)
+        self.vd3 = h.Vector().record(self.dend(0.5)._ref_ik_kdrin)
+        self.vd4 = h.Vector().record(self.dend(0.5)._ref_ik_kapin)
+
 
 
 
@@ -223,7 +242,7 @@ class Bask23(Cell):
         self.axon.Ra = 100
 
         for sec in self.all:
-            sec.cm = 1
+            sec.cm = 1.2
             sec.cm = 0.9
             sec.ena = 50.
             sec.ek = -90

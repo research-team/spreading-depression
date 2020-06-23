@@ -92,16 +92,16 @@ print(2)
 cells[0].connect(cells[1],1)
 stims = []
 print(len(cells[0].synlistex))
-#for syn in cells[0].synlistex[0]:
-stim = h.NetStim()
-stim.number = 1
-stim.start = random.randint(50,100)
-print(stim.start)
-ncstim = h.NetCon(stim, cells[0].synlistex[0])
-ncstim.delay = 1
-ncstim.weight[0] = 1
-stims.append(stim)
-stims.append(ncstim)
+for syn in cells[0].synlistex:
+    stim = h.NetStim()
+    stim.number = 1
+    stim.start = random.randint(50,100)
+    print(stim.start)
+    ncstim = h.NetCon(stim, syn)
+    ncstim.delay = 1
+    ncstim.weight[0] = 1
+    stims.append(stim)
+    stims.append(ncstim)
 
 
     #cells[0]._ncs.append(ncstim)
