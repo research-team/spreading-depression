@@ -40,7 +40,7 @@ numpy.random.seed(6324555 + pcid)
 
 
 
-outdir = os.path.abspath('tests/780_c1')
+outdir = os.path.abspath('tests/782_c1')
 
 
 
@@ -92,16 +92,16 @@ print(2)
 cells[0].connect(cells[1],1)
 stims = []
 print(len(cells[0].synlistex))
-for syn in cells[0].synlistex:
-    stim = h.NetStim()
-    stim.number = 1
-    stim.start = random.randint(10,100)
-    print(stim.start)
-    ncstim = h.NetCon(stim, syn)
-    ncstim.delay = 1
-    ncstim.weight[0] = 1
-    stims.append(stim)
-    stims.append(ncstim)
+#for syn in cells[0].synlistex[0]:
+stim = h.NetStim()
+stim.number = 1
+stim.start = random.randint(50,100)
+print(stim.start)
+ncstim = h.NetCon(stim, cells[0].synlistex[0])
+ncstim.delay = 1
+ncstim.weight[0] = 1
+stims.append(stim)
+stims.append(ncstim)
 
 
     #cells[0]._ncs.append(ncstim)
@@ -121,7 +121,7 @@ ncstim.delay = 10
 ncstim.weight[0] = 1
 '''
 print(3)
-
+'''
 ecs = rxd.Extracellular(-Lx/2.0, -Ly/2.0,
                         -Lz/2.0, Lx/2.0, Ly/2.0, Lz/2.0, dx=20,
                         volume_fraction=alpha, tortuosity=tort) 
@@ -134,9 +134,9 @@ na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=145,
 
 ca = rxd.Species(ecs, name='ca', d=0.08, charge=2, initial=25,
                  ecs_boundary_conditions=25)
-
+'''
 pc.set_maxstep(100)
-h.finitialize()
+h.finitialize(-70)
 
 
 sys.stdout.write('\ninit')
@@ -243,12 +243,13 @@ def run(tstop):
             #d.append(cell.v2)
             d.append(cell.v3)
             d.append(cell.v4)
-            d.append(cell.v5)
+            #d.append(cell.v5)
             #d.append(cell.v6)
-            d.append(cell.v7)
-            d.append(cell.v8)
-            d.append(cell.v9)
+            #d.append(cell.v7)
+            #d.append(cell.v8)
+            #d.append(cell.v9)
             #d.append(cell.v10)
+            '''
             d2 =[]
             d2.append(cell.vd1)
             #d2.append(cell.vd2)
@@ -259,9 +260,11 @@ def run(tstop):
             d2.append(cell.vd7)
             d2.append(cell.vd8)
             d2.append(cell.vd9)
-            plot_is(d,["ina_naf2", 'ik_kdr_fs', 'ik_ka', 'ik_kc_fast',  'ik_k2', 'ik_kahp_slower', 'ica_cal'], cell.number)
-            plot_id(d2, ["ina_naf2",  'ik_kdr_fs', 'ik_ka', 'ik_kc_fast', 'ik_k2', 'ik_kahp_slower',
-                       'ica_cal'], cell.number)
+            '''
+
+            plot_is(d,["ina_nafin", 'ik_kdr_fs', 'ik_ka'], cell.number)
+            #plot_id(d2, ["ina_Nafin",  'ik_kdr_fs', 'ik_ka', 'ik_kc_fast', 'ik_k2', 'ik_kahp_slower',
+             #          'ica_cal'], cell.number)
 
             plot_spike(cell.somaV,
                         cell.dendV,
