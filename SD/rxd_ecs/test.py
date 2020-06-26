@@ -40,7 +40,7 @@ numpy.random.seed(6324555 + pcid)
 
 
 
-outdir = os.path.abspath('tests/782_c1')
+outdir = os.path.abspath('tests/784_c6')
 
 
 
@@ -86,16 +86,16 @@ sys.stdout.flush()
 
 print(1)
 
-cells = [Bask23(0,0,0,1), Bask23(10,24,24,2)]
+cells = [TuftRS5(0,0,0,1), Axax23(10,24,24,2)]
 time = h.Vector().record(h._ref_t)
-print(2)
+
 cells[0].connect(cells[1],1)
 stims = []
-print(len(cells[0].synlistex))
-for syn in cells[0].synlistex:
+
+for syn in cells[0].synlistexE:
     stim = h.NetStim()
     stim.number = 1
-    stim.start = random.randint(50,100)
+    stim.start = random.randint(50,70)
     print(stim.start)
     ncstim = h.NetCon(stim, syn)
     ncstim.delay = 1
@@ -237,34 +237,7 @@ def run(tstop):
         for cell in cells:
 
 
-            
-            d=[]
-            d.append(cell.v1)
-            #d.append(cell.v2)
-            d.append(cell.v3)
-            d.append(cell.v4)
-            #d.append(cell.v5)
-            #d.append(cell.v6)
-            #d.append(cell.v7)
-            #d.append(cell.v8)
-            #d.append(cell.v9)
-            #d.append(cell.v10)
-            '''
-            d2 =[]
-            d2.append(cell.vd1)
-            #d2.append(cell.vd2)
-            d2.append(cell.vd3)
-            d2.append(cell.vd4)
-            d2.append(cell.vd5)
-            #2 d.append(celld.v6)
-            d2.append(cell.vd7)
-            d2.append(cell.vd8)
-            d2.append(cell.vd9)
-            '''
 
-            plot_is(d,["ina_nafin", 'ik_kdr_fs', 'ik_ka'], cell.number)
-            #plot_id(d2, ["ina_Nafin",  'ik_kdr_fs', 'ik_ka', 'ik_kc_fast', 'ik_k2', 'ik_kahp_slower',
-             #          'ica_cal'], cell.number)
 
             plot_spike(cell.somaV,
                         cell.dendV,
