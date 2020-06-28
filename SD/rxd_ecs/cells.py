@@ -547,36 +547,36 @@ class Spinstel4(Cell):  #
         self.name = 'spiny stellate'
         
         # ---------------soma----------------
-        for mechanism_s in ['extracellular','naf2', 'pas' ,'napf_spinstell', 'kdr_fs', 'kc_fast', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat', 'ar', 'cad']:
+        for mechanism_s in ['extracellular','naf2_cc', 'pas' ,'napf_spinstell', 'kdr_fs_cc', 'kc_fast_cc', 'ka_cc', 'km_cc', 'k2_cc', 'kahp_slower', 'cal_cc', 'cat_cc', 'ar', 'cad_cc']:
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf2.gbar = 0.55
+        self.soma(0.5).naf2_cc.gbar = 0.55
         self.soma(0.5).napf_spinstell.gbar = 0.00015
-        self.soma(0.5).kdr_fs.gbar = 0.1
-        self.soma(0.5).kc_fast.gbar = 0.001
-        self.soma(0.5).ka.gbar = 0.03
-        self.soma(0.5).km.gbar = 0.00375
-        self.soma(0.5).k2.gbar = 0.0001
+        self.soma(0.5).kdr_fs_cc.gbar = 0.1
+        self.soma(0.5).kc_fast_cc.gbar = 0.001
+        self.soma(0.5).ka_cc.gbar = 0.03
+        self.soma(0.5).km_cc.gbar = 0.00375
+        self.soma(0.5).k2_cc.gbar = 0.0001
         self.soma(0.5).kahp_slower.gbar = 0.0001
-        self.soma(0.5).cal.gbar = 0.0005
-        self.soma(0.5).cat.gbar = 0.0001
+        self.soma(0.5).cal_cc.gbar = 0.0005
+        self.soma(0.5).cat_cc.gbar = 0.0001
         self.soma(0.5).ar.gbar = 0.00025
-        self.soma(0.5).cad.beta  = 0.02
-        self.soma(0.5).cad.phi =  260000.
+        self.soma(0.5).cad_cc.beta  = 0.02
+        self.soma(0.5).cad_cc.phi =  260000.
         self.soma(0.5).pas.g = 0.02
         self.soma(0.5).pas.e = -65
         self.soma.Ra =   250.
 
-        self.v1=h.Vector().record(self.soma(0.5)._ref_ina_naf2)
-        self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_napf_spinstell)
-        self.v3 = h.Vector().record(self.soma(0.5)._ref_ik_kdr_fs)
-        self.v4 = h.Vector().record(self.soma(0.5)._ref_ik_ka)
-        self.v5 = h.Vector().record(self.soma(0.5)._ref_ik_kc_fast)
-        #self.v6 = h.Vector().record(self.soma(0.5)._ref_ik_km)
-        self.v7 = h.Vector().record(self.soma(0.5)._ref_ik_k2)
-        self.v8 = h.Vector().record(self.soma(0.5)._ref_ik_kahp_slower)
-        self.v9 = h.Vector().record(self.soma(0.5)._ref_ica_cal)
+        #self.v1=h.Vector().record(self.soma(0.5)._ref_ina_naf2)
+        #self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_napf_spinstell)
+        #self.v3 = h.Vector().record(self.soma(0.5)._ref_ik_kdr_fs)
+        #self.v4 = h.Vector().record(self.soma(0.5)._ref_ik_ka)
+        #self.v5 = h.Vector().record(self.soma(0.5)._ref_ik_kc_fast)
+        ##self.v6 = h.Vector().record(self.soma(0.5)._ref_ik_km)
+        #self.v7 = h.Vector().record(self.soma(0.5)._ref_ik_k2)
+        #self.v8 = h.Vector().record(self.soma(0.5)._ref_ik_kahp_slower)
+        #self.v9 = h.Vector().record(self.soma(0.5)._ref_ica_cal)
        # self.v10 = h.Vector().record(self.soma(0.5)._ref_ica_cad)
 
 
@@ -674,14 +674,14 @@ class Spinstel4(Cell):  #
         self.dend4(0.5).pas.e = -65
         self.dend4.Ra = 250.
 
-        self.vd1 = h.Vector().record(self.dend(0.5)._ref_ina_naf2)
-        self.vd2 = h.Vector().record(self.dend(0.5)._ref_ina_napf_spinstell)
-        self.vd3 = h.Vector().record(self.dend(0.5)._ref_ik_kdr_fs)
-        self.vd4 = h.Vector().record(self.dend(0.5)._ref_ik_ka)
-        self.vd5 = h.Vector().record(self.dend(0.5)._ref_ik_kc_fast)
-        self.vd7 = h.Vector().record(self.dend(0.5)._ref_ik_k2)
-        self.vd8 = h.Vector().record(self.dend(0.5)._ref_ik_kahp_slower)
-        self.vd9 = h.Vector().record(self.dend(0.5)._ref_ica_cal)
+        #self.vd1 = h.Vector().record(self.dend(0.5)._ref_ina_naf2)
+        #self.vd2 = h.Vector().record(self.dend(0.5)._ref_ina_napf_spinstell)
+        #self.vd3 = h.Vector().record(self.dend(0.5)._ref_ik_kdr_fs)
+        #self.vd4 = h.Vector().record(self.dend(0.5)._ref_ik_ka)
+        #self.vd5 = h.Vector().record(self.dend(0.5)._ref_ik_kc_fast)
+        #self.vd7 = h.Vector().record(self.dend(0.5)._ref_ik_k2)
+        #self.vd8 = h.Vector().record(self.dend(0.5)._ref_ik_kahp_slower)
+        #self.vd9 = h.Vector().record(self.dend(0.5)._ref_ica_cal)
 
 
 
@@ -1432,23 +1432,23 @@ class NontuftRS6(Cell):  #
         self.name ='pyramidal nontufted regular spiking'
         
         # ---------------soma----------------
-        for mechanism_s in ['extracellular','napf', 'pas', 'naf2', 'kdr_fs', 'kc', 'ka', 'km', 'k2', 'kahp_slower', 'cal', 'cat_a', 'ar', 'cad']:
+        for mechanism_s in ['extracellular','napf', 'pas', 'naf2_cc', 'kdr_fs_cc', 'kc', 'ka_cc', 'km_cc', 'k2_cc', 'kahp_slower', 'cal_cc', 'cat_a', 'ar', 'cad_cc']:
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf2.gbar = 0.06
+        self.soma(0.5).naf2_cc.gbar = 0.06
         self.soma(0.5).napf.gbar = 0.0006
-        self.soma(0.5).kdr_fs.gbar = 0.06
-        self.soma(0.5).ka.gbar = 0.005
-        self.soma(0.5).km.gbar = 0.0005
+        self.soma(0.5).kdr_fs_cc.gbar = 0.06
+        self.soma(0.5).ka_cc.gbar = 0.005
+        self.soma(0.5).km_cc.gbar = 0.0005
         self.soma(0.5).kc.gbar = 0.01
-        self.soma(0.5).k2.gbar = 0.0005
+        self.soma(0.5).k2_cc.gbar = 0.0005
         self.soma(0.5).kahp_slower.gbar = 0.0001
-        self.soma(0.5).cal.gbar = 0.0001
+        self.soma(0.5).cal_cc.gbar = 0.0001
         self.soma(0.5).cat_a.gbar = 5.E-05
         self.soma(0.5).ar.gbar = 2.5E-05
-        self.soma(0.5).cad.beta  = 0.02
-        self.soma(0.5).cad.phi =  10400.
+        self.soma(0.5).cad_cc.beta  = 0.02
+        self.soma(0.5).cad_cc.phi =  10400.
         self.soma(0.5).pas.e = -70
         self.soma(0.5).pas.g = 2.E-05
         self.soma.Ra = 250.
