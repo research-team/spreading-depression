@@ -32,7 +32,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/721_tW')
+outdir = os.path.abspath('tests/802_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -1298,7 +1298,7 @@ tort = tort1
 
 
 time = h.Vector().record(h._ref_t)
-'''
+
 ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
                         -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 20),  # dx - скорость распространнения в разные стороны - различны по осям
                         volume_fraction=alpha, tortuosity=tort)
@@ -1310,15 +1310,16 @@ k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial= 3.5,
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
                  ecs_boundary_conditions=142)
 
-'''
 
-stim = h.NetStim()
-stim.number = 5
-stim.start = 10
-ncstim = h.NetCon(stim, rec_neurons4[random.randint(0, Nspinstel4)].synlistex[0])
-ncstim.delay = 1
-ncstim.weight[0] = 0.5
-
+stims=[]
+for i in range(0,10):
+    stim = h.NetStim()
+    stim.number = 1
+    stim.start = 10
+    ncstim = h.NetCon(stim, rec_neurons4[random.randint(0, Nspinstel4)].synlistexE[0])
+    ncstim.delay = 1
+    ncstim.weight[0] = 1
+stims.append(ncstim)
 #kecs = h.Vector()
 #kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
 pc.set_maxstep(100)
