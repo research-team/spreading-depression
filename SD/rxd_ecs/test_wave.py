@@ -32,7 +32,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/802_tW')
+outdir = os.path.abspath('tests/804_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -1312,14 +1312,14 @@ na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
 
 
 stims=[]
-for i in range(0,10):
+for i in range(0,50):
     stim = h.NetStim()
     stim.number = 1
     stim.start = 10
     ncstim = h.NetCon(stim, rec_neurons4[random.randint(0, Nspinstel4)].synlistexE[0])
     ncstim.delay = 1
     ncstim.weight[0] = 1
-stims.append(ncstim)
+    stims.append(ncstim)
 #kecs = h.Vector()
 #kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
 pc.set_maxstep(100)
@@ -1553,22 +1553,22 @@ def plot_spike_html(cell, time, i):
                    yaxis_title='mV')
     fig.write_html(os.path.join(k_na_dir, 'spike%i.html' % i))
 
-h.dt = 1
+h.dt = 0.1
 
 def run(tstop):
     volt = []
     
     while pc.t(0) <= tstop:
-
-        for j in cell:
-            for n in j:
-                volt.append({"t" : int(pc.t(0)),
-                                "x" : n.x,
-                                "y" : n.y,
-                                "z" : n.z,
-                                "v" : n.somaV[-1],
-                                "id": n.id,
-                                "num": n.number})
+        if int(pc.t(0)*10) % 10 == 0:
+            for j in cell:
+                for n in j:
+                    volt.append({"t" : int(pc.t(0)),
+                                    "x" : n.x,
+                                    "y" : n.y,
+                                    "z" : n.z,
+                                    "v" : n.somaV[-1],
+                                    "id": n.id,
+                                    "num": n.number})
 
 
         #if int(pc.t(0)) % 100 == 0:
