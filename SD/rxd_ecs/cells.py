@@ -113,6 +113,14 @@ class Cell:
             synI.e = -50
             self.synlistexI.append(synI)
 
+        self.synlistexNMDA=[]
+        for d in self.dends:
+            synE = h.NMDA1(d(0.5))
+            #synE.gmax = 0.00001
+            #synE.e = 30
+            self.synlistexNMDA.append(synE)
+
+
 
 
     def connect(self, target, type):
@@ -133,6 +141,15 @@ class Cell:
                 target._ncs.append(nc)
                 target.count+=1
                 target.cells[self.number]=self.id
+
+        elif (type == 0):
+            for sec in self.dends:
+                nc = h.NetCon(sec(0.5)._ref_v, target.synlistexNMDA[random.randint(0, len(self.synlistexNMDA) - 1)], sec=sec)
+                nc.weight[0] = 1
+                nc.delay = 10
+                target._ncs.append(nc)
+                target.count += 1
+                target.cells[self.number] = self.id
 
 
         
