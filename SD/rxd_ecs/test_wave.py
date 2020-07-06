@@ -32,7 +32,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/804_tW')
+outdir = os.path.abspath('tests/810_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
