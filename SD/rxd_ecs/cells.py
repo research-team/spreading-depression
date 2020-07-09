@@ -137,30 +137,33 @@ class Cell:
     def connect(self, target, type):
         if(type==1):
             for sec in self.dends:
-                nc = h.NetCon(sec(0.5)._ref_v, target.synlistexE[random.randint(0,49)], sec=sec)
-                nc.weight[0] = random.randint(5,10) /10
-                nc.delay = 1
-                target._ncs.append(nc)
-                target.count+=1
-                target.cells[self.number]=self.id
+                for i in range(0,30):
+                    nc = h.NetCon(sec(0.5)._ref_v, target.synlistexE[i], sec=sec)
+                    nc.weight[0] = random.randint(5,10) /10
+                    nc.delay = 1
+                    target._ncs.append(nc)
+                    target.count+=1
+                    target.cells[self.number]=self.id
 
         elif(type==-1):
             for sec in self.dends:
-                nc = h.NetCon(sec(0.5)._ref_v, target.synlistexI[random.randint(0,49)], sec=sec)
-                nc.weight[0] =random.randint(1,10) /10
-                nc.delay = 1
-                target._ncs.append(nc)
-                target.count+=1
-                target.cells[self.number]=self.id
+                for i in range(0, 30):
+                    nc = h.NetCon(sec(0.5)._ref_v, target.synlistexI[i], sec=sec)
+                    nc.weight[0] =random.randint(1,10) /10
+                    nc.delay = 1
+                    target._ncs.append(nc)
+                    target.count+=1
+                    target.cells[self.number]=self.id
 
         elif (type == 0):
             for sec in self.dends:
-                nc = h.NetCon(sec(0.5)._ref_v, target.synlistexNMDA[random.randint(0, 49)], sec=sec)
-                nc.weight[0] = random.randint(3,10) /10
-                nc.delay = 1
-                target._ncs.append(nc)
-                target.count += 1
-                target.cells[self.number] = self.id
+                for i in range(0, 30):
+                    nc = h.NetCon(sec(0.5)._ref_v, target.synlistexNMDA[i], sec=sec)
+                    nc.weight[0] = random.randint(3,10) /10
+                    nc.delay = 1
+                    target._ncs.append(nc)
+                    target.count += 1
+                    target.cells[self.number] = self.id
 
 
         
@@ -177,7 +180,7 @@ class Bask23(Cell):
                             'pas']:
             self.soma.insert(mechanism_s)
 
-        self.soma(0.5).Nafx.gnafbar = 0.45
+        self.soma(0.5).Nafx.gnafbar = 0.9
         self.soma(0.5).kdrin.gkdrbar = 0.001
         self.soma(0.5).IKsin.gKsbar = 0.000725 * 0.1
         self.soma(0.5).hin.gbar = 0.00001
@@ -1504,9 +1507,9 @@ class NontuftRS6(Cell):  #
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf2_cc.gbar = 0.06
+        self.soma(0.5).naf2_cc.gbar = 0.5
         self.soma(0.5).napf.gbar = 0.0006
-        self.soma(0.5).kdr_fs_cc.gbar = 0.06
+        self.soma(0.5).kdr_fs_cc.gbar = 0.5
         self.soma(0.5).ka_cc.gbar = 0.005
         self.soma(0.5).km_cc.gbar = 0.0005
         self.soma(0.5).kc.gbar = 0.01
@@ -1518,8 +1521,8 @@ class NontuftRS6(Cell):  #
         self.soma(0.5).cad_cc.beta  = 0.02
         self.soma(0.5).cad_cc.phi =  10400.
         self.soma(0.5).pas.e = -70
-        self.soma(0.5).pas.g = 2.E-05
-        self.soma.Ra = 250.
+        self.soma(0.5).pas.g = 0.0001
+        self.soma.Ra = 100.
 
         # ---------------dend----------------
         for mechanism_d in ['naf2_cc', 'napf', 'pas', 'kdr_fs_cc', 'kc', 'ka_cc', 'km_cc', 'k2_cc', 'kahp_slower', 'cal_cc', 'cat_a', 'ar', 'cad_cc']:
@@ -1620,13 +1623,13 @@ class NontuftRS6(Cell):  #
             self.axon.insert(mechanism_a)
             #print(mechanism_a)
 
-        self.axon(0.5).naf2_cc.gbar = 0.4
-        self.axon(0.5).kdr_fs_cc.gbar = 0.4
-        self.axon(0.5).ka_cc.gbar = 0.001
+        self.axon(0.5).naf2_cc.gbar = 0.06
+        self.axon(0.5).kdr_fs_cc.gbar = 0.06
+        self.axon(0.5).ka_cc.gbar = 0.005
         self.axon(0.5).k2_cc.gbar = 0.0005
-        self.axon(0.5).pas.g = 0.001
+        self.axon(0.5).pas.g = 0.01
         self.axon(0.5).pas.e = -70
-        self.axon.Ra = 100
+        self.axon.Ra = 250
 
         for sec in self.all:        
             sec.cm = 0.9

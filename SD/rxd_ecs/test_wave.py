@@ -32,7 +32,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/810_tW')
+outdir = os.path.abspath('tests/822_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -1724,14 +1724,16 @@ na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
 
 
 stims=[]
-for i in range(0,50):
+for i in range(0,300):
     stim = h.NetStim()
     stim.number = 1
     stim.start = 10
-    ncstim = h.NetCon(stim, rec_neurons4[random.randint(0, Nspinstel4)].synlistexE[0])
+    ncstim = h.NetCon(stim, rec_neurons5[i].synlistexE[0])
     ncstim.delay = 1
-    ncstim.weight[0] = 1
+    ncstim.weight[0] = 0.2
     stims.append(ncstim)
+    stims.append(stim)
+
 #kecs = h.Vector()
 #kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
 pc.set_maxstep(100)
@@ -1739,6 +1741,7 @@ pc.set_maxstep(100)
 # initialize and set the intracellular concentrations
 h.finitialize()
 print('initialize')
+#print(len(stims))
 
 
 
