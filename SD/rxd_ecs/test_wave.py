@@ -32,7 +32,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/822_tW')
+outdir = os.path.abspath('tests/835_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -1710,7 +1710,7 @@ tort = tort1
 
 
 time = h.Vector().record(h._ref_t)
-
+'''
 ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
                         -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 20),  # dx - скорость распространнения в разные стороны - различны по осям
                         volume_fraction=alpha, tortuosity=tort)
@@ -1721,7 +1721,7 @@ k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial= 3.5,
 
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
                  ecs_boundary_conditions=142)
-
+'''
 
 stims=[]
 for i in range(0,300):
@@ -1730,7 +1730,7 @@ for i in range(0,300):
     stim.start = 10
     ncstim = h.NetCon(stim, rec_neurons5[i].synlistexE[0])
     ncstim.delay = 1
-    ncstim.weight[0] = 0.2
+    ncstim.weight[0] = 1
     stims.append(ncstim)
     stims.append(stim)
 
@@ -1879,10 +1879,10 @@ def plot_spike(cell, time, i):
     fig.add_trace(go.Scatter(y=cell.somaV, x=time, mode='lines', name='soma'))
     fig.add_trace(go.Scatter(y=cell.dendV, x=time, mode='lines', name='dendrite'))
     fig.add_trace(go.Scatter(y=cell.v_vec, x=time, mode='lines', name='v'))
-    fig.update_layout(title='Voltage of Neuron %i' % i,
+    fig.update_layout(title='Voltage of Neuron %i' % cell.id,
                    xaxis_title='ms',
                    yaxis_title='mV')
-    fig.write_html(os.path.join(k_na_dir, 'spike%i.html' % i))
+    fig.write_html(os.path.join(k_na_dir, 'spike%i.html' % i ))
 
 
 def plot_spike_for_1_neu(volt_soma, volt_dend, t, i, tstop, k, na, k_in, na_in, v):
@@ -2019,7 +2019,7 @@ def run(tstop):
             z_pos.append(n.z)
             id_color.append(n.id)
             listname.append(n.name)
-            #plot_spike_html(n, time, n.number)
+            #plot_spike(n, time, n.number)
 
 
     #pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
@@ -2037,4 +2037,4 @@ def run(tstop):
     exit(0)
 
 
-run(200)
+run(100)

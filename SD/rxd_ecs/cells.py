@@ -4,9 +4,9 @@ from neuron.units import ms, mV
 somaR = 11.0  # soma radius
 dendR = 4  # dendrite radius
 dendL = 300.0
-dendL1 = 350.0
-dendL2 = 400.0
-dendL3 = 420.0# dendrite length
+dendL1 = 300.0
+dendL2 = 300.0
+dendL3 = 300.0# dendrite length
 axonR = 2
 axonL = 100
 doff = dendL + somaR
@@ -91,7 +91,7 @@ class Cell:
         self.dendV3 = h.Vector().record(self.dend3(0.5)._ref_v)
         self.dendV4 = h.Vector().record(self.dend4(0.5)._ref_v)
 
-        self.dends=[self.dend, self.dend1,self.dend2, self.dend3, self.dend4]
+        self.dends=[self.dend1, self.dend,self.dend2, self.dend3, self.dend4]
         '''
                 for d in self.dends:
             synE = h.AMPA(d(0.5))
@@ -112,7 +112,7 @@ class Cell:
             for i in range(0, 50):
                 synI = h.GABAA(d(0.5))
                 synI.tau = 1
-                synI.e = -50
+                synI.e = -20
                 self.synlistexI.append(synI)
 
         self.synlistexNMDA=[]
@@ -136,31 +136,34 @@ class Cell:
 
     def connect(self, target, type):
         if(type==1):
-            for sec in self.dends:
-                for i in range(0,30):
-                    nc = h.NetCon(sec(0.5)._ref_v, target.synlistexE[i], sec=sec)
-                    nc.weight[0] = random.randint(5,10) /10
-                    nc.delay = 1
+            for j in range(0,len(self.dends)):
+                for i in range(j*50, j*50+50):
+                    nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexE[i], sec=self.dends[j])
+                    nc.weight[0] = random.randint(1,5) /10
+                    nc.delay = random.randint(1,10)
                     target._ncs.append(nc)
-                    target.count+=1
-                    target.cells[self.number]=self.id
+                    target.count += 1
+                    target.cells[self.number] = self.id
+
 
         elif(type==-1):
-            for sec in self.dends:
-                for i in range(0, 30):
-                    nc = h.NetCon(sec(0.5)._ref_v, target.synlistexI[i], sec=sec)
-                    nc.weight[0] =random.randint(1,10) /10
-                    nc.delay = 1
+            #for sec in self.dends:
+            for j in range(0,len(self.dends)):
+                for i in range(j*50, j*50+50):
+                    nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexI[i], sec=self.dends[j])
+                    nc.weight[0] = random.randint(1,30) /100
+                    nc.delay = random.randint(1,10)
                     target._ncs.append(nc)
-                    target.count+=1
-                    target.cells[self.number]=self.id
+                    target.count += 1
+                    target.cells[self.number] = self.id
+
 
         elif (type == 0):
-            for sec in self.dends:
-                for i in range(0, 30):
-                    nc = h.NetCon(sec(0.5)._ref_v, target.synlistexNMDA[i], sec=sec)
-                    nc.weight[0] = random.randint(3,10) /10
-                    nc.delay = 1
+            for j in range(0,len(self.dends)):
+                for i in range(j*50, j*50+50):
+                    nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexNMDA[i], sec=self.dends[j])
+                    nc.weight[0] = random.randint(1,5) /10
+                    nc.delay = random.randint(1,10)
                     target._ncs.append(nc)
                     target.count += 1
                     target.cells[self.number] = self.id
@@ -180,7 +183,7 @@ class Bask23(Cell):
                             'pas']:
             self.soma.insert(mechanism_s)
 
-        self.soma(0.5).Nafx.gnafbar = 0.9
+        self.soma(0.5).Nafx.gnafbar = 0.5
         self.soma(0.5).kdrin.gkdrbar = 0.001
         self.soma(0.5).IKsin.gKsbar = 0.000725 * 0.1
         self.soma(0.5).hin.gbar = 0.00001
@@ -216,35 +219,35 @@ class Bask23(Cell):
         self.dend(0.5).kdrin.gkdrbar = 0.018
         self.dend(0.5).kapin.gkabar = 0.0032 * 15 * 10
 
-        self.dend(0.5).pas.g = 1 / 10000
+        self.dend(0.5).pas.g = 1 / 100
         self.dend(0.5).pas.e = -73
         self.dend.Ra = 150
 
         self.dend1(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.g = 1 / 100
         self.dend1(0.5).pas.e = -73
         self.dend1.Ra = 150
 
         self.dend2(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.g = 1 / 100
         self.dend2(0.5).pas.e = -73
         self.dend2.Ra = 150
 
         self.dend3(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.g = 1 / 100
         self.dend3(0.5).pas.e = -73
         self.dend3.Ra = 150
 
         self.dend4(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.g = 1 / 100
         self.dend4(0.5).pas.e = -73
         self.dend4.Ra = 150
 
@@ -260,7 +263,7 @@ class Bask23(Cell):
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -383,35 +386,35 @@ class Axax23(Cell): #
         self.dend(0.5).kdrin.gkdrbar = 0.018
         self.dend(0.5).kapin.gkabar = 0.0032 * 15 * 10
 
-        self.dend(0.5).pas.g = 1 / 10000
+        self.dend(0.5).pas.g = 1 / 100
         self.dend(0.5).pas.e = -73
         self.dend.Ra = 150
 
         self.dend1(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.g = 1 / 100
         self.dend1(0.5).pas.e = -73
         self.dend1.Ra = 150
 
         self.dend2(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.g = 1 / 100
         self.dend2(0.5).pas.e = -73
         self.dend2.Ra = 150
 
         self.dend3(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.g = 1 / 100
         self.dend3(0.5).pas.e = -73
         self.dend3.Ra = 150
 
         self.dend4(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.g = 1 / 100
         self.dend4(0.5).pas.e = -73
         self.dend4.Ra = 150
 
@@ -427,7 +430,7 @@ class Axax23(Cell): #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -499,35 +502,35 @@ class LTS23(Cell):  #
         self.dend(0.5).kdrin.gkdrbar = 0.018
         self.dend(0.5).kapin.gkabar = 0.0032 * 15 * 10
 
-        self.dend(0.5).pas.g = 1 / 10000
+        self.dend(0.5).pas.g = 1 / 100
         self.dend(0.5).pas.e = -73
         self.dend.Ra = 150
 
         self.dend1(0.5).Nafx.gnafbar = 0.018 * 5
         self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.g = 1 / 100
         self.dend1(0.5).pas.e = -73
         self.dend1.Ra = 150
 
         self.dend2(0.5).Nafx.gnafbar = 0.018 * 5
         self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.g = 1 / 100
         self.dend2(0.5).pas.e = -73
         self.dend2.Ra = 150
 
         self.dend3(0.5).Nafx.gnafbar = 0.018 * 5
         self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.g = 1 / 100
         self.dend3(0.5).pas.e = -73
         self.dend3.Ra = 150
 
         self.dend4(0.5).Nafx.gnafbar = 0.018 * 5
         self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.g = 1 / 100
         self.dend4(0.5).pas.e = -73
         self.dend4.Ra = 150
 
@@ -543,7 +546,7 @@ class LTS23(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -713,7 +716,7 @@ class Spinstel4(Cell):  #
         self.axon(0.5).naf2_cc.gbar = 0.1
         self.axon(0.5).kdr_fs_cc.gbar = 0.9
         self.axon(0.5).ka_cc.gbar = 0.002
-        self.axon(0.5).k2_cc.gbar = 0.0001
+        self.axon(0.5).k2_cc.gbar = 0.001
         self.axon(0.5).pas.g = 0.001
         self.axon(0.5).pas.e = -65
         self.axon.Ra = 100.
@@ -842,7 +845,7 @@ class TuftIB5(Cell):  #
         self.dend(0.5).kca.gbar = 0.005 * 5 * 0.001  #
         self.dend(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend(0.5).pas.g = 8.5e-5 * 2
+        self.dend(0.5).pas.g = 0.01
         self.dend(0.5).pas.e = -65
         self.dend.Ra = 150
 
@@ -859,7 +862,7 @@ class TuftIB5(Cell):  #
         self.dend1(0.5).kca.gbar = 0.005 * 5 * 0.0001  #
         self.dend1(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend1(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend1(0.5).pas.g = 8.5e-5 * 2
+        self.dend1(0.5).pas.g = 0.01
         self.dend1(0.5).pas.e = -65
         self.dend1.Ra = 150
 
@@ -876,7 +879,7 @@ class TuftIB5(Cell):  #
         self.dend2(0.5).kca.gbar = 0.005 * 5 * 0.001  #
         self.dend2(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend2(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend2(0.5).pas.g = 8.5e-5 * 2
+        self.dend2(0.5).pas.g = 0.01
         self.dend2(0.5).pas.e = -65
         self.dend2.Ra = 150
 
@@ -893,7 +896,7 @@ class TuftIB5(Cell):  #
         self.dend3(0.5).kca.gbar = 0.005 * 5 * 0.001  #
         self.dend3(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend3(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend3(0.5).pas.g = 8.5e-5 * 2
+        self.dend3(0.5).pas.g = 0.01
         self.dend3(0.5).pas.e = -65
         self.dend3.Ra = 150
 
@@ -910,7 +913,7 @@ class TuftIB5(Cell):  #
         self.dend4(0.5).kca.gbar = 0.005 * 5 * 0.001  #
         self.dend4(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend4(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend4(0.5).pas.g = 8.5e-5 * 2
+        self.dend4(0.5).pas.g = 0.01
         self.dend4(0.5).pas.e = -65
         self.dend4.Ra = 150
 
@@ -921,7 +924,7 @@ class TuftIB5(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -1021,7 +1024,7 @@ class TuftRS5(Cell):  #
         self.dend(0.5).kca.gbar = 0.005 * 5 * 0.001  #
         self.dend(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend(0.5).pas.g = 8.5e-5 * 2
+        self.dend(0.5).pas.g = 0.01
         self.dend(0.5).pas.e = -65
         self.dend.Ra = 150
 
@@ -1038,7 +1041,7 @@ class TuftRS5(Cell):  #
         self.dend1(0.5).kca.gbar = 0.005 * 5 * 0.0001  #
         self.dend1(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend1(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend1(0.5).pas.g = 8.5e-5 * 2
+        self.dend1(0.5).pas.g = 0.01
         self.dend1(0.5).pas.e = -65
         self.dend1.Ra = 150
 
@@ -1055,7 +1058,7 @@ class TuftRS5(Cell):  #
         self.dend2(0.5).kca.gbar = 0.005 * 5 * 0.001  #
         self.dend2(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend2(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend2(0.5).pas.g = 8.5e-5 * 2
+        self.dend2(0.5).pas.g = 0.01
         self.dend2(0.5).pas.e = -65
         self.dend2.Ra = 150
 
@@ -1072,7 +1075,7 @@ class TuftRS5(Cell):  #
         self.dend3(0.5).kca.gbar = 0.005 * 5 * 0.001  #
         self.dend3(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend3(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend3(0.5).pas.g = 8.5e-5 * 2
+        self.dend3(0.5).pas.g = 0.01
         self.dend3(0.5).pas.e = -65
         self.dend3.Ra = 150
 
@@ -1089,7 +1092,7 @@ class TuftRS5(Cell):  #
         self.dend4(0.5).kca.gbar = 0.005 * 5 * 0.001  #
         self.dend4(0.5).h.gbar = 1.8e-5 * 0.5  #
         self.dend4(0.5).ican.gbar = 0.001 * 0.07 * 0.1  #
-        self.dend4(0.5).pas.g = 8.5e-5 * 2
+        self.dend4(0.5).pas.g = 0.01
         self.dend4(0.5).pas.e = -65
         self.dend4.Ra = 150
 
@@ -1178,35 +1181,35 @@ class Bask56(Cell):  #
         self.dend(0.5).kdrin.gkdrbar = 0.018
         self.dend(0.5).kapin.gkabar = 0.0032 * 15 * 10
 
-        self.dend(0.5).pas.g = 1 / 10000
+        self.dend(0.5).pas.g = 1 / 100
         self.dend(0.5).pas.e = -73
         self.dend.Ra = 150
 
         self.dend1(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.g = 1 / 100
         self.dend1(0.5).pas.e = -73
         self.dend1.Ra = 150
 
         self.dend2(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.g = 1 / 100
         self.dend2(0.5).pas.e = -73
         self.dend2.Ra = 150
 
         self.dend3(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.g = 1 / 100
         self.dend3(0.5).pas.e = -73
         self.dend3.Ra = 150
 
         self.dend4(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.g = 1 / 100
         self.dend4(0.5).pas.e = -73
         self.dend4.Ra = 150
 
@@ -1222,7 +1225,7 @@ class Bask56(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -1300,35 +1303,35 @@ class Axax56(Cell):  #
         self.dend(0.5).kdrin.gkdrbar = 0.018
         self.dend(0.5).kapin.gkabar = 0.0032 * 15 * 10
 
-        self.dend(0.5).pas.g = 1 / 10000
+        self.dend(0.5).pas.g = 1 / 100
         self.dend(0.5).pas.e = -73
         self.dend.Ra = 150
 
         self.dend1(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.g = 1 / 100
         self.dend1(0.5).pas.e = -73
         self.dend1.Ra = 150
 
         self.dend2(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.g = 1 / 100
         self.dend2(0.5).pas.e = -73
         self.dend2.Ra = 150
 
         self.dend3(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.g = 1 / 100
         self.dend3(0.5).pas.e = -73
         self.dend3.Ra = 150
 
         self.dend4(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.g = 1 / 100
         self.dend4(0.5).pas.e = -73
         self.dend4.Ra = 150
 
@@ -1344,7 +1347,7 @@ class Axax56(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -1423,35 +1426,35 @@ class LTS56(Cell):  #
         self.dend(0.5).kdrin.gkdrbar = 0.018
         self.dend(0.5).kapin.gkabar = 0.0032 * 15 * 10
 
-        self.dend(0.5).pas.g = 1 / 10000
+        self.dend(0.5).pas.g = 1 / 100
         self.dend(0.5).pas.e = -73
         self.dend.Ra = 150
 
         self.dend1(0.5).Nafx.gnafbar = 0.018 * 5
         self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.g = 1 / 100
         self.dend1(0.5).pas.e = -73
         self.dend1.Ra = 150
 
         self.dend2(0.5).Nafx.gnafbar = 0.018 * 5
         self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.g = 1 / 100
         self.dend2(0.5).pas.e = -73
         self.dend2.Ra = 150
 
         self.dend3(0.5).Nafx.gnafbar = 0.018 * 5
         self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.g = 1 / 100
         self.dend3(0.5).pas.e = -73
         self.dend3.Ra = 150
 
         self.dend4(0.5).Nafx.gnafbar = 0.018 * 5
         self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.g = 1 / 100
         self.dend4(0.5).pas.e = -73
         self.dend4.Ra = 150
 
@@ -1467,7 +1470,7 @@ class LTS56(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -1521,7 +1524,7 @@ class NontuftRS6(Cell):  #
         self.soma(0.5).cad_cc.beta  = 0.02
         self.soma(0.5).cad_cc.phi =  10400.
         self.soma(0.5).pas.e = -70
-        self.soma(0.5).pas.g = 0.0001
+        self.soma(0.5).pas.g = 0.01
         self.soma.Ra = 100.
 
         # ---------------dend----------------
@@ -1547,7 +1550,7 @@ class NontuftRS6(Cell):  #
         self.dend(0.5).cad_cc.beta  =   0.05
         self.dend(0.5).cad_cc.phi =   260000.
         self.dend(0.5).pas.e = -70
-        self.dend(0.5).pas.g = 2.E-05
+        self.dend(0.5).pas.g = 0.01
         self.dend.Ra = 250.
 
         self.dend1(0.5).naf2_cc.gbar = 0.06
@@ -1564,7 +1567,7 @@ class NontuftRS6(Cell):  #
         self.dend1(0.5).cad_cc.beta = 0.05
         self.dend1(0.5).cad_cc.phi = 260000.
         self.dend1(0.5).pas.e = -70
-        self.dend1(0.5).pas.g = 2.E-05
+        self.dend1(0.5).pas.g = 0.01
         self.dend1.Ra = 250.
 
         self.dend2(0.5).naf2_cc.gbar = 0.06
@@ -1581,7 +1584,7 @@ class NontuftRS6(Cell):  #
         self.dend2(0.5).cad_cc.beta = 0.05
         self.dend2(0.5).cad_cc.phi = 260000.
         self.dend2(0.5).pas.e = -70
-        self.dend2(0.5).pas.g = 2.E-05
+        self.dend2(0.5).pas.g = 0.01
         self.dend2.Ra = 250.
 
         self.dend3(0.5).naf2_cc.gbar = 0.06
@@ -1598,7 +1601,7 @@ class NontuftRS6(Cell):  #
         self.dend3(0.5).cad_cc.beta = 0.05
         self.dend3(0.5).cad_cc.phi = 260000.
         self.dend3(0.5).pas.e = -70
-        self.dend3(0.5).pas.g = 2.E-05
+        self.dend3(0.5).pas.g = 0.01
         self.dend3.Ra = 250.
 
         self.dend4(0.5).naf2_cc.gbar = 0.06
@@ -1615,7 +1618,7 @@ class NontuftRS6(Cell):  #
         self.dend4(0.5).cad_cc.beta = 0.05
         self.dend4(0.5).cad_cc.phi = 260000.
         self.dend4(0.5).pas.e = -70
-        self.dend4(0.5).pas.g = 2.E-05
+        self.dend4(0.5).pas.g = 0.01
         self.dend4.Ra = 250.
 
         # ---------------axon----------------
@@ -1790,35 +1793,35 @@ class SyppyrFRB(Cell):  #
         self.dend(0.5).kdrin.gkdrbar = 0.018
         self.dend(0.5).kapin.gkabar = 0.0032 * 15 * 10
 
-        self.dend(0.5).pas.g = 1 / 10000
+        self.dend(0.5).pas.g = 1 / 100
         self.dend(0.5).pas.e = -73
         self.dend.Ra = 150
 
         self.dend1(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.g = 1 / 100
         self.dend1(0.5).pas.e = -73
         self.dend1.Ra = 150
 
         self.dend2(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.g = 1 / 100
         self.dend2(0.5).pas.e = -73
         self.dend2.Ra = 150
 
         self.dend3(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.g = 1 / 100
         self.dend3(0.5).pas.e = -73
         self.dend3.Ra = 150
 
         self.dend4(0.5).Nafx.gnafbar = 0.018 * 10
         self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
         self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.g = 1 / 100
         self.dend4(0.5).pas.e = -73
         self.dend4.Ra = 150
 
@@ -1834,7 +1837,7 @@ class SyppyrFRB(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -1887,7 +1890,7 @@ class SyppyrRS(Cell):  #
         self.soma(0.5).hin.gbar = 0.00001
         self.soma(0.5).kapin.gkabar = 0.0032 * 15
         self.soma(0.5).canin.gcalbar = 0.0003
-        self.soma(0.5).kctin.gkcbar = 0.0001
+        self.soma(0.5).kctin.gkcbar = 0.001
         self.soma(0.5).pas.g = 0.0002
         self.soma(0.5).pas.e = -70
         self.soma.Ra = 100
@@ -1917,35 +1920,35 @@ class SyppyrRS(Cell):  #
         self.dend(0.5).kdrin.gkdrbar = 0.018
         self.dend(0.5).kapin.gkabar = 0.0032 * 15 * 10
 
-        self.dend(0.5).pas.g = 1 / 10000
+        self.dend(0.5).pas.g = 1 / 100
         self.dend(0.5).pas.e = -73
         self.dend.Ra = 150
 
         self.dend1(0.5).Nafx.gnafbar = 0.018 * 10
-        self.dend1(0.5).kdrin.gkdrbar = 0.018 * 0.5
+        self.dend1(0.5).kdrin.gkdrbar = 0.018
         self.dend1(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend1(0.5).pas.g = 1 / 10000
+        self.dend1(0.5).pas.g = 1 / 100
         self.dend1(0.5).pas.e = -73
         self.dend1.Ra = 150
 
         self.dend2(0.5).Nafx.gnafbar = 0.018 * 10
-        self.dend2(0.5).kdrin.gkdrbar = 0.018 * 0.5
+        self.dend2(0.5).kdrin.gkdrbar = 0.018
         self.dend2(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend2(0.5).pas.g = 1 / 10000
+        self.dend2(0.5).pas.g = 1 / 100
         self.dend2(0.5).pas.e = -73
         self.dend2.Ra = 150
 
         self.dend3(0.5).Nafx.gnafbar = 0.018 * 10
-        self.dend3(0.5).kdrin.gkdrbar = 0.018 * 0.5
+        self.dend3(0.5).kdrin.gkdrbar = 0.018
         self.dend3(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend3(0.5).pas.g = 1 / 10000
+        self.dend3(0.5).pas.g = 1 / 100
         self.dend3(0.5).pas.e = -73
         self.dend3.Ra = 150
 
         self.dend4(0.5).Nafx.gnafbar = 0.018 * 10
-        self.dend4(0.5).kdrin.gkdrbar = 0.018 * 0.5
+        self.dend4(0.5).kdrin.gkdrbar = 0.018
         self.dend4(0.5).kapin.gkabar = 0.0032 * 15 * 10
-        self.dend4(0.5).pas.g = 1 / 10000
+        self.dend4(0.5).pas.g = 1 / 100
         self.dend4(0.5).pas.e = -73
         self.dend4.Ra = 150
 
@@ -1961,7 +1964,7 @@ class SyppyrRS(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 100
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
