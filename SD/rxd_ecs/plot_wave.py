@@ -49,6 +49,8 @@ for step in Time:
                              color=v,
                             colorscale='Jet',
                             showscale=True,
+                            cmin = -80,
+                            cmax = 50,
                             opacity=0.5
                         )))
 
@@ -62,7 +64,7 @@ for i in range(len(fig.data)):
     step = dict(
         method="update",
         args=[{"visible": [False] * len(fig.data)},
-              {"title": "Time: " + str(i*10+10)}],  # layout attribute
+              {"title": "Time: " + str(i)}],  # layout attribute
     )
     step["args"][0]["visible"][i] = True  # Toggle i'th trace to "visible"
     steps.append(step)

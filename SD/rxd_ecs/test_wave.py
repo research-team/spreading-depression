@@ -32,7 +32,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/835_tW')
+outdir = os.path.abspath('tests/858_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -1724,15 +1724,16 @@ na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
 '''
 
 stims=[]
-for i in range(0,300):
-    stim = h.NetStim()
-    stim.number = 1
-    stim.start = 10
-    ncstim = h.NetCon(stim, rec_neurons5[i].synlistexE[0])
-    ncstim.delay = 1
-    ncstim.weight[0] = 1
-    stims.append(ncstim)
-    stims.append(stim)
+for i in range(0,200):
+    for j in range(0,30):
+        stim = h.NetStim()
+        stim.number = 1
+        stim.start = random.randint(5,15)
+        ncstim = h.NetCon(stim, rec_neurons4[i].synlistexE[j])
+        ncstim.delay = random.randint(1,5)
+        ncstim.weight[0] = 1
+        stims.append(ncstim)
+        stims.append(stim)
 
 #kecs = h.Vector()
 #kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
@@ -2019,7 +2020,7 @@ def run(tstop):
             z_pos.append(n.z)
             id_color.append(n.id)
             listname.append(n.name)
-            #plot_spike(n, time, n.number)
+            plot_spike(n, time, n.number)
 
 
     #pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')

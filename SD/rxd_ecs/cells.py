@@ -102,22 +102,22 @@ class Cell:
 
 
         for d in self.dends:
-            for i in range(0, 50):
+            for i in range(0, 20):
                 synE = h.AMPA(d(0.5))
                 synE.tau = 1
                 synE.e = 50
                 self.synlistexE.append(synE)
 
         for d in self.dends:
-            for i in range(0, 50):
+            for i in range(0, 10):
                 synI = h.GABAA(d(0.5))
-                synI.tau = 1
-                synI.e = -20
+                synI.tau = 0.3
+                synI.e = -50
                 self.synlistexI.append(synI)
 
         self.synlistexNMDA=[]
         for d in self.dends:
-            for i in range(0,50):
+            for i in range(0,20):
                 synE = h.NMDA1(d(0.5))
                 self.synlistexNMDA.append(synE)
 
@@ -137,9 +137,9 @@ class Cell:
     def connect(self, target, type):
         if(type==1):
             for j in range(0,len(self.dends)):
-                for i in range(j*50, j*50+50):
+                for i in range(j*20,j*20+20):
                     nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexE[i], sec=self.dends[j])
-                    nc.weight[0] = random.randint(1,5) /10
+                    nc.weight[0] = random.randint(1,100) /100
                     nc.delay = random.randint(1,10)
                     target._ncs.append(nc)
                     target.count += 1
@@ -149,7 +149,7 @@ class Cell:
         elif(type==-1):
             #for sec in self.dends:
             for j in range(0,len(self.dends)):
-                for i in range(j*50, j*50+50):
+                for i in range(j*10,j*10+10):
                     nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexI[i], sec=self.dends[j])
                     nc.weight[0] = random.randint(1,30) /100
                     nc.delay = random.randint(1,10)
@@ -160,9 +160,9 @@ class Cell:
 
         elif (type == 0):
             for j in range(0,len(self.dends)):
-                for i in range(j*50, j*50+50):
+                for i in range(j*20,j*20+20):
                     nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexNMDA[i], sec=self.dends[j])
-                    nc.weight[0] = random.randint(1,5) /10
+                    nc.weight[0] = random.randint(1,100) /100
                     nc.delay = random.randint(1,10)
                     target._ncs.append(nc)
                     target.count += 1
@@ -190,7 +190,7 @@ class Bask23(Cell):
         self.soma(0.5).kapin.gkabar = 0.0032 * 15
         self.soma(0.5).canin.gcalbar = 0.0003
         self.soma(0.5).kctin.gkcbar = 0.0001
-        self.soma(0.5).pas.g = 0.0002
+        self.soma(0.5).pas.g = 0.002
         self.soma(0.5).pas.e = -70
         self.soma.Ra = 100
 
@@ -357,7 +357,7 @@ class Axax23(Cell): #
         self.soma(0.5).kapin.gkabar = 0.0032 * 15
         self.soma(0.5).canin.gcalbar = 0.0003
         self.soma(0.5).kctin.gkcbar = 0.0001
-        self.soma(0.5).pas.g = 0.0002
+        self.soma(0.5).pas.g = 0.002
         self.soma(0.5).pas.e = -70
         self.soma.Ra = 100
 
@@ -480,7 +480,7 @@ class LTS23(Cell):  #
         self.soma(0.5).kapin.gkabar = 0.0032 * 15
         self.soma(0.5).canin.gcalbar = 0.0003
         self.soma(0.5).kctin.gkcbar = 0.0001
-        self.soma(0.5).pas.g = 1/10000
+        self.soma(0.5).pas.g = 1/100
         self.soma(0.5).pas.e = -73
         self.soma.Ra = 150
         self.soma.cm = 1.2
@@ -585,7 +585,7 @@ class Spinstel4(Cell):  #
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf2_cc.gbar = 0.55
+        self.soma(0.5).naf2_cc.gbar = 0.65
         self.soma(0.5).napf_spinstell.gbar = 0.00015
         self.soma(0.5).kdr_fs_cc.gbar = 0.1
         self.soma(0.5).kc_fast_cc.gbar = 0.001
@@ -598,9 +598,9 @@ class Spinstel4(Cell):  #
         self.soma(0.5).ar.gbar = 0.00025
         self.soma(0.5).cad_cc.beta  = 0.02
         self.soma(0.5).cad_cc.phi =  260000.
-        self.soma(0.5).pas.g = 0.02
+        self.soma(0.5).pas.g = 0.001
         self.soma(0.5).pas.e = -65
-        self.soma.Ra =   250.
+        self.soma.Ra = 150.
 
 
         # ---------------dend----------------
@@ -717,7 +717,7 @@ class Spinstel4(Cell):  #
         self.axon(0.5).kdr_fs_cc.gbar = 0.9
         self.axon(0.5).ka_cc.gbar = 0.002
         self.axon(0.5).k2_cc.gbar = 0.001
-        self.axon(0.5).pas.g = 0.001
+        self.axon(0.5).pas.g = 0.01
         self.axon(0.5).pas.e = -65
         self.axon.Ra = 100.
 
@@ -807,7 +807,7 @@ class TuftIB5(Cell):  #
         self.soma(0.5).kca.gbar = 0.005 * 5
         self.soma(0.5).h.gbar = 1.8e-5 * 0.5
         self.soma(0.5).ican.gbar = 0.001 * 0.07 * 0
-        self.soma(0.5).pas.g = 8.5e-5 * 2
+        self.soma(0.5).pas.g = 0.01
         self.soma(0.5).pas.e = -65
         self.soma.Ra = 150
 
@@ -924,7 +924,7 @@ class TuftIB5(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 100
+        self.axon(0.5).pas.g = 1 / 10
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -973,7 +973,7 @@ class TuftRS5(Cell):  #
             #print(mechanism_s)
             self.soma.insert(mechanism_s)
 
-        self.soma(0.5).Naf.gnafbar = 0.018 * 6
+        self.soma(0.5).Naf.gnafbar = 0.018 * 3
         self.soma(0.5).nap.gnapbar = 0.000018 * 0.1
         self.soma(0.5).calc.gcabar = 0.0001 * 0.1
         self.soma(0.5).cal.gcalbar = 0.0001 * 0.3
@@ -986,7 +986,7 @@ class TuftRS5(Cell):  #
         self.soma(0.5).kca.gbar = 0.005 * 5
         self.soma(0.5).h.gbar = 1.8e-5 * 0.5
         self.soma(0.5).ican.gbar = 0.001 * 0.07 * 0
-        self.soma(0.5).pas.g = 8.5e-5 * 2
+        self.soma(0.5).pas.g = 0.01
         self.soma(0.5).pas.e = -65
         self.soma.Ra = 150
 
@@ -1103,7 +1103,7 @@ class TuftRS5(Cell):  #
 
         self.axon(0.5).Nafx.gnafbar = 0.004
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10000
+        self.axon(0.5).pas.g = 1 / 10
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 150
         self.axon.cm = 1.2
@@ -1764,7 +1764,7 @@ class SyppyrFRB(Cell):  #
         self.soma(0.5).kapin.gkabar = 0.0032 * 15
         self.soma(0.5).canin.gcalbar = 0.0003
         self.soma(0.5).kctin.gkcbar = 0.0001
-        self.soma(0.5).pas.g = 0.0002
+        self.soma(0.5).pas.g = 0.001
         self.soma(0.5).pas.e = -70
         self.soma.Ra = 100
 
@@ -1884,14 +1884,14 @@ class SyppyrRS(Cell):  #
                             'pas']:
             self.soma.insert(mechanism_s)
 
-        self.soma(0.5).Nafx.gnafbar = 0.45
-        self.soma(0.5).kdrin.gkdrbar = 0.001
+        self.soma(0.5).Nafx.gnafbar = 0.18
+        self.soma(0.5).kdrin.gkdrbar = 0.018
         self.soma(0.5).IKsin.gKsbar = 0.000725 * 0.1
         self.soma(0.5).hin.gbar = 0.00001
         self.soma(0.5).kapin.gkabar = 0.0032 * 15
         self.soma(0.5).canin.gcalbar = 0.0003
         self.soma(0.5).kctin.gkcbar = 0.001
-        self.soma(0.5).pas.g = 0.0002
+        self.soma(0.5).pas.g = 0.001
         self.soma(0.5).pas.e = -70
         self.soma.Ra = 100
 
