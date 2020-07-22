@@ -102,14 +102,14 @@ class Cell:
 
 
         for d in self.dends:
-            for i in range(0, 20):
+            for i in range(0, 10):
                 synE = h.AMPA(d(0.5))
                 synE.tau = 1
                 synE.e = 50
                 self.synlistexE.append(synE)
 
         for d in self.dends:
-            for i in range(0, 10):
+            for i in range(0, 5):
                 synI = h.GABAA(d(0.5))
                 synI.tau = 0.3
                 synI.e = -50
@@ -117,7 +117,7 @@ class Cell:
 
         self.synlistexNMDA=[]
         for d in self.dends:
-            for i in range(0,80):
+            for i in range(0,5):
                 synE = h.NMDA1(d(0.5))
                 self.synlistexNMDA.append(synE)
 
@@ -134,12 +134,12 @@ class Cell:
         #            self.nmda5]
 
 
-    def connect(self, target, type):
+    def connect_cells(self, target, type):
         if(type==1):
             for j in range(0,len(self.dends)):
-                for i in range(j*20,j*20+20):
+                for i in range(j*10,j*10+10):
                     nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexE[i], sec=self.dends[j])
-                    nc.weight[0] = random.randint(1,100) /100
+                    nc.weight[0] = random.randint(1,50) /100
                     nc.delay = 1
                     target._ncs.append(nc)
                     target.count += 1
@@ -149,7 +149,7 @@ class Cell:
         elif(type==-1):
             #for sec in self.dends:
             for j in range(0,len(self.dends)):
-                for i in range(j*10,j*10+10):
+                for i in range(j*5,j*5+5):
                     nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexI[i], sec=self.dends[j])
                     nc.weight[0] = random.randint(1,30) /100
                     nc.delay = 1
@@ -160,9 +160,9 @@ class Cell:
 
         elif (type == 0):
             for j in range(0,len(self.dends)):
-                for i in range(j*80,j*80+80):
+                for i in range(j*5,j*5+5):
                     nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexNMDA[i], sec=self.dends[j])
-                    nc.weight[0] = 0 #random.randint(1,25) * 0.0001
+                    nc.weight[0] = random.randint(1,25) * 0.0001
                     nc.delay = random.randint(1,10)
                     target._ncs.append(nc)
                     target.count += 1
