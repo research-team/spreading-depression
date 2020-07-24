@@ -1,6 +1,6 @@
-from neuron import h, crxd as rxd
+from neuron import h
 import  random
-from neuron.units import ms, mV
+from neuron import h, crxd as rxd
 somaR = 11.0  # soma radius
 dendR = 4  # dendrite radius
 dendL = 500.0
@@ -318,7 +318,7 @@ class Bask23(Cell):
         self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        '''
+
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
                                geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
         self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
@@ -327,11 +327,11 @@ class Bask23(Cell):
 
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
        
-        '''
-         #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
-        #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli) 
 
-    
+         #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
+        #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli)
+
+
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -785,7 +785,7 @@ class Spinstel4(Cell):  #
                        'ica_cal'], cell.number)
         '''
 
-        
+
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -794,7 +794,7 @@ class Spinstel4(Cell):  #
         #self.stim.amp = 1
         #print(self.id)
 
-class TuftIB5(Cell):  #
+class TuftIB5(Cell):
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 5
@@ -956,14 +956,14 @@ class TuftIB5(Cell):  #
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
 
-'''
-    self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                          geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-    self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-    self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-    self.k_i = self.k[self.cyt]
-    self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
-'''
+
+        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        self.k_i = self.k[self.cyt]
+        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+
 
 
         #------for test-----------
@@ -972,7 +972,7 @@ class TuftIB5(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    
+
 
 class TuftRS5(Cell):  #
     def __init__(self, x, y, z, num):
@@ -1392,14 +1392,14 @@ class Axax56(Cell):  #
         self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
         self.k_i = self.k[self.cyt]
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
-        
+
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    
+
 
 
 class LTS56(Cell):  #
@@ -1685,7 +1685,7 @@ class NontuftRS6(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
        # print(self.id)
-  
+
 '''
 
 class Bask4(Cell):  #
