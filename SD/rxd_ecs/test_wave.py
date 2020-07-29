@@ -6,12 +6,13 @@ from cells import *
 import json
 import logging
 import neuron.rxd as rxd
-h.nrnmpi_init()
+#h.nrnmpi_init()
 pc = h.ParallelContext()
-pcid = pc.id()
+pcid = int(pc.id())
 nhost = pc.nhost()
 root = 0
 pc.set_maxstep(10)
+
 
 logging.basicConfig(filename='logs.log',
                         filemode='a',
@@ -27,7 +28,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 #numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/887_tW')
+outdir = os.path.abspath('tests/891_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -42,7 +43,7 @@ if not os.path.exists(k_na_dir):
         print("Unable to create the directory %r for the data and figures"
               % outdir)
         os._exit(1)
-
+pc.barrier()
 # simulation parameters
 Lx, Ly, Lz = 100, 100, 1700 
 Kceil = 15.0  # threshold used to determine wave speed
@@ -738,10 +739,7 @@ for i in rec_neurons6:
         j.connect_cells(i, 0)
         j.connect_cells(i, 1)
         count_in_5 = count_in_5 + 2
-    random.shuffle(rec_neurons10)
-    for j in rec_neurons10[0:20]:
-        j.connect_cells(i, 0)
-        count_in_5 = count_in_5 + 1
+
 
 
 
@@ -950,6 +948,7 @@ tort = tort1
 
 
 time = h.Vector().record(h._ref_t)
+'''
 
 ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
                         -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 20),  # dx - скорость распространнения в разные стороны - различны по осям
@@ -961,7 +960,7 @@ k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial= 3.5,
 
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
                  ecs_boundary_conditions=142)
-
+'''
 logging.info('add stims')
 stims=[]
 for i in range(0,200):
@@ -982,27 +981,7 @@ for i in range(0,200):
 # initialize and set the intracellular concentrations
 logging.info('initialize-start')
 h.finitialize()
-pc.psolve(100)
 logging.info('initialize-go')
-#print(len(stims))
-
-
-
-'''
-df = pd.DataFrame({
-    'id' : [j.id for i in cell for j in i],
-    'name' : [j.name for i in cell for j in i],
-    'number' : [j.number for i in cell for j in i],
-    'count' : [j.count for i in cell for j in i],
-    'cells' : [j.cells for i in cell for j in i]
-    })
-df.to_csv(os.path.join(outdir,'data_cells.csv'))
-'''
-
-
-
-#dg.to_csv(os.path.join(outdir,'info.csv'))
-
 
 def progress_bar(tstop, size=40):
     """ report progress of the simulation """
@@ -1012,208 +991,7 @@ def progress_bar(tstop, size=40):
     progress = '#' * fill + '-' * empt
     sys.stdout.write('[%s] %2.1f%% %6.1fms of %6.1fms\r' % (progress, 100 * prog, pc.t(0), tstop))
     sys.stdout.flush()
-'''
-def plot_3D_data(data):
-    data.head(10)
-    fig = px.scatter_3d(data, x='x', y='y', z='z', color='name')
-    fig.update_layout(
-    scene = dict(
-        aspectratio = dict(
-            x = 1,
-            y = 1,
-            z = 16
-        )
-    ),
-    margin = dict(
-        t = 20,
-        b = 20,
-        l = 20,
-        r = 20
-    )
-)
-    fig.write_html(os.path.join(outdir, 'data3D.html'))
 
-def plot_volt(data):
-    fig = px.scatter(data, x='x', y='y', z='z', animation_frame="v", animation_group="v",
-                      color="v")
-
-    fig["layout"].pop("updatemenus")
-    fig.write_html(os.path.join(outdir, 'volt.html'))
-
-def plot_rec_neurons():
-    somaV, dendV, pos, data = [], [], [], []
-    for i in range(nhost):
-        fin = open(os.path.join(outdir, 'membrane_potential_%i.pkl' % i), 'rb')
-        [sV, dV, p, id] = pickle.load(fin)
-        fin.close()
-        somaV.extend(sV)
-        dendV.extend(dV)
-        pos.extend(p)
-        data.extend(id)
-
-        for idx in range(somaV[0].size()):
-            # create a plot for each record (100ms)
-            if idx % 100 ==0:
-                fig = pyplot.figure()
-                ax = fig.add_subplot(111, projection='3d')
-                ax.set_position([0.0, 0.05, 0.9, 0.9])
-                ax.set_xlim([-Lx / 2.0, Lx / 2.0])
-                ax.set_ylim([-Ly / 2.0, Ly / 2.0])
-                ax.set_zlim([-Lz / 2.0, Lz / 2.0])
-                ax.set_xticks([int(Lx * i / 4.0) for i in range(-2, 3)])
-                ax.set_yticks([int(Ly * i / 4.0) for i in range(-2, 3)])
-                ax.set_zticks([int(Lz * i / 4.0) for i in range(-2, 3)])
-
-                cmap = pyplot.get_cmap('jet')
-                for i in range(num):
-                    x = pos[i]
-                    soma_z = [x[2] - somaR, x[2] + somaR]
-                    cell_x = [x[0], x[0]]
-                    cell_y = [x[1], x[1]]
-                    scolor = cmap((somaV[i].get(idx) + 40.0) / 80.0 )
-                    # plot the soma
-                    ax.plot(cell_x, cell_y, soma_z, linewidth=2, color=scolor,
-                            alpha=0.5)
-
-                    dcolor = cmap((dendV[i].get(idx) + 40.0) / 80.0)
-                    dend_z = [x[2] - somaR, x[2] - somaR - dendL]
-                    # plot the dendrite
-                    ax.plot(cell_x, cell_y, dend_z, linewidth=0.5, color=dcolor,
-                            alpha=0.5)
-
-                norm = colors.Normalize(vmin=-70, vmax=80)
-                pyplot.title('Neuron membrane potentials; t = %gms' % (idx))
-
-
-                ax1 = fig.add_axes([0.88, 0.05, 0.04, 0.9])
-                cb1 = colorbar.ColorbarBase(ax1, cmap=cmap, norm=norm,
-                                            orientation='vertical')
-                cb1.set_label('mV')
-
-
-                filename = 'neurons_{:05d}.png'.format(idx)
-                pyplot.savefig(os.path.join(outdir, filename))
-                pyplot.close()
-
-
-
-def plot_image_data(data, min_val, max_val, filename, title):
-    sb = scalebar.ScaleBar(1e-6)
-    sb.location = 'lower left'
-    pyplot.imshow(data, extent=k[ecs].extent('xz'), vmin=min_val,
-                  vmax=max_val, interpolation='nearest', origin='lower')
-    pyplot.colorbar()
-    sb = scalebar.ScaleBar(1e-6)
-    sb.location = 'lower left'
-    ax = pyplot.gca()
-    ax.xaxis.set_visible(False)
-    ax.yaxis.set_visible(False)
-    ax.add_artist(sb)
-    pyplot.title(title)
-    pyplot.xlim(k[ecs].extent('x'))
-    pyplot.ylim(k[ecs].extent('z'))
-    pyplot.savefig(os.path.join(outdir, filename))
-    pyplot.close()
-
-
-def plot_spike(cell, time, i):
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(y=cell.somaV, x=time, mode='lines', name='soma'))
-    fig.add_trace(go.Scatter(y=cell.dendV, x=time, mode='lines', name='dendrite'))
-    fig.add_trace(go.Scatter(y=cell.dendV1, x=time, mode='lines', name='dendrite1'))
-    fig.add_trace(go.Scatter(y=cell.dendV2, x=time, mode='lines', name='dendrite2'))
-    fig.add_trace(go.Scatter(y=cell.dendV3, x=time, mode='lines', name='dendrite3'))
-    fig.add_trace(go.Scatter(y=cell.dendV4, x=time, mode='lines', name='dendrite4'))
-    fig.add_trace(go.Scatter(y=cell.v_vec, x=time, mode='lines', name='v'))
-    fig.update_layout(title='Voltage of Neuron %i' % cell.id,
-                   xaxis_title='ms',
-                   yaxis_title='mV')
-    fig.write_html(os.path.join(k_na_dir, 'spike%i.html' % i ))
-
-
-def plot_spike_for_1_neu(volt_soma, volt_dend, t, i, tstop, k, na, k_in, na_in, v):
-    #fig, ax = pyplot.subplots()
-    #ax.plot(t, volt)
-    #pyplot.plot(t,volt_soma, lebel='soma')
-    #pyplot.plot(t, volt_dend, lebel='dend')
-    #pyplot.xticks(np.arange(0, tstop+1, 100.0))
-
-    #pyplot.yticks(np.arange(1,15,3))
-    #plt.show()
-    #pyplot.grid()
-    #pyplot.legend()
-    #fig.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    #pyplot.close('all')
-
-    fig = pyplot.figure(figsize=(40,40))
-    ax1 = fig.add_subplot(5,1,1)
-    soma_plot = ax1.plot(t , volt_soma , color='black', label='soma')
-    dend_plot = ax1.plot(t, volt_dend, color='red', label='dend')
-    ax1.legend()
-    ax1.set_ylabel('mV')
-   
-
-    ax2 = fig.add_subplot(5,1,2)
-    k_plot = ax2.plot(t, k, color='blue', label='K')
-    na_plot = ax2.plot(t, na, color='yellow', label='Na')
-    ax2.legend()
-    ax2.set_ylabel('current (mA/cm$^2$)')
-  
-
-    ax3 = fig.add_subplot(5,1,3)
-    k_in_plot = ax3.plot(t, k_in, color='red', label='K')
-    ax3.legend()
-
-    ax4 = fig.add_subplot(5,1,4)
-    na_in_plot = ax4.plot(t, na_in, color='blue', label='Na')
-    ax4.legend()
-    ax4.set_xlabel('time (ms)')
-
-    ax5 = fig.add_subplot(5,1,5)
-    v=ax5.plot(t, v, color='green', label='v')
-    ax5.legend()
-    ax5.set_xlabel('time (ms)')
-    #pyplot.savefig(os.path.join(outdir, 'spike_%i.png' % i))
-    fig.savefig(os.path.join(k_na_dir, 'spike_%i.png' % i))
-    pyplot.close('all')
-
-
-
-
-
-def plot_K_ecs_in_point_000(k, t):
-    pyplot.plot(t, k)
-    pyplot.grid()
-    pyplot.savefig(os.path.join(outdir, 'k_ecs.png'))
-    pyplot.close('all')
-
-
-
-def plot_n_m_h(t, soma , i):
-    fig = pyplot.figure(figsize=(20,16))
-    ax1 = fig.add_subplot(1,1,1)
-    n_plot = ax1.plot(t , soma.nvec , color='red', label='n (in soma)')
-    h_plot = ax1.plot(t , soma.hvec, color='blue', label='h (in soma)')
-    ax1.legend()
-    ax1.set_ylabel('state')
-
-
-    ax1.set_xlabel('time (ms)')
-    fig.savefig(os.path.join(nmh_dir, 'nmh_%i.png' % i))
-    pyplot.close('all')
-   
-def plot_spike_html(cell, time, i):
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(y=cell.somaV, x=time, mode='lines', name='soma'))
-    fig.add_trace(go.Scatter(y=cell.dendV, x=time, mode='lines', name='dendrite'))
-    fig.add_trace(go.Scatter(y=cell.v_vec, x=time, mode='lines', name='v'))
-    fig.add_trace(go.Scatter(y=cell.axonV, x=time, mode='lines', name='axon'))
-    fig.update_layout(title='Voltage of Neuron %i' % i,
-                   xaxis_title='ms',
-                   yaxis_title='mV')
-    fig.write_html(os.path.join(k_na_dir, 'spike%i.html' % i))
-'''
 h.dt = 0.1
 
 def csv_writer(data, path):
@@ -1221,7 +999,13 @@ def csv_writer(data, path):
     Write data to a CSV file path
     """
     with open(path, "w", newline='') as csv_file:
-        writer = csv.writer(csv_file, delimiter=' ')
+        writer = csv.DictWriter(csv_file, fieldnames = ["t",
+                             "x",
+                             "y",
+                             "z",
+                             "v",
+                             "id",
+                             "num"])
         for line in data:
             writer.writerow(line)
 
@@ -1230,8 +1014,8 @@ def run(tstop):
     volt = []
     
     while pc.t(0) <= tstop:
-        if int(pc.t(0)*10) % 10 == 0 and pcid == 0:
-            logging.info('time: '+ int(pc.t(0)))
+        if int(pc.t(0) * 10) % 10 == 0 and pcid == 0:
+            print('time: ' , int(pc.t(0)))
             for j in cell:
                 for n in j:
                     volt.append({"t" : int(pc.t(0)),
@@ -1243,62 +1027,24 @@ def run(tstop):
                                     "num": n.number})
 
 
-        #if int(pc.t(0)) % 100 == 0:
-         #   if pcid == 0:
-                #plot_image_data(k[ecs].states3d.mean(2), 3.5, 40,
-                             #   'k_mean_%05d' % int(pc.t(0) / 100),
-                             #   'Potassium concentration; t = %6.0fms'
-                             #   % pc.t(0))
-
-            
-        #if pcid == 0: progress_bar(tstop)
         pc.psolve(pc.t(0) + h.dt)
         
-    if pcid == 0:
-        logging.info('Simulation complete.')
-        #progress_bar(tstop)
-       # for i in [0, 108] :
-            #plot_spike(rec_neurons[i], time , i)
-        #print("\nSimulation complete. Plotting membrane potentials")
-        #plot_K_ecs_in_point_000(kecs ,range(0,tstop))
-
-    # save membrane potentials
-    soma, dend, pos, data = [], [], [], []
-    x_pos,y_pos,z_pos,id_color, listname = [],[],[],[], []
-
-    for j in cell:
-        for n in j:
-            soma.append(n.somaV)
-            dend.append(n.dendV)
-            pos.append([n.x, n.y, n.z])
-            data.append([n.id])
-            x_pos.append(n.x)
-            y_pos.append(n.y)
-            z_pos.append(n.z)
-            id_color.append(n.id)
-            listname.append(n.name)
-            #plot_spike(n, time, n.number)
 
 
-    #pout = open(os.path.join(outdir, "membrane_potential_%i.pkl" % pcid), 'wb')
-    #pickle.dump([soma, dend, pos, data], pout)
-    #pout.close()
-    #d3_data = pd.DataFrame(dict(x=x_pos, y=y_pos, z=z_pos, id=id_color, name=listname))
+    logging.info('Simulation complete.')
     pc.barrier()
     if pcid == 0:
         logging.info('write to file -info.json')
         with open(os.path.join(outdir, 'info.json'), 'w') as outfile:
             json.dump(dg, outfile)
-        #plot_3D_data(d3_data)
+
         logging.info("write to file - volt.csv")
         csv_writer(volt, os.path.join(outdir, 'volt.csv'))
-        #voltToCSV = pd.DataFrame(volt)
-        #voltToCSV.to_csv(os.path.join(outdir, 'volt.csv'))
-        #plot_volt(volt)
-        #plot_rec_neurons()
 
-    pc.done()
-    h.quit()
+
+        pc.runworker()
+        pc.done()
+        h.quit()
 
 
 run(100)

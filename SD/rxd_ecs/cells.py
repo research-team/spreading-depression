@@ -139,7 +139,7 @@ class Cell:
             for j in range(0,len(self.dends)):
                 for i in range(j*10,j*10+10):
                     nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexE[i], sec=self.dends[j])
-                    nc.weight[0] = random.randint(1,50) /100
+                    nc.weight[0] = random.randint(1,100) * 0.0001
                     nc.delay = 1
                     target._ncs.append(nc)
                     target.count += 1
@@ -151,7 +151,7 @@ class Cell:
             for j in range(0,len(self.dends)):
                 for i in range(j*5,j*5+5):
                     nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexI[i], sec=self.dends[j])
-                    nc.weight[0] = random.randint(1,30) /100
+                    nc.weight[0] = random.randint(1,30) * 0.0001
                     nc.delay = 1
                     target._ncs.append(nc)
                     target.count += 1
