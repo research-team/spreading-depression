@@ -28,7 +28,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 #numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/891_tW')
+outdir = os.path.abspath('tests/892_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -57,6 +57,7 @@ NsyppyrFRB = 50
 NsyppyrRS = 1000
 #L4 (400-700)
 Nspinstel4 = 240
+Nbask4=36
 NtuftIB5 = 800
 Bask_4 = 235 #235 bask4
 #L5 (700-1200)
@@ -198,12 +199,29 @@ for i in range(0,Nspinstel4):
 
 
 num+=Nspinstel4
+
+rec_neurons16=[]
+for i in range(0,Nbask4):
+    rec_neurons4.append(Bask4(
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(400,700), i+num))
+    data['cells'].append({
+        'name': rec_neurons16[i].name,
+        'id': rec_neurons16[i].id,
+        'num': rec_neurons16[i].number,
+        'x': rec_neurons16[i].x,
+        'y': rec_neurons16[i].y,
+        'z': rec_neurons16[i].z
+    })
+
+num+=Nbask4
 rec_neurons5=[]
 for i in range(0,NtuftIB5):
     rec_neurons5.append(TuftIB5(
     random.uniform(somaR,Lx-somaR),
     random.uniform(somaR,Ly-somaR),
-    random.uniform(400,700), i+num))
+    random.uniform(700,900), i+num))
     data['cells'].append({
         'name': rec_neurons5[i].name,
         'id': rec_neurons5[i].id,
@@ -314,8 +332,56 @@ for i in range(0,NnontuftRS6):
 
 num += NnontuftRS6
 
+NTCR = 100
+NnRT = 100
+num +=NTCR
+num +=NnRT
+
+rec_neurons14=[]
+for i in range(0,NTCR):
+    rec_neurons14.append(TCR(
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(4900,5200-somaR), i+num))
+    data['cells'].append({
+        'name': rec_neurons14[i].name,
+        'id': rec_neurons14[i].id,
+        'num': rec_neurons14[i].number,
+        'x': rec_neurons14[i].x,
+        'y': rec_neurons14[i].y,
+        'z': rec_neurons14[i].z
+    })
+
+rec_neurons15=[]
+for i in range(0,NTCR):
+    rec_neurons15.append(nRT(
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(5000,5200-somaR), i+num))
+    data['cells'].append({
+        'name': rec_neurons15[i].name,
+        'id': rec_neurons15[i].id,
+        'num': rec_neurons15[i].number,
+        'x': rec_neurons15[i].x,
+        'y': rec_neurons15[i].y,
+        'z': rec_neurons15[i].z
+    })
+
 #2710
-cell=[rec_neurons12, rec_neurons13, rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10]
+cell=[rec_neurons12, rec_neurons13, rec_neurons1, rec_neurons2, rec_neurons3, rec_neurons4, rec_neurons5, rec_neurons6, rec_neurons7, rec_neurons8, rec_neurons9, rec_neurons10, rec_neurons14, rec_neurons15, rec_neurons16 ]
+for i in range(0,Nspinstel4):
+    rec_neurons4.append(Spinstel4(
+    random.uniform(somaR,Lx-somaR),
+    random.uniform(somaR,Ly-somaR),
+    random.uniform(400,700), i+num))
+    data['cells'].append({
+        'name': rec_neurons4[i].name,
+        'id': rec_neurons4[i].id,
+        'num': rec_neurons4[i].number,
+        'x': rec_neurons4[i].x,
+        'y': rec_neurons4[i].y,
+        'z': rec_neurons4[i].z
+    })
 #------for test----------
 #i4 = random.randint(0, Nspinstel4)
 #i5=random.randint(0, NtuftIB5)
@@ -578,7 +644,7 @@ dg['2-3'].append({
     })
 logging.info('level 2-3')
 #_________________________ 4 (400-700)______________________________
-count_cells_4=Nspinstel4+NtuftIB5
+count_cells_4=Nspinstel4+Nbask4
 count_links_4=0
 count_in_4=0
 
@@ -633,6 +699,22 @@ for i in rec_neurons4:
 
 
 
+
+
+
+
+
+dg['4'] = {
+    'count_cells' : [count_cells_4],
+    'count_links' : [count_links_4],
+    'count_in' : [count_in_4]
+    }
+logging.info('level 4')
+#_____________________5 (700-1200)___________________________________
+count_cells_5=NtuftRS5 + Nbask56+NtuftIB5
+count_links_5=0
+count_in_5=0
+
 for i in rec_neurons5:
     random.shuffle(rec_neurons13)
     for j in rec_neurons13[0:60]:
@@ -682,20 +764,6 @@ for i in rec_neurons5:
     for j in rec_neurons4[0:20]:
         j.connect_cells(i, 0)
         count_links_4 = count_links_4 + 1
-
-
-
-
-dg['4'] = {
-    'count_cells' : [count_cells_4],
-    'count_links' : [count_links_4],
-    'count_in' : [count_in_4]
-    }
-logging.info('level 4')
-#_____________________5 (700-1200)___________________________________
-count_cells_5=NtuftRS5 + Nbask56
-count_links_5=0
-count_in_5=0
 
 
 for i in rec_neurons6:
@@ -1005,7 +1073,8 @@ def csv_writer(data, path):
                              "z",
                              "v",
                              "id",
-                             "num"])
+                             "num",
+                            "name"])
         for line in data:
             writer.writerow(line)
 
@@ -1024,7 +1093,8 @@ def run(tstop):
                                     "z" : n.z,
                                     "v" : n.somaV[-1],
                                     "id": n.id,
-                                    "num": n.number})
+                                    "num": n.number,
+                                    "name": n.name})
 
 
         pc.psolve(pc.t(0) + h.dt)
