@@ -99,12 +99,21 @@ class Cell:
             synE.e = 30
             self.synlistex.append(synE)
         '''
+        for d in self.dends:
+            synI = h.GABAA(d(0.5))
+            synI.tau = 0.3
+            synI.e = -50
+            self.synlistexI.append(synI)
+
+            synE = h.AMPA(d(0.5))
+            synE.tau = 1
+            synE.e = 50
+            self.synlistexE.append(synE)
 
 
-
-
-
-        self.synlistexNMDA=[]
+            self.synlistexNMDA=[]
+            synE = h.NMDA1(d(0.5))
+            self.synlistexNMDA.append(synE)
 
 
         #self.nmda1 = h.Vector().record(self.synlistexNMDA[0]._ref_i)
@@ -120,7 +129,7 @@ class Cell:
         #            self.nmda5]
 
 
-    def connect_cells(self, target, type):
+    def connect_cells(self, target, type, w):
         if(type==1):
             for j in range(0,len(self.dends)):
                 synE = h.AMPA(self.dends[j](0.5))
@@ -128,8 +137,8 @@ class Cell:
                 synE.e = 50
                 self.synlistexE.append(synE)
                 nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexE[-1], sec=self.dends[j])
-                nc.weight[0] = random.randint(1,30) * 0.01
-                nc.delay = 1
+                nc.weight[0] = w
+                nc.delay = random.randint(3,5)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -144,8 +153,8 @@ class Cell:
                 self.synlistexI.append(synI)
 
                 nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexI[-1], sec=self.dends[j])
-                nc.weight[0] = random.randint(1,30) * 0.0001
-                nc.delay = 1
+                nc.weight[0] = w
+                nc.delay = random.randint(4,7)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -157,7 +166,7 @@ class Cell:
                 self.synlistexNMDA.append(synE)
 
                 nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexNMDA[-1], sec=self.dends[j])
-                nc.weight[0] = random.randint(1,25) * 0.0001
+                nc.weight[0] = 3
                 nc.delay = random.randint(1,3)
                 target._ncs.append(nc)
                 target.count += 1
