@@ -40,10 +40,11 @@ for step in Time:
     z=df.loc[filter_t]['z']
     v=df.loc[filter_t]['v']
     id = df.loc[filter_t]['id']
+    name = df.loc[filter_t]['name']
     fig.add_trace(
         go.Scatter3d(
             x=x, y=y, z=z, mode='markers',
-            text=id,
+            text=name,
             marker=dict(symbol='circle',
                              size=6,
                              color=v,
@@ -71,7 +72,7 @@ for i in range(len(fig.data)):
 
 sliders = [dict(
     active=0,
-    currentvalue={"prefix": "Frequency: "},
+    currentvalue={"prefix": "Time: "},
     pad={"t": 50},
     steps=steps
 )]
