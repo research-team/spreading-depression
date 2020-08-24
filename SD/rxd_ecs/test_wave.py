@@ -28,7 +28,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 #numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/893_tW')
+outdir = os.path.abspath('tests/895_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -403,7 +403,7 @@ for i in rec_neurons13:
         count_links_23=count_links_23+2
     #print('cc13')
     random.shuffle(rec_neurons12)
-    for j in rec_neurons12[0:5]:
+    for j in rec_neurons12[0:15]:
         j.connect_cells(i, 1, 0.00025)
         j.connect_cells(i, 0, 0.0000025)
         count_links_23=count_links_23+2
@@ -426,12 +426,12 @@ for i in rec_neurons13:
     #    j.connect_cells(i, 0)
     #    count_in_23 = count_in_23 + 2
     random.shuffle(rec_neurons5)
-    for j in rec_neurons5[0:2]:
+    for j in rec_neurons5[0:50]:
         j.connect_cells(i, 0, 0.000025)
         j.connect_cells(i, 1, 0.25)
         count_in_23 = count_in_23 + 2
     random.shuffle(rec_neurons6)
-    for j in rec_neurons6[0:2]:
+    for j in rec_neurons6[0:50]:
         j.connect_cells(i, 1, 0.25)
         count_in_23 = count_in_23 + 1
     random.shuffle(rec_neurons8)
@@ -456,7 +456,7 @@ for i in rec_neurons12:
         j.connect_cells(i, 0, 0.0000025)
         count_links_23=count_links_23+2
     random.shuffle(rec_neurons12)
-    for j in rec_neurons12[0:5]:
+    for j in rec_neurons12[0:20]:
         j.connect_cells(i, 1, 0.00025)
         j.connect_cells(i, 0, 0.0000025)
         count_links_23=count_links_23+2
@@ -479,12 +479,12 @@ for i in rec_neurons12:
     #    j.connect_cells(i, 0)
     #    count_in_23 = count_in_23 + 2
     random.shuffle(rec_neurons5)
-    for j in rec_neurons5[0:2]:
+    for j in rec_neurons5[0:50]:
         j.connect_cells(i, 0, 0.0000025)
         j.connect_cells(i, 1, 0.25)
         count_in_23 = count_in_23 + 2
     random.shuffle(rec_neurons6)
-    for j in rec_neurons6[0:2]:
+    for j in rec_neurons6[0:50]:
         j.connect_cells(i, 1, 0.25)
         count_in_23 = count_in_23 + 1
     random.shuffle(rec_neurons8)
@@ -651,7 +651,7 @@ count_in_4=0
 
 for i in rec_neurons4:
     random.shuffle(rec_neurons13)
-    for j in rec_neurons13[0:3]:
+    for j in rec_neurons13[0:30]:
         j.connect_cells(i, 0, 0.0000025)
         j.connect_cells(i, 1, 0.00025)
         count_in_4=count_in_4+2*3
@@ -665,7 +665,7 @@ for i in rec_neurons4:
         j.connect_cells(i, 0, 0.0000025)
         count_in_4 = count_in_4 + 2*10
     random.shuffle(rec_neurons12)
-    for j in rec_neurons12[0:1]:
+    for j in rec_neurons12[0:50]:
         j.connect_cells(i, 0, 0.0000025)
         j.connect_cells(i, 1, 0.00025)
         count_in_4 = count_in_4 + 2
@@ -690,7 +690,7 @@ for i in rec_neurons4:
         j.connect_cells(i, 1, 0.00025)
         count_in_4 = count_in_4 + 1*20
     random.shuffle(rec_neurons4)
-    for j in rec_neurons4[0:30]:
+    for j in rec_neurons4[0:50]:
         j.connect_cells(i, 1, 0.00025)
         j.connect_cells(i, 0, 0.0000025)
         count_links_4 = count_links_4 + 2*30
@@ -1122,12 +1122,69 @@ def progress_bar(tstop, size=40):
 
 h.dt = 0.1
 
-def csv_writer(data, path):
+def csv_writer(data, path, arr):
     """
     Write data to a CSV file path
     """
     with open(path, "w", newline='') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames = ["t",
+        writer = csv.DictWriter(csv_file, fieldnames = arr)
+        for line in data:
+            writer.writerow(line)
+
+
+def run(tstop):
+    volt_gada = []
+    volt=[]
+    all=[]
+    while pc.t(0) <= tstop:
+        if int(pc.t(0) * 10) % 10 == 0 and pcid == 0:
+            print('time: ' , int(pc.t(0)))
+            for j in cell:
+                for n in j:
+                    if n.Excitatory==1:
+                        volt.append({"t" : int(pc.t(0)),
+                                        "x" : n.x,
+                                        "y" : n.y,
+                                        "z" : n.z,
+                                        "v" : n.somaV[-1],
+                                        "id": n.id,
+                                        "num": n.number,
+                                        "name": n.name})
+                    else:
+                        volt_gada.append({"t": int(pc.t(0)),
+                                     "x": n.x,
+                                     "y": n.y,
+                                     "z": n.z,
+                                     "v": n.somaV[-1],
+                                     "id": n.id,
+                                     "num": n.number,
+                                     "name": n.name})
+
+
+        pc.psolve(pc.t(0) + h.dt)
+
+
+
+    logging.info('Simulation complete.')
+    pc.barrier()
+    if pcid == 0:
+        for j in cell:
+            for n in j:
+                all.append({"v": n.somaV,
+                                  "id": n.id,
+                                  "num": n.number,
+                                  "name": n.name})
+        csv_writer(all, os.path.join(outdir, 'volt.csv'), ["v",
+                                  "id",
+                                  "num",
+                                  "name"])
+
+        with open(os.path.join(outdir, 'info.json'), 'w') as outfile:
+            json.dump(dg, outfile)
+        logging.info('write to file -info.json')
+
+
+        csv_writer(volt, os.path.join(outdir, 'volt.csv'), ["t",
                              "x",
                              "y",
                              "z",
@@ -1135,41 +1192,18 @@ def csv_writer(data, path):
                              "id",
                              "num",
                             "name"])
-        for line in data:
-            writer.writerow(line)
-
-
-def run(tstop):
-    volt = []
-    
-    while pc.t(0) <= tstop:
-        if int(pc.t(0) * 10) % 10 == 0 and pcid == 0:
-            print('time: ' , int(pc.t(0)))
-            for j in cell:
-                for n in j:
-                    volt.append({"t" : int(pc.t(0)),
-                                    "x" : n.x,
-                                    "y" : n.y,
-                                    "z" : n.z,
-                                    "v" : n.somaV[-1],
-                                    "id": n.id,
-                                    "num": n.number,
-                                    "name": n.name})
-
-
-        pc.psolve(pc.t(0) + h.dt)
-        
-
-
-    logging.info('Simulation complete.')
-    pc.barrier()
-    if pcid == 0:
-        logging.info('write to file -info.json')
-        with open(os.path.join(outdir, 'info.json'), 'w') as outfile:
-            json.dump(dg, outfile)
-
         logging.info("write to file - volt.csv")
-        csv_writer(volt, os.path.join(outdir, 'volt.csv'))
+
+
+        csv_writer(volt_gada, os.path.join(outdir, 'volt_gaba.csv'),["t",
+                             "x",
+                             "y",
+                             "z",
+                             "v",
+                             "id",
+                             "num",
+                            "name"])
+        logging.info("write to file - volt_gaba.csv")
 
 
         pc.runworker()
