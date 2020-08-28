@@ -136,9 +136,9 @@ class Cell:
                 synE.tau = 1
                 synE.e = 50
                 self.synlistexE.append(synE)
-                nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexE[-1], sec=self.dends[j])
+                nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexE[-1], sec=self.axon)
                 nc.weight[0] = w
-                nc.delay = random.randint(3,5)
+                nc.delay = random.randint(1,3)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -152,9 +152,9 @@ class Cell:
                 synI.e = -50
                 self.synlistexI.append(synI)
 
-                nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexI[-1], sec=self.dends[j])
+                nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexI[-1], sec=self.axon)
                 nc.weight[0] = w
-                nc.delay = random.randint(4,7)
+                nc.delay = random.randint(2,4)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -165,9 +165,9 @@ class Cell:
                 synE = h.NMDA1(self.dends[j](0.5))
                 self.synlistexNMDA.append(synE)
 
-                nc = h.NetCon(self.dends[j](0.5)._ref_v, target.synlistexNMDA[-1], sec=self.dends[j])
+                nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexNMDA[-1], sec=self.axon)
                 nc.weight[0] = 3
-                nc.delay = random.randint(1,3)
+                nc.delay = random.randint(1,2)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -179,7 +179,7 @@ class Bask23(Cell):
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 1
-        self.Excitatory = 1
+        self.Excitatory = -1
         self.name = 'superficial interneurons basket'
 
         # ---------------soma----------------
@@ -270,11 +270,11 @@ class Bask23(Cell):
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.5
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:
@@ -349,7 +349,7 @@ class Axax23(Cell): #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 2
-        self.Excitatory = 1
+        self.Excitatory = -1
         self.name = 'superficial interneurons axoaxonic'
 
         # ---------------soma----------------
@@ -442,11 +442,11 @@ class Axax23(Cell): #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
         
         for sec in self.all:        
@@ -479,7 +479,7 @@ class LTS23(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 3
-        self.Excitatory = 1
+        self.Excitatory = -1
         self.name = 'superficial interneurons low threshold spiking'
 
         # ---------------soma----------------
@@ -563,11 +563,11 @@ class LTS23(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:        
@@ -605,7 +605,7 @@ class Spinstel4(Cell):  #
             #print(mechanism_s)
 
         self.soma(0.5).naf2_cc.gbar = 0.65
-        self.soma(0.5).napf_spinstell.gbar = 0.00015
+        self.soma(0.5).napf_spinstell.gbar = 0.0002
         self.soma(0.5).kdr_fs_cc.gbar = 0.1
         self.soma(0.5).kc_fast_cc.gbar = 0.001
         self.soma(0.5).ka_cc.gbar = 0.03
@@ -738,7 +738,7 @@ class Spinstel4(Cell):  #
         self.axon(0.5).k2_cc.gbar = 0.1
         self.axon(0.5).pas.g = 0.01
         self.axon(0.5).pas.e = -65
-        self.axon.Ra = 250.
+        self.axon.Ra = 100.
 
         for sec in self.all:        
             sec.cm = 0.9
@@ -803,8 +803,8 @@ class Bask4(Cell):
     def __init__(self, x, y, z, num):
         super().__init__(x, y, z, num)
         self.id = 16
-        self.Excitatory = 1
-        self.name = 'superficial interneurons basket'
+        self.Excitatory = -1
+        self.name = 'superficial interneurons basket L4'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin',
@@ -884,11 +884,11 @@ class Bask4(Cell):
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra =100
         self.axon.cm = 1.2
 
         for sec in self.all:
@@ -916,7 +916,7 @@ class TuftIB5(Cell):
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 5
-        self.Excitatory = -1
+        self.Excitatory = 1
         self.name = 'pyramidal tufted intrinsic bursting'
 
         # ---------------soma----------------
@@ -942,7 +942,7 @@ class TuftIB5(Cell):
         self.soma(0.5).ican.gbar = 0.001 * 0.07 * 0
         self.soma(0.5).pas.g = 0.01
         self.soma(0.5).pas.e = -65
-        self.soma.Ra = 150
+        self.soma.Ra = 100
 
         # self.v1 = h.Vector().record(self.soma(0.5)._ref_ina_Nafin)
         # self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_nap)
@@ -1055,11 +1055,11 @@ class TuftIB5(Cell):
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:        
@@ -1096,7 +1096,7 @@ class TuftRS5(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 6
-        self.Excitatory = -1
+        self.Excitatory = 1
         self.name = 'pyramidal tufted regular spiking'
 
         # ---------------soma----------------
@@ -1121,7 +1121,7 @@ class TuftRS5(Cell):  #
         self.soma(0.5).ican.gbar = 0.001 * 0.07 * 0
         self.soma(0.5).pas.g = 0.01
         self.soma(0.5).pas.e = -65
-        self.soma.Ra = 150
+        self.soma.Ra = 100
 
         # self.v1 = h.Vector().record(self.soma(0.5)._ref_ina_Nafin)
         # self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_nap)
@@ -1234,11 +1234,11 @@ class TuftRS5(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:        
@@ -1271,7 +1271,7 @@ class Bask56(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 7
-        self.Excitatory = 1
+        self.Excitatory = -1
         self.name = 'deep interneurons basket'
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin','nap',
@@ -1361,11 +1361,11 @@ class Bask56(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:        
@@ -1397,7 +1397,7 @@ class Axax56(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 8
-        self.Excitatory = 1
+        self.Excitatory = -1
         self.name = 'deep interneurons axoaxonic'
         self.soma = h.Section(name='soma', cell=self)
         # ---------------soma----------------
@@ -1487,11 +1487,11 @@ class Axax56(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:        
@@ -1524,7 +1524,7 @@ class LTS56(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 9
-        self.Excitatory = 1
+        self.Excitatory = -1
         self.name ='deep interneurons low threshold spiking'
 
         # ---------------soma----------------
@@ -1615,11 +1615,11 @@ class LTS56(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:        
@@ -1649,7 +1649,7 @@ class NontuftRS6(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 10
-        self.Excitatory = -1
+        self.Excitatory = 1
         self.name ='pyramidal nontufted regular spiking'
         
         # ---------------soma----------------
@@ -1777,9 +1777,9 @@ class NontuftRS6(Cell):  #
         self.axon(0.5).kdr_fs_cc.gbar = 0.06
         self.axon(0.5).ka_cc.gbar = 0.005
         self.axon(0.5).k2_cc.gbar = 0.0005
-        self.axon(0.5).pas.g = 0.1
+        self.axon(0.5).pas.g = 0.0005
         self.axon(0.5).pas.e = -70
-        self.axon.Ra = 250
+        self.axon.Ra = 100
 
         for sec in self.all:        
             sec.cm = 0.9
@@ -1895,7 +1895,7 @@ class SyppyrFRB(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 12
-        #self.Excitatory = 1
+        self.Excitatory = 1
         self.name ='pyramidal fast rythmic bursting'
         #self.soma.nseg = 1+2*int(somaR*2/40)
 
@@ -1987,11 +1987,11 @@ class SyppyrFRB(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:  
@@ -2027,7 +2027,7 @@ class SyppyrRS(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
         self.id = 13
-        #self.Excitatory = 1
+        self.Excitatory = 1
         self.name ='pyramidal regular spiking'
         #self.soma.nseg = 1+2*int(somaR*2/40)
 
@@ -2119,11 +2119,11 @@ class SyppyrRS(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -73
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:  
@@ -2160,7 +2160,7 @@ class TCR(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x, y, z, num)
         self.id = 14
-        # self.Excitatory = 1
+        self.Excitatory = 1
         self.name = 'thalamocortical relay'
         # self.soma.nseg = 1+2*int(somaR*2/40)
 
@@ -2278,11 +2278,11 @@ class TCR(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -70
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:
@@ -2313,7 +2313,7 @@ class nRT(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x, y, z, num)
         self.id = 15
-        # self.Excitatory = 1
+        self.Excitatory = -1
         self.name = 'nucleus reticularis'
         # self.soma.nseg = 1+2*int(somaR*2/40)
 
@@ -2438,11 +2438,11 @@ class nRT(Cell):  #
             self.axon.insert(mechanism_a)
             # print(mechanism_a)
 
-        self.axon(0.5).Nafin.gnafbar = 0.004
+        self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 1 / 10
+        self.axon(0.5).pas.g = 0.0002
         self.axon(0.5).pas.e = -70
-        self.axon.Ra = 250
+        self.axon.Ra = 100
         self.axon.cm = 1.2
 
         for sec in self.all:

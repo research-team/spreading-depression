@@ -28,7 +28,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 #numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/898_tW')
+outdir = os.path.abspath('tests/903_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -648,7 +648,7 @@ for i in rec_neurons4:
     random.shuffle(rec_neurons13)
     for j in rec_neurons13[0:3]:
         j.connect_cells(i, 0, 0.000025)
-        j.connect_cells(i, 1, 0.00025)
+        j.connect_cells(i, 1, 0.0025)
         count_in_4=count_in_4+2*3
     #random.shuffle(rec_neurons6)
     #for j in rec_neurons6[0:20]:
@@ -691,7 +691,7 @@ for i in rec_neurons4:
         count_links_4 = count_links_4 + 2*100
     random.shuffle(rec_neurons16)
     for j in rec_neurons16[0:10]:
-        j.connect_cells(i, 1, 0.000025)
+        j.connect_cells(i, -1, 0.000025)
         count_in_4 = count_in_4 + 1 * 10
     #random.shuffle(rec_neurons5)
     #for j in rec_neurons5[0:3]:
@@ -704,7 +704,7 @@ for i in rec_neurons4:
 for i in rec_neurons16:
     random.shuffle(rec_neurons4)
     for j in rec_neurons4[0:3]:
-        j.connect_cells(i, -1, 0.00025)
+        j.connect_cells(i, 1, 0.00025)
         #j.connect_cells(i, 1, 0.00025)
         count_in_4=count_in_4+1*3
 
@@ -722,21 +722,21 @@ count_in_5=0
 
 for i in rec_neurons5:
     random.shuffle(rec_neurons13)
-    for j in rec_neurons13[0:60]:
+    for j in rec_neurons13[0:500]:
         j.connect_cells(i, 1, 0.25)
         j.connect_cells(i, 0, 0.00025)
         count_in_5=count_in_5+2*60
     random.shuffle(rec_neurons6)
-    for j in rec_neurons6[0:20]:
-        j.connect_cells(i, 1, 0.025)
-        count_links_5 = count_links_5 + 1*20
+    for j in rec_neurons6:
+        j.connect_cells(i, 1, 0.25)
+        count_links_5 = count_links_5 + 1*200
     random.shuffle(rec_neurons10)
     for j in rec_neurons10[0:10]:
         j.connect_cells(i, 1, 0.025)
         j.connect_cells(i, 0, 0.0000025)
         count_in_5 = count_in_5 + 2*10
     random.shuffle(rec_neurons12)
-    for j in rec_neurons12[0:3]:
+    for j in rec_neurons12[0:30]:
         j.connect_cells(i, 1, 0.25)
         j.connect_cells(i, 0, 0.00025)
         count_in_5 = count_in_5 + 2*3
@@ -761,7 +761,7 @@ for i in rec_neurons5:
         j.connect_cells(i, -1, 0.025)
         count_in_5 = count_in_5 + 1*20
     random.shuffle(rec_neurons5)
-    for j in rec_neurons5[0:50]:
+    for j in rec_neurons5:
         j.connect_cells(i, 0, 0.0000025)
         j.connect_cells(i, 1, 0.025)
         count_links_5 = count_links_5 + 2*50
@@ -773,10 +773,10 @@ for i in rec_neurons5:
 
 for i in rec_neurons6:
     random.shuffle(rec_neurons13)
-    for j in rec_neurons13[0:60]:
+    for j in rec_neurons13[0:300]:
         j.connect_cells(i, 1, 0.025)
         j.connect_cells(i, 0, 0.00025)
-        count_in_5=count_in_5+2*60
+        count_in_5=count_in_5+2*300
     random.shuffle(rec_neurons6)
     for j in rec_neurons6[0:10]:
         j.connect_cells(i, 1, 0.025)
@@ -787,10 +787,10 @@ for i in rec_neurons6:
         j.connect_cells(i, 0, 0.00025)
         count_in_5 = count_in_5 + 2*10
     random.shuffle(rec_neurons12)
-    for j in rec_neurons12[0:3]:
-        j.connect_cells(i, 1, 0.25)
+    for j in rec_neurons12[0:30]:
+        j.connect_cells(i, 1, 0.025)
         j.connect_cells(i, 0, 0.00025)
-        count_in_5 = count_in_5 + 2*3
+        count_in_5 = count_in_5 + 2*30
     random.shuffle(rec_neurons7)
     for j in rec_neurons7[0:20]:
         j.connect_cells(i, -1, 0.25)
@@ -812,7 +812,6 @@ for i in rec_neurons6:
         j.connect_cells(i, 0, 0.00025)
         j.connect_cells(i, 1, 0.025)
         count_in_5 = count_in_5 + 2*20
-
 
 
 
@@ -931,18 +930,18 @@ for i in rec_neurons9:
         count_in_56 = count_in_56 + 1*10
     random.shuffle(rec_neurons12)
     for j in rec_neurons12[0:3]:
-        j.connect_cells(i, 1, 0.00025)
+        j.connect_cells(i, 1, 0.0025)
         #j.connect_cells(i, 0)
         count_in_56 = count_in_56 + 1*3
     random.shuffle(rec_neurons4)
     for j in rec_neurons4[0:20]:
-        j.connect_cells(i, 1, 0.00025)
+        j.connect_cells(i, 1, 0.0025)
         #j.connect_cells(i, 0)
         count_in_56 = count_in_56 + 1*20
     random.shuffle(rec_neurons5)
     for j in rec_neurons5[0:20]:
         #j.connect_cells(i, 0)
-        j.connect_cells(i, 1, 0.00025)
+        j.connect_cells(i, 1, 0.0025)
         count_in_56 = count_in_56 + 1*20
     random.shuffle(rec_neurons7)
     for j in rec_neurons7[0:20]:
@@ -950,7 +949,7 @@ for i in rec_neurons9:
         count_in_56 = count_in_56 + 1*20
     random.shuffle(rec_neurons9)
     for j in rec_neurons9[0:20]:
-        j.connect_cells(i, -1, 0.00025)
+        j.connect_cells(i, -1, 0.0025)
         count_links_56 = count_links_56 + 1*20
 
 
@@ -967,16 +966,16 @@ count_in_6=0
 
 for i in rec_neurons10:
     random.shuffle(rec_neurons13)
-    for j in rec_neurons13[0:3]:
-        j.connect_cells(i, 1, 0.00025)
+    for j in rec_neurons13[0:10]:
+        j.connect_cells(i, 1, 0.0025)
         j.connect_cells(i, 0, 0.00025)
         count_in_6=count_in_6+2*3
     random.shuffle(rec_neurons6)
-    for j in rec_neurons6[0:20]:
-        j.connect_cells(i, 1, 0.025)
+    for j in rec_neurons6[0:50]:
+        j.connect_cells(i, 1, 0.25)
         count_in_6 = count_in_6 + 1*20
     random.shuffle(rec_neurons10)
-    for j in rec_neurons10[0:20]:
+    for j in rec_neurons10[0:60]:
         j.connect_cells(i, 1, 0.025)
         j.connect_cells(i, 0, 0.0000025)
         count_links_6 = count_links_6 + 2*20
@@ -1008,7 +1007,7 @@ for i in rec_neurons10:
         count_in_6 = count_in_6 + 2*20
     random.shuffle(rec_neurons4)
     for j in rec_neurons4[0:20]:
-        j.connect_cells(i, 1, 0.25)
+        j.connect_cells(i, 1, 0.025)
         count_in_6 = count_in_6 + 1*20
     random.shuffle(rec_neurons14)
     for j in rec_neurons14[0:30]:
@@ -1087,14 +1086,24 @@ na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
 logging.info('add stims')
 stims=[]
 for i in range(0,200):
-    stim = h.NetStim()
-    stim.number = 1
-    stim.start = random.randint(3,5)
-    ncstim = h.NetCon(stim, rec_neurons4[i].synlistexE[0])
-    ncstim.delay = 0.5#random.randint(1,5)
-    ncstim.weight[0] = 1
-    stims.append(ncstim)
-    stims.append(stim)
+    for j in range(0,30):
+        stim = h.NetStim()
+        stim.number = 1
+        stim.start = 2.5
+        ncstim = h.NetCon(stim, rec_neurons4[i].synlistexE[j])
+        ncstim.delay = 0.5#random.randint(1,5)
+        ncstim.weight[0] = 0.5
+        stims.append(ncstim)
+        stims.append(stim)
+#for i in range(0,200):
+#    stim = h.NetStim()
+#    stim.number = 1
+#    stim.start = random.randint(3,5)
+#    ncstim = h.NetCon(stim, rec_neurons4[i].synlistexE[0])
+#    ncstim.delay = 0.5#random.randint(1,5)
+#    ncstim.weight[0] = 1
+#    stims.append(ncstim)
+#    stims.append(stim)
 
 #kecs = h.Vector()
 #kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
@@ -1170,17 +1179,20 @@ def run(tstop):
 
     logging.info('Simulation complete.')
     pc.barrier()
+    l=len(time)
     if pcid == 0:
         for j in cell:
             for n in j:
-                all.append({"v": n.somaV,
-                                  "id": n.id,
-                                  "num": n.number,
-                                  "name": n.name})
-        csv_writer(all, os.path.join(outdir, 'all.csv'), ["v",
-                                  "id",
-                                  "num",
-                                  "name"])
+                for i in range(l):
+                    all.append({"v": n.somaV[i],
+                                      "id": n.id,
+                                      #"num": n.number,
+                                      "name": n.name,
+                                "t": time[i]})
+                csv_writer(all, os.path.join(k_na_dir, '%i.csv' %n.number), ["v",
+                                          "id",
+                                          #"num",
+                                          "name", "t"])
 
         with open(os.path.join(outdir, 'info.json'), 'w') as outfile:
             json.dump(dg, outfile)
