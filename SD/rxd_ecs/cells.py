@@ -129,7 +129,7 @@ class Cell:
         #            self.nmda5]
 
 
-    def connect_cells(self, target, type, w):
+    def connect_cells(self, target, type, w, d):
         if(type==1):
             for j in range(0,len(self.dends)):
                 synE = h.AMPA(self.dends[j](0.5))
@@ -137,8 +137,8 @@ class Cell:
                 synE.e = 50
                 self.synlistexE.append(synE)
                 nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexE[-1], sec=self.axon)
-                nc.weight[0] = w
-                nc.delay = random.randint(1,3)
+                nc.weight[0] = random.gauss(w, w / 6)
+                nc.delay = random.gauss(d, d / 5)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -153,8 +153,8 @@ class Cell:
                 self.synlistexI.append(synI)
 
                 nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexI[-1], sec=self.axon)
-                nc.weight[0] = w
-                nc.delay = random.randint(2,4)
+                nc.weight[0] = random.gauss(w, w / 6)
+                nc.delay =  random.gauss(d, d / 5)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -166,8 +166,8 @@ class Cell:
                 self.synlistexNMDA.append(synE)
 
                 nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexNMDA[-1], sec=self.axon)
-                nc.weight[0] = 3
-                nc.delay = random.randint(1,2)
+                nc.weight[0] = random.gauss(w, w / 6)
+                nc.delay = random.gauss(d, d / 5)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
