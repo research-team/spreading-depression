@@ -11,7 +11,7 @@ pc = h.ParallelContext()
 pcid = int(pc.id())
 nhost = pc.nhost()
 root = 0
-pc.set_maxstep(10)
+pc.set_maxstep(0.5)
 
 
 logging.basicConfig(filename='logs.log',
@@ -28,7 +28,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 #numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/907_tW')
+outdir = os.path.abspath('tests/908_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -1142,7 +1142,8 @@ def run(tstop):
     all_volt = []
     while pc.t(0) <= tstop:
         if int(pc.t(0) * 10) % 10 == 0 and pcid == 0:
-            print('time: ' , int(pc.t(0)))
+
+            logging.info('time: '.join(str(int(pc.t(0)))))
             for j in cell:
                 for n in j:
                     all_volt.append({"t": int(pc.t(0)),
