@@ -6,12 +6,14 @@ from cells import *
 import json
 import logging
 import neuron.rxd as rxd
-#h.nrnmpi_init()
+from neuron.units import ms, mV
+h.nrnmpi_init()
 pc = h.ParallelContext()
-pcid = int(pc.id())
+
+pcid = pc.id()
 nhost = pc.nhost()
 root = 0
-pc.set_maxstep(0.5)
+#pc.set_maxstep(0.5)
 
 
 logging.basicConfig(filename='logs.log',
@@ -28,7 +30,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 #numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/905_tW')
+outdir = os.path.abspath('tests/908_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -45,7 +47,7 @@ if not os.path.exists(k_na_dir):
         os._exit(1)
 pc.barrier()
 # simulation parameters
-Lx, Ly, Lz = 100, 100, 1700 
+Lx, Ly, Lz = 100, 100, 1700
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
 
@@ -332,7 +334,7 @@ for i in range(0,NnontuftRS6):
 
 num += NnontuftRS6
 
-NTCR = 100
+NTCR = 200
 NnRT = 100
 
 
@@ -701,8 +703,8 @@ for i in rec_neurons4:
     for j in rec_neurons16[0:10]:
         j.connect_cells(i, -1, 0.000025, random.randint(5,10))
         count_in_4 = count_in_4 + 1 * 10
-    for j in rec_neurons14[0:60]:
-        j.connect_cells(i, 1, 0.0025, random.randint(5, 9))
+    for j in rec_neurons14[0:150]:
+        j.connect_cells(i, 1, 0.025, random.randint(5, 9))
     #random.shuffle(rec_neurons5)
     #for j in rec_neurons5[0:3]:
     #    j.connect_cells(i, 0)
@@ -779,8 +781,8 @@ for i in rec_neurons5:
     for j in rec_neurons4[0:20]:
         j.connect_cells(i, 1, 0.0025, random.randint(2,4))
         count_in_5 = count_in_5 + 1*20
-    for j in rec_neurons14[0:10]:
-        j.connect_cells(i, 1, 0.0025, random.randint(5, 9))
+    for j in rec_neurons14[0:30]:
+        j.connect_cells(i, 1, 0.025, random.randint(5, 9))
 
 
 for i in rec_neurons6:
@@ -825,8 +827,8 @@ for i in rec_neurons6:
         j.connect_cells(i, 1, 0.025, random.randint(1,2))
         count_in_5 = count_in_5 + 2*20
     random.shuffle(rec_neurons14)
-    for j in rec_neurons14[0:10]:
-        j.connect_cells(i, 1, 0.0025, random.randint(5, 9))
+    for j in rec_neurons14[0:30]:
+        j.connect_cells(i, 1, 0.025, random.randint(5, 9))
 
 
 
@@ -1033,7 +1035,7 @@ for i in rec_neurons10:
         count_in_6 = count_in_6 + 1*20
     random.shuffle(rec_neurons14)
     for j in rec_neurons14[0:30]:
-        j.connect_cells(i, 1, 0.0025, random.randint(5,10))
+        j.connect_cells(i, 1, 0.025, random.randint(5,10))
 
 
 dg['6 (1200-1700)'] = {
@@ -1051,7 +1053,7 @@ for i in rec_neurons14:
     for j in rec_neurons10[0:10]:
         j.connect_cells(i, 1, 0.0025, random.randint(5,9))
     random.shuffle(rec_neurons15)
-    for j in rec_neurons15[0:10]:
+    for j in rec_neurons15[0:3]:
         j.connect_cells(i, -1, 0.0025, random.randint(1,2))
 
 for i in rec_neurons15:
@@ -1067,7 +1069,6 @@ logging.info('done')
 
 alpha = alpha1
 tort = tort1
-
 
 time = h.Vector().record(h._ref_t)
 '''
@@ -1085,14 +1086,14 @@ na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
 '''
 logging.info('add stims')
 stims=[]
-for i in range(0,200):
-    for j in range(0,30):
+for i in range(0,100):
+    for j in range(0,5):
         stim = h.NetStim()
         stim.number = 1
         stim.start = 2.5
-        ncstim = h.NetCon(stim, rec_neurons4[i].synlistexE[j])
-        ncstim.delay = 0.5#random.randint(1,5)
-        ncstim.weight[0] = 0.5
+        ncstim = h.NetCon(stim, rec_neurons14[i].synlistexE[j])
+        ncstim.delay = random.gauss(2, 2 / 5)
+        ncstim.weight[0] = random.gauss(1, 1 / 6)
         stims.append(ncstim)
         stims.append(stim)
 #for i in range(0,200):
@@ -1107,8 +1108,8 @@ for i in range(0,200):
 
 #kecs = h.Vector()
 #kecs.record(k[ecs].node_by_location(0, 0, 0)._ref_value)
-
-
+pc.set_maxstep(0.5 * ms)
+#pc.set_maxstep(0.3)
 # initialize and set the intracellular concentrations
 logging.info('initialize-start')
 h.finitialize()
@@ -1142,7 +1143,7 @@ def run(tstop):
     all_volt = []
     while pc.t(0) <= tstop:
         if int(pc.t(0) * 10) % 10 == 0 and pcid == 0:
-            print('time: ' , int(pc.t(0)))
+            logging.info('time: '.join(str(int(pc.t(0)))))
             for j in cell:
                 for n in j:
                     all_volt.append({"t": int(pc.t(0)),
@@ -1171,8 +1172,6 @@ def run(tstop):
                                      "id": n.id,
                                      "num": n.number,
                                      "name": n.name})
-
-
         pc.psolve(pc.t(0) + h.dt)
 
 
