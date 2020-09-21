@@ -138,7 +138,7 @@ class Cell:
                 self.synlistexE.append(synE)
                 nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexE[-1], sec=self.axon)
                 nc.weight[0] = random.gauss(w, w / 6)
-                nc.delay = random.gauss(d, d / 5)
+                nc.delay = random.gauss(d, 1/5)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -149,12 +149,12 @@ class Cell:
             for j in range(0,len(self.dends)):
                 synI = h.GABAA(self.dends[j](0.5))
                 synI.tau = 0.3
-                synI.e = -50
+                synI.e = -30
                 self.synlistexI.append(synI)
 
                 nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexI[-1], sec=self.axon)
                 nc.weight[0] = random.gauss(w, w / 6)
-                nc.delay =  random.gauss(d, d / 5)
+                nc.delay =  random.gauss(d, 1 / 5)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -167,7 +167,7 @@ class Cell:
 
                 nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexNMDA[-1], sec=self.axon)
                 nc.weight[0] = random.gauss(w, w / 6)
-                nc.delay = random.gauss(d, d / 5)
+                nc.delay = random.gauss(d, 1 / 5)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
