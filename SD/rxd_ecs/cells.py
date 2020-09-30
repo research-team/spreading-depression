@@ -1657,7 +1657,7 @@ class NontuftRS6(Cell):  #
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf2_cc.gbar = 0.5
+        self.soma(0.5).naf2_cc.gbar = 0.
         self.soma(0.5).napf.gbar = 0.00006
         self.soma(0.5).kdr_fs_cc.gbar = 0.5
         self.soma(0.5).ka_cc.gbar = 0.005
@@ -1671,7 +1671,7 @@ class NontuftRS6(Cell):  #
         self.soma(0.5).cad_cc.beta  = 0.02
         self.soma(0.5).cad_cc.phi =  10400.
         self.soma(0.5).pas.e = -70
-        self.soma(0.5).pas.g = 0.01
+        self.soma(0.5).pas.g = 0.001
         self.soma.Ra = 100.
 
         # ---------------dend----------------
@@ -1697,7 +1697,7 @@ class NontuftRS6(Cell):  #
         self.dend(0.5).cad_cc.beta = 0.05
         self.dend(0.5).cad_cc.phi = 260000.
         self.dend(0.5).pas.e = -70
-        self.dend(0.5).pas.g = 0.01
+        self.dend(0.5).pas.g = 0.001
         self.dend.Ra = 250.
 
         self.dend1(0.5).naf2_cc.gbar = 0.06
@@ -1714,7 +1714,7 @@ class NontuftRS6(Cell):  #
         self.dend1(0.5).cad_cc.beta = 0.05
         self.dend1(0.5).cad_cc.phi = 260000.
         self.dend1(0.5).pas.e = -70
-        self.dend1(0.5).pas.g = 0.01
+        self.dend1(0.5).pas.g = 0.001
         self.dend1.Ra = 250.
 
         self.dend2(0.5).naf2_cc.gbar = 0.06
@@ -1731,7 +1731,7 @@ class NontuftRS6(Cell):  #
         self.dend2(0.5).cad_cc.beta = 0.05
         self.dend2(0.5).cad_cc.phi = 260000.
         self.dend2(0.5).pas.e = -70
-        self.dend2(0.5).pas.g = 0.01
+        self.dend2(0.5).pas.g = 0.001
         self.dend2.Ra = 250.
 
         self.dend3(0.5).naf2_cc.gbar = 0.06
@@ -1748,7 +1748,7 @@ class NontuftRS6(Cell):  #
         self.dend3(0.5).cad_cc.beta = 0.05
         self.dend3(0.5).cad_cc.phi = 260000.
         self.dend3(0.5).pas.e = -70
-        self.dend3(0.5).pas.g = 0.01
+        self.dend3(0.5).pas.g = 0.001
         self.dend3.Ra = 250.
 
         self.dend4(0.5).naf2_cc.gbar = 0.06
@@ -1765,7 +1765,7 @@ class NontuftRS6(Cell):  #
         self.dend4(0.5).cad_cc.beta = 0.05
         self.dend4(0.5).cad_cc.phi = 260000.
         self.dend4(0.5).pas.e = -70
-        self.dend4(0.5).pas.g = 0.01
+        self.dend4(0.5).pas.g = 0.001
         self.dend4.Ra = 250.
 
         # ---------------axon----------------
@@ -1773,11 +1773,11 @@ class NontuftRS6(Cell):  #
             self.axon.insert(mechanism_a)
             #print(mechanism_a)
 
-        self.axon(0.5).naf2_cc.gbar = 0.06
-        self.axon(0.5).kdr_fs_cc.gbar = 0.06
+        self.axon(0.5).naf2_cc.gbar = 0.6
+        self.axon(0.5).kdr_fs_cc.gbar = 0.6
         self.axon(0.5).ka_cc.gbar = 0.005
         self.axon(0.5).k2_cc.gbar = 0.0005
-        self.axon(0.5).pas.g = 0.0005
+        self.axon(0.5).pas.g = 0.005
         self.axon(0.5).pas.e = -70
         self.axon.Ra = 100
 
