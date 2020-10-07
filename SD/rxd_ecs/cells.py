@@ -1657,7 +1657,7 @@ class NontuftRS6(Cell):  #
             self.soma.insert(mechanism_s)
             #print(mechanism_s)
 
-        self.soma(0.5).naf2_cc.gbar = 0.
+        self.soma(0.5).naf2_cc.gbar = 0.6
         self.soma(0.5).napf.gbar = 0.00006
         self.soma(0.5).kdr_fs_cc.gbar = 0.5
         self.soma(0.5).ka_cc.gbar = 0.005
@@ -2165,18 +2165,27 @@ class TCR(Cell):  #
         # self.soma.nseg = 1+2*int(somaR*2/40)
 
         # ---------------soma----------------
-        for mechanism_s in ['extracellular', 'naf_tcr', 'kdr_thlms', 'ka', 'k2',
-                            'pas']:
+        for mechanism_s in ['extracellular', 'napf', 'pas', 'naf2_cc', 'kdr_fs_cc', 'kc', 'ka_cc', 'km_cc', 'k2_cc',
+                            'kahp_slower', 'cal_cc', 'cat_a', 'ar', 'cad_cc']:
             self.soma.insert(mechanism_s)
+            # print(mechanism_s)
 
-        self.soma(0.5).naf_tcr.gbar = 0.4
-        self.soma(0.5).kdr_thlms.gbar = 0.4
-        self.soma(0.5).ka.gbar = 0.001
-        self.soma(0.5).k2.gbar = 0.0005
-
-        self.soma(0.5).pas.g = 3.78787879E-05
+        self.soma(0.5).naf2_cc.gbar = 0.6
+        self.soma(0.5).napf.gbar = 0.00006
+        self.soma(0.5).kdr_fs_cc.gbar = 0.5
+        self.soma(0.5).ka_cc.gbar = 0.005
+        self.soma(0.5).km_cc.gbar = 0.0005
+        self.soma(0.5).kc.gbar = 0.01
+        self.soma(0.5).k2_cc.gbar = 0.0005
+        self.soma(0.5).kahp_slower.gbar = 0.0001
+        self.soma(0.5).cal_cc.gbar = 0.0001
+        self.soma(0.5).cat_a.gbar = 5.E-05
+        self.soma(0.5).ar.gbar = 2.5E-05
+        self.soma(0.5).cad_cc.beta = 0.02
+        self.soma(0.5).cad_cc.phi = 10400.
         self.soma(0.5).pas.e = -70
-        self.soma.Ra = 175
+        self.soma(0.5).pas.g = 0.001
+        self.soma.Ra = 100.
 
 
 
@@ -2280,10 +2289,10 @@ class TCR(Cell):  #
 
         self.axon(0.5).Nafin.gnafbar = 0.4
         self.axon(0.5).kdrin.gkdrbar = 0.001
-        self.axon(0.5).pas.g = 0.0002
+        self.axon(0.5).pas.g = 0.005
         self.axon(0.5).pas.e = -70
         self.axon.Ra = 100
-        self.axon.cm = 1.2
+        #self.axon.cm = 1.2
 
         for sec in self.all:
             sec.cm = 0.9
