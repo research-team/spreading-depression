@@ -1075,19 +1075,21 @@ alpha = alpha1
 tort = tort1
 
 time = h.Vector().record(h._ref_t)
-'''
 
-ecs = rxd.Extracellular(-Lx / 2.0, -Ly / 2.0,
-                        -Lz / 2.0, Lx / 2.0, Ly / 2.0, Lz / 2.0, dx=(20, 20, 20),  # dx - скорость распространнения в разные стороны - различны по осям
+
+ecs = rxd.Extracellular(0, 0,
+                        -850, 100, 100, 1300, dx=(10, 10, 30),  # dx - скорость распространнения в разные стороны - различны по осям
                         volume_fraction=alpha, tortuosity=tort)
-
-
+volt = rxd.Species(ecs, name='v', d=0, charge=0, initial=None)
+'''
 k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial= 3.5,
                 ecs_boundary_conditions=3.5)
 
 na = rxd.Species(ecs, name='na', d=1.78, charge=1, initial=142,
                  ecs_boundary_conditions=142)
 '''
+
+
 logging.info('add stims')
 stims=[]
 for i in range(0,200):
@@ -1146,9 +1148,11 @@ def run(tstop):
     volt=[]
     all=[]
     all_volt = []
+    volt_extr=[]
     while pc.t(0) <= tstop:
         if int(pc.t(0) * 10) % 10 == 0 and pcid == 0:
             logging.info('time: '.join(str(int(pc.t(0)))))
+            volt_extr.append(volt[ecs].states3d.mean(2))
             for j in cell:
                 for n in j:
                     all_volt.append({"t": int(pc.t(0)),
@@ -1236,6 +1240,9 @@ def run(tstop):
             json.dump(dg, outfile)
         logging.info('write to file -info.json')
 
+        csv_writer(volt_extr, os.path.join(outdir, 'volt_extr.csv'), [])
+        logging.info("write to file - volt_extr.csv")
+        logging.info('the end')
         pc.runworker()
         pc.done()
         h.quit()
