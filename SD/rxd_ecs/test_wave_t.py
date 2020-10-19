@@ -30,7 +30,7 @@ h.load_file('stdrun.hoc')
 h.celsius = 37
 
 #numpy.random.seed(6324555 + pcid)
-outdir = os.path.abspath('tests/924_tW')
+outdir = os.path.abspath('tests/925_tW')
 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
@@ -1076,12 +1076,12 @@ tort = tort1
 
 time = h.Vector().record(h._ref_t)
 
-
+'''
 ecs = rxd.Extracellular(0, 0,
                         -850, 100, 100, 1300, dx=(10, 10, 30),  # dx - скорость распространнения в разные стороны - различны по осям
                         volume_fraction=alpha, tortuosity=tort)
 volt = rxd.Species(ecs, name='v', d=0, charge=0, initial=None)
-'''
+
 k = rxd.Species(ecs, name='k', d=2.62, charge=1, initial= 3.5,
                 ecs_boundary_conditions=3.5)
 
@@ -1152,7 +1152,7 @@ def run(tstop):
     while pc.t(0) <= tstop:
         if int(pc.t(0) * 10) % 10 == 0 and pcid == 0:
             logging.info('time: '.join(str(int(pc.t(0)))))
-            volt_extr.append(volt[ecs].states3d.mean(2))
+            #volt_extr.append(volt[ecs].states3d.mean(2))
             for j in cell:
                 for n in j:
                     all_volt.append({"t": int(pc.t(0)),
@@ -1163,6 +1163,14 @@ def run(tstop):
                                  "id": n.id,
                                  "num": n.number,
                                  "name": n.name})
+                    volt_extr.append({"t": int(pc.t(0)),
+                                     "x": n.x,
+                                     "y": n.y,
+                                     "z": n.z,
+                                     "v": n.v_vec[-1],
+                                     "id": n.id,
+                                     "num": n.number,
+                                     "name": n.name})
                     if n.Excitatory==1:
                         volt.append({"t" : int(pc.t(0)),
                                         "x" : n.x,
@@ -1240,7 +1248,14 @@ def run(tstop):
             json.dump(dg, outfile)
         logging.info('write to file -info.json')
 
-        csv_writer(volt_extr, os.path.join(outdir, 'volt_extr.csv'), [])
+        csv_writer(volt_extr, os.path.join(outdir, 'volt_extr.csv'), ["t",
+                             "x",
+                             "y",
+                             "z",
+                             "v",
+                             "id",
+                             "num",
+                            "name"])
         logging.info("write to file - volt_extr.csv")
         logging.info('the end')
         pc.runworker()
