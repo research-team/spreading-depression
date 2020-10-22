@@ -32,15 +32,15 @@ for step in Time:
     v_dist6 = []
     for i in range(len(v)):
         if -850<=z[i]<=-450: #2-3
-            v_dist23.append( v[i]/abs(((x[i]-0)**2) + ((y[i]-0)**2) + ((z[i]-points[0])**2)))
+            v_dist23.append( v[i])#/abs(((x[i]-0)**2) + ((y[i]-0)**2) + ((z[i]-points[0])**2)))
         elif -450<z[i]<=-150: #4
-            v_dist4.append( v[i] / abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[1]) ** 2)))
+            v_dist4.append( v[i]) #/ abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[1]) ** 2)))
         elif -150<z[i]<=50: #5
-            v_dist5.append( v[i] / abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[2]) ** 2)))
+            v_dist5.append( v[i]) #/ abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[2]) ** 2)))
         elif 50 < z[i] <=350: #5-6
-            v_dist56.append( v[i] / abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[3]) ** 2)))
+            v_dist56.append( v[i]) #/ abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[3]) ** 2)))
         elif 350<z[i]<=850: #6
-            v_dist6.append( v[i] / abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[4]) ** 2)))
+            v_dist6.append( v[i]) #/ abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[4]) ** 2)))
         #elif 680<z[i] <=850:
         #    v_dist.append( v[i] / abs(((x[i] - 50) ** 2) + ((y[i] - 50) ** 2) + ((z[i]-points[5]) ** 2)))
     data23.append(sum(v_dist23))
