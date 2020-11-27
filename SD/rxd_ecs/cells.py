@@ -3,10 +3,10 @@ import  random
 from neuron import h, crxd as rxd
 somaR = 11.0  # soma radius
 dendR = 4  # dendrite radius
-dendL = 500.0
-dendL1 = 500.0
-dendL2 = 500.0
-dendL3 = 500.0# dendrite length
+dendL = 300.0
+dendL1 = 300.0
+dendL2 = 300.0
+dendL3 = 300.0# dendrite length
 axonR = 2
 axonL = 100
 doff = dendL + somaR
@@ -132,13 +132,13 @@ class Cell:
     def connect_cells(self, target, type, w, d):
         if(type==1):
             for j in range(0,len(self.dends)):
-                synE = h.AMPA(self.dends[j](0.5))
+                synE = h.AMPA(self.dends[j](0.8))
                 synE.tau = 1
                 synE.e = 50
                 self.synlistexE.append(synE)
-                nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexE[-1], sec=self.axon)
-                nc.weight[0] = random.gauss(w, w / 6)
-                nc.delay = random.gauss(d, 1/5)
+                nc = h.NetCon(self.axon(0.9)._ref_v, target.synlistexE[-1], sec=self.axon)
+                nc.weight[0] = random.gauss(w, w / 3)
+                nc.delay = random.gauss(d, 1/3)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -147,14 +147,14 @@ class Cell:
         elif(type==-1):
             #for sec in self.dends:
             for j in range(0,len(self.dends)):
-                synI = h.GABAA(self.dends[j](0.5))
+                synI = h.GABAA(self.dends[j](0.8))
                 synI.tau = 0.3
                 synI.e = -30
                 self.synlistexI.append(synI)
 
-                nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexI[-1], sec=self.axon)
-                nc.weight[0] = random.gauss(w, w / 6)
-                nc.delay =  random.gauss(d, 1 / 5)
+                nc = h.NetCon(self.axon(0.9)._ref_v, target.synlistexI[-1], sec=self.axon)
+                nc.weight[0] = random.gauss(w, w / 3)
+                nc.delay =  random.gauss(d, 1 / 3)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -162,12 +162,12 @@ class Cell:
 
         elif (type == 0):
             for j in range(0,len(self.dends)):
-                synE = h.NMDA1(self.dends[j](0.5))
+                synE = h.NMDA1(self.dends[j](0.8))
                 self.synlistexNMDA.append(synE)
 
-                nc = h.NetCon(self.axon(0.5)._ref_v, target.synlistexNMDA[-1], sec=self.axon)
-                nc.weight[0] = random.gauss(w, w / 6)
-                nc.delay = random.gauss(d, 1 / 5)
+                nc = h.NetCon(self.axon(0.9)._ref_v, target.synlistexNMDA[-1], sec=self.axon)
+                nc.weight[0] = random.gauss(w, w / 3)
+                nc.delay = random.gauss(d, 1 / 3)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -317,10 +317,10 @@ class Bask23(Cell):
 
         self.nmh_list_axon = [self.m_k2_axon, self.m_ka_axon, self.m_kdr_fs_axon, self.m_naf2_axon, self.h_k2_axon, self.h_ka_axon,self.h_naf2_axon]
         '''
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
@@ -454,10 +454,10 @@ class Axax23(Cell): #
             sec.ena =   50.
             #sec.eca =   125.
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
 
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
@@ -574,10 +574,10 @@ class LTS23(Cell):  #
             #sec.cm = 1
             sec.ena = 50.
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
                               geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
@@ -606,8 +606,8 @@ class Spinstel4(Cell):  #
 
         self.soma(0.5).naf2_cc.gbar = 0.65
         self.soma(0.5).napf_spinstell.gbar = 0.0002
-        self.soma(0.5).kdr_fs_cc.gbar = 0.1
-        self.soma(0.5).kc_fast_cc.gbar = 0.001
+        self.soma(0.5).kdr_fs_cc.gbar = 0.1 *10
+        self.soma(0.5).kc_fast_cc.gbar = 0.001*10
         self.soma(0.5).ka_cc.gbar = 0.03
         self.soma(0.5).km_cc.gbar = 0.00375
         self.soma(0.5).k2_cc.gbar = 0.0001
@@ -732,7 +732,7 @@ class Spinstel4(Cell):  #
             self.axon.insert(mechanism_a)
             #print(mechanism_a)
 
-        self.axon(0.5).naf2_cc.gbar = 0.1
+        self.axon(0.5).naf2_cc.gbar = 0.1*4
         self.axon(0.5).kdr_fs_cc.gbar = 0.9
         self.axon(0.5).ka_cc.gbar = 0.002
         self.axon(0.5).k2_cc.gbar = 0.1
@@ -745,10 +745,10 @@ class Spinstel4(Cell):  #
             sec.ena = 50.
             sec.ek = -90
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
@@ -896,10 +896,10 @@ class Bask4(Cell):
             # sec.cm = 0.9
             sec.ena = 50.
             sec.ek = -90
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
@@ -927,14 +927,14 @@ class TuftIB5(Cell):
             # print(mechanism_s)
             self.soma.insert(mechanism_s)
 
-        self.soma(0.5).Naf.gnafbar = 0.018 * 6
+        self.soma(0.5).Naf.gnafbar = 0.018*10
         self.soma(0.5).nap.gnapbar = 0.000018 * 0.1
         self.soma(0.5).calc.gcabar = 0.0001 * 0.1
         self.soma(0.5).cal.gcalbar = 0.0001 * 0.3
         self.soma(0.5).can.gcabar = 0.0002 * 0.1
         self.soma(0.5).car.gcabar = 0.000001 * 0.3 * 0.1
         self.soma(0.5).cat.gcatbar = 0.0002 * 0.3 * 0.1
-        self.soma(0.5).kdrpr.gkdrbar = 0.018 * 0.3
+        self.soma(0.5).kdrpr.gkdrbar = 0.018 * 0.3 *10
         self.soma(0.5).IKs.gKsbar = 0.0012 * 0.5
         self.soma(0.5).kad.gkabar = 0.0007
         self.soma(0.5).kca.gbar = 0.005 * 5
@@ -1067,10 +1067,10 @@ class TuftIB5(Cell):
             sec.ena = 50.
             sec.ek = -90
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
 
@@ -1106,14 +1106,14 @@ class TuftRS5(Cell):  #
             #print(mechanism_s)
             self.soma.insert(mechanism_s)
 
-        self.soma(0.5).Naf.gnafbar = 0.018 * 3
+        self.soma(0.5).Naf.gnafbar = 0.018 * 5
         self.soma(0.5).nap.gnapbar = 0.000018
         self.soma(0.5).calc.gcabar = 0.0001 * 0.1
         self.soma(0.5).cal.gcalbar = 0.0001 * 0.3
         self.soma(0.5).can.gcabar = 0.0002 * 0.1
         self.soma(0.5).car.gcabar = 0.000001 * 0.3 * 0.1
         self.soma(0.5).cat.gcatbar = 0.0002 * 0.3 * 0.1
-        self.soma(0.5).kdrpr.gkdrbar = 0.018 * 0.3
+        self.soma(0.5).kdrpr.gkdrbar = 0.018 * 0.3*10
         self.soma(0.5).IKs.gKsbar = 0.0012 * 0.5
         self.soma(0.5).kad.gkabar = 0.0007
         self.soma(0.5).kca.gbar = 0.005 * 5
@@ -1246,10 +1246,10 @@ class TuftRS5(Cell):  #
             sec.ena = 50.
             sec.ek =  -95.
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
                               geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
@@ -1373,10 +1373,10 @@ class Bask56(Cell):  #
             sec.ena = 50.
             sec.ek =  -100.
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
                               geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
@@ -1499,10 +1499,10 @@ class Axax56(Cell):  #
             #sec.ena = 50.
             #sec.ek =  -100.
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
                               geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
@@ -1627,10 +1627,10 @@ class LTS56(Cell):  #
             sec.ena = 50.
             sec.ek =  -100.
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
                               geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
@@ -1786,10 +1786,10 @@ class NontuftRS6(Cell):  #
             sec.ena = 50.
             sec.ek =  -95.
 
-        self.k_vec = h.Vector().record(self.dend(0.5)._ref_ik)
-        self.na_vec = h.Vector().record(self.dend(0.5)._ref_ina)
-        self.na_concentration = h.Vector().record(self.dend(0.5)._ref_nai)
-        self.k_concentration = h.Vector().record(self.dend(0.5)._ref_ki)
+        self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
+        self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
+        self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
+        self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
         self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
                               geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
@@ -2002,7 +2002,6 @@ class SyppyrFRB(Cell):  #
             #sec.Ra = 65.22
             #sec.pas.e = -85.15087381998698
 
-
         self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
@@ -2133,7 +2132,6 @@ class SyppyrRS(Cell):  #
             #sec.cm = 4.65
             #sec.Ra = 65.22
             #sec.pas.e = -85.15087381998698
-
 
         self.k_vec = h.Vector().record(self.soma(0.5)._ref_ik)
         self.na_vec = h.Vector().record(self.soma(0.5)._ref_ina)
