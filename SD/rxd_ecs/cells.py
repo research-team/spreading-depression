@@ -137,8 +137,8 @@ class Cell:
                 synE.e = 50
                 self.synlistexE.append(synE)
                 nc = h.NetCon(self.axon(0.9)._ref_v, target.synlistexE[-1], sec=self.axon)
-                nc.weight[0] = random.gauss(w, w / 3)
-                nc.delay = random.gauss(d, 1/3)
+                nc.weight[0] = random.gauss(w, w / 5)
+                nc.delay = random.gauss(d, 1/6)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -153,8 +153,8 @@ class Cell:
                 self.synlistexI.append(synI)
 
                 nc = h.NetCon(self.axon(0.9)._ref_v, target.synlistexI[-1], sec=self.axon)
-                nc.weight[0] = random.gauss(w, w / 3)
-                nc.delay =  random.gauss(d, 1 / 3)
+                nc.weight[0] = random.gauss(w, w / 5)
+                nc.delay =  random.gauss(d, 1 / 6)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -166,8 +166,8 @@ class Cell:
                 self.synlistexNMDA.append(synE)
 
                 nc = h.NetCon(self.axon(0.9)._ref_v, target.synlistexNMDA[-1], sec=self.axon)
-                nc.weight[0] = random.gauss(w, w / 3)
-                nc.delay = random.gauss(d, 1 / 3)
+                nc.weight[0] = random.gauss(w, w / 5)
+                nc.delay = random.gauss(d, 1 / 6)
                 target._ncs.append(nc)
                 target.count += 1
                 target.cells[self.number] = self.id
@@ -1904,9 +1904,9 @@ class SyppyrFRB(Cell):  #
                             'pas']:
             self.soma.insert(mechanism_s)
 
-        self.soma(0.5).Nafin.gnafbar = 0.45
-        self.soma(0.5).kdrin.gkdrbar = 0.001
-        self.soma(0.5).IKsin.gKsbar = 0.000725 * 0.1
+        self.soma(0.5).Nafin.gnafbar = 0.45*2
+        self.soma(0.5).kdrin.gkdrbar = 0.001 /10
+        self.soma(0.5).IKsin.gKsbar = 0.000725 * 0.1 /10
         self.soma(0.5).hin.gbar = 0.00001
         self.soma(0.5).kapin.gkabar = 0.0032 * 15
         self.soma(0.5).canin.gcalbar = 0.0003
@@ -1914,7 +1914,7 @@ class SyppyrFRB(Cell):  #
         self.soma(0.5).pas.g = 0.001
         self.soma(0.5).pas.e = -70
         self.soma.Ra = 100
-        self.soma(0.5).nap.gnapbar = 0.000018
+        self.soma(0.5).nap.gnapbar = 0.000018 *1000
 
         self.v1 = h.Vector().record(self.soma(0.5)._ref_ina_Nafin)
         # self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_nap)
@@ -2035,9 +2035,9 @@ class SyppyrRS(Cell):  #
                             'pas']:
             self.soma.insert(mechanism_s)
 
-        self.soma(0.5).Nafin.gnafbar = 0.18
-        self.soma(0.5).kdrin.gkdrbar = 0.018
-        self.soma(0.5).IKsin.gKsbar = 0.000725 * 0.1
+        self.soma(0.5).Nafin.gnafbar = 0.18*5
+        self.soma(0.5).kdrin.gkdrbar = 0.018 /10
+        self.soma(0.5).IKsin.gKsbar = 0.000725 * 0.1 /10
         self.soma(0.5).hin.gbar = 0.00001
         self.soma(0.5).kapin.gkabar = 0.0032 * 15
         self.soma(0.5).canin.gcalbar = 0.0003
@@ -2045,7 +2045,7 @@ class SyppyrRS(Cell):  #
         self.soma(0.5).pas.g = 0.001
         self.soma(0.5).pas.e = -70
         self.soma.Ra = 100
-        self.soma(0.5).nap.gnapbar = 0.000018
+        self.soma(0.5).nap.gnapbar = 0.000018 *1000
 
         self.v1 = h.Vector().record(self.soma(0.5)._ref_ina_Nafin)
         # self.v2 = h.Vector().record(self.soma(0.5)._ref_ina_nap)
