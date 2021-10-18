@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* NOT VECTORIZED */
 #define NRN_VECTORIZED 0
 #include <stdio.h>
@@ -74,6 +74,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _p = _prop->param; _ppvar = _prop->dparam;
@@ -138,7 +147,7 @@ static void nrn_state(_NrnThread*, _Memb_list*, int);
 static void  nrn_jacob(_NrnThread*, _Memb_list*, int);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "capump",
  "scale_capump",
  0,
@@ -185,12 +194,16 @@ extern void _cvode_abstol( Symbol**, double*, int);
  _mechtype = nrn_get_mechtype(_mechanism[1]);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 4, 3);
   hoc_register_dparam_semantics(_mechtype, 0, "ca_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "ca_ion");
   hoc_register_dparam_semantics(_mechtype, 2, "ca_ion");
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 capump /Users/sulgod/spreading-depression/x86_64/capump.mod\n");
+ 	ivoc_help("help ?1 capump /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/capump.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -340,3 +353,77 @@ static void _initlists() {
   if (!_first) return;
 _first = 0;
 }
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/capump.mod";
+static const char* nmodl_file_text = 
+  "TITLE calcium pump \n"
+  "COMMENT\n"
+  "uit aren borgdorff's proefschrift pagina 30:\n"
+  "V(ca2+i)=Vmax/(1+Km/Ca2+)^h\n"
+  "met Vmax = 352uM/s, Km = 6.9 uM and h=1.1\n"
+  "\n"
+  "zie parameters ook in PARAMETER-box\n"
+  "pomp uit granule cellen met gemiddelde diam= 11.1 +/- 0.15 um\n"
+  "Om de granule cel-specifieke waarde Voor Vmax te gebruiken in \n"
+  "een CA1 cel moet het omgezet worden in algemenere eenheid, nl.\n"
+  "van uM/s naar i/um2:\n"
+  "\n"
+  "diam was 11.1 um -> r=5.55 um ->\n"
+  "opp=387 um en inhoud = 716 um3, -> inhoud/opp = r/3 = 1.85 um\n"
+  "\n"
+  "\n"
+  "\n"
+  "ENDCOMMENT\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX capump\n"
+  "	USEION ca READ cai WRITE ica	\n"
+  "	RANGE ica, scale\n"
+  "	GLOBAL Vmax, Km, hill, Vconv, carest\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(mA) = (milliamp)\n"
+  "	(mV) = (millivolt)\n"
+  "	FARADAY = (faraday) (coulombs)\n"
+  "\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	Vmax = 352 (uM/s) 		: units of Borgdorff\n"
+  "	vol_surf_ratio = 1.85 (um) 	: assume r=5.55 um and sphere\n"
+  "	Km = .0069 (mM)			: 6.9 uM\n"
+  "	hill = 1			: hill is 1.1, no significant diff from 1\n"
+  "	scale = 1e-4\n"
+  "}\n"
+  "\n"
+  "ASSIGNED {\n"
+  "	ica (mA/cm2)\n"
+  "        cai (mM) \n"
+  "	Vconv\n"
+  "	carest\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	VERBATIM\n"
+  "	cai = _ion_cai;\n"
+  "	carest = _ion_cai;\n"
+  "	ENDVERBATIM\n"
+  "	ica =  pumprate(cai)*scale	\n"
+  "}\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	ica =  pumprate(cai)*scale\n"
+  "}\n"
+  "\n"
+  "FUNCTION pumprate (ci) {\n"
+  "	Vconv = Vmax*vol_surf_ratio*FARADAY*2*(1e-4)\n"
+  "	if (fabs(ci-carest) < 1e-7) {\n"
+  "	  pumprate = (ci-carest)*Vconv/Km\n"
+  "	}else{\n"
+  "	  pumprate = Vconv/(1+Km/(ci-carest))\n"
+  "	}\n"
+  "}\n"
+  ;
+#endif

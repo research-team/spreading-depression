@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -89,6 +89,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -178,7 +187,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "kdr",
  "gkbar_kdr",
  0,
@@ -245,6 +254,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_thread_reg(_mechtype, 0, _thread_cleanup);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
      _nrn_thread_table_reg(_mechtype, _check_table_thread);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 12, 5);
   hoc_register_dparam_semantics(_mechtype, 0, "k_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -254,7 +267,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 kdr /Users/sulgod/spreading-depression/x86_64/kdr.mod\n");
+ 	ivoc_help("help ?1 kdr /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/kdr.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -786,4 +799,102 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/kdr.mod";
+static const char* nmodl_file_text = 
+  "TITLE kdr\n"
+  ": Kalium delayed rectifier\n"
+  ": twee gates met elk twee toestanden\n"
+  ": \n"
+  ": uit: Traub et al.\n"
+  ": A branching dendritic model of a rodent CA3\n"
+  ": pyramidal neurone.\n"
+  "\n"
+  "UNITS {\n"
+  "	(molar) = (1/liter)\n"
+  "	(mV) =	(millivolt)\n"
+  "	(mA) =	(milliamp)\n"
+  "	(mM) =	(millimolar)\n"
+  "}\n"
+  "\n"
+  "INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX kdr\n"
+  "	USEION k READ ek WRITE ik\n"
+  "	RANGE gkbar, gk, ik, qk\n"
+  "	GLOBAL scaletaun, shiftn\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	:FARADAY	= (faraday) (coulomb)\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "	R = (k-mole) (joule/degC)\n"
+  "	PI		= (pi) (1)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	gkbar=1e-3	(mho/cm2)	: default max. perm.\n"
+  "	scaletaun=1.5\n"
+  "	shiftn=0	(mV)\n"
+  "}\n"
+  "\n"
+  "ASSIGNED { \n"
+  "	ik	(mA/cm2)\n"
+  "	v	(mV)\n"
+  "	ek	(mV)\n"
+  "	dt	(ms)\n"
+  "	gk	(S/cm2)\n"
+  "	diam	(um)\n"
+  "}\n"
+  "\n"
+  "STATE { n c qk }\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE kstate METHOD sparse\n"
+  "	gk = gkbar*n*n*n*n\n"
+  "	ik = gk*(v-ek)\n"
+  "	:n  = 1 - c\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	n=n_inf(v)\n"
+  "	c=1-n\n"
+  "	gk = gkbar*n*n*n*n\n"
+  "	ik = gk*(v-ek)\n"
+  "	qk=0\n"
+  "}\n"
+  "\n"
+  "LOCAL a1,a2\n"
+  "\n"
+  "KINETIC kstate {\n"
+  "	a1 = a_n(v)\n"
+  "	a2 = a_c(v)\n"
+  "	~ c <-> n	(a1, a2)\n"
+  "	CONSERVE n + c = 1\n"
+  "	COMPARTMENT diam*diam*PI/4 { qk }\n"
+  "\n"
+  "	~ qk << (-ik*diam *PI*(1e4)/FARADAY )\n"
+  "}\n"
+  "	\n"
+  "FUNCTION a_n(v(mV)) {\n"
+  "	TABLE DEPEND scaletaun, shiftn FROM -150 TO 150 WITH 200\n"
+  "	a_n = scaletaun*0.016*(35.1-v-shiftn-70)/(exp((35.1-v-shiftn-70)/5)-1)\n"
+  "}\n"
+  "\n"
+  "FUNCTION a_c(v(mV)) {\n"
+  "	TABLE DEPEND scaletaun, shiftn FROM -150 TO 150 WITH 200\n"
+  "	a_c = scaletaun*0.25*exp((20-v-shiftn-70)/40)\n"
+  "}\n"
+  "\n"
+  "FUNCTION n_inf(v(mV)) {\n"
+  "        n_inf = a_n(v) / ( a_n(v) + a_c(v) )\n"
+  "}\n"
+  "\n"
+  "FUNCTION window(v(mV)) {\n"
+  "	window=gkbar*n_inf(v)^4*(v-ek)\n"
+  "}\n"
+  ;
 #endif

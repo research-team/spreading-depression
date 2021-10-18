@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -121,6 +121,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -272,7 +281,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "nmda",
  0,
  "itot_nmda",
@@ -364,6 +373,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_thread_reg(_mechtype, 0, _thread_cleanup);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
      _nrn_thread_table_reg(_mechtype, _check_table_thread);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 27, 17);
   hoc_register_dparam_semantics(_mechtype, 0, "k_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -385,7 +398,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 nmda /Users/sulgod/spreading-depression/x86_64/nmda.mod\n");
+ 	ivoc_help("help ?1 nmda /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/nmda.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -1350,4 +1363,180 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/nmda.mod";
+static const char* nmodl_file_text = 
+  "TITLE nmda\n"
+  "\n"
+  "COMMENT\n"
+  "NMDA-achtige geleidbaarheid; bewerking van Traub's NMDA gate\n"
+  "in CA3 model van 1991\n"
+  "g(t) factor is hier [k+]o afhankelijk gemaakt\n"
+  "\n"
+  "Onvolkomenheid is dat dit mechanisme direct naar de stromen ik en ina\n"
+  "schrijft. Realistischer is het om een mechanisme 'synapse' de passieve\n"
+  "geleidbaarheden gk_leak en gna_leak te veranderen. \n"
+  "1) Betere meting van de input resistance R_in.\n"
+  "2) 'Extracellular' werkt niet goed samen met pointprocesses. Nl. de netto\n"
+  "transmembraanstroom 'i_membrane' is niet meer nul. \n"
+  "Omdat een synapse per definitie een 'point process' is i.t.t. 'distributed\n"
+  "process', moet mech syn de waarde van gna_leak in mech leak veranderen.\n"
+  "mbv commando extern.?\n"
+  "\n"
+  "bijgewerkt voor calciumgeleidbaarheid\n"
+  "ENDCOMMENT\n"
+  "\n"
+  "\n"
+  "UNITS {\n"
+  "	(molar) = 	(1/liter)\n"
+  "	(mV) =	(millivolt)\n"
+  "	(mA) =	(milliamp)\n"
+  "	(mM) =	(millimolar)\n"
+  "	:FARADAY	= (faraday) (coulomb)\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "	R = (k-mole) (joule/degC)\n"
+  "	PI	= (pi)		(1)\n"
+  "}\n"
+  "\n"
+  "INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX nmda\n"
+  "	USEION k READ ko, ki, ek WRITE ik\n"
+  "	USEION na READ nai, nao, ena WRITE ina\n"
+  "	USEION ca READ cai, cao, eca WRITE ica VALENCE 2\n"
+  "	GLOBAL mg, act_99, act_01, ina_99, ina_01, gbar, tau_ina, tau_act, scaleca\n"
+  "	RANGE ik, ina, itot, ica, qna, qk\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	celsius=36	(degC)\n"
+  "	gbar=1e-3	(mho/cm2)\n"
+  "	tau_ina=2000	(ms)\n"
+  "	tau_act=2	(ms)\n"
+  "	act_99=20	(mM)\n"
+  "	act_01=10	(mM)\n"
+  "	ina_99=3.5	(mM)\n"
+  "	ina_01=10	(mM)\n"
+  "	mg=1.2	(mM)\n"
+  "	scaleca=1\n"
+  "}\n"
+  "\n"
+  "ASSIGNED { \n"
+  "	v	(mV)\n"
+  "	itot	(mA/cm2)\n"
+  "	ik	(mA/cm2)\n"
+  "	ina	(mA/cm2)\n"
+  "	ica	(mA/cm2)\n"
+  "	ki	(mM)\n"
+  "	ko	(mM)\n"
+  "	ek	(mV)\n"
+  "	nai	(mM)\n"
+  "	nao	(mM)\n"
+  "	ena	(mV)\n"
+  "	cai	(mM)\n"
+  "	cao	(mM)\n"
+  "	eca	(mV)\n"
+  "	diam	(um2)\n"
+  "}\n"
+  "\n"
+  "STATE { ma mb ha hb qna qk }\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE synstate METHOD sparse\n"
+  "	ina= gbar*ma*ha*(v-ena)/(1+(mg/3)*exp(-.07*(70+v-60)))   : ghk(v,nai,nao,1)\n"
+  "	ik = gbar*ma*ha*(v-ek) /(1+(mg/3)*exp(-.07*(70+v-60)))   : ghk(v,ki ,ko ,1)\n"
+  "	ica= gbar*scaleca*ma*ha*(v-eca)/(1+(mg/3)*exp(-.07*(70+v-60)))   : ghk(v,cai,cao,2)\n"
+  "	itot=ina+ik+ica\n"
+  "	:ma = 1 - mb\n"
+  "	:ha = 1 - hb\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	:SOLVE synstate STEADYSTATE sparse\n"
+  "	ma=m_inf(ko)\n"
+  "	mb=1-ma\n"
+  "	ha=h_inf(ko)\n"
+  "	hb=1-ha\n"
+  "	qna=0\n"
+  "	qk=0\n"
+  "	ina= gbar*ma*ha*(v-ena)/(1+(mg/3)*exp(-.07*(70+v-60))) : ghk(v,nai,nao)\n"
+  "	ik = gbar*ma*ha*(v-ek)/(1+(mg/3)*exp(-.07*(70+v-60)))   : ghk(v,ki,ko)\n"
+  "	ica= gbar*scaleca*ma*ha*(v-eca)/(1+(mg/3)*exp(-.07*(70+v-60)))   : ghk(v,cai,cao,2)\n"
+  "	itot=ina+ik+ica\n"
+  "}\n"
+  "\n"
+  "LOCAL a1,a2,b1,b2\n"
+  "\n"
+  "KINETIC synstate {\n"
+  "	a1 = m_a(ko)\n"
+  "	a2 = m_b(ko)\n"
+  "	b1 = h_a(ko)\n"
+  "	b2 = h_b(ko)\n"
+  "\n"
+  "	~ mb <-> ma	(a1, a2)\n"
+  "	~ hb <-> ha 	(b1, b2)\n"
+  "	:CONSERVE ma + mb = 1\n"
+  "	:CONSERVE ha + hb = 1\n"
+  "	\n"
+  "	COMPARTMENT diam*diam*PI/4 { qna qk }\n"
+  "	~ qna << (-ina*PI*diam*(1e4)/FARADAY)\n"
+  "	~ qk <<  ( -ik*PI*diam*(1e4)/FARADAY)\n"
+  "}\n"
+  "\n"
+  "FUNCTION m_a(ko) {\n"
+  "	TABLE DEPEND act_99, act_01, tau_act FROM 0 TO 150 WITH 150\n"
+  "	m_a = m_inf(ko)/tau_act\n"
+  "}\n"
+  "\n"
+  "FUNCTION m_b(ko) {\n"
+  "	TABLE DEPEND act_99, act_01, tau_act FROM 0 TO 150 WITH 150\n"
+  "	m_b = (1-m_inf(ko))/tau_act\n"
+  "}\n"
+  " \n"
+  "FUNCTION m_inf(ko) {\n"
+  "	LOCAL kh, h\n"
+  "	TABLE DEPEND act_99, act_01, tau_act FROM 0 TO 150 WITH 150\n"
+  "	kh=(act_99+act_01)/2\n"
+  "	h=-(kh-act_99)/4.59\n"
+  "	m_inf=1/(1+(exp((kh-ko)/h)))\n"
+  "}\n"
+  "\n"
+  "FUNCTION h_a(ko) {\n"
+  "	TABLE DEPEND ina_99, ina_01, tau_ina FROM 0 TO 150 WITH 150\n"
+  "	h_a = h_inf(ko)/tau_ina\n"
+  "}\n"
+  "\n"
+  "FUNCTION h_b(ko) {\n"
+  "	TABLE DEPEND ina_99, ina_01, tau_ina FROM 0 TO 150 WITH 150\n"
+  "	h_b = (1-h_inf(ko))/tau_ina\n"
+  "}\n"
+  "\n"
+  "FUNCTION h_inf(ko) {\n"
+  "	LOCAL kh, h\n"
+  "	TABLE DEPEND ina_99, ina_01, tau_ina FROM 0 TO 150 WITH 150\n"
+  "	kh=(ina_99+ina_01)/2\n"
+  "	h=-(ina_99-kh)/4.59\n"
+  "	h_inf=1/(1+(exp((ko-kh)/h)))\n"
+  "}\n"
+  "\n"
+  "FUNCTION ghk(v(mV), ci(mM), co(mM)) (.001 coul/cm3) {\n"
+  "	LOCAL z, eci, eco\n"
+  "	z = (1e-3)*1*FARADAY*v/(R*(celsius+273.11247574))\n"
+  "	eco = co*efun(z)\n"
+  "	eci = ci*efun(-z)\n"
+  "	ghk = (.001)*1*FARADAY*(eci - eco)\n"
+  "}\n"
+  "\n"
+  "FUNCTION efun(z) {\n"
+  "	if (fabs(z) < 1e-4) {\n"
+  "		efun = 1 - z/2\n"
+  "	}else{\n"
+  "		efun = z/(exp(z) - 1)\n"
+  "	}\n"
+  "}\n"
+  "\n"
+  ;
 #endif

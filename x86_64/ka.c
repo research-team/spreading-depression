@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -98,6 +98,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -214,7 +223,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "ka",
  "gkbar_ka",
  0,
@@ -282,6 +291,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_thread_reg(_mechtype, 0, _thread_cleanup);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
      _nrn_thread_table_reg(_mechtype, _check_table_thread);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 15, 5);
   hoc_register_dparam_semantics(_mechtype, 0, "k_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -291,7 +304,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 ka /Users/sulgod/spreading-depression/x86_64/ka.mod\n");
+ 	ivoc_help("help ?1 ka /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/ka.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -1063,4 +1076,143 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/ka.mod";
+static const char* nmodl_file_text = 
+  "TITLE ka\n"
+  ": Kalium stroom type A \n"
+  ": twee gates met elk twee toestanden: open of dicht\n"
+  ": \n"
+  ": uit: Traub et al.\n"
+  ": A branching dendritic model of a rodent CA3\n"
+  ": pyramidal neurone.\n"
+  "\n"
+  "\n"
+  "\n"
+  "UNITS {\n"
+  "	(molar) = (1/liter)\n"
+  "	(mV) =	(millivolt)\n"
+  "	(mA) =	(milliamp)\n"
+  "	(mM) =	(millimolar)\n"
+  "}\n"
+  "\n"
+  "INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX ka\n"
+  "	USEION k READ ek WRITE ik\n"
+  "	RANGE gkbar, ik, qk\n"
+  "	GLOBAL shiftm, shifth\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	PI		= (pi) (1)\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "	R = (k-mole) (joule/degC)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	celsius		(degC)\n"
+  "	gkbar=1e-3	(cm/s)		: Maximum Permeability .2e-3*5 hans\n"
+  "	shiftm = 0	(mV)\n"
+  "	shifth = 0	(mV)\n"
+  "}\n"
+  "\n"
+  "ASSIGNED { \n"
+  "	ik	(mA/cm2)\n"
+  "	v	(mV)	\n"
+  "	ek	(mV)\n"
+  "	diam	(um)\n"
+  "}\n"
+  "\n"
+  "STATE { am ac bm bc qk }			: fraction of states, m=fraction in open state.\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE kstate METHOD sparse\n"
+  "	ik = gkbar*am*am*bm*(v-ek)\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	am=a_inf(v)\n"
+  "	ac=1-am\n"
+  "	bm=b_inf(v)\n"
+  "	bc=1-bm\n"
+  "	qk=0\n"
+  "	ik = gkbar*am*am*bm*(v-ek)\n"
+  "\n"
+  "}\n"
+  "\n"
+  "LOCAL a1,a2,b1,b2\n"
+  "\n"
+  "KINETIC kstate {\n"
+  "	a1 = a_m(v)\n"
+  "	a2 = a_c(v)\n"
+  "	b1 = b_m(v)\n"
+  "	b2 = b_c(v)\n"
+  "	~ ac <-> am (a1, a2)\n"
+  "	~ bc <-> bm (b1, b2)\n"
+  "	\n"
+  "	CONSERVE am + ac = 1\n"
+  "	CONSERVE bm + bc = 1\n"
+  "	\n"
+  "	COMPARTMENT diam*diam*PI/4 { qk }\n"
+  "	~ qk << ((-ik*diam )*PI*(1e4)/FARADAY )\n"
+  "}\n"
+  "\n"
+  "FUNCTION a_m(v(mV)) {\n"
+  "	LOCAL shift\n"
+  "	TABLE DEPEND shiftm FROM -150 TO 150 WITH 200\n"
+  "	shift=-30+shiftm\n"
+  "	a_m=0.02*(13.1-v-70-shift)/(exp((13.1-v-70-shift)/10)-1)\n"
+  "}\n"
+  "\n"
+  "FUNCTION a_c(v(mV)) {\n"
+  "	LOCAL shift\n"
+  "	TABLE DEPEND shiftm FROM -150 TO 150 WITH 200\n"
+  "	shift=-30+shiftm\n"
+  "	a_c=0.0175*(v-40.1+70+shift)/(exp((v-40.1+70+shift)/10)-1)	\n"
+  "}\n"
+  "\n"
+  "FUNCTION b_m(v(mV)) {\n"
+  "	TABLE DEPEND shifth FROM -150 TO 150 WITH 200\n"
+  "	b_m = 0.016*exp((-13-v-70-shifth)/18)\n"
+  "}\n"
+  "\n"
+  "FUNCTION b_c(v(mV)) {\n"
+  "	TABLE DEPEND shifth FROM -150 TO 150 WITH 200\n"
+  "	b_c = 0.5/(1+exp((10.1-v-70-shifth)/5))\n"
+  "}\n"
+  "\n"
+  "FUNCTION a_inf(v(mV)) {\n"
+  "        a_inf = a_m(v) / ( a_m(v) + a_c(v) )\n"
+  "}\n"
+  "\n"
+  "FUNCTION b_inf(v(mV)) {\n"
+  "        b_inf = b_m(v) / ( b_m(v) + b_c(v) )\n"
+  "}\n"
+  "\n"
+  "FUNCTION window(v(mV)) {\n"
+  "	window=gkbar*a_inf(v)*a_inf(v)*b_inf(v)*(v-ek)\n"
+  "}\n"
+  "\n"
+  "FUNCTION ghk(v(mV), ci(mM), co(mM)) (.001 coul/cm3) {\n"
+  "	LOCAL z, eci, eco\n"
+  "	z = (1e-3)*1*FARADAY*v/(R*(celsius+273.11247574))\n"
+  "	eco = co*efun(z)\n"
+  "	eci = ci*efun(-z)\n"
+  "	:high kao charge moves inward, mogelijke fouten vanwege oorsprong Ca(2+)!\n"
+  "	:negative potential charge moves inward\n"
+  "	ghk = (.001)*1*FARADAY*(eci - eco)\n"
+  "}\n"
+  "\n"
+  "FUNCTION efun(z) {\n"
+  "	if (fabs(z) < 1e-4) {\n"
+  "		efun = 1 - z/2\n"
+  "	}else{\n"
+  "		efun = z/(exp(z) - 1)\n"
+  "	}\n"
+  "}\n"
+  ;
 #endif

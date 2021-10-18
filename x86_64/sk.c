@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* NOT VECTORIZED */
 #define NRN_VECTORIZED 0
 #include <stdio.h>
@@ -82,6 +82,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _p = _prop->param; _ppvar = _prop->dparam;
@@ -143,7 +152,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "sk",
  "gkbar_sk",
  0,
@@ -207,6 +216,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
  _mechtype = nrn_get_mechtype(_mechanism[1]);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 8, 6);
   hoc_register_dparam_semantics(_mechtype, 0, "ca_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -217,7 +230,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 sk /Users/sulgod/spreading-depression/x86_64/sk.mod\n");
+ 	ivoc_help("help ?1 sk /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/sk.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -521,3 +534,78 @@ static void _initlists() {
  _slist1[0] = &(qk) - _p;  _dlist1[0] = &(Dqk) - _p;
 _first = 0;
 }
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/sk.mod";
+static const char* nmodl_file_text = 
+  "TITLE sk\n"
+  ": Calcium activated K channel.\n"
+  "\n"
+  "UNITS {\n"
+  "	(molar) = (1/liter)\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(mV) =	(millivolt)\n"
+  "	(mA) =	(milliamp)\n"
+  "	(mM) =	(millimolar)\n"
+  "	PI		= (pi) (1)\n"
+  "}\n"
+  "\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX sk\n"
+  "	USEION ca READ cai\n"
+  "	USEION k READ ek WRITE ik\n"
+  "	RANGE gkca, gkbar, ik, qk\n"
+  "	GLOBAL hill, kd\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "	R = 8.313424 (joule/degC)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	celsius		(degC)\n"
+  "	gkbar=.01	(mho/cm2)\n"
+  "	hill = 4.7\n"
+  "	kd = 3e-4\n"
+  "}\n"
+  "\n"
+  "ASSIGNED {\n"
+  "	gkca		(mho/cm2)\n"
+  "	v		(mV)\n"
+  "	ik		(mA/cm2)\n"
+  "	ek		(mV)\n"
+  "	cai		(mM)\n"
+  "	diam		(um)\n"
+  "}\n"
+  "STATE { qk }\n"
+  "\n"
+  "INITIAL {\n"
+  "	VERBATIM\n"
+  "	cai = _ion_cai;\n"
+  "	ENDVERBATIM\n"
+  "	gkca = hillfunction(cai)\n"
+  "	ik = gkca*(v - ek)\n"
+  "	qk=0\n"
+  "}\n"
+  "\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE kstate METHOD sparse\n"
+  "	gkca = hillfunction(cai)\n"
+  "	ik = gkca*(v - ek)\n"
+  "}\n"
+  "\n"
+  "KINETIC kstate {\n"
+  "	COMPARTMENT diam*diam*PI/4 { qk }\n"
+  "	~ qk << (-ik*diam *PI*(1e4)/FARADAY )\n"
+  "}\n"
+  "\n"
+  "FUNCTION hillfunction(ci) {\n"
+  "	hillfunction = gkbar/(1+(kd/ci)^hill)\n"
+  "}\n"
+  ;
+#endif

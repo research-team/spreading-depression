@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -102,6 +102,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -221,7 +230,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "nachan",
  "gnabar_nachan",
  0,
@@ -293,6 +302,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_thread_reg(_mechtype, 0, _thread_cleanup);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
      _nrn_thread_table_reg(_mechtype, _check_table_thread);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 19, 5);
   hoc_register_dparam_semantics(_mechtype, 0, "na_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "na_ion");
@@ -302,7 +315,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 nachan /Users/sulgod/spreading-depression/x86_64/na.mod\n");
+ 	ivoc_help("help ?1 nachan /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/na.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -1073,4 +1086,146 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/na.mod";
+static const char* nmodl_file_text = 
+  "TITLE nachan\n"
+  ": 29-07-01 update weer terug naar geleidbaarheden ipv\n"
+  ": permeabiliteiten.\n"
+  ": Natrium kanaal m^3*h \n"
+  ":  \n"
+  ": uit: Traub et al.\n"
+  ": A branching dendritic model of a rodent CA3\n"
+  ": pyramidal neurone.\n"
+  "\n"
+  "UNITS {\n"
+  "	(mV) =	(millivolt)\n"
+  "	(mA) =	(milliamp)\n"
+  "}\n"
+  "\n"
+  "INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX nachan\n"
+  "	USEION na READ ena WRITE ina\n"
+  "	RANGE gnabar, ina, interval, freq, n, firing, qna\n"
+  "	GLOBAL shiftm, shifth, scaletaum, scaletauh\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	PI		= (pi) (1)\n"
+  "	:FARADAY = 96520 (coul)\n"
+  "	:R = 8.3134 (joule/degC)\n"
+  "	:FARADAY	= (faraday) (coulomb)\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "	R = (k-mole) (joule/degC)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	celsius=36	(degC)\n"
+  "	gnabar=1e-3	(mho/cm2)	: default max. perm.\n"
+  "	shiftm=0	(mV)		: shift activatie\n"
+  "	shifth=0	(mV)		: shift inactivatie\n"
+  "	scaletaum=1	(mV)\n"
+  "	scaletauh=1	(mV)\n"
+  "}\n"
+  "\n"
+  "ASSIGNED { \n"
+  "	ina	(mA/cm2)\n"
+  "	v	(mV)\n"
+  "	ena	(mV)\n"
+  "	dt	(ms)\n"
+  "	diam	(um)\n"
+  "	freq\n"
+  "	interval\n"
+  "	n\n"
+  "	firing\n"
+  "}\n"
+  "\n"
+  "STATE { ma mb ha hb qna }		: fraction of states, ma=fraction in open state.\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE nastate METHOD sparse\n"
+  "	ina = gnabar*ma*ma*ma*ha*(v-ena)\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	ma=m_inf(v)\n"
+  "	ha=h_inf(v)\n"
+  "	mb=1-ma\n"
+  "	hb=1-ha\n"
+  "	freq = 0\n"
+  "	n = 0\n"
+  "	interval = 0\n"
+  "	firing = 0\n"
+  "	qna = 0\n"
+  "	ina = gnabar*ma*ma*ma*ha*(v-ena)\n"
+  "}\n"
+  "\n"
+  "LOCAL a1,a2,b1,b2\n"
+  "\n"
+  "KINETIC nastate {\n"
+  "	COMPARTMENT diam*diam*PI/4 { qna }\n"
+  "\n"
+  "	telspike()\n"
+  "	a1 = m_a(v)\n"
+  "	a2 = m_b(v)\n"
+  "	b1 = h_a(v)\n"
+  "	b2 = h_b(v)\n"
+  "	~ mb <-> ma (a1, a2)\n"
+  "	~ hb <-> ha (b1, b2)\n"
+  "	CONSERVE ma + mb = 1\n"
+  "	CONSERVE ha + hb = 1\n"
+  "	~ qna << (-ina*PI*diam*(1e4)/FARADAY)\n"
+  "}\n"
+  "\n"
+  "PROCEDURE telspike() {\n"
+  "	if ( (ma*ma*ma*ha >.01) && !firing ) {\n"
+  "	  n=n+1\n"
+  "	  if (n>1) {\n"
+  "	    freq=1000/interval\n"
+  "	  }\n"
+  "	  firing=1\n"
+  "	  interval=0\n"
+  "	}\n"
+  "	if ( (ma*ma*ma*ha <.01 ) && firing ) {\n"
+  "	  firing = 0\n"
+  "	}\n"
+  "	interval = interval + dt/2\n"
+  "}\n"
+  "	\n"
+  "FUNCTION m_a(v(mV)) {\n"
+  "	TABLE DEPEND shiftm, scaletaum FROM -150 TO 150 WITH 301\n"
+  "	m_a=scaletauh*0.32*(13.1-v-70-shiftm) / (exp((13.1-v-70-shiftm)/4)-1) :was scaletauh, fout dus\n"
+  "}\n"
+  "\n"
+  "FUNCTION m_b(v(mV)) {\n"
+  "	TABLE DEPEND shiftm, scaletaum FROM -150 TO 150 WITH 301\n"
+  "	m_b=scaletaum*0.28*(v-40.1+70+shiftm)/(exp((v-40.1+70+shiftm)/5)-1)	\n"
+  "}\n"
+  "\n"
+  "FUNCTION h_a(v(mV)) {\n"
+  "	TABLE DEPEND shifth, scaletauh FROM -150 TO 150 WITH 301\n"
+  "	h_a = scaletauh*0.128*exp((17-v-70-shifth)/18)\n"
+  "}\n"
+  "\n"
+  "FUNCTION h_b(v(mV)) {\n"
+  "	TABLE DEPEND shifth, scaletauh FROM -150 TO 150 WITH 301\n"
+  "	h_b = scaletauh*4/(1+exp((40-v-70-shifth)/5))\n"
+  "}\n"
+  "\n"
+  "FUNCTION m_inf(v(mV)) {\n"
+  "	m_inf = m_a(v)/(m_a(v)+m_b(v))\n"
+  "}\n"
+  "\n"
+  "FUNCTION h_inf(v(mV)) {\n"
+  "	h_inf = h_a(v)/(h_a(v)+h_b(v))\n"
+  "}\n"
+  "\n"
+  "FUNCTION window(v(mV)) {\n"
+  "	window=gnabar*m_inf(v)^3*h_inf(v)*(v-ena)\n"
+  "}\n"
+  ;
 #endif

@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -101,6 +101,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -236,7 +245,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "nap",
  "gnabar_nap",
  0,
@@ -307,6 +316,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_thread_reg(_mechtype, 0, _thread_cleanup);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
      _nrn_thread_table_reg(_mechtype, _check_table_thread);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 16, 7);
   hoc_register_dparam_semantics(_mechtype, 0, "k_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "na_ion");
@@ -318,7 +331,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 nap /Users/sulgod/spreading-depression/x86_64/nap.mod\n");
+ 	ivoc_help("help ?1 nap /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/nap.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -1214,4 +1227,163 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/nap.mod";
+static const char* nmodl_file_text = 
+  "TITLE nap\n"
+  ": Persistent Na-current nu v en ko afhankelijk\n"
+  ": boltzman met halfmaximale concentratie = 7mM\n"
+  ": en activatie bij 3.5mM (1%)\n"
+  ": simple, with no inactivation-gate\n"
+  ": tau_activation = constant, 6ms\n"
+  ": tau_inactivation = very slow; 50000 keer trager dan tau_inact_m^3*h\n"
+  ":\n"
+  ": Activation from -60mV, peak at -10 mV\n"
+  ":\n"
+  ": Tweede poging door toevoeging inactivation gate met\n"
+  ": zelfde voltage gevoeligheid als Traub's m^3*h kanaal\n"
+  ": maar dan 100 keer langzamer.\n"
+  ":\n"
+  ": door aanpassing van het model CaChan.\n"
+  ": A Molecular Model of Low-Voltage-Activated Calcium Conductance\n"
+  ": van Wang?\n"
+  "\n"
+  "UNITS {\n"
+  "	(molar) = (1/liter)\n"
+  "	(mV) =	(millivolt)\n"
+  "	(mA) =	(milliamp)\n"
+  "	(mM) =	(millimolar)\n"
+  "}\n"
+  "\n"
+  "INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX nap\n"
+  "	USEION k READ ko\n"
+  "	USEION na READ nai, nao, ena WRITE ina\n"
+  "	GLOBAL ina_p_h, tau_act, conc_half, helling\n"
+  "	RANGE gnabar, ina\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	:FARADAY	= (faraday) (coulomb)\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "	R = (k-mole) (joule/degC)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	celsius		(degC)\n"
+  "	gnabar=1e-6	(mho/cm2)	: Maximum Permeability .2e-3*5 hans\n"
+  "	helling=-.765	(mM)		: K-slope of boltzman\n"
+  "	conc_half=7 	(mM)		: conc. for halfmax. activation\n"
+  "	ina_p_h = 25000	(ms)		:taufactor tov snelle na-stroom\n"
+  "	tau_act = 6	(ms)\n"
+  "}\n"
+  "\n"
+  "ASSIGNED { \n"
+  "	ina	(mA/cm2)\n"
+  "	ena	(mV)\n"
+  "	v	(mV)	\n"
+  "	nai	(mM)		: <-vanwege deze \n"
+  "	nao	(mM)		: <-en deze regel.\n"
+  "	ko	(mM)\n"
+  "}\n"
+  "\n"
+  "STATE { ma mb ha hb }		: fraction of states, m=fraction in open state.\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	SOLVE nastate METHOD sparse\n"
+  "	:boltzman()\n"
+  "	ina = gnabar*ma*ma*ha*kdep(ko)*(v-ena) :*ghk(v,nai,nao)\n"
+  "	:ma = 1 - mb\n"
+  "	:ha = 1 - hb\n"
+  "}\n"
+  "\n"
+  "INITIAL {\n"
+  "	:SOLVE nastate STEADYSTATE sparse\n"
+  "	ma=m_inf(v)\n"
+  "	mb=1-ma\n"
+  "	ha=h_inf(v)\n"
+  "	hb=1-ha\n"
+  "	ina = gnabar*ma*ma*ha*kdep(ko)*(v-ena) :*ghk(v,nai,nao)\n"
+  "}\n"
+  "\n"
+  "LOCAL a1,a2,b1,b2\n"
+  "\n"
+  "KINETIC nastate {\n"
+  "	a1 = m_a(v)\n"
+  "	a2 = m_b(v)\n"
+  "	b1 = h_a(v)\n"
+  "	b2 = h_b(v)\n"
+  "\n"
+  "	~ mb <-> ma (a1, a2)\n"
+  "	~ hb <-> ha (b1, b2)\n"
+  "	CONSERVE ma + mb = 1\n"
+  "	CONSERVE ha + hb = 1\n"
+  "}\n"
+  "\n"
+  "FUNCTION kdep(ko (mM)) {\n"
+  "	TABLE DEPEND conc_half, helling FROM 0 TO 150 WITH 150\n"
+  "	kdep=1+ 2/(1+exp((ko-conc_half)/helling))\n"
+  "}\n"
+  "\n"
+  "FUNCTION m_a(v(mV)) {\n"
+  "	:LOCAL m_inf\n"
+  "	TABLE FROM -150 TO 150 WITH 200\n"
+  "	:if (v<=-70) {\n"
+  "	:	m_inf=0\n"
+  "	:}else{\n"
+  "	:	m_inf=1/(1+(exp(-(v+39.7)/7.0)))\n"
+  "	:}\n"
+  "	m_a = m_inf(v)/tau_act\n"
+  "}\n"
+  "\n"
+  "FUNCTION m_inf(v) {\n"
+  "	TABLE FROM -150 TO 150 WITH 200\n"
+  "	m_inf=1/(1+(exp(-(v+39.7)/7.0)))\n"
+  "}\n"
+  "\n"
+  "FUNCTION m_b(v(mV)) {\n"
+  "	:LOCAL m_inf\n"
+  "	TABLE FROM -150 TO 150 WITH 200\n"
+  "	:m_inf=1/(1+(exp(-(v+39.7)/7.0)))\n"
+  "	m_b = (1-m_inf(v))/tau_act\n"
+  "}\n"
+  "\n"
+  "FUNCTION h_a(v(mV)) {\n"
+  "	TABLE FROM -150 TO 150 WITH 200\n"
+  "	h_a = (1/ina_p_h)*(0.128*exp((7-v-70)/18))\n"
+  "}\n"
+  ": 37 was 17\n"
+  "FUNCTION h_b(v(mV)) {\n"
+  "	TABLE FROM -150 TO 150 WITH 200\n"
+  "	h_b = (1/ina_p_h)*4/(1+exp((30-v-70)/5))\n"
+  "}\n"
+  ": 60 was 40\n"
+  "\n"
+  "FUNCTION h_inf(v) {\n"
+  "	TABLE FROM -150 TO 150 WITH 200\n"
+  "	h_inf=h_a(v)/(h_a(v)+h_b(v))\n"
+  "}\n"
+  "\n"
+  "FUNCTION ghk(v(mV), ci(mM), co(mM)) (.001 coul/cm3) {\n"
+  "	LOCAL z, eci, eco\n"
+  "	z = (1e-3)*1*FARADAY*v/(R*(celsius+273.11247574)) : *1* -> valentie kalium\n"
+  "	eco = co*efun(z)\n"
+  "	eci = ci*efun(-z)\n"
+  "	:high nao charge moves inward, mogelijke fouten vanwege oorsprong Ca(2+)!\n"
+  "	:negative potential charge moves inward\n"
+  "	ghk = (.001)*1*FARADAY*(eci - eco)\n"
+  "}\n"
+  "\n"
+  "FUNCTION efun(z) {\n"
+  "	if (fabs(z) < 1e-4) {\n"
+  "		efun = 1 - z/2\n"
+  "	}else{\n"
+  "		efun = z/(exp(z) - 1)\n"
+  "	}\n"
+  "}\n"
+  ;
 #endif

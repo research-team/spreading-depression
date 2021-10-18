@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -87,6 +87,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -147,7 +156,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "kir",
  "gbar_kir",
  0,
@@ -220,6 +229,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 0, _thread_cleanup);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 10, 8);
   hoc_register_dparam_semantics(_mechtype, 0, "na_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "k_ion");
@@ -232,7 +245,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 kir /Users/sulgod/spreading-depression/x86_64/kir.mod\n");
+ 	ivoc_help("help ?1 kir /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/kir.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -560,4 +573,67 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/kir.mod";
+static const char* nmodl_file_text = 
+  "TITLE kir\n"
+  "COMMENT\n"
+  "potassium inward rectifier after geukes foppen en siegenbeek\n"
+  "simply, with no time dynamics. (instantanous kinetics)\n"
+  "ENDCOMMENT\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX kir\n"
+  "	USEION na READ nao\n"
+  "	USEION k READ ko, ek WRITE ik\n"
+  "	USEION cl READ clo VALENCE -1\n"
+  "	RANGE gbar, ik, qk\n"
+  "	GLOBAL vs\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(molar) = (1/liter)\n"
+  "	(mV) =	(millivolt)\n"
+  "	(mA) =	(milliamp)\n"
+  "	(mM) =	(millimolar)\n"
+  "	:FARADAY	= (faraday) (coulomb)\n"
+  "	FARADAY		= 96485.309 (coul)\n"
+  "	R = (k-mole) (joule/degC)\n"
+  "	PI		= (pi) (1)\n"
+  "}\n"
+  "\n"
+  "STATE { qk }\n"
+  "\n"
+  "PARAMETER {\n"
+  "	gbar	= 0	(mho/cm2)\n"
+  "	vs	= 1	:voltage-dependency factor in boltzmann equation was 4\n"
+  "	vh	= 0 (mV)	:halfmaximal activation relative to ek was -10\n"
+  "}\n"
+  "\n"
+  "ASSIGNED { \n"
+  "	ik	(mA/cm2)\n"
+  "	v	(mV)\n"
+  "	ek	(mV)\n"
+  "	ko 	(mM)\n"
+  "	nao	(mM)\n"
+  "	clo	(mM)\n"
+  "	diam	(um)\n"
+  "}\n"
+  "\n"
+  "BREAKPOINT {\n"
+  "	ik = gbar*pkir((v), ko, ek)*(v-ek)\n"
+  "	SOLVE kaccum METHOD sparse\n"
+  "}\n"
+  "\n"
+  "KINETIC kaccum {\n"
+  "	COMPARTMENT diam*diam*PI/4 { qna qk }\n"
+  "	~ qk <<  ( -ik*PI*diam*(1e4)/FARADAY)\n"
+  "}\n"
+  "\n"
+  "FUNCTION pkir(vm,kout,erev) {\n"
+  "	pkir = 1 / ( sqrt(kout) * (1+exp((vm-vh-erev)/vs)) )\n"
+  "}\n"
+  ;
 #endif

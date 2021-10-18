@@ -1,4 +1,4 @@
-/* Created by Language version: 7.5.0 */
+/* Created by Language version: 7.7.0 */
 /* VECTORIZED */
 #define NRN_VECTORIZED 1
 #include <stdio.h>
@@ -90,6 +90,15 @@ extern void hoc_register_limits(int, HocParmLimits*);
 extern void hoc_register_units(int, HocParmUnits*);
 extern void nrn_promote(Prop*, int, int);
 extern Memb_func* memb_func;
+ 
+#define NMODL_TEXT 1
+#if NMODL_TEXT
+static const char* nmodl_file_text;
+static const char* nmodl_filename;
+extern void hoc_reg_nmodl_text(int, const char*);
+extern void hoc_reg_nmodl_filename(int, const char*);
+#endif
+
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
  _extcall_prop = _prop;
@@ -164,7 +173,7 @@ static void _ode_matsol(_NrnThread*, _Memb_list*, int);
  static void _ode_matsol_instance1(_threadargsproto_);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
- "7.5.0",
+ "7.7.0",
 "cat",
  "gcatbar_cat",
  0,
@@ -219,6 +228,10 @@ extern void _cvode_abstol( Symbol**, double*, int);
  _mechtype = nrn_get_mechtype(_mechanism[1]);
      _nrn_setdata_reg(_mechtype, _setdata);
      _nrn_thread_reg(_mechtype, 2, _update_ion_pointer);
+ #if NMODL_TEXT
+  hoc_reg_nmodl_text(_mechtype, nmodl_file_text);
+  hoc_reg_nmodl_filename(_mechtype, nmodl_filename);
+#endif
   hoc_register_prop_size(_mechtype, 12, 5);
   hoc_register_dparam_semantics(_mechtype, 0, "ca_ion");
   hoc_register_dparam_semantics(_mechtype, 1, "ca_ion");
@@ -228,7 +241,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 cat /Users/sulgod/spreading-depression/x86_64/it.mod\n");
+ 	ivoc_help("help ?1 cat /home/kseniia/Documents/spreadingDepression/spreading-depression/x86_64/it.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -550,4 +563,98 @@ _first = 0;
 
 #if defined(__cplusplus)
 } /* extern "C" */
+#endif
+
+#if NMODL_TEXT
+static const char* nmodl_filename = "/home/kseniia/Documents/spreadingDepression/spreading-depression/it.mod";
+static const char* nmodl_file_text = 
+  "TITLE transient and low threshold calcium current (T-current)\n"
+  "\n"
+  "COMMENT\n"
+  "        *********************************************\n"
+  "        reference:  	Huguenard & McCormick (1992) \n"
+  "			J.Neurophysiology 68(4), 1373-1383\n"
+  "        found in:       thalamic relay neurons\n"
+  "        *********************************************\n"
+  "	Assembled for MyFirstNEURON by Arthur Houweling\n"
+  "ENDCOMMENT\n"
+  "\n"
+  "INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}\n"
+  "\n"
+  "NEURON {\n"
+  "	SUFFIX cat\n"
+  "	USEION ca READ cai, cao WRITE ica VALENCE 2\n"
+  "        RANGE gcatbar, ica\n"
+  "        GLOBAL shiftm, shifth, tauh\n"
+  "}\n"
+  "\n"
+  "UNITS {\n"
+  "	(mA)	= (milliamp)\n"
+  "	(mV)	= (millivolt)\n"
+  "	(mM)	= (milli/liter)\n"
+  "        FARADAY = 96480 (coul)\n"
+  "        R       = 8.314 (volt-coul/degC)\n"
+  "}\n"
+  "\n"
+  "PARAMETER {\n"
+  "	celsius		(degC)\n"
+  "	gcatbar= 0.0001	(cm/s)	\n"
+  "	shiftm = 20 (mV)\n"
+  "	shifth = 20 (mV)\n"
+  "	tauh = 40 (ms)\n"
+  "}\n"
+  "\n"
+  "STATE {\n"
+  "	m h\n"
+  "}\n"
+  "\n"
+  "ASSIGNED {\n"
+  "	ica\n"
+  "	v\n"
+  "	cai	(mM)\n"
+  "	cao	(mM)\n"
+  "	tadjm\n"
+  "	tadjh\n"
+  "}\n"
+  "\n"
+  "BREAKPOINT { \n"
+  "	SOLVE state METHOD cnexp\n"
+  "	ica = gcatbar * m*m*h * ghk(v,cai,cao,2)\n"
+  "}\n"
+  "\n"
+  "DERIVATIVE state {\n"
+  "	m'= (m_inf(v)-m) / tau_m(v)\n"
+  "	h'= (h_inf(v)-h) / tauh\n"
+  "}\n"
+  "\n"
+  "\n"
+  "INITIAL {\n"
+  "	tadjm= 3.55^((celsius-23.5)/10)\n"
+  "	tadjh= 2.8^((celsius-23.5)/10)\n"
+  "	m = m_inf(v)\n"
+  "	h = h_inf(v)\n"
+  "}\n"
+  "\n"
+  "FUNCTION ghk( v(mV), ci(mM), co(mM), z)  (millicoul/cm3) { LOCAL e, w\n"
+  "        w = v * (.001) * z*FARADAY / (R*(celsius+273.16))\n"
+  "        if (fabs(w)>1e-4) \n"
+  "          { e = w / (exp(w)-1) }\n"
+  "        else : denominator is small -> Taylor series\n"
+  "          { e = 1-w/2 }\n"
+  "        ghk = - (.001) * z*FARADAY * (co-ci*exp(w)) * e\n"
+  "}\n"
+  "\n"
+  "FUNCTION tau_m(v) {\n"
+  "	tau_m = (1/(exp((v-shiftm+131.6)/-16.7)+exp((v-shiftm+16.8)/18.2)) + 0.612) / tadjm \n"
+  "}\n"
+  "\n"
+  "\n"
+  "FUNCTION m_inf(v) {\n"
+  "	m_inf = 1 / (1+exp((v-shiftm+60.5)/-6.2))\n"
+  "}\n"
+  "\n"
+  "FUNCTION h_inf(v) {\n"
+  "	h_inf = 1 / (1+exp((v-shifth+84)/4.03)) \n"
+  "}\n"
+  ;
 #endif
