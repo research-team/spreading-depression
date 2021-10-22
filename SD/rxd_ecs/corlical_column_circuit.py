@@ -221,6 +221,7 @@ class CC_circuit:
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
             random.uniform(-150,350), i+num))
+        num+=NtuftRS5-epi
 
         if value!=0:
             for i in range(rank, epi, nhost):
@@ -374,15 +375,15 @@ def connectcells(pre, post, weight, delay, type, N = 50):
                 if(type==1):
                     syn = target.AMPA_syns[j]
                     nc = pc.gid_connect(srcgid, syn)
-                    inhnclist.append(nc)
+                    AMPA_nclist.append(nc)
                 elif(type==-1):
                     syn = target.GABA_syns[j]
                     nc = pc.gid_connect(srcgid, syn)
-                    inhnclist.append(nc)
+                    GABA_nclist.append(nc)
                 elif (type == 0):
                     syn = target.NMDA_syns[j]
                     nc = pc.gid_connect(srcgid, syn)
-                    exnclist.append(nc)
+                    NMDA_nclist.append(nc)
                     # nc.weight[0] = random.gauss(weight, weight / 6) # str
                 nc.weight[0] = random.gauss(weight, weight / 5)
                 nc.delay = random.gauss(delay, 1 / 4)
