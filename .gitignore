@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+/SD/rxd_ecs/x86_64/*
+
 # Distribution / packaging
 .Python
 build/

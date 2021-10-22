@@ -1,79 +1,109 @@
-TITLE nmda
+TITLE AMPA and NMDA receptor with presynaptic short-term plasticity
+
+
+COMMENT
+AMPA and NMDA receptor conductance using a dual-exponential profile
+presynaptic short-term plasticity based on Fuhrmann et al. 2002
+Implemented by Srikanth Ramaswamy, Blue Brain Project, July 2009
+GUY: Removed  plasticity and depression
+
+ENDCOMMENT
+
 
 NEURON {
-	SUFFIX nmda
-	USEION k READ ko, ki, ek WRITE ik
-	USEION na READ nai, nao, ena WRITE ina
-	USEION ca READ cai, cao, eca WRITE ica VALENCE 2
-	RANGE ik, ina, inanmda, iknmda, icanmda , inmda, binf
-}
 
-UNITS {
-	(molar) = 	(1/liter)
-	(mV) =	(millivolt)
-	(mA) =	(milliamp)
-	(mM) =	(millimolar)
-	:FARADAY	= (faraday) (coulomb)
-	F		= 96485.309 (coul)
-	R = (k-mole) (joule/degC)
-	PI	= (pi)		(1)
+        POINT_PROCESS NMDA1
+        RANGE  tau_r_NMDA, tau_d_NMDA,n_NMDA,gama_NMDA
+        RANGE Use
+        RANGE i,  i_NMDA,  g_NMDA, e, gmax
+        NONSPECIFIC_CURRENT i
 }
 
 PARAMETER {
-	pnmda=3e-06
-	thetat=-10
-	trise=2
-	tdecay=1
-	alphag=.5
-	pca=3
-	thg=.01
-	sigmag=.001
-	glut=.0001
+
+    	n_NMDA = 0.28011 (/mM)
+    	gama_NMDA = 0.062 (/mV)
+	   tau_r_NMDA = 0.3   (ms) : dual-exponential conductance profile
+        tau_d_NMDA = 43     (ms) : IMPORTANT: tau_r < tau_d
+        Use = 1.0   (1)   : Utilization of synaptic efficacy (just initial values! Use, Dep and Fac are overwritten by BlueBuilder assigned values)
+
+        e = 0     (mV)  : AMPA and NMDA reversal potential
+	    mg = 1   (mM)  : initial concentration of mg2+
+        mggate
+    	:gmax = .001 (uS) :1nS weight conversion factor (from nS to uS)
+    	u0 = 0 :initial value of u, which is the running value of Use
 }
 
-ASSIGNED { 
-	v	(mV)
-	ik	(mA/cm2)
-	ina	(mA/cm2)
-	ica	(mA/cm2)
-	ki	(mM)
-	ko	(mM)
-	ek	(mV)
-	nai	(mM)
-	nao	(mM)
-	ena	(mV)
-	cai	(mM)
-	cao	(mM)
-	eca	(mV)
-	diam	(um2)
-	inanmda iknmda icanmda inmda binf
+COMMENT
+The Verbatim block is needed to generate random nos. from a uniform distribution between 0 and 1
+for comparison with Pr to decide whether to activate the synapse or not
+ENDCOMMENT
+
+
+
+
+ASSIGNED {
+
+        v (mV)
+        i (nA)
+	i_NMDA (nA)
+	g_NMDA (uS)
+	factor_NMDA
+
 }
 
 STATE {
-    sg
+
+
+	A_NMDA       : NMDA state variable to construct the dual-exponential profile - decays with conductance tau_r_NMDA
+    B_NMDA       : NMDA state variable to construct the dual-exponential profile - decays with conductance tau_d_NMDA
 }
 
-PROCEDURE rates(v(mV)) {
-   binf = 1/(1+exp(-(v-thetat)/16.13)) 
+INITIAL{
+
+    LOCAL  tp_NMDA
+
+	A_NMDA = 0
+	B_NMDA = 0
+
+	tp_NMDA = (tau_r_NMDA*tau_d_NMDA)/(tau_d_NMDA-tau_r_NMDA)*log(tau_d_NMDA/tau_r_NMDA) :time to peak of the conductance
+
+
+
+	factor_NMDA = -exp(-tp_NMDA/tau_r_NMDA)+exp(-tp_NMDA/tau_d_NMDA) :NMDA Normalization factor - so that when t = tp_NMDA, gsyn = gpeak
+    factor_NMDA = 1/factor_NMDA
+
 }
 
 BREAKPOINT {
-	inmda=inanmda+iknmda+icanmda
-	ina = inanmda
-	ik = iknmda
+
+    SOLVE state METHOD cnexp
+	mggate = 1 / (1 + exp(gama_NMDA  * -(v)) * (n_NMDA)) :mggate kinetics - Jahr & Stevens 1990
+	g_NMDA = (B_NMDA-A_NMDA) * mggate :compute time varying conductance as the difference of state variables B_NMDA and A_NMDA and mggate kinetics
+
+	i_NMDA = g_NMDA*(v-e) :compute the NMDA driving force based on the time varying conductance, membrane potential, and NMDA reversal
+	i =  i_NMDA
 }
 
-INITIAL {
-	sg = 0.
-	inanmda=pnmda*sg*binf*F* (v - ena)
-	iknmda=pnmda*sg*binf*F*(v - ek)
-	icanmda=pca*2*pnmda*sg*binf*F*(v-eca)
+DERIVATIVE state{
+
+
+	A_NMDA' = -A_NMDA/tau_r_NMDA
+    B_NMDA' = -B_NMDA/tau_d_NMDA
 }
 
-DERIVATIVE state {
-    sg'= -sg / tdecay + alphag * sinfg(glut) * (1-sg)
-}
 
-FUNCTION sinfg(x) {
-	sinfg=1./(1.+exp(-(x-thg)/sigmag))
+
+
+
+NET_RECEIVE (weight, weight_NMDA){
+
+	weight_NMDA = weight
+
+
+
+	A_NMDA = A_NMDA + weight_NMDA*factor_NMDA
+    B_NMDA = B_NMDA + weight_NMDA*factor_NMDA
+
+
 }

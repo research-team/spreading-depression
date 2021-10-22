@@ -1,0 +1,1009 @@
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(840.383) out of range, returning exp(700)
+exp(1245.96) out of range, returning exp(700)
+exp(1743.91) out of range, returning exp(700)
+exp(959.148) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(1263.92) out of range, returning exp(700)
+exp(1263.92) out of range, returning exp(700)
+exp(711.046) out of range, returning exp(700)
+exp(1928.27) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(756.786) out of range, returning exp(700)
+exp(1229.7) out of range, returning exp(700)
+exp(1793.57) out of range, returning exp(700)
+exp(986.464) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(800.311) out of range, returning exp(700)
+exp(800.311) out of range, returning exp(700)
+exp(744.652) out of range, returning exp(700)
+exp(744.652) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(807.676) out of range, returning exp(700)
+exp(807.676) out of range, returning exp(700)
+exp(1413.71) out of range, returning exp(700)
+exp(1413.71) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(763.591) out of range, returning exp(700)
+exp(710.43) out of range, returning exp(700)
+exp(710.924) out of range, returning exp(700)
+exp(964.744) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(907.247) out of range, returning exp(700)
+exp(844.866) out of range, returning exp(700)
+exp(757.727) out of range, returning exp(700)
+exp(1126.29) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(732.829) out of range, returning exp(700)
+exp(732.829) out of range, returning exp(700)
+exp(1052.01) out of range, returning exp(700)
+exp(1052.01) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(795.849) out of range, returning exp(700)
+exp(795.849) out of range, returning exp(700)
+exp(740.444) out of range, returning exp(700)
+exp(740.444) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(1046.11) out of range, returning exp(700)
+exp(1493.52) out of range, returning exp(700)
+exp(821.435) out of range, returning exp(700)
+exp(2051.52) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(937.888) out of range, returning exp(700)
+exp(937.888) out of range, returning exp(700)
+exp(1273.37) out of range, returning exp(700)
+exp(1273.37) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(784.247) out of range, returning exp(700)
+exp(784.247) out of range, returning exp(700)
+exp(1050.06) out of range, returning exp(700)
+exp(1050.06) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(885.683) out of range, returning exp(700)
+exp(1013.59) out of range, returning exp(700)
+exp(1551.96) out of range, returning exp(700)
+exp(853.577) out of range, returning exp(700)
+No more errno warnings during this execution
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1348, in <module>
+    run(60)
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1260, in run
+    write_to_csw(l,os.path.join(outdir, 'spikeE.csv'))
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1168, in write_to_csw
+    writer.writerows([data])
+_csv.Error: iterable expected, not NoneType
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(933.207) out of range, returning exp(700)
+exp(1252.75) out of range, returning exp(700)
+exp(1740.43) out of range, returning exp(700)
+exp(957.236) out of range, returning exp(700)
+No more errno warnings during this execution
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1348, in <module>
+    run(60)
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1260, in run
+    write_to_csw(dd,os.path.join(outdir, 'spikeE.csv'))
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1168, in write_to_csw
+    writer.writerows(data)
+TypeError: writerows() argument must be iterable
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(744.982) out of range, returning exp(700)
+exp(1022.08) out of range, returning exp(700)
+exp(1379.61) out of range, returning exp(700)
+exp(1279.29) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(895.124) out of range, returning exp(700)
+exp(831.127) out of range, returning exp(700)
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(775.186) out of range, returning exp(700)
+exp(1034.15) out of range, returning exp(700)
+exp(962.505) out of range, returning exp(700)
+exp(887.044) out of range, returning exp(700)
+No more errno warnings during this execution
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+exp(713.549) out of range, returning exp(700)
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/nrn77/build/x86_64/bin/nrniv: AMPA[75067] :Event arrived out of order. Must call ParallelContext.set_maxstep AFTER assigning minimum NetCon.delay
+ near line 0
+ ^
+        ParallelContext[0].psolve(4.8)
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1359, in <module>
+    run(30)
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1249, in run
+    pc.psolve(pc.t(0) + h.dt)
+RuntimeError: hoc error
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/nrn77/build/x86_64/bin/nrniv: AMPA[78986] :Event arrived out of order. Must call ParallelContext.set_maxstep AFTER assigning minimum NetCon.delay
+ near line 0
+ ^
+        ParallelContext[0].psolve(4.9)
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1359, in <module>
+    run(30)
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1249, in run
+    pc.psolve(pc.t(0) + h.dt)
+RuntimeError: hoc error
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/nrn77/build/x86_64/bin/nrniv: AMPA[67953] :Event arrived out of order. Must call ParallelContext.set_maxstep AFTER assigning minimum NetCon.delay
+ near line 0
+ ^
+        ParallelContext[0].psolve(5.6)
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1359, in <module>
+    run(30)
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1249, in run
+    pc.psolve(pc.t(0) + h.dt)
+RuntimeError: hoc error
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/nrn77/build/x86_64/bin/nrniv: AMPA[72093] :Event arrived out of order. Must call ParallelContext.set_maxstep AFTER assigning minimum NetCon.delay
+ near line 0
+ ^
+        ParallelContext[0].psolve(7.6)
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1359, in <module>
+    run(30)
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1249, in run
+    pc.psolve(pc.t(0) + h.dt)
+RuntimeError: hoc error
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1132, in <module>
+    ncstim = h.NetCon(stim, rec_neurons14[i].synlistexE[j])
+AttributeError: 'TCR' object has no attribute 'synlistexE'
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1136, in <module>
+    ncstim = h.NetCon(stim, rec_neurons14[i].synlistexE[j])
+IndexError: list index out of range
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1136, in <module>
+    ncstim = h.NetCon(stim, rec_neurons14[i].synlistexE[j])
+IndexError: list index out of range
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 108, in <module>
+    for i in range(0,NsyppyrFRB-epi):
+TypeError: 'float' object cannot be interpreted as an integer
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 250, in <module>
+    random.uniform(-450, -150), i + num))
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/cells.py", line 867, in __init__
+    self.dend3(0.5).naf_tcr.gbar = 0.1
+AttributeError: naf_tcr, the mechanism does not exist at <cells.EpilepsySpinstel4 object at 0x7f4b1d86fb70>.dend3(0.5)
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 36, in <module>
+    outdir = os.path.abspath('tests/1000_tW'+m+"_"+k) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+TypeError: must be str, not int
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1427, in <module>
+    run(30)
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 1279, in run
+    logging.info('time: '.join(str(int(pc.t(0)))))
+TypeError: 'str' object is not callable
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>>   File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 57
+    Nbask23 = 90  # 59
+          ^
+SyntaxError: invalid syntax
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>>   File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 118
+    for
+      ^
+SyntaxError: invalid syntax
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+>>> Traceback (most recent call last):
+  File "/gpfs/GLOBAL_JOB_REPO_KPFU/openlab/NEURON/SD/Spreading-Depression-Neuron-/test_wave_t.py", line 108, in <module>
+    'name': rec_neurons12[i].name,
+NameError: name 'i' is not defined
+
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ alphasyndiffeq.mod alphasynkin.mod alphasynkint.mod ampa.mod ar.mod cad_cc.mod cad.mod CaDynamics.mod cadynin.mod cadyn.mod Ca_HVA.mod cal_cc.mod calc.mod cal.mod cal_thlms.mod Ca_LVA.mod canin.mod can.mod car.mod cat_a.mod cat_cc.mod cat.mod cat_thlms.mod gabaa.mod hin.mod h.mod ican.mod iclamp_const.mod Ih.mod iksin.mod iks.mod Im.mod Im_v2.mod k2_cc.mod k2.mod ka_cc.mod kadist.mod kahp_deeppyr.mod kahp.mod kahp_slower.mod ka_ib.mod ka.mod kaproxin.mod kca.mod kc_fast_cc.mod kc_fast.mod kc.mod kctin.mod Kd.mod kdr_fs_cc.mod kdr_fs.mod kdrin.mod kdr.mod kdrpr.mod kdr_thlms.mod km_cc.mod km.mod K_P.mod krd_f.mod K_T.mod Kv2like.mod Kv3_1.mod naf2_cc.mod naf2.mod nafin.mod naf.mod naf_tcr.mod nafx.mod napf.mod napf_spinstell.mod napf_tcr.mod nap.mod Napp.mod NaTa.mod NaTs.mod NaV.mod NMDA.mod par_ggap.mod pulsesyn.mod rampsyn.mod rand.mod ri.mod SK.mod traub_nmda.mod vecevent.mod zap2.mod zap.mod

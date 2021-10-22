@@ -1,153 +1,117 @@
-TITLE nap
-: Persistent Na-current nu v en ko afhankelijk
-: boltzman met halfmaximale concentratie = 7mM
-: en activatie bij 3.5mM (1%)
-: simple, with no inactivation-gate
-: tau_activation = constant, 6ms
-: tau_inactivation = very slow; 50000 keer trager dan tau_inact_m^3*h
-:
-: Activation from -60mV, peak at -10 mV
-:
-: Tweede poging door toevoeging inactivation gate met
-: zelfde voltage gevoeligheid als Traub's m^3*h kanaal
-: maar dan 100 keer langzamer.
-:
-: door aanpassing van het model CaChan.
-: A Molecular Model of Low-Voltage-Activated Calcium Conductance
-: van Wang?
-
-UNITS {
-	(molar) = (1/liter)
-	(mV) =	(millivolt)
-	(mA) =	(milliamp)
-	(mM) =	(millimolar)
-}
-
-INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}
+: Persistent Na+ channel
 
 NEURON {
 	SUFFIX nap
-	USEION k READ ko
-	USEION na READ nai, nao, ena WRITE ina
-	GLOBAL ina_p_h, tau_act, conc_half, helling
-	RANGE gnabar, ina
+	USEION na READ ena WRITE ina
+	RANGE gnapbar, ina, gna
+	RANGE DA_alphamshift,DA_betamshift
+	RANGE DA_alphahfactor, DA_betahfactor
 }
 
 UNITS {
-	:FARADAY	= (faraday) (coulomb)
-	FARADAY		= 96485.309 (coul)
-	R = (k-mole) (joule/degC)
+	(mA) = (milliamp)
+	(mV) = (millivolt)
+
 }
+
+INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 PARAMETER {
-	celsius		(degC)
-	gnabar=1e-6	(mho/cm2)	: Maximum Permeability .2e-3*5 hans
-	helling=-.765	(mM)		: K-slope of boltzman
-	conc_half=7 	(mM)		: conc. for halfmax. activation
-	ina_p_h = 25000	(ms)		:taufactor tov snelle na-stroom
-	tau_act = 6	(ms)
+	v (mV)
+	dt (ms)
+	gnapbar= 0.0022 (mho/cm2) <0,1e9>
+	ena = 55 (mV)
+	DA_alphamshift=0 : 2 for 100% DA, 0 otherwise
+	DA_betamshift=0  : 5 for 100% DA,0 otherwise
+	DA_alphahfactor=0: -.8e-5 for DA, 0 otherwise
+	DA_betahfactor=0 : 0.014286-0.02 for DA, 0 otherwise
 }
 
-ASSIGNED { 
-	ina	(mA/cm2)
-	ena	(mV)
-	v	(mV)	
-	nai	(mM)		: <-vanwege deze 
-	nao	(mM)		: <-en deze regel.
-	ko	(mM)
+STATE {
+	m h
 }
 
-STATE { ma mb ha hb }		: fraction of states, m=fraction in open state.
+ASSIGNED {
+	ina (mA/cm2)
+	minf hinf
+	mtau (ms)
+	htau (ms)
+	gna (mho/cm2)
 
-BREAKPOINT {
-	SOLVE nastate METHOD sparse
-	:boltzman()
-	ina = gnabar*ma*ma*ha*kdep(ko)*(v-ena) :*ghk(v,nai,nao)
-	:ma = 1 - mb
-	:ha = 1 - hb
 }
 
 INITIAL {
-	:SOLVE nastate STEADYSTATE sparse
-	ma=m_inf(v)
-	mb=1-ma
-	ha=h_inf(v)
-	hb=1-ha
-	ina = gnabar*ma*ma*ha*kdep(ko)*(v-ena) :*ghk(v,nai,nao)
+	rate(v)
+	m = minf
+	h = hinf
 }
 
-LOCAL a1,a2,b1,b2
+BREAKPOINT {
+	SOLVE states METHOD cnexp
+	gna = gnapbar*m*h
+	ina = gna*(v-55)
 
-KINETIC nastate {
-	a1 = m_a(v)
-	a2 = m_b(v)
-	b1 = h_a(v)
-	b2 = h_b(v)
-
-	~ mb <-> ma (a1, a2)
-	~ hb <-> ha (b1, b2)
-	CONSERVE ma + mb = 1
-	CONSERVE ha + hb = 1
 }
 
-FUNCTION kdep(ko (mM)) {
-	TABLE DEPEND conc_half, helling FROM 0 TO 150 WITH 150
-	kdep=1+ 2/(1+exp((ko-conc_half)/helling))
+DERIVATIVE states {
+	rate(v)
+	m' = (minf-m)/mtau
+	h' = (hinf-h)/htau
 }
 
-FUNCTION m_a(v(mV)) {
-	:LOCAL m_inf
-	TABLE FROM -150 TO 150 WITH 200
-	:if (v<=-70) {
-	:	m_inf=0
-	:}else{
-	:	m_inf=1/(1+(exp(-(v+39.7)/7.0)))
-	:}
-	m_a = m_inf(v)/tau_act
+UNITSOFF
+
+FUNCTION malf( v){ LOCAL va
+	va=v+12+DA_alphamshift
+	if (fabs(va)<1e-04){
+	 va = va + 0.00001 }
+	malf = (-0.2816*va)/(-1+exp(-va/9.3))
+
 }
 
-FUNCTION m_inf(v) {
-	TABLE FROM -150 TO 150 WITH 200
-	m_inf=1/(1+(exp(-(v+39.7)/7.0)))
+
+FUNCTION mbet(v(mV))(/ms) { LOCAL vb
+	vb=v-15+DA_betamshift
+	if (fabs(vb)<1e-04){
+	    vb = vb + 0.00001 }
+
+	mbet = (0.2464*vb)/(-1+exp(vb/6))
+
 }
 
-FUNCTION m_b(v(mV)) {
-	:LOCAL m_inf
-	TABLE FROM -150 TO 150 WITH 200
-	:m_inf=1/(1+(exp(-(v+39.7)/7.0)))
-	m_b = (1-m_inf(v))/tau_act
+
+FUNCTION half(v(mV))(/ms) { LOCAL vc
+	vc=v+42.8477
+	if (fabs(vc)<1e-04){
+	   vc=vc+0.00001 }
+        half= (2.8e-5+DA_alphahfactor)*(exp(-vc/4.0248))
+
 }
 
-FUNCTION h_a(v(mV)) {
-	TABLE FROM -150 TO 150 WITH 200
-	h_a = (1/ina_p_h)*(0.128*exp((7-v-70)/18))
-}
-: 37 was 17
-FUNCTION h_b(v(mV)) {
-	TABLE FROM -150 TO 150 WITH 200
-	h_b = (1/ina_p_h)*4/(1+exp((30-v-70)/5))
-}
-: 60 was 40
 
-FUNCTION h_inf(v) {
-	TABLE FROM -150 TO 150 WITH 200
-	h_inf=h_a(v)/(h_a(v)+h_b(v))
+FUNCTION hbet(v(mV))(/ms) { LOCAL vd
+	vd=v-413.9284
+	if (fabs(vd)<1e-04){
+	vd=vd+0.00001 }
+        hbet= (0.02+DA_betahfactor)/(1+exp(-vd/148.2589))
+
 }
 
-FUNCTION ghk(v(mV), ci(mM), co(mM)) (.001 coul/cm3) {
-	LOCAL z, eci, eco
-	z = (1e-3)*1*FARADAY*v/(R*(celsius+273.11247574)) : *1* -> valentie kalium
-	eco = co*efun(z)
-	eci = ci*efun(-z)
-	:high nao charge moves inward, mogelijke fouten vanwege oorsprong Ca(2+)!
-	:negative potential charge moves inward
-	ghk = (.001)*1*FARADAY*(eci - eco)
+
+
+
+PROCEDURE rate(v (mV)) {LOCAL msum, hsum, ma, mb, ha, hb
+	ma=malf(v) mb=mbet(v) ha=half(v) hb=hbet(v)
+
+	msum = ma+mb
+	minf = ma/msum
+	mtau = 1/msum
+
+
+	hsum = ha+hb
+	hinf = ha/hsum
+	htau = 1/hsum
 }
 
-FUNCTION efun(z) {
-	if (fabs(z) < 1e-4) {
-		efun = 1 - z/2
-	}else{
-		efun = z/(exp(z) - 1)
-	}
-}
+
+UNITSON

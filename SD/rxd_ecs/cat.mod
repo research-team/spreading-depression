@@ -1,92 +1,72 @@
-TITLE T-calcium channel
-: T-type calcium channel
-: MODELDB 126814 CA3 by Safiulina et al - http://senselab.med.yale.edu/modeldb/ShowModel.asp?model=126814
-: by Michele Migliore
+TITLE t-type calcium channel with high threshold for activation
+: used in somatic and dendritic regions
+: Updated to use CVode --Carl Gold 08/10/03
 
+
+NEURON {
+	SUFFIX cat
+	USEION ca READ cai, eca
+        RANGE gcatbar, iCa
+        RANGE gcatbar, ica
+	GLOBAL hinf, minf
+}
 
 UNITS {
 	(mA) = (milliamp)
 	(mV) = (millivolt)
 	(molar) = (1/liter)
-	(mM) = (millimolar)
-
-	FARADAY = 96520 (coul)
-	R = 8.3134 (joule/degC)
-	KTOMV = .0853 (mV/degC)
+	(mM) =	(millimolar)
+	FARADAY = (faraday) (coulomb)
+	R = (k-mole) (joule/degC)
 }
 
 PARAMETER {
-	v (mV)
-	celsius = 25	(degC)
-	gcatbar=.003 (mho/cm2)
-	cai = 50.e-6 (mM)
-	cao = 2 (mM)
-	q10 = 5
-	mmin=0.2
-	hmin=10
-	a0h =0.015
-	zetah = 3.5
-	vhalfh = -75
-	gmh=0.6	
-	a0m =0.04
-	zetam = 2
-	vhalfm = -28
-	gmm=0.1	
+	gcatbar = 0   (mho/cm2)  : initialized conductance
+	zetam = -3
+	zetah = 5.2
+	vhalfm =-36 (mV)
+	vhalfh =-68 (mV)
+	tm0=1.5(ms)
+	th0=10(ms)
 }
 
 
-NEURON {
-	SUFFIX cat
-	USEION ca READ cai,cao WRITE ica
-        RANGE gcatbar, ica, gcat
-        RANGE hinf,minf,mtau,htau
+
+ASSIGNED {     : parameters needed to solve DE
+	v            (mV)
+	celsius      (degC)
+	ica          (mA/cm2)
+	cai          (mM)       :5e-5 initial internal Ca++ concentration
+	eca          (mV)       : initial external Ca++ concentration
+        minf
+        hinf
 }
+
 
 STATE {
-	m h 
-}
-
-ASSIGNED {
-	ica (mA/cm2)
-        gcat (mho/cm2)
-	hinf
-	htau
-	minf
-	mtau
+	m
+	h
 }
 
 INITIAL {
 	rates(v)
-	m = minf
-	h = hinf
+        m = minf
+        h = hinf
 }
 
 BREAKPOINT {
 	SOLVE states METHOD cnexp
-	gcat = gcatbar*m*m*h
-	ica = gcat*ghk(v,cai,cao)
+	ica = gcatbar*m*m*h*(v-eca)	: dummy calcium current induced by this channel
 
 }
 
-DERIVATIVE states {	: exact when v held constant
-	rates(v)
-	m' = (minf - m)/mtau
-	h' = (hinf - h)/htau
+FUNCTION ghk(v(mV), ci(mM), co(mM)) (.001 coul/cm3) {
+	LOCAL z, eci, eco
+	z = (1e-3)*2*FARADAY*v/(R*(celsius+273.15))
+	eco = co*efun(z)
+	eci = ci*efun(-z)
+	ghk = (.001)*2*FARADAY*(eci - eco)
 }
-
-
-FUNCTION ghk(v(mV), ci(mM), co(mM)) (mV) {
-        LOCAL nu,f
-
-        f = KTF(celsius)/2
-        nu = v/f
-        ghk=-f*(1. - (ci/co)*exp(nu))*efun(nu)
-}
-
-FUNCTION KTF(celsius (DegC)) (mV) {
-        KTF = ((25./293.15)*(celsius + 273.15))
-}
-
 
 FUNCTION efun(z) {
 	if (fabs(z) < 1e-4) {
@@ -96,36 +76,34 @@ FUNCTION efun(z) {
 	}
 }
 
+
+DERIVATIVE states {
+	rates(v)
+	m' = (minf -m)/tm0
+	h'=  (hinf - h)/th0
+}
+
+
+PROCEDURE rates(v (mV)) {
+        LOCAL a, b
+
+	a = alpm(v)
+	minf = 1/(1+a)
+
+        b = alph(v)
+	hinf = 1/(1+b)
+}
+
+
+
+FUNCTION alpm(v(mV)) {
+UNITSOFF
+  alpm = exp(1.e-3*zetam*(v-vhalfm)*9.648e4/(8.315*(273.16+celsius)))
+UNITSON
+}
+
 FUNCTION alph(v(mV)) {
-  alph = exp(0.0378*zetah*(v-vhalfh)) 
+UNITSOFF
+  alph = exp(1.e-3*zetah*(v-vhalfh)*9.648e4/(8.315*(273.16+celsius)))
+UNITSON
 }
-
-FUNCTION beth(v(mV)) {
-  beth = exp(0.0378*zetah*gmh*(v-vhalfh)) 
-}
-
-FUNCTION alpmt(v(mV)) {
-  alpmt = exp(0.0378*zetam*(v-vhalfm)) 
-}
-
-FUNCTION betmt(v(mV)) {
-  betmt = exp(0.0378*zetam*gmm*(v-vhalfm)) 
-}
-
-PROCEDURE rates(v (mV)) { :callable from hoc
-	LOCAL a,b, qt
-        qt=q10^((celsius-25)/10)
-
-	a = 0.2*(-1.0*v+19.26)/(exp((-1.0*v+19.26)/10.0)-1.0)
-	b = 0.009*exp(-v/22.03)
-	minf = a/(a+b)
-	mtau = betmt(v)/(qt*a0m*(1+alpmt(v)))
-	if (mtau<mmin) {mtau=mmin}
-
-	a = 1.e-6*exp(-v/16.26)
-	b = 1/(exp((-v+29.79)/10.)+1.)
-	hinf = a/(a+b)
-	htau = beth(v)/(qt*a0h*(1+alph(v)))
-	if (htau<hmin) {htau=hmin}
-}
-

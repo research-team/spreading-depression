@@ -5,7 +5,7 @@ tau_accum heeft een grote inivloed op de simulatieduur.
 ENDCOMMENT
 
 NEURON {
-	SUFFIX accum
+	POINT_PROCESS accum
 	USEION na READ ina, nao, nai WRITE nai, nao, ina
 	USEION k READ ik, ko, ki WRITE ki, ko, ik
 	USEION cl READ icl, clo, cli WRITE cli, clo, icl  VALENCE -1

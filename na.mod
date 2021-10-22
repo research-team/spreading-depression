@@ -17,8 +17,7 @@ INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}
 NEURON {
 	SUFFIX nachan
 	USEION na READ ena WRITE ina
-	RANGE gnabar, ina, interval, freq, n, firing, qna
-	GLOBAL shiftm, shifth, scaletaum, scaletauh
+	RANGE gnabar, ina, interval, freq, n, firing, qna, shiftm, shifth, scaletaum, scaletauh
 }
 
 UNITS {

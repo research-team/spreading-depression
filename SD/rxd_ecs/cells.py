@@ -44,16 +44,11 @@ class Cell:
         self.axonV = h.Vector()
         self.axonV.record(self.axon(0.5)._ref_v)
 
-
-
-
         self._spike_detector = h.NetCon(self.soma(0.5)._ref_v, None, sec=self.soma)
         self.spike_times = h.Vector()
         self._spike_detector.record(self.spike_times)
-        
+
         self._ncs = []
-        self.synlistexI = []
-        self.synlistexE = []
         #self.count=0
         self.number=num
         self.cells={}
@@ -99,24 +94,14 @@ class Cell:
             synE.e = 30
             self.synlistex.append(synE)
         '''
-        for d in self.dends:
-            synI = h.GABAA(d(0.5))
-            synI.tau = 0.3
-            synI.e = -50
-            self.synlistexI.append(synI)
-            synE = h.AMPA(d(0.5))
-            synE.tau = 1
-            synE.e = 50
-            self.synlistexE.append(synE)
-            self.synlistexNMDA=[]
-            synE = h.NMDA1(d(0.5))
-            self.synlistexNMDA.append(synE)
-
-
         self._set_position(x, y, z)
-        self.syns = []
+        self.AMPA_syns = []
+        self.NMDA_syns = []
+        self.GABA_syns = []
+
         self.netcons = []
 
+        self._synapses()
         # everything below here in this method is NEW
 
         #self.nmda1 = h.Vector().record(self.synlistexNMDA[0]._ref_i)
@@ -141,51 +126,38 @@ class Cell:
                                sec.diam3d(i))
         self.x, self.y, self.z = x, y, z
 
-    def connect_cells(self, target, type, w, d):
-        if(type==1):
-            j = random.randint(0,len(target.dends)-1)
-            synE = h.AMPA(target.dends[j](0.8))
-            synE.tau = 1
-            synE.e = 50
-            #self.synlistexE.append(synE)
-            nc = h.NetCon(self.axon(0.9)._ref_v, synE, sec=self.axon)
-            nc.weight[0] = random.gauss(w, w/3 )
-            nc.delay = random.gauss(d, 1/4)
-            #target._ncs.append(nc)
-            self._ncs.append(nc)
-            target.syns.append(synE)
-            #target.count += 1
-            #target.cells[self.number] = self.id
+    def _synapses(self):
+        for d in self.dends:
+            for i in range(50):
+                synI = h.GABAA(d(0.5))
+                synI.tau = 0.3
+                synI.e = -30
+                self.GABA_syns.append(synI)
+                synE = h.AMPA(d(0.5))
+                synE.tau = 1
+                synE.e = 50
+                self.AMPA_syns.append(synE)
+                synE = h.NMDA1(d(0.5))
+                self.NMDA_syns.append(synE)
+
+    def connect2target(self, target):
+        '''
+        NEURON staff
+        Adds presynapses
+        Parameters
+        ----------
+        target: NEURON cell
+            target neuron
+        Returns
+        -------
+        nc: NEURON NetCon
+            connection between neurons
+        '''
+        nc = h.NetCon(self.axon(0.9)._ref_v, target, sec=self.axon)
+        nc.threshold = 0
+        return nc
 
 
-        elif(type==-1):
-            #for sec in self.dends:
-            j = random.randint(0, len(target.dends)-1)
-            synI = h.GABAA(target.dends[j](0.8))
-            synI.tau = 0.3
-            synI.e = -30
-            #self.synlistexI.append(synI)
-            nc = h.NetCon(self.axon(0.9)._ref_v, synI, sec=self.axon)
-            nc.weight[0] = random.gauss(w, w / 3)
-            nc.delay =  random.gauss(d, 1/4)
-            self._ncs.append(nc)
-            target.syns.append(synI)
-            #target.count += 1
-            #target.cells[self.number] = self.id
-
-
-        elif (type == 0):
-            j = random.randint(0, len(target.dends)-1)
-            synE = h.NMDA1(target.dends[j](0.8))
-            #self.synlistexNMDA.append(synE)
-            nc = h.NetCon(self.axon(0.9)._ref_v, synE, sec=self.axon)
-            nc.weight[0] = random.gauss(w, w / 3)
-            nc.delay = random.gauss(d, 1/4)
-            self._ncs.append(nc)
-            target.syns.append(synE)
-
-
-        
 
 class Bask23(Cell):
     def __init__(self, x, y, z, num):
@@ -316,7 +288,7 @@ class Bask23(Cell):
         #self.m_naf2 = h.Vector().record(self.dend(0.5).naf2._ref_m)
         self.m_nap = h.Vector().record(self.dend(0.5).nap._ref_m)
 
-        #self.nmh_list_dend =[self.n_km, self.h_cat, self.h_k2, self.h_ka, self.h_naf2, self.m_ar, self.m_cal, 
+        #self.nmh_list_dend =[self.n_km, self.h_cat, self.h_k2, self.h_ka, self.h_naf2, self.m_ar, self.m_cal,
         #                    self.m_cat, self.m_k2, self.m_kahp_slower, self.m_ka, self.m_kc_fast, self.m_kdr_fs, self.m_naf2, self.m_nap ]
 
         self.m_k2_axon = h.Vector().record(self.axon(0.5).k2._ref_m)
@@ -342,7 +314,7 @@ class Bask23(Cell):
         self.k_i = self.k[self.cyt]
 
         self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
-       
+
 
          #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
         #self.cl_concentration = h.Vector().record(self.soma(0.5)._ref_cli)
@@ -460,8 +432,8 @@ class Axax23(Cell): #
         self.axon(0.5).pas.e = -73
         self.axon.Ra = 100
         self.axon.cm = 1.2
-        
-        for sec in self.all:        
+
+        for sec in self.all:
             sec.cm = 0.9
             sec.ena =   50.
             #sec.eca =   125.
@@ -484,7 +456,7 @@ class Axax23(Cell): #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    
+
 
 
 class LTS23(Cell):  #
@@ -582,7 +554,7 @@ class LTS23(Cell):  #
         self.axon.Ra = 100
         self.axon.cm = 1.2
 
-        for sec in self.all:        
+        for sec in self.all:
             #sec.cm = 1
             sec.ena = 50.
 
@@ -610,7 +582,7 @@ class Spinstel4(Cell):  #
         self.id = 4
         self.Excitatory = 1
         self.name = 'spiny stellate'
-        
+
         for mechanism_s in ['extracellular', 'Naf', 'nap', 'calc', 'cal', 'can', 'car', 'cat', 'kdrpr', 'IKs', 'kad',
                             'h',
                             'kca', 'ican', 'cadyn',
@@ -1623,7 +1595,7 @@ class TuftRS5(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    
+
 class EpilepsyTuftRS5(Cell):  #
     def __init__(self, x, y, z, num):
         super().__init__(x , y, z, num)
@@ -1898,7 +1870,7 @@ class Bask56(Cell):  #
         self.axon.Ra = 100
         self.axon.cm = 1.2
 
-        for sec in self.all:        
+        for sec in self.all:
             sec.cm = 1
             sec.ena = 50.
             sec.ek =  -100.
@@ -1920,7 +1892,7 @@ class Bask56(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-    
+
 
 
 class Axax56(Cell):  #
@@ -2198,7 +2170,7 @@ class LTS56(Cell):  #
         self.axon.Ra = 100
         self.axon.cm = 1.2
 
-        for sec in self.all:        
+        for sec in self.all:
             sec.cm = 1
             sec.ena = 50.
             sec.ek =  -100.
@@ -2219,7 +2191,7 @@ class LTS56(Cell):  #
         #self.stim.delay = 50
         #self.stim.dur = 1
         #self.stim.amp = 1
-   
+
 
 class NontuftRS6(Cell):  #
     def __init__(self, x, y, z, num):
@@ -2826,7 +2798,7 @@ class Bask4(Cell):  #
         self.Excitatory = 1
         self.name ='bask 4'
         #self.soma.nseg = 1+2*int(somaR*2/40)
-        
+
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'pas','Ih', 'NaV', 'Kd', 'Kv2like', 'Kv3_1', 'K_T', 'Im_v2', 'SK', 'Ca_HVA', 'Ca_LVA', 'CaDynamics']:
             self.soma.insert(mechanism_s)
@@ -2856,10 +2828,10 @@ class Bask4(Cell):  #
             self.dend.insert(mechanism_d)
             #print(mechanism_d)
 
-        
+
         self.dend(0.5).pas.e = -85.15087381998698
         self.dend(0.5).pas.g = 2.90017977354e-06
-        
+
 
         # ---------------axon----------------
         self.soma.nseg = 1+2*int(axonL/40)
@@ -2872,7 +2844,7 @@ class Bask4(Cell):  #
         self.axon(0.5).pas.e = -85.15087381998698
         self.axon.Ra = 100
 
-        for sec in self.all:        
+        for sec in self.all:
             sec.cm = 4.65
             sec.Ra = 65.22
             #sec.pas.e = -85.15087381998698

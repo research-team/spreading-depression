@@ -1,85 +1,103 @@
-TITLE K-DR channel
-: from Klee Ficker and Heinemann
-: modified to account for Dax et al.
-: M.Migliore 1997
-: thread-safe 2010-05-31 Ben Suter
-: 2010-11-07 Ben Suter, removing "kdr" from parameter names, reformatting, setting sh = 0 (was 24 mV)
-:
-: :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-: Copyright 2011, Benjamin Suter (for changes only)
-: :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-UNITS {
-    (mA) = (milliamp)
-    (mV) = (millivolt)
-}
-
-PARAMETER {
-    v                   (mV)
-    celsius             (degC)
-    ek                  (mV)     : must be explicitely def. in hoc
-
-    gbar    = 0.003     (mho/cm2)
-    vhalfn  = 13        (mV)
-    a0n     = 0.02      (/ms)
-    zetan   = -3        (1)
-    gmn     = 0.7       (1)
-    nmax    = 2         (1)
-    q10     = 1
-    sh      = 0
-}
+: Delayed rectifier K+ channel
 
 NEURON {
-    THREADSAFE
-    SUFFIX kdr
-    USEION k READ ek WRITE ik
-    RANGE g, gbar, sh, ninf,taun
+	SUFFIX kdr
+	USEION k READ ki, ko WRITE ik
+	RANGE gkdrbar, ik, gk
+
+}
+
+UNITS {
+	(mA) = (milliamp)
+	(mV) = (millivolt)
+
+}
+
+INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
+PARAMETER {
+	v (mV)
+	dt (ms)
+	gkdrbar= 0.0338 (mho/cm2) <0,1e9>
+
+
 }
 
 STATE {
-    n
+	n
 }
 
 ASSIGNED {
-    ik      (mA/cm2)
-    ninf
-    g
-    taun
+	ik (mA/cm2)
+	inf
+	tau (ms)
+	gk (mho/cm2)
+	ek (mV)
+	ki (mM)
+	ko (mM)
+
+}
+
+
+INITIAL {
+	rate(v)
+	n = inf
 }
 
 BREAKPOINT {
-    SOLVE states METHOD cnexp
-    g = gbar*n
-    ik = g*(v-ek)
+	SOLVE states METHOD cnexp
+	gk= gkdrbar*n*n*n*n
+	ek = 25 * log(ko/ki)
+	ik = gk*(v-ek)
+
 }
 
-INITIAL {
-    rates(v)
-    n=ninf
+DERIVATIVE states {
+	rate(v)
+	n' = (inf-n)/tau
 }
 
-FUNCTION alpn(v(mV)) {
-    alpn = exp(1.e-3*zetan*(v-vhalfn-sh)*9.648e4/(8.315*(273.16+celsius)))
+UNITSOFF
+
+FUNCTION alf(v){ LOCAL va
+
+	   va=v-13
+	if (fabs(va)<1e-04){
+	   va=va+0.0001
+		alf= (-0.018*va)/(-1+exp(-(va/25)))
+	} else {
+	  	alf = (-0.018*(v-13))/(-1+exp(-((v-13)/25)))
+	}
 }
 
-FUNCTION betn(v(mV)) {
-    betn = exp(1.e-3*zetan*gmn*(v-vhalfn-sh)*9.648e4/(8.315*(273.16+celsius)))
+
+FUNCTION bet(v) { LOCAL vb
+
+	  vb=v-23
+	if (fabs(vb)<1e-04){
+	  vb=vb+0.0001
+		bet= (0.0054*vb)/(-1+exp(vb/12))
+	} else {
+	  	bet = (0.0054*(v-23))/(-1+exp((v-23)/12))
+	}
 }
 
-DERIVATIVE states {     : exact when v held constant; integrates over dt step
-    rates(v)
-    n' = (ninf - n)/taun
+
+
+
+
+
+PROCEDURE rate(v (mV)) {LOCAL q10, sum, aa, ab
+
+	aa=alf(v) ab=bet(v)
+
+	sum = aa+ab
+	inf = aa/sum
+	tau = 1/(sum)
+
+
 }
 
-PROCEDURE rates(v (mV)) { :callable from hoc
-    LOCAL a,qt
-    qt = q10^((celsius-24)/10)
+UNITSON
 
-    a = alpn(v)
-    ninf = 1/(1+a)
-    taun = betn(v)/(qt*a0n*(1+a))
-    if (taun<nmax) {
-        taun = nmax/qt
-    }
-}
+
+

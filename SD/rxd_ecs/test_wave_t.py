@@ -32,7 +32,7 @@ h.celsius = 37
 
 #numpy.random.seed(6324555 + pcid)
 outdir = os.path.abspath('tests/989_100_tW')
-value=100 #%
+value=0#100 #% epilepsy 
 
 k_na_dir = os.path.abspath(os.path.join(outdir, 'K_NA'))
 nmh_dir = os.path.abspath(os.path.join(outdir, 'n_m_h'))
@@ -53,30 +53,30 @@ Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
 
 #L2/3 (0-400)
-Nbask23 = 90 #59
-Naxax23 = 90 #59
-NLTS23 = 90 #59
-NsyppyrFRB = 50
-NsyppyrRS = 1000
+Nbask23 = 10 #59
+Naxax23 = 10 #59
+NLTS23 = 10 #59
+NsyppyrFRB = 5
+NsyppyrRS = 50
 #L4 (400-700)
-Nspinstel4 = 640
-Nbask4=360
-NtuftIB5 = 800
-Bask_4 = 435 #235 bask4
+Nspinstel4 = 30
+Nbask4=20
+NtuftIB5 = 40
+Bask_4 = 20 #235 bask4
 #L5 (700-1200)
-NtuftRS5 = 200
-Nbask56 = 100
+NtuftRS5 = 10
+Nbask56 = 10
 
 #L5/6 (700-1700)
-Naxax56 = 100
-NLTS56 = 500
+Naxax56 = 10
+NLTS56 = 25
 
 #L6(1200-1700)
-NnontuftRS6 = 500
+NnontuftRS6 = 25
 
 #tlms
-NTCR = 300
-NnRT = 100
+NTCR = 15
+NnRT = 10
 
 
 somaR = 11  # soma radius

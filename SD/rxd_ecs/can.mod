@@ -1,86 +1,85 @@
-TITLE n-calcium channel
-: n-type calcium channel
-: MODELDB 126814 CA3 by Safiulina et al - http://senselab.med.yale.edu/modeldb/ShowModel.asp?model=126814
-: by Michele Migliore
+TITLE N-type calcium channel
+: used in somatic and dendritic regions
+: After Borg
+:  Updated by Maria Markaki  03/12/03
 
+NEURON {
+	SUFFIX can
+	USEION ca READ cai, eca WRITE ica
+        RANGE gcabar, ica, po
+	GLOBAL hinf, minf, s_inf
+}
 
 UNITS {
 	(mA) = (milliamp)
 	(mV) = (millivolt)
-
-	FARADAY = 96520 (coul)
-	R = 8.3134 (joule/degC)
-	KTOMV = .0853 (mV/degC)
+	(molar) = (1/liter)
+	(mM) =	(millimolar)
+	FARADAY = (faraday) (coulomb)
+	R = (k-mole) (joule/degC)
 }
 
-PARAMETER {
-	v (mV)
-	celsius 		(degC)
-	gcanbar=.0003 (mho/cm2)
-	ki=.001 (mM)
-	cai=50.e-6 (mM)
-	cao = 2  (mM)
-	q10=5
-	mmin = 0.2
-	hmin = 3
-	a0m =0.03
-	zetam = 2
-	vhalfm = -14
-	gmm=0.1	
+PARAMETER {           :parameters that can be entered when function is called in cell-setup
+	gcabar = 0   (mho/cm2)  : initialized conductance
+  	ki     = 0.025  (mM)            :test middle point of inactivation fct
+	zetam = -3.4
+	zetah = 2
+	vhalfm =-21 (mV)
+	vhalfh =-40 (mV)
+	tm0=1.5(ms)
+	th0=75(ms)
+	taumin  = 2    (ms)            : minimal value of the time cst
 }
 
 
-NEURON {
-	SUFFIX can
-	USEION ca READ cai,cao WRITE ica
-        RANGE gcanbar, ica, gcan       
-        RANGE hinf,minf,taum,tauh
-}
 
-STATE {
-	m h 
-}
-
-ASSIGNED {
-	ica (mA/cm2)
-        gcan  (mho/cm2) 
+ASSIGNED {     : parameters needed to solve DE
+	v            (mV)
+	celsius      (degC)
+	ica          (mA/cm2)
+	po
+	cai          (mM)
+	eca             (mV)
         minf
         hinf
-        taum
-        tauh
+	s_inf
 }
 
-INITIAL {
-        rates(v)
-        m = minf
-        h = hinf
-}
 
-BREAKPOINT {
-	SOLVE states METHOD cnexp
-	gcan = gcanbar*m*m*h*h2(cai)
-	ica = gcan*ghk(v,cai,cao)
-
-}
-
-UNITSOFF
 FUNCTION h2(cai(mM)) {
 	h2 = ki/(ki+cai)
 }
 
 
-FUNCTION ghk(v(mV), ci(mM), co(mM)) (mV) {
-        LOCAL nu,f
 
-        f = KTF(celsius)/2
-        nu = v/f
-        ghk=-f*(1. - (ci/co)*exp(nu))*efun(nu)
+STATE {
+	m
+	h
+	s
 }
 
-FUNCTION KTF(celsius (degC)) (mV) {
-        KTF = ((25./293.15)*(celsius + 273.15))
+INITIAL {
+	rates(v,cai)
+        m = minf
+        h = hinf
+	s = s_inf
 }
 
+BREAKPOINT {
+	SOLVE states METHOD cnexp
+	po = m*m*h
+ 	ica = gcabar *po*h2(cai) * (v - eca)
+
+}
+
+
+FUNCTION ghk(v(mV), ci(mM), co(mM)) (.001 coul/cm3) {
+	LOCAL z, eci, eco
+	z = (1e-3)*2*FARADAY*v/(R*(celsius+273.15))
+	eco = co*efun(z)
+	eci = ci*efun(-z)
+	ghk = (.001)*2*FARADAY*(eci - eco)
+}
 
 FUNCTION efun(z) {
 	if (fabs(z) < 1e-4) {
@@ -90,50 +89,38 @@ FUNCTION efun(z) {
 	}
 }
 
-FUNCTION alph(v(mV)) {
-	alph = 1.6e-4*exp(-v/48.4)
+DERIVATIVE states {
+	rates(v,cai)
+	m' = (minf -m)/tm0
+	h'=  (hinf - h)/th0
+	s' = (s_inf-s)/taumin
 }
 
-FUNCTION beth(v(mV)) {
-	beth = 1/(exp((-v+39.0)/10.)+1.)
+
+
+PROCEDURE rates(v (mV), cai(mM)) {
+        LOCAL a, b, alpha2
+
+	a = alpm(v)
+	minf = 1/(1+a)
+
+        b = alph(v)
+	hinf = 1/(1+b)
+	alpha2 = (ki/cai)^2
+	s_inf = alpha2 / (alpha2 + 1)
 }
+
+
+
 
 FUNCTION alpm(v(mV)) {
-	alpm = 0.1967*(-1.0*v+19.88)/(exp((-1.0*v+19.88)/10.0)-1.0)
-}
-
-FUNCTION betm(v(mV)) {
-	betm = 0.046*exp(-v/20.73)
-}
-
-FUNCTION alpmt(v(mV)) {
-  alpmt = exp(0.0378*zetam*(v-vhalfm)) 
-}
-
-FUNCTION betmt(v(mV)) {
-  betmt = exp(0.0378*zetam*gmm*(v-vhalfm)) 
-}
-
+UNITSOFF
+  alpm = exp(1.e-3*zetam*(v-vhalfm)*9.648e4/(8.315*(273.16+celsius)))
 UNITSON
-
-DERIVATIVE states {     : exact when v held constant; integrates over dt step
-        rates(v)
-        m' = (minf - m)/taum
-        h' = (hinf - h)/tauh
 }
 
-PROCEDURE rates(v (mV)) { :callable from hoc
-        LOCAL a, b, qt
-        qt=q10^((celsius-25)/10)
-        a = alpm(v)
-        b = 1/(a + betm(v))
-        minf = a*b
-	taum = betmt(v)/(qt*a0m*(1+alpmt(v)))
-	if (taum<mmin/qt) {taum=mmin/qt}
-        a = alph(v)
-        b = 1/(a + beth(v))
-        hinf = a*b
-:	tauh=b/qt
-	tauh= 80
-	if (tauh<hmin) {tauh=hmin}
+FUNCTION alph(v(mV)) {
+UNITSOFF
+  alph = exp(1.e-3*zetah*(v-vhalfh)*9.648e4/(8.315*(273.16+celsius)))
+UNITSON
 }
