@@ -15,7 +15,6 @@ from neuron import h, gui
 import neuron.rxd as rxd
 from neuron.units import ms, mV
 h.load_file("stdgui.hoc")
-
 pc = h.ParallelContext()
 rank = int(pc.id())
 nhost = int(pc.nhost())
@@ -310,7 +309,76 @@ class CC_circuit:
 
         ''' CONNECTIONS '''
 
+        '''
+        Connections AMPA
+        '''
+
         connectcells(self.syppyrFRB, self.bask23, 0.23, 1, 1)
+        connectcells(self.syppyrFRB, self.axax23, 0.08, 1, 1)
+        connectcells(self.syppyrFRB, self.tuftIB5, 4.44, 1, 1)
+        connectcells(self.syppyrFRB, self.lts56, 0.27, 1, 1)
+        connectcells(self.syppyrFRB, self.axax56, 0.03, 1, 1)
+        connectcells(self.syppyrFRB, self.syppyrRS, 9.37, 1, 1)
+        connectcells(self.syppyrFRB, self.LTS23, 0.55, 1, 1)
+
+        connectcells(self.syppyrRS, self.LTS23, 0.55, 1, 1)
+        connectcells(self.syppyrRS, self.bask23, 0.22, 1, 1)
+        connectcells(self.syppyrRS, self.axax23, 0.08, 1, 1)
+        connectcells(self.syppyrRS, self.syppyrFRB, 9.37, 1, 1)
+        connectcells(self.syppyrRS, self.tuftIB5, 4.95, 1, 1)
+        connectcells(self.syppyrRS, self.lts56, 0.53, 1, 1)
+        connectcells(self.syppyrRS, self.axax56, 0.03, 1, 1)
+        connectcells(self.syppyrRS, self.syppyrRS, 9.37, 1, 1)
+        connectcells(self.syppyrRS, self.tuftRS5, 4.44, 1, 1)
+
+        connectcells(self.spinstel4, self.bask4, 0.031, 1, 1)
+        connectcells(self.spinstel4, self.LTS23, 0.3, 1, 1)
+        connectcells(self.spinstel4, self.spinstel4, 0.099, 1, 1)
+        connectcells(self.spinstel4, self.bask23, 0.02, 1, 1)
+        connectcells(self.spinstel4, self.syppyrFRB, 0.68, 1, 1)
+        connectcells(self.spinstel4, self.syppyrRS, 0.58, 1, 1)
+        connectcells(self.spinstel4, self.bask56, 0.01, 1, 1)
+        connectcells(self.spinstel4, self.nontuftRS6, 0.14, 1, 1)
+
+        connectcells(self.tuftRS5, self.tuftRS5, 2.25, 1, 1)
+        connectcells(self.tuftRS5, self.axax56, 0.027, 1, 1)
+        connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
+
+        connectcells(self.tuftIB5, self.LTS23, 0.013, 1, 1)
+        connectcells(self.tuftIB5, self.lts56, 0.279, 1, 1)
+        connectcells(self.tuftIB5, self.axax56, 0.027, 1, 1)
+        connectcells(self.tuftIB5, self.bask56, 0.127, 1, 1)
+        connectcells(self.tuftIB5, self.tuftRS5, 1.916, 1, 1)
+
+        connectcells(self.nontuftRS6, self.nontuftRS6, 0.68, 1, 1)
+
+        '''
+            Connections GABA
+        '''
+
+        connectcells(self.bask23, self.syppyrFRB, 4.28, 1, -1)
+
+        connectcells(self.axax23, self.bask23, 0.023, 1, -1)
+        connectcells(self.axax23, self.axax23, 0.00027, 1, -1)
+        connectcells(self.axax23, self.LTS23, 0.029, 1, -1)
+        connectcells(self.axax23, self.tuftIB5, 0.082, 1, -1)
+
+        connectcells(self.LTS23, self.bask23, 0.446, 1, -1)
+        connectcells(self.LTS23, self.syppyrFRB, 0.74, 1, -1)
+        connectcells(self.LTS23, self.LTS23, 0.301, 1, -1)
+
+        connectcells(self.bask23, self.tuftIB5, 1.53, 1, -1)
+
+        connectcells(self.axax56, self.tuftIB5, 0.108, 1, -1)
+        connectcells(self.axax56, self.nontuftRS6, 0.014, 1, -1)
+
+        connectcells(self.lts56, self.axax56, 0.0102, 1, -1)
+        connectcells(self.lts56, self.lts56, 0.103, 1, -1)
+        connectcells(self.lts56, self.tuftIB5, 3.761, 1, -1)
+
+        connectcells(self.bask56, self.nontuftRS6, 0.395, 1, -1)
+        connectcells(self.bask56, self.tuftIB5, 1.324, 1, -1)
+        connectcells(self.bask56, self.bask56, 0.077, 1, -1)
 
         logging.info('added conections')
 
