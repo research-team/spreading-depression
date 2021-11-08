@@ -11,8 +11,10 @@ import sys
 import csv
 from cells import *
 import json
+from neuron import h, gui
 import neuron.rxd as rxd
 from neuron.units import ms, mV
+h.load_file("stdgui.hoc")
 
 pc = h.ParallelContext()
 rank = int(pc.id())
@@ -23,10 +25,10 @@ GABA_nclist = []
 NMDA_nclist = []
 
 #time =300
-rxd.options.enable.extracellular = True
+# rxd.options.enable.extracellular = True
 
 # simulation parameters
-time_sim = 10
+time_sim = 1000
 Lx, Ly, Lz = 200, 200, 1700
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
@@ -425,4 +427,4 @@ if __name__ == '__main__':
     logging.info("done")
 
 
-    finish()
+    # finish()

@@ -87,6 +87,10 @@ class Cell:
         self.dendV4 = h.Vector().record(self.dend4(0.5)._ref_v)
 
         self.dends=[self.dend1, self.dend,self.dend2, self.dend3, self.dend4]
+
+        self.all = h.SectionList()
+        for sec in h.allsec():
+            self.all.append(sec=sec)
         '''
                 for d in self.dends:
             synE = h.AMPA(d(0.5))
@@ -307,13 +311,13 @@ class Bask23(Cell):
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                               geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                        geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        #
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
 
 
          #self.cl_vec = h.Vector().record(self.soma(0.5)._ref_icl)
@@ -444,12 +448,12 @@ class Axax23(Cell): #
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
 
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i= self.k[self.cyt]
-        self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0, geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i= self.k[self.cyt]
+        # self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -563,12 +567,12 @@ class LTS23(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -737,13 +741,13 @@ class Spinstel4(Cell):  #
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
-
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        #
 
 class EpilepsySpinstel4(Cell):  #
     def __init__(self, x, y, z, num):
@@ -902,12 +906,12 @@ class EpilepsySpinstel4(Cell):  #
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
 
 
 class Bask4(Cell):
@@ -1013,13 +1017,13 @@ class Bask4(Cell):
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        #
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
 
 
 
@@ -1207,14 +1211,14 @@ class TuftIB5(Cell):
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
 
 
-
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
-
+        #
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        #
 
 
         #------for test-----------
@@ -1419,12 +1423,12 @@ class EpilepsyTuftIB5(Cell):
 
 
 
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
 
 
 
@@ -1582,12 +1586,12 @@ class TuftRS5(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -1755,12 +1759,12 @@ class EpilepsyTuftRS5(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -1880,12 +1884,12 @@ class Bask56(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -2052,12 +2056,12 @@ class Axax56(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
 
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
@@ -2180,12 +2184,12 @@ class LTS56(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -2473,12 +2477,12 @@ class NontuftRS6(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -2776,12 +2780,12 @@ class EpilepsyNontuftRS6(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -3037,12 +3041,12 @@ class SyppyrFRB(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -3213,12 +3217,12 @@ class SyppyrRS(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -3387,12 +3391,12 @@ class EpilepsySyppyrFRB(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -3561,12 +3565,12 @@ class EpilepsySyppyrRS(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
         #------for test-----------
         #self.stim = h.IClamp(self.soma(0.5))
         #self.stim.delay = 50
@@ -3728,12 +3732,12 @@ class TCR(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
 
 
 
@@ -3888,9 +3892,9 @@ class nRT(Cell):  #
         self.na_concentration = h.Vector().record(self.soma(0.5)._ref_nai)
         self.k_concentration = h.Vector().record(self.soma(0.5)._ref_ki)
         self.v_vec = h.Vector().record(self.soma(0.5)._ref_vext[0])
-        self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
-                              geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
-        self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
-        self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
-        self.k_i = self.k[self.cyt]
-        self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
+        # self.cyt = rxd.Region(self.all, name='cyt', nrn_region='i', dx=1.0,
+        #                       geometry=rxd.FractionalVolume(0.9, surface_fraction=1.0))
+        # self.na = rxd.Species([self.cyt], name='na', charge=1, d=1.0, initial=10)
+        # self.k = rxd.Species([self.cyt], name='k', charge=1, d=1.0, initial=148)
+        # self.k_i = self.k[self.cyt]
+        # self.ca = rxd.Species([self.cyt], d=0.08, name='ca', charge=2, initial=1.e-4, atolscale=1e-6)
