@@ -11,10 +11,9 @@ import sys
 import csv
 from cells import *
 import json
-from neuron import h, gui
-import neuron.rxd as rxd
 from neuron.units import ms, mV
-h.load_file("stdgui.hoc")
+import numpy as np
+# h.load_file("stdgui.hoc")
 pc = h.ParallelContext()
 rank = int(pc.id())
 nhost = int(pc.nhost())
@@ -82,6 +81,7 @@ class CC_circuit:
 
         self.data={}
         self.data['cells']=[]
+        self.groups = []
 
         logging.info('start creating neurons')
 
@@ -413,8 +413,9 @@ class CC_circuit:
             gid = cell.number
             gids.append(gid)
             pc.set_gid2node(gid, rank)
-            nc = cell.connect2target(None)
-            pc.cell(gid, nc)
+            pc.cell(gid, cell._spike_detector)
+
+        self.groups.append((gids, cell_list[0].name))
 
         return gids
 
@@ -484,18 +485,21 @@ def spike_recording(pool, extra = False):   #new
         recorded voltage
     '''
     v_vec = []
+    print(pool)
     for i in pool:
+        print(pc.gid_exists(i))
         cell = pc.gid2cell(i)
-        vec = h.Vector(np.zeros(int(time_sim / 0.025 + 1), dtype=np.float32))
-        if extra:
-            vec.record(cell.soma(0.5)._ref_vext[0])
-        else:
-            vec.record(cell.soma(0.5)._ref_v)
-        v_vec.append(vec)
+        print(cell)
+        # vec = h.Vector(np.zeros(int(time_sim / 0.025 + 1), dtype=np.float32))
+        # if extra:
+        #     vec.record(cell.soma(0.5)._ref_vext[0])
+        # else:
+        #     vec.record(cell.soma(0.5)._ref_v)
+        v_vec.append(cell.v_vec)
     return v_vec
 
 
-def spikeout(pool, name, version, v_vec):
+def spikeout(pool, name, v_vec):
     ''' Reports simulation results
       Parameters
       ----------
@@ -524,20 +528,52 @@ def spikeout(pool, name, version, v_vec):
     if rank == 0:
         logging.info("start recording")
         result = np.mean(np.array(result), axis=0, dtype=np.float32)
-        with hdf5.File('./res/new_rat4_{}_speed_{}_layers_{}1_eeshz_{}.hdf5'.format(name, speed, layers, ees_fr),
-                       'w') as file:
-            for i in range(time_sim):
-                sl = slice((int(1000 / ees_fr) * 40 + i * one_step_time * 40),
-                           (int(1000 / ees_fr) * 40 + (i + 1) * one_step_time * 40))
-                file.create_dataset('#0_step_{}'.format(i), data=np.array(result)[sl], compression="gzip")
+        with hdf5.File('./results/new_{}.hdf5'.format(name),'w') as file:
+            file.create_dataset('#0_step', data=np.array(result), compression="gzip")
+    else:
+        logging.info(rank)
+
+def spiketimeout(pool, name, v_vec):
+    ''' Reports simulation results
+      Parameters
+      ----------
+      pool: list
+        list of neurons gids
+      name: string
+        pool name
+      version: int
+          test number
+      v_vec: list of h.Vector()
+          recorded voltage
+    '''
+    global rank
+    pc.barrier()
+    vec = h.Vector()
+    for i in range(nhost):
+        if i == rank:
+            outavg = []
+            for j in range(len(pool)):
+                outavg.append(list(v_vec[j]))
+            vec = vec.from_python(outavg)
+        pc.barrier()
+    pc.barrier()
+    result = pc.py_gather(vec, 0)
+    if rank == 0:
+        logging.info("start recording")
+        with hdf5.File('./results/new_{}.hdf5'.format(name),'w') as file:
+            file.create_dataset('#0_step', data=np.array(result), compression="gzip")
     else:
         logging.info(rank)
 
 def spike_time_rec(cell, th=0):
-    vec = h.Vector()
-    cell._spike_detector.threshold = th
-    cell._spike_detector.record(vec)
-    return vec
+    v_vec = []
+    for i in pool:
+        cell = pc.gid2cell(i)
+        vec = h.Vector()
+        cell._spike_detector.threshold = th
+        cell._spike_detector.record(vec)
+        v_vec.append(vec)
+    return v_vec
 
 def finish():
     ''' proper exit '''
@@ -551,49 +587,29 @@ if __name__ == '__main__':
     CC_c: cpg
         topology of cortical column
     '''
+    k_nrns = 0
+    k_name = 1
 
     CC_c = CC_circuit()
     logging.info("created")
+    recorders = []
+    spike_rec = []
+
+    for group in CC_c.groups:
+        recorders.append(spike_recording(group[k_nrns]))
+        spike_rec.append(spike_time_rec(group[k_nrns]))
+
+    logging.info("added recorders")
 
     print("- " * 10, "\nstart")
     prun()
     print("- " * 10, "\nend")
 
-    '''
-            cpg_ex: cpg
-                topology of central pattern generation + reflex arc
-        '''
-    k_nrns = 0
-    k_name = 1
+    for group, recorder in zip(CC_c.groups, recorders):
+        spikeout(group[k_nrns], group[k_name], recorder)
 
-    for i in range(versions):
-        cpg_ex = CPG(speed, ees_fr, 100, time_sim, layers, extra_layers, N)
-        logging.info("created")
-        motorecorders = []
-        motorecorders_mem = []
-        motorecorders_spike_rec = []
-        motorecorders_spike_rec_mem = []
-        for group in cpg_ex.motogroups:
-            motorecorders.append(spike_recording(group[k_nrns], True))
-            motorecorders_spike_rec.append(spike_time_rec(group[k_nrns]))
-
-        for group in cpg_ex.motogroups:
-            motorecorders_mem.append(spike_recording(group[k_nrns]))
-            motorecorders_spike_rec_mem(group(spike_time_rec()))
-        logging.info("added recorders")
-
-        print("- " * 10, "\nstart")
-        prun(speed, time_sim)
-        print("- " * 10, "\nend")
-
-        logging.info("done")
-
-        for group, recorder in zip(cpg_ex.motogroups, motorecorders):
-            spikeout(group[k_nrns], group[k_name], i, recorder)
-
-        for group, recorder in zip(cpg_ex.motogroups, motorecorders_mem):
-            spikeout(group[k_nrns], 'mem_{}'.format(group[k_name]), i, recorder)
-        logging.info("recorded")
+    for group, recorder in zip(CC_c.groups, spike_rec):
+        spiketimeout(group[k_nrns], group[k_name], recorder)
 
     logging.info("done")
 

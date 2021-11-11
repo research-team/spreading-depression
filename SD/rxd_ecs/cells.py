@@ -1,6 +1,9 @@
-from neuron import h
 import  random
-from neuron import h, crxd as rxd
+from neuron import h
+
+h.load_file('stdlib.hoc')
+h.load_file('import3d.hoc')
+
 somaR = 11.0  # soma radius
 dendR = 4  # dendrite radius
 dendL = 300.0
@@ -17,36 +20,40 @@ class Cell:
         self.y = y
         self.z = z
         self.Excitatory = 0
+        self.all = h.SectionList()
         self.soma = h.Section(name='soma', cell=self)
-        self.soma.pt3dclear()
-        self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
-        self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
+        # self.soma.pt3dclear()
+        # self.soma.pt3dadd(x, y, z + somaR, 2.0 * somaR)
+        # self.soma.pt3dadd(x, y, z - somaR, 2.0 * somaR)
+        self.all.append(sec=self.soma)
 
         self.dend = h.Section(name='dend', cell=self)
-        self.dend.pt3dclear()
-        self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
+        # self.dend.pt3dclear()
+        # self.dend.pt3dadd(x, y, z - somaR, 2.0 * dendR)
+        # self.dend.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
         self.dend.nseg = 10
         self.dend.connect(self.soma(1))
+        self.all.append(sec=self.dend)
 
         self.axon = h.Section(name='axon', cell=self)
-        self.axon.pt3dclear()
-        self.axon.pt3dadd(x, y, z + axonR, 2.0 * axonR)
-        self.axon.pt3dadd(x, y, z + axonR + axonL, 2.0 * axonR)
-        self.axon.connect(self.soma, 0, 1)
+        # self.axon.pt3dclear()
+        # self.axon.pt3dadd(x, y, z + axonR, 2.0 * axonR)
+        # self.axon.pt3dadd(x, y, z + axonR + axonL, 2.0 * axonR)
+        self.axon.connect(self.soma(0))
+        self.all.append(sec=self.axon)
 
-        self.all = [self.soma, self.dend]
-        self.somaV = h.Vector()
-        self.somaV.record(self.soma(0.5)._ref_v)
+        # self.all = [self.soma, self.dend]
+        # self.somaV = h.Vector()
+        # self.somaV.record(self.soma(0.5)._ref_v)
 
-        self.dendV = h.Vector()
-        self.dendV.record(self.dend(0.5)._ref_v)
-        self.axonV = h.Vector()
-        self.axonV.record(self.axon(0.5)._ref_v)
+        # self.dendV = h.Vector()
+        # self.dendV.record(self.dend(0.5)._ref_v)
+        # self.axonV = h.Vector()
+        # self.axonV.record(self.axon(0.5)._ref_v)
 
         self._spike_detector = h.NetCon(self.soma(0.5)._ref_v, None, sec=self.soma)
-        self.spike_times = h.Vector()
-        self._spike_detector.record(self.spike_times)
+        # self.spike_times = h.Vector()
+        # self._spike_detector.record(self.spike_times)
 
         self._ncs = []
         #self.count=0
@@ -54,42 +61,41 @@ class Cell:
         self.cells={}
 
         self.dend1 = h.Section(name='dend1', cell=self)
-        self.dend1.pt3dclear()
-        self.dend1.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend1.pt3dadd(x, y, z - somaR - dendL1, 2.0 * dendR)
+        # self.dend1.pt3dclear()
+        # self.dend1.pt3dadd(x, y, z - somaR, 2.0 * dendR)
+        # self.dend1.pt3dadd(x, y, z - somaR - dendL1, 2.0 * dendR)
         self.dend1.nseg = 10
         self.dend1.connect(self.soma(0))
 
         self.dend2 = h.Section(name='dend2', cell=self)
-        self.dend2.pt3dclear()
-        self.dend2.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend2.pt3dadd(x, y, z - somaR - dendL2, 2.0 * dendR)
+        # self.dend2.pt3dclear()
+        # self.dend2.pt3dadd(x, y, z - somaR, 2.0 * dendR)
+        # self.dend2.pt3dadd(x, y, z - somaR - dendL2, 2.0 * dendR)
         self.dend2.nseg = 10
         self.dend2.connect(self.soma(0.5))
 
         self.dend3 = h.Section(name='dend3', cell=self)
-        self.dend3.pt3dclear()
-        self.dend3.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend3.pt3dadd(x, y, z - somaR - dendL3, 2.0 * dendR)
+        # self.dend3.pt3dclear()
+        # self.dend3.pt3dadd(x, y, z - somaR, 2.0 * dendR)
+        # self.dend3.pt3dadd(x, y, z - somaR - dendL3, 2.0 * dendR)
         self.dend3.nseg = 10
         self.dend3.connect(self.soma(1))
 
         self.dend4 = h.Section(name='dend4', cell=self)
-        self.dend4.pt3dclear()
-        self.dend4.pt3dadd(x, y, z - somaR, 2.0 * dendR)
-        self.dend4.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
+        # self.dend4.pt3dclear()
+        # self.dend4.pt3dadd(x, y, z - somaR, 2.0 * dendR)
+        # self.dend4.pt3dadd(x, y, z - somaR - dendL, 2.0 * dendR)
         self.dend4.nseg = 10
         self.dend4.connect(self.soma(0.8))
 
-        self.dendV1 = h.Vector().record(self.dend1(0.5)._ref_v)
-        self.dendV2 = h.Vector().record(self.dend2(0.5)._ref_v)
-        self.dendV3 = h.Vector().record(self.dend3(0.5)._ref_v)
-        self.dendV4 = h.Vector().record(self.dend4(0.5)._ref_v)
+        # self.dendV1 = h.Vector().record(self.dend1(0.5)._ref_v)
+        # self.dendV2 = h.Vector().record(self.dend2(0.5)._ref_v)
+        # self.dendV3 = h.Vector().record(self.dend3(0.5)._ref_v)
+        # self.dendV4 = h.Vector().record(self.dend4(0.5)._ref_v)
 
         self.dends=[self.dend1, self.dend,self.dend2, self.dend3, self.dend4]
 
-        self.all = h.SectionList()
-        for sec in h.allsec():
+        for sec in self.dends:
             self.all.append(sec=sec)
         '''
                 for d in self.dends:
@@ -98,7 +104,7 @@ class Cell:
             synE.e = 30
             self.synlistex.append(synE)
         '''
-        self._set_position(x, y, z)
+        # self._set_position(x, y, z)
         self.AMPA_syns = []
         self.NMDA_syns = []
         self.GABA_syns = []
@@ -106,6 +112,7 @@ class Cell:
         self.netcons = []
 
         self._synapses()
+        # self.subsets()
         # everything below here in this method is NEW
 
         #self.nmda1 = h.Vector().record(self.synlistexNMDA[0]._ref_i)
@@ -120,15 +127,15 @@ class Cell:
         #            self.nmda4,
         #            self.nmda5]
 
-    def _set_position(self, x, y, z):
-        for sec in self.all:
-            for i in range(sec.n3d()):
-                sec.pt3dchange(i,
-                               x - self.x + sec.x3d(i),
-                               y - self.y + sec.y3d(i),
-                               z - self.z + sec.z3d(i),
-                               sec.diam3d(i))
-        self.x, self.y, self.z = x, y, z
+    # def _set_position(self, x, y, z):
+    #     for sec in self.all:
+    #         for i in range(sec.n3d()):
+    #             sec.pt3dchange(i,
+    #                            x - self.x + sec.x3d(i),
+    #                            y - self.y + sec.y3d(i),
+    #                            z - self.z + sec.z3d(i),
+    #                            sec.diam3d(i))
+    #     self.x, self.y, self.z = x, y, z
 
     def _synapses(self):
         for d in self.dends:
@@ -144,23 +151,14 @@ class Cell:
                 synE = h.NMDA1(d(0.5))
                 self.NMDA_syns.append(synE)
 
-    def connect2target(self, target):
+    def subsets(self):
         '''
         NEURON staff
-        Adds presynapses
-        Parameters
-        ----------
-        target: NEURON cell
-            target neuron
-        Returns
-        -------
-        nc: NEURON NetCon
-            connection between neurons
+        adds sections in NEURON SectionList
         '''
-        nc = h.NetCon(self.axon(0.9)._ref_v, target, sec=self.axon)
-        nc.threshold = 0
-        return nc
-
+        self.all = h.SectionList()
+        for sec in h.allsec():
+          self.all.append(sec=sec)
 
 
 class Bask23(Cell):
@@ -3053,7 +3051,6 @@ class SyppyrFRB(Cell):  #
         #self.stim.dur = 1
         #self.stim.amp = 1
         #print(self.id)
-
 
 
 class SyppyrRS(Cell):  #
