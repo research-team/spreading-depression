@@ -9,11 +9,13 @@ import random
 import os
 import sys
 import csv
+import h5py as hdf5
+
 from cells import *
 import json
 from neuron.units import ms, mV
 import numpy as np
-# h.load_file("stdgui.hoc")
+h.load_file("stdgui.hoc")
 pc = h.ParallelContext()
 rank = int(pc.id())
 nhost = int(pc.nhost())
@@ -26,7 +28,7 @@ NMDA_nclist = []
 # rxd.options.enable.extracellular = True
 
 # simulation parameters
-time_sim = 1000
+time_sim = 10
 Lx, Ly, Lz = 200, 200, 1700
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
@@ -82,6 +84,7 @@ class CC_circuit:
         self.data={}
         self.data['cells']=[]
         self.groups = []
+        self.neurons = []
 
         logging.info('start creating neurons')
 
@@ -401,6 +404,7 @@ class CC_circuit:
 
         for i in range(rank, len(cell_list)-1, nhost):
             cell = cell_list[i]
+            self.neurons.append(cell)
             self.data['cells'].append({
                 'name': cell.name,
                 'id': cell.id,
@@ -485,16 +489,8 @@ def spike_recording(pool, extra = False):   #new
         recorded voltage
     '''
     v_vec = []
-    print(pool)
     for i in pool:
-        print(pc.gid_exists(i))
         cell = pc.gid2cell(i)
-        print(cell)
-        # vec = h.Vector(np.zeros(int(time_sim / 0.025 + 1), dtype=np.float32))
-        # if extra:
-        #     vec.record(cell.soma(0.5)._ref_vext[0])
-        # else:
-        #     vec.record(cell.soma(0.5)._ref_v)
         v_vec.append(cell.v_vec)
     return v_vec
 
@@ -528,7 +524,7 @@ def spikeout(pool, name, v_vec):
     if rank == 0:
         logging.info("start recording")
         result = np.mean(np.array(result), axis=0, dtype=np.float32)
-        with hdf5.File('./results/new_{}.hdf5'.format(name),'w') as file:
+        with hdf5.File('./results/voltage_{}.hdf5'.format(name),'w') as file:
             file.create_dataset('#0_step', data=np.array(result), compression="gzip")
     else:
         logging.info(rank)
@@ -553,19 +549,21 @@ def spiketimeout(pool, name, v_vec):
         if i == rank:
             outavg = []
             for j in range(len(pool)):
-                outavg.append(list(v_vec[j]))
+                if len(list(v_vec[j])) > 0:
+                    outavg.append(list(v_vec[j]))
             vec = vec.from_python(outavg)
         pc.barrier()
     pc.barrier()
     result = pc.py_gather(vec, 0)
     if rank == 0:
         logging.info("start recording")
-        with hdf5.File('./results/new_{}.hdf5'.format(name),'w') as file:
-            file.create_dataset('#0_step', data=np.array(result), compression="gzip")
+        with open('./results/spiketime_{}.txt'.format(name),'w') as spk_file:
+            for t in list(result):
+                spk_file.write(str(t)+"\n")
     else:
         logging.info(rank)
 
-def spike_time_rec(cell, th=0):
+def spike_time_rec(pool, th=0):
     v_vec = []
     for i in pool:
         cell = pc.gid2cell(i)
@@ -614,4 +612,4 @@ if __name__ == '__main__':
     logging.info("done")
 
 
-    # finish()
+    finish()

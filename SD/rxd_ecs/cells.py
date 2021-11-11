@@ -2,7 +2,6 @@ import  random
 from neuron import h
 
 h.load_file('stdlib.hoc')
-h.load_file('import3d.hoc')
 
 somaR = 11.0  # soma radius
 dendR = 4  # dendrite radius
