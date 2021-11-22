@@ -28,7 +28,7 @@ NMDA_nclist = []
 # rxd.options.enable.extracellular = True
 
 # simulation parameters
-time_sim = 10
+time_sim = 50
 Lx, Ly, Lz = 200, 200, 1700
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
@@ -308,6 +308,8 @@ class CC_circuit:
         self.nrt = self.addpool(rec_neurons15)
         num +=NnRT
 
+        self.thalamus_generator = self.addgener(2, 100, 10)
+
         logging.info('created neurons, start adding conections')
 
         ''' CONNECTIONS '''
@@ -315,6 +317,8 @@ class CC_circuit:
         '''
         Connections AMPA
         '''
+        connectcells(self.thalamus_generator, self.tcr, 0.85, 1, 1)
+        connectcells(self.tcr, self.spinstel4, 0.5, 1, 1)
 
         connectcells(self.syppyrFRB, self.bask23, 0.23, 1, 1)
         connectcells(self.syppyrFRB, self.axax23, 0.08, 1, 1)
@@ -423,6 +427,46 @@ class CC_circuit:
 
         return gids
 
+    def addgener(self, start, freq, nums, r=True):
+        '''
+        Creates generator and returns generator gid
+        Parameters
+        ----------
+        start: int
+            generator start up
+        freq: int
+            generator frequency
+        nums: int
+            signals number
+        Returns
+        -------
+        gid: int
+            generator gid
+        '''
+        gid = 0
+        gids = []
+
+        for i in range(rank, 20, nhost):
+            stim = h.NetStim()
+            stim.number = nums
+            if r:
+                stim.start = random.uniform(start - 3, start + 3)
+                stim.noise = 0.05
+            else:
+                stim.start = start
+            stim.interval = int(1000 / freq)
+            #skinstim.noise = 0.1
+            self.neurons.append(stim)
+            while pc.gid_exists(gid) != 0:
+                gid += 1
+            pc.set_gid2node(gid, rank)
+            ncstim = h.NetCon(stim, None)
+            pc.cell(gid, ncstim)
+
+            gids.append(gid)
+
+        return gids
+
 def connectcells(pre, post, weight, delay, type, N = 50):
     ''' Connects with excitatory synapses
       Parameters
@@ -460,7 +504,7 @@ def connectcells(pre, post, weight, delay, type, N = 50):
                     nc = pc.gid_connect(srcgid, syn)
                     NMDA_nclist.append(nc)
                     # nc.weight[0] = random.gauss(weight, weight / 6) # str
-                nc.weight[0] = random.gauss(weight, weight / 5)
+                nc.weight[0] = random.gauss(weight, weight / 5) * 5
                 nc.delay = random.gauss(delay, 1 / 4)
 
 def prun():
@@ -551,15 +595,18 @@ def spiketimeout(pool, name, v_vec):
             for j in range(len(pool)):
                 if len(list(v_vec[j])) > 0:
                     outavg.append(list(v_vec[j]))
-            vec = vec.from_python(outavg)
+            flat_outavg = [item for sublist in outavg for item in sublist]
+            vec = vec.from_python(flat_outavg)
         pc.barrier()
     pc.barrier()
-    result = pc.py_gather(vec, 0)
+    result = pc.py_gather(outavg, 0)
     if rank == 0:
         logging.info("start recording")
+        flat_result = [item for sublist in result for item in sublist]
         with open('./results/spiketime_{}.txt'.format(name),'w') as spk_file:
-            for t in list(result):
-                spk_file.write(str(t)+"\n")
+            for time in flat_result:
+                for t in time:
+                    spk_file.write(str(t)+"\n")
     else:
         logging.info(rank)
 
