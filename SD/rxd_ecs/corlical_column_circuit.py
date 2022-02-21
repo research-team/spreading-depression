@@ -1,4 +1,7 @@
 import logging
+
+from SD.rxd_ecs.Thalamus import thalamus_cell
+
 logging.basicConfig(filename='logs.log',
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
@@ -309,6 +312,17 @@ class CC_circuit:
         num +=NnRT
 
         self.thalamus_generator = self.addgener(2, 100, 10)
+
+        rec_neurons16=[]
+        for i in range(rank, NnRT, nhost):
+            rec_neurons16.append(thalamus_cell(
+                random.uniform(somaR,Lx-somaR),
+                random.uniform(somaR,Ly-somaR),
+                random.uniform(-500,-200-somaR),i+num))
+        self.nt=self.addpool(rec_neurons16)
+        num+=NnRT
+
+
 
         logging.info('created neurons, start adding conections')
 
