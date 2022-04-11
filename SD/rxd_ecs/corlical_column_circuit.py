@@ -31,7 +31,7 @@ NMDA_nclist = []
 # rxd.options.enable.extracellular = True
 
 # simulation parameters
-time_sim = 50
+time_sim = 200
 Lx, Ly, Lz = 200, 200, 1700
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
@@ -335,7 +335,14 @@ class CC_circuit:
         connectcells(self.tcr, self.spinstel4, 0.5, 1, 1)
 
         connectcells(self.syppyrFRB, self.bask23, 0.23, 1, 1)
+        'Возможно стоит поделить на 2 количество syn у syppyrRS и syppyrFRB
+        connectcells(self.syppyrFRB, self.syppyrFRB, 9.37, 1, 1)
+        connectcells(self.syppyrFRB, self.syppyrRS, 9.37, 1, 1)
+
         connectcells(self.syppyrFRB, self.axax23, 0.08, 1, 1)
+        connectcells(self.syppyrFRB, self.tuftRS5, 7.27, 1, 1)
+        connectcells(self.syppyrFRB, self.nontuftRS6, 1.46, 1, 1)
+        connectcells(self.syppyrFRB, self.bask56, 0.096, 1, 1)
         connectcells(self.syppyrFRB, self.tuftIB5, 4.44, 1, 1)
         connectcells(self.syppyrFRB, self.lts56, 0.27, 1, 1)
         connectcells(self.syppyrFRB, self.axax56, 0.03, 1, 1)
@@ -351,6 +358,9 @@ class CC_circuit:
         connectcells(self.syppyrRS, self.axax56, 0.03, 1, 1)
         connectcells(self.syppyrRS, self.syppyrRS, 9.37, 1, 1)
         connectcells(self.syppyrRS, self.tuftRS5, 4.44, 1, 1)
+        connectcells(self.syppyrRS, self.bask56, 0.11, 1, 1)
+        connectcells(self.syppyrRS, self.nontuftRS6, 1.46, 1, 1)
+        connectcells(self.syppyrRS, self.spinstel4, 0.98, 1, 1)
 
         connectcells(self.spinstel4, self.bask4, 0.031, 1, 1)
         connectcells(self.spinstel4, self.LTS23, 0.3, 1, 1)
@@ -360,18 +370,55 @@ class CC_circuit:
         connectcells(self.spinstel4, self.syppyrRS, 0.58, 1, 1)
         connectcells(self.spinstel4, self.bask56, 0.01, 1, 1)
         connectcells(self.spinstel4, self.nontuftRS6, 0.14, 1, 1)
+        connectcells(self.spinstel4, self.axax56, 0.004, 1, 1)
+        connectcells(self.spinstel4, self.LTS56, 0.03, 1, 1)
+        connectcells(self.spinstel4, self.axax23, 0.005, 1, 1)
 
         connectcells(self.tuftRS5, self.tuftRS5, 2.25, 1, 1)
         connectcells(self.tuftRS5, self.axax56, 0.027, 1, 1)
         connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
+        connectcells(self.tuftRS5, self.nontuftRS6, 1.164, 1, 1)
+        connectcells(self.tuftRS5, self.spinstel4, 0.161, 1, 1)
+        'Возможно поделить на 2 количество syn в следующих двух соединениях'
+        connectcells(self.tuftRS5, self.syppyrRS, 0.36, 1, 1)
+        connectcells(self.tuftRS5, self.syppyrFRB, 0.36, 1, 1)
+        connectcells(self.tuftRS5, self.bask23, 0.017, 1, 1)
+        connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
+        connectcells(self.tuftRS5, self.axax23, 0.004, 1, 1)
+        connectcells(self.tuftRS5, self.LTS23, 0.019, 1, 1)
+        connectcells(self.tuftRS5, self.LTS56, 0.284, 1, 1)
+        connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
+        connectcells(self.tuftRS5, self.tuftIB5, 1.916, 1, 1)
+
 
         connectcells(self.tuftIB5, self.LTS23, 0.013, 1, 1)
         connectcells(self.tuftIB5, self.lts56, 0.279, 1, 1)
         connectcells(self.tuftIB5, self.axax56, 0.027, 1, 1)
         connectcells(self.tuftIB5, self.bask56, 0.127, 1, 1)
         connectcells(self.tuftIB5, self.tuftRS5, 1.916, 1, 1)
+        connectcells(self.tuftIB5, self.axax23, 0.004, 1, 1)
+        connectcells(self.tuftIB5, self.syppyrRS, 0.36, 1, 1)
+        connectcells(self.tuftIB5, self.syppyrFRB, 0.36, 1, 1)
+        connectcells(self.tuftIB5, self.nontuftRS6, 1.164, 1, 1)
+        connectcells(self.tuftIB5, self.spinstel4, 0.156, 1, 1)
+        connectcells(self.tuftIB5, self.bask23, 0.017, 1, 1)
+        connectcells(self.tuftIB5, self.tuftIB5, 1.916, 1, 1)
+
 
         connectcells(self.nontuftRS6, self.nontuftRS6, 0.68, 1, 1)
+        connectcells(self.nontuftRS6, self.bask23, 0.004, 1, 1)
+        connectcells(self.nontuftRS6, self.nontuftRS6, 0.68, 1, 1)
+        connectcells(self.nontuftRS6, self.spinstel4, 0.044, 1, 1)
+        connectcells(self.nontuftRS6, self.syppyrFRB, 0.093, 1, 1)
+        connectcells(self.nontuftRS6, self.syppyrRS, 0.093, 1, 1)
+        connectcells(self.nontuftRS6, self.bask56, 0.057, 1, 1)
+        connectcells(self.nontuftRS6, self.axax56, 0.014, 1, 1)
+        connectcells(self.nontuftRS6, self.LTS56, 0.16, 1, 1)
+        connectcells(self.nontuftRS6, self.tuftRS5, 0.85, 1, 1)
+        connectcells(self.nontuftRS6, self.tuftIB5, 0.85, 1, 1)
+        connectcells(self.nontuftRS6, self.axax23, 0.00096, 1, 1)
+
+
 
         '''
             Connections GABA
