@@ -424,7 +424,7 @@ class CC_circuit:
             Connections GABA
         '''
 
-        connectcells(self.bask23, self.syppyrFRB, 4.28, 1, -1)
+        connectcells(self.bask23, self.syppyrFRB, 9.37, 1, -1)
 
         connectcells(self.axax23, self.bask23, 0.023, 1, -1)
         connectcells(self.axax23, self.axax23, 0.00027, 1, -1)
@@ -440,13 +440,57 @@ class CC_circuit:
         connectcells(self.axax56, self.tuftIB5, 0.108, 1, -1)
         connectcells(self.axax56, self.nontuftRS6, 0.014, 1, -1)
 
-        connectcells(self.lts56, self.axax56, 0.0102, 1, -1)
-        connectcells(self.lts56, self.lts56, 0.103, 1, -1)
+        connectcells(self.lts56, self.axax56, 0.062, 1, -1)
+        connectcells(self.lts56, self.lts56, 0.105, 1, -1)
         connectcells(self.lts56, self.tuftIB5, 3.761, 1, -1)
 
-        connectcells(self.bask56, self.nontuftRS6, 0.395, 1, -1)
+        connectcells(self.bask56, self.nontuftRS6, 3.22, 1, -1)
         connectcells(self.bask56, self.tuftIB5, 1.324, 1, -1)
-        connectcells(self.bask56, self.bask56, 0.077, 1, -1)
+        connectcells(self.bask56, self.bask56, 0.755, 1, -1)
+
+        '''
+        Connections GABA NEW
+        '''
+        connectcells(self.bask23, self.LTS23, 0.00045, 1, -1)
+        connectcells(self.axax23, self.syppyrFRB, 0.0008, 1, -1)
+
+        connectcells(self.LTS23, self.axax23, 0.004, 1, -1)
+
+        connectcells(self.bask23, self.spinstel4, 0.0004, 1, -1)
+        connectcells(self.axax23, self.spinstel4, 0.0006, 1, -1)
+        connectcells(self.LTS23, self.spinstel4, 0.000105, 1,-1)
+
+        connectcells(self.axax23, self.nontuftRS6, 0.027, 1, -1)
+
+        connectcells(self.LTS23, self.nontuftRS6, 0.0003, 1, -1)
+
+        connectcells(self.LTS23, self.tuftIB5, 7.84, 1,-1)
+        connectcells(self.LTS23, self.tuftRS5, 0.0002, 1,-1)
+
+        connectcells(self.LTS23, self.axax56, 0.0045, 1, -1)
+        connectcells(self.LTS23, self.lts56, 0.0002, 1, -1)
+
+        connectcells(self.bask56, self.axax56, 0.071, 1, -1)
+        connectcells(self.axax56, self.nontuftRS6, 0.26, 1, -1)
+        connectcells(self.bask56, self.nontuftRS6, 0.007, 1, -1)
+
+        connectcells(self.lts56, self.nontuftRS6, 1.86, 1, -1)
+        connectcells(self.lts56, self.bask56, 0.16, 1, -1)
+        connectcells(self.bask56, self.lts56, 0.22, 1, -1)
+        connectcells(self.bask56, self.spinstel4, 0.25, 1, -1)
+        connectcells(self.lts56, self.spinstel4, 0.34, 1, -1)
+        connectcells(self.bask56, self.tuftRS5, 13.68, 1, -1)
+        connectcells(self.lts56, self.tuftRS5, 7.275, 1, -1)
+        connectcells(self.axax56, self.tuftRS5, 0.68, 1, -1)
+
+        connectcells(self.lts56, self.syppyrRS, 4.1, 1, -1)
+        connectcells(self.lts56, self.LTS23, 0.0002, 1, -1)
+
+        connectcells(self.lts56, self.axax23, 0.0002, 1, -1)
+        connectcells(self.lts56, self.bask23, 0.298, 1, -1)
+        connectcells(self.axax56, self.syppyrRS, 0.017, 1, -1)
+
+
 
         logging.info('added conections')
 
