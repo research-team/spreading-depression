@@ -1,6 +1,6 @@
 import logging
 
-from SD.rxd_ecs.Thalamus import thalamus_cell
+# from SD.rxd_ecs.Thalamus import thalamus_cell
 
 logging.basicConfig(filename='logs.log',
                         filemode='a',
@@ -311,16 +311,16 @@ class CC_circuit:
         self.nrt = self.addpool(rec_neurons15)
         num +=NnRT
 
-        self.thalamus_generator = self.addgener(2, 100, 10)
+        self.thalamus_generator = self.addgener(2, 10, 10)
 
-        rec_neurons16=[]
-        for i in range(rank, NnRT, nhost):
-            rec_neurons16.append(thalamus_cell(
-                random.uniform(somaR,Lx-somaR),
-                random.uniform(somaR,Ly-somaR),
-                random.uniform(-500,-200-somaR),i+num))
-        self.nt=self.addpool(rec_neurons16)
-        num+=NnRT
+        # rec_neurons16=[]
+        # for i in range(rank, NnRT, nhost):
+        #     rec_neurons16.append(thalamus_cell(
+        #         random.uniform(somaR,Lx-somaR),
+        #         random.uniform(somaR,Ly-somaR),
+        #         random.uniform(-500,-200-somaR),i+num))
+        # self.nt=self.addpool(rec_neurons16)
+        # num+=NnRT
 
 
 
@@ -331,11 +331,20 @@ class CC_circuit:
         '''
         Connections AMPA
         '''
+        '''connections thalamus'''
         connectcells(self.thalamus_generator, self.tcr, 0.85, 1, 1)
         connectcells(self.tcr, self.spinstel4, 0.5, 1, 1)
+        connectcells(self.tcr, self.nrt, 0.5, 1, 1)
+        connectcells(self.tcr, self.tuftRS5, 0.5, 1, 1)
+        connectcells(self.tcr, self.tuftIB5, 0.5, 1, 1)
+        connectcells(self.tcr, self.syppyrFRB, 0.25, 1, 1)
+        connectcells(self.tcr, self.syppyrRS, 0.25, 1, 1)
+        connectcells(self.nrt, self.bask23, 0.25, 1, 1)
+        connectcells(self.nrt, self.axax23, 0.25, 1, 1)
+
 
         connectcells(self.syppyrFRB, self.bask23, 0.23, 1, 1)
-        'Возможно стоит поделить на 2 количество syn у syppyrRS и syppyrFRB
+        'Возможно стоит поделить на 2 количество syn у syppyrRS и syppyrFRB'
         connectcells(self.syppyrFRB, self.syppyrFRB, 9.37, 1, 1)
         connectcells(self.syppyrFRB, self.syppyrRS, 9.37, 1, 1)
 
@@ -371,7 +380,7 @@ class CC_circuit:
         connectcells(self.spinstel4, self.bask56, 0.01, 1, 1)
         connectcells(self.spinstel4, self.nontuftRS6, 0.14, 1, 1)
         connectcells(self.spinstel4, self.axax56, 0.004, 1, 1)
-        connectcells(self.spinstel4, self.LTS56, 0.03, 1, 1)
+        connectcells(self.spinstel4, self.lts56, 0.03, 1, 1)
         connectcells(self.spinstel4, self.axax23, 0.005, 1, 1)
 
         connectcells(self.tuftRS5, self.tuftRS5, 2.25, 1, 1)
@@ -386,7 +395,7 @@ class CC_circuit:
         connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
         connectcells(self.tuftRS5, self.axax23, 0.004, 1, 1)
         connectcells(self.tuftRS5, self.LTS23, 0.019, 1, 1)
-        connectcells(self.tuftRS5, self.LTS56, 0.284, 1, 1)
+        connectcells(self.tuftRS5, self.lts56, 0.284, 1, 1)
         connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
         connectcells(self.tuftRS5, self.tuftIB5, 1.916, 1, 1)
 
@@ -413,7 +422,7 @@ class CC_circuit:
         connectcells(self.nontuftRS6, self.syppyrRS, 0.093, 1, 1)
         connectcells(self.nontuftRS6, self.bask56, 0.057, 1, 1)
         connectcells(self.nontuftRS6, self.axax56, 0.014, 1, 1)
-        connectcells(self.nontuftRS6, self.LTS56, 0.16, 1, 1)
+        connectcells(self.nontuftRS6, self.lts56, 0.16, 1, 1)
         connectcells(self.nontuftRS6, self.tuftRS5, 0.85, 1, 1)
         connectcells(self.nontuftRS6, self.tuftIB5, 0.85, 1, 1)
         connectcells(self.nontuftRS6, self.axax23, 0.00096, 1, 1)
