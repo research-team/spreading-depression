@@ -16,7 +16,6 @@ import csv
 import h5py as hdf5
 
 from cells import *
-import json
 from neuron.units import ms, mV
 import numpy as np
 h.load_file("stdgui.hoc")
@@ -32,7 +31,7 @@ NMDA_nclist = []
 # rxd.options.enable.extracellular = True
 
 # simulation parameters
-time_sim = 200
+time_sim = 100
 Lx, Ly, Lz = 200, 200, 1700
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
@@ -89,6 +88,7 @@ class CC_circuit:
         self.data['cells']=[]
         self.groups = []
         self.neurons = []
+        self.layers = []
 
         logging.info('start creating neurons')
 
@@ -538,6 +538,8 @@ class CC_circuit:
             pc.cell(gid, cell._spike_detector)
 
         self.groups.append((gids, cell_list[0].name))
+        self.layers.append((gids, cell_list[0].id))
+
 
         return gids
 
@@ -687,7 +689,7 @@ def spikeout(pool, name, v_vec):
     else:
         logging.info(rank)
 
-def spiketimeout(pool, name, v_vec):
+def spiketimeout(pool, id, name, v_vec):
     ''' Reports simulation results
       Parameters
       ----------
@@ -717,7 +719,7 @@ def spiketimeout(pool, name, v_vec):
     if rank == 0:
         logging.info("start recording")
         flat_result = [item for sublist in result for item in sublist]
-        with open('./results/spiketime_{}.txt'.format(name),'w') as spk_file:
+        with open('./results/spiketime_{}_{}.txt'.format(id, name),'w') as spk_file:
             for time in flat_result:
                 for t in time:
                     spk_file.write(str(t)+"\n")
@@ -734,25 +736,25 @@ def spike_time_rec(pool, th=0):
         v_vec.append(vec)
     return v_vec
 
-def write_spike_time(pool):
-    global rank
-    pc.barrier()
-    for i in range(nhost):
-        if i == rank:
-            cell1 = []
-            for j in range(len(pool)):
-                cell1 = pc.gid2cell(j)
-            flat_cell1 = [item for sublist in cell1 for item in sublist]
-        pc.barrier()
-    pc.barrier()
-    result = pc.py_gather(cell1, 0)
-    if rank == 0:
-        logging.info("start recording")
-        flat_result = [item for sublist in result for item in sublist]
-        with open('./results/plot_spike_time.json', 'w', encoding='utf-8') as spk_file:
-            json.dump(result, spk_file)
-    else:
-        logging.info(rank)
+# def write_spike_time(pool):
+#     global rank
+#     pc.barrier()
+#     for i in range(nhost):
+#         if i == rank:
+#             cell1 = []
+#             for j in range(len(pool)):
+#                 cell1 = pc.gid2cell(j)
+#             flat_cell1 = [item for sublist in cell1 for item in sublist]
+#         pc.barrier()
+#     pc.barrier()
+#     result = pc.py_gather(cell1, 0)
+#     if rank == 0:
+#         logging.info("start recording")
+#         flat_result = [item for sublist in result for item in sublist]
+#         with open('./results/plot_spike_time.json', 'w', encoding='utf-8') as spk_file:
+#             json.dump(result, spk_file)
+#     else:
+#         logging.info(rank)
 
 def finish():
     ''' proper exit '''
@@ -787,11 +789,12 @@ if __name__ == '__main__':
     for group, recorder in zip(CC_c.groups, recorders):
         spikeout(group[k_nrns], group[k_name], recorder)
 
-    for group, recorder in zip(CC_c.groups, spike_rec):
-        spiketimeout(group[k_nrns], group[k_name], recorder)
+    for group, layer, recorder in zip(CC_c.groups, CC_c.layers, spike_rec):
+        spiketimeout(group[k_nrns], layer[k_name], group[k_name], recorder)
 
-    for group in zip(CC_c.groups):
-        write_spike_time(group[k_nrns])
+
+    # for group in zip(CC_c.groups):
+    #     write_spike_time(group[k_nrns])
 
     logging.info("done")
 
