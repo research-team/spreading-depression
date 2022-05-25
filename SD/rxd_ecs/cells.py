@@ -165,7 +165,7 @@ class Bask23(Cell):
         super().__init__(x , y, z, num)
         self.id = 1
         self.Excitatory = -1
-        self.name = 'superficial interneurons basket'
+        self.name = 'L23 superficial interneurons basket'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin',
@@ -335,7 +335,7 @@ class Axax23(Cell): #
         super().__init__(x , y, z, num)
         self.id = 2
         self.Excitatory = -1
-        self.name = 'superficial interneurons axoaxonic'
+        self.name = 'L23 superficial interneurons axoaxonic'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin', 'nap',
@@ -465,7 +465,7 @@ class LTS23(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 3
         self.Excitatory = -1
-        self.name = 'superficial interneurons low threshold spiking'
+        self.name = 'L23 superficial interneurons low threshold spiking'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin', 'nap',
@@ -582,7 +582,7 @@ class Spinstel4(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 4
         self.Excitatory = 1
-        self.name = 'spiny stellate'
+        self.name = 'L4 spiny stellate'
 
         for mechanism_s in ['extracellular', 'Naf', 'nap', 'calc', 'cal', 'can', 'car', 'cat', 'kdrpr', 'IKs', 'kad',
                             'h',
@@ -916,7 +916,7 @@ class Bask4(Cell):
         super().__init__(x, y, z, num)
         self.id = 16
         self.Excitatory = -1
-        self.name = 'superficial interneurons basket L4'
+        self.name = 'L4 superficial interneurons basket L4'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin',
@@ -1029,7 +1029,7 @@ class TuftIB5(Cell):
         super().__init__(x , y, z, num)
         self.id = 5
         self.Excitatory = 1
-        self.name = 'pyramidal tufted intrinsic bursting'
+        self.name = 'L56 pyramidal tufted intrinsic bursting'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'napf', 'pas', 'naf2_cc', 'kdr_fs_cc', 'kc', 'ka_cc', 'km_cc', 'k2_cc',
@@ -1441,7 +1441,7 @@ class TuftRS5(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 6
         self.Excitatory = 1
-        self.name = 'pyramidal tufted regular spiking'
+        self.name = 'L56 pyramidal tufted regular spiking'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'napf', 'pas', 'naf2_cc', 'kdr_fs_cc', 'kc', 'ka_cc', 'km_cc', 'k2_cc',
@@ -1775,7 +1775,7 @@ class Bask56(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 7
         self.Excitatory = -1
-        self.name = 'deep interneurons basket'
+        self.name = 'L56 deep interneurons basket'
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin','nap',
                             'pas']:
@@ -1901,7 +1901,7 @@ class Axax56(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 8
         self.Excitatory = -1
-        self.name = 'deep interneurons axoaxonic'
+        self.name = 'L56 deep interneurons axoaxonic'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'naf2_cc', 'pas', 'napf_spinstell', 'kdr_fs_cc', 'kc_fast_cc', 'ka_cc',
@@ -2074,7 +2074,7 @@ class LTS56(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 9
         self.Excitatory = -1
-        self.name ='deep interneurons low threshold spiking'
+        self.name ='L56 deep interneurons low threshold spiking'
 
         # ---------------soma----------------
         for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin',
@@ -2199,7 +2199,7 @@ class NontuftRS6(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 10
         self.Excitatory = 1
-        self.name ='pyramidal nontufted regular spiking'
+        self.name ='L56 pyramidal nontufted regular spiking'
 
         # ---------------soma----------------
         #for mechanism_s in ['extracellular', 'Nafin', 'kdrin', 'IKsin', 'hin', 'kapin', 'canin', 'kctin', 'cadynin',
@@ -2882,7 +2882,7 @@ class SyppyrFRB(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 12
         self.Excitatory = 1
-        self.name ='pyramidal fast rythmic bursting'
+        self.name ='L23 pyramidal fast rythmic bursting'
         #self.soma.nseg = 1+2*int(somaR*2/40)
 
         # ---------------soma----------------
@@ -3057,7 +3057,7 @@ class SyppyrRS(Cell):  #
         super().__init__(x , y, z, num)
         self.id = 13
         self.Excitatory = 1
-        self.name ='pyramidal regular spiking'
+        self.name ='L23 pyramidal regular spiking'
         #self.soma.nseg = 1+2*int(somaR*2/40)
 
         # ---------------soma----------------
