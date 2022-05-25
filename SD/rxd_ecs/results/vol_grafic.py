@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 vol_group = {}
-with os.scandir(r'C:\Users\User\spreading-depression\SD\rxd_ecs\results') as it:
+with os.scandir(r'...') as it:
     for entry in it:
         if entry.name.endswith(".hdf5") and entry.is_file():
             with h5py.File(entry.path, 'r') as f:
