@@ -37,30 +37,30 @@ Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
 
 #L2/3 (0-400)
-Nbask23 = 10 #59
-Naxax23 = 10 #59
-NLTS23 = 10 #59
-NsyppyrFRB = 5
-NsyppyrRS = 50
+Nbask23 = 90 #59
+Naxax23 = 90 #59
+NLTS23 = 90 #59
+NsyppyrFRB = 50
+NsyppyrRS = 500
 #L4 (400-700)
-Nspinstel4 = 30
-Nbask4=20
-NtuftIB5 = 40
-Bask_4 = 20 #235 bask4
+Nspinstel4 = 240
+Nbask4=40
+NtuftIB5 = 400
+Bask_4 = 235 #235 bask4
 #L5 (700-1200)
-NtuftRS5 = 10
-Nbask56 = 10
+NtuftRS5 = 200
+Nbask56 = 100
 
 #L5/6 (700-1700)
-Naxax56 = 10
-NLTS56 = 25
+Naxax56 = 100
+NLTS56 = 250
 
 #L6(1200-1700)
-NnontuftRS6 = 25
+NnontuftRS6 = 250
 
 #tlms
-NTCR = 15
-NnRT = 10
+NTCR = 300
+NnRT = 100
 
 somaR = 11  # soma radius
 dendR = 1.4  # dendrite radius
@@ -344,15 +344,20 @@ class CC_circuit:
         connectcells(self.nrt, self.axax23, 0.25, 1, 1)
 
         connectcells(self.syppyrFRB, self.bask23, 0.23, 1, 1)
-        'Возможно стоит поделить на 2 количество syn у syppyrRS и syppyrFRB'''
-        connectcells(self.syppyrFRB, self.syppyrFRB, 9.37, 1, 1)
-        connectcells(self.syppyrFRB, self.syppyrRS, 9.37, 1, 1)
+        '''Возможно стоит поделить на 2 количество syn у syppyrRS и syppyrFRB add NMDA'''
+        connectcells(self.syppyrFRB, self.syppyrFRB, 6.37, 1, 1)
+        connectcells(self.syppyrFRB, self.syppyrFRB, 2.37, 1, 0)
+        connectcells(self.syppyrFRB, self.syppyrRS, 6.37, 1, 1)
+        connectcells(self.syppyrFRB, self.syppyrRS, 2.37, 1, 0)
 
         connectcells(self.syppyrFRB, self.axax23, 0.08, 1, 1)
         connectcells(self.syppyrFRB, self.tuftRS5, 7.27, 1, 1)
         connectcells(self.syppyrFRB, self.nontuftRS6, 1.46, 1, 1)
+        connectcells(self.syppyrFRB, self.nontuftRS6, 0.46, 1, 0)
         connectcells(self.syppyrFRB, self.bask56, 0.096, 1, 1)
-        connectcells(self.syppyrFRB, self.tuftIB5, 4.44, 1, 1)
+        connectcells(self.syppyrFRB, self.tuftIB5, 3.44, 1, 1)
+        connectcells(self.syppyrFRB, self.tuftIB5, 1.44, 1, 0)
+
         connectcells(self.syppyrFRB, self.lts56, 0.27, 1, 1)
         connectcells(self.syppyrFRB, self.axax56, 0.03, 1, 1)
         connectcells(self.syppyrFRB, self.syppyrRS, 9.37, 1, 1)
@@ -366,31 +371,40 @@ class CC_circuit:
         connectcells(self.syppyrRS, self.lts56, 0.53, 1, 1)
         connectcells(self.syppyrRS, self.axax56, 0.03, 1, 1)
         connectcells(self.syppyrRS, self.syppyrRS, 9.37, 1, 1)
-        connectcells(self.syppyrRS, self.tuftRS5, 4.44, 1, 1)
+        connectcells(self.syppyrRS, self.tuftRS5, 3.44, 1, 1)
+        connectcells(self.syppyrRS, self.tuftRS5, 1.44, 1, 0)
         connectcells(self.syppyrRS, self.bask56, 0.11, 1, 1)
         connectcells(self.syppyrRS, self.nontuftRS6, 1.46, 1, 1)
         connectcells(self.syppyrRS, self.spinstel4, 0.98, 1, 1)
+        connectcells(self.syppyrRS, self.spinstel4, 0.5, 1, 0)
 
         connectcells(self.spinstel4, self.bask4, 0.031, 1, 1)
         connectcells(self.spinstel4, self.LTS23, 0.3, 1, 1)
         connectcells(self.spinstel4, self.spinstel4, 0.099, 1, 1)
+        connectcells(self.spinstel4, self.spinstel4, 0.099, 1, 0)
         connectcells(self.spinstel4, self.bask23, 0.02, 1, 1)
         connectcells(self.spinstel4, self.syppyrFRB, 0.68, 1, 1)
+        connectcells(self.spinstel4, self.syppyrFRB, 0.68, 1, 0)
         connectcells(self.spinstel4, self.syppyrRS, 0.58, 1, 1)
+        connectcells(self.spinstel4, self.syppyrRS, 0.58, 1, 0)
         connectcells(self.spinstel4, self.bask56, 0.01, 1, 1)
         connectcells(self.spinstel4, self.nontuftRS6, 0.14, 1, 1)
+        connectcells(self.spinstel4, self.nontuftRS6, 0.14, 1, 0)
         connectcells(self.spinstel4, self.axax56, 0.004, 1, 1)
         connectcells(self.spinstel4, self.lts56, 0.03, 1, 1)
         connectcells(self.spinstel4, self.axax23, 0.005, 1, 1)
 
         connectcells(self.tuftRS5, self.tuftRS5, 2.25, 1, 1)
+        connectcells(self.tuftRS5, self.tuftRS5, 1.25, 1, 0)
         connectcells(self.tuftRS5, self.axax56, 0.027, 1, 1)
         connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
         connectcells(self.tuftRS5, self.nontuftRS6, 1.164, 1, 1)
         connectcells(self.tuftRS5, self.spinstel4, 0.161, 1, 1)
-        'Возможно поделить на 2 количество syn в следующих двух соединениях'
+        '''Возможно поделить на 2 количество syn в следующих двух соединениях add NMDA'''
         connectcells(self.tuftRS5, self.syppyrRS, 0.36, 1, 1)
         connectcells(self.tuftRS5, self.syppyrFRB, 0.36, 1, 1)
+        connectcells(self.tuftRS5, self.syppyrRS, 0.36, 1, 0)
+        connectcells(self.tuftRS5, self.syppyrFRB, 0.36, 1, 0)
         connectcells(self.tuftRS5, self.bask23, 0.017, 1, 1)
         connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
         connectcells(self.tuftRS5, self.axax23, 0.004, 1, 1)
@@ -398,6 +412,7 @@ class CC_circuit:
         connectcells(self.tuftRS5, self.lts56, 0.284, 1, 1)
         connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
         connectcells(self.tuftRS5, self.tuftIB5, 1.916, 1, 1)
+        connectcells(self.tuftRS5, self.tuftIB5, 0.916, 1, 0)
 
 
         connectcells(self.tuftIB5, self.LTS23, 0.013, 1, 1)
@@ -409,9 +424,13 @@ class CC_circuit:
         connectcells(self.tuftIB5, self.syppyrRS, 0.36, 1, 1)
         connectcells(self.tuftIB5, self.syppyrFRB, 0.36, 1, 1)
         connectcells(self.tuftIB5, self.nontuftRS6, 1.164, 1, 1)
+        connectcells(self.tuftIB5, self.syppyrRS, 0.36, 1, 0)
+        connectcells(self.tuftIB5, self.syppyrFRB, 0.36, 1, 0)
+        connectcells(self.tuftIB5, self.nontuftRS6, 0.64, 1, 0)
         connectcells(self.tuftIB5, self.spinstel4, 0.156, 1, 1)
         connectcells(self.tuftIB5, self.bask23, 0.017, 1, 1)
         connectcells(self.tuftIB5, self.tuftIB5, 1.916, 1, 1)
+        connectcells(self.tuftIB5, self.tuftIB5, 0.916, 1, 0)
 
 
         connectcells(self.nontuftRS6, self.nontuftRS6, 0.68, 1, 1)
