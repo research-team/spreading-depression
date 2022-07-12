@@ -27,11 +27,10 @@ AMPA_nclist = []
 GABA_nclist = []
 NMDA_nclist = []
 
-#time =300
 # rxd.options.enable.extracellular = True
 
 # simulation parameters
-time_sim = 200
+time_sim = 300
 Lx, Ly, Lz = 200, 200, 1700
 Kceil = 15.0  # threshold used to determine wave speed
 Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
@@ -40,7 +39,7 @@ Ncell = int(9e4 * (Lx * Ly * Lz * 1e-9))
 Nbask23 = 90 #59
 Naxax23 = 90 #59
 NLTS23 = 90 #59
-NsyppyrFRB = 50
+NsyppyrFRB = 40
 NsyppyrRS = 500
 #L4 (400-700)
 Nspinstel4 = 240
@@ -59,7 +58,7 @@ NLTS56 = 250
 NnontuftRS6 = 250
 
 #tlms
-NTCR = 300
+NTCR = 250
 NnRT = 100
 
 somaR = 11  # soma radius
@@ -92,224 +91,245 @@ class CC_circuit:
 
         logging.info('start creating neurons')
 
-        rec_neurons12 = []
+        self.syppyrFRB = []
 
         num=0
 
         epi=int(value*NsyppyrFRB/100)
+        logging.info(f'epi{epi}')
+
         for i in range(rank, NsyppyrFRB-epi, nhost):
-            rec_neurons12.append(SyppyrFRB(
-            random.uniform(somaR,Lx-somaR),
-            random.uniform(somaR,Ly-somaR),
-            random.uniform( -850+somaR,-450),
-            i+num))
+            self.syppyrFRB.append(self.addpool(SyppyrFRB(
+                    random.uniform(somaR,Lx-somaR),
+                    random.uniform(somaR,Ly-somaR),
+                    random.uniform( -850+somaR,-450),
+                    i+num)))
 
         num+=NsyppyrFRB
 
         if value!=0:
             for i in range(rank, epi, nhost):
-                rec_neurons12.append(EpilepsySyppyrFRB(
+                self.syppyrFRB.append(self.addpool(EpilepsySyppyrFRB(
                     random.uniform(somaR, Lx - somaR),
                     random.uniform(somaR, Ly - somaR),
                     random.uniform(-850 + somaR, -450),
-                    i + num))
+                    i + num)))
 
-        self.syppyrFRB = self.addpool(rec_neurons12)
         num+=epi
 
-        rec_neurons13 = []
+        self.groups.append((self.syppyrFRB, pc.gid2cell(self.syppyrFRB[0]).name))
+        self.layers.append((self.syppyrFRB, pc.gid2cell(self.syppyrFRB[0]).id))
+        logging.info(f'fbr{self.syppyrFRB}')
+
+        self.syppyrRS = []
         epi=int(value*NsyppyrRS/100)
         for i in range(rank, NsyppyrRS-epi, nhost):
-            rec_neurons13.append(SyppyrRS(
+            self.syppyrRS.append(self.addpool(SyppyrRS(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
             random.uniform(-850+somaR,-450),
-            i+num))
+            i+num)))
 
         num+=NsyppyrRS-epi
 
         if value!=0:
             for i in range(rank, epi, nhost):
-                rec_neurons13.append(EpilepsySyppyrRS(
+                self.syppyrRS.append(self.addpool(EpilepsySyppyrRS(
                     random.uniform(somaR, Lx - somaR),
                     random.uniform(somaR, Ly - somaR),
                     random.uniform(-850 + somaR, -450),
-                    i + num))
+                    i + num)))
 
-        self.syppyrRS = self.addpool(rec_neurons13)
         num+=epi
+        self.groups.append((self.syppyrRS, pc.gid2cell(self.syppyrRS[0]).name))
+        self.layers.append((self.syppyrRS, pc.gid2cell(self.syppyrRS[0]).id))
+        logging.info(f'rs{self.syppyrRS}')
 
-        rec_neurons1 = []
+        self.LTS23 = []
         for i in range(rank, NLTS23, nhost):
-            rec_neurons1.append(LTS23(
+            self.LTS23.append(self.addpool(LTS23(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
             random.uniform(-850+somaR,-450),
-            i+num))
+            i+num)))
 
-        self.LTS23 = self.addpool(rec_neurons1)
+        self.groups.append((self.LTS23, pc.gid2cell(self.LTS23[0]).name))
+        self.layers.append((self.LTS23, pc.gid2cell(self.LTS23[0]).id))
         num+=NLTS23
 
-        rec_neurons2=[]
+        self.bask23=[]
         for i in range(rank, Nbask23, nhost):
-            rec_neurons2.append(Bask23(
+            self.bask23.append(self.addpool(Bask23(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
             random.uniform(-850+somaR,-450),
-            i+num))
+            i+num)))
 
-        self.bask23 = self.addpool(rec_neurons2)
+        self.groups.append((self.bask23, pc.gid2cell(self.bask23[0]).name))
+        self.layers.append((self.bask23, pc.gid2cell(self.bask23[0]).id))
+
         num+=Nbask23
 
-        rec_neurons3=[]
+        self.axax23=[]
         for i in range(rank, Naxax23, nhost):
-            rec_neurons3.append(Axax23(
+            self.axax23.append(self.addpool(Axax23(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
             random.uniform(-850+somaR,-450),
-            i+num))
+            i+num)))
 
-        self.axax23 = self.addpool(rec_neurons3)
+        self.groups.append((self.axax23, pc.gid2cell(self.axax23[0]).name))
+        self.layers.append((self.axax23, pc.gid2cell(self.axax23[0]).id))
         num+=Naxax23
+
         #400-700
-        rec_neurons4=[]
+        self.spinstel4=[]
         epi=int(value*Nspinstel4/100)
         for i in range(rank, Nspinstel4-epi, nhost):
-            rec_neurons4.append(Spinstel4(
+            self.spinstel4.append(self.addpool(Spinstel4(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(-450,-150), i+num))
+            random.uniform(-450,-150), i+num)))
 
         num+=Nspinstel4-epi
 
         if value!=0:
             for i in range(rank, epi, nhost):
-                rec_neurons4.append(EpilepsySpinstel4(
+                self.spinstel4.append(self.addpool(EpilepsySpinstel4(
                     random.uniform(somaR, Lx - somaR),
                     random.uniform(somaR, Ly - somaR),
-                    random.uniform(-450, -150), i + num))
+                    random.uniform(-450, -150), i + num)))
 
-        self.spinstel4 = self.addpool(rec_neurons4)
+        self.groups.append((self.spinstel4, pc.gid2cell(self.spinstel4[0]).name))
+        self.layers.append((self.spinstel4, pc.gid2cell(self.spinstel4[0]).id))
         num+=epi
 
-        rec_neurons16=[]
+        self.bask4=[]
         for i in range(rank, Nbask4, nhost):
-            rec_neurons16.append(Bask4(
+            self.bask4.append(self.addpool(Bask4(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(-450,-150), i+num))
+            random.uniform(-450,-150), i+num)))
 
-        self.bask4 = self.addpool(rec_neurons16)
+        self.groups.append((self.bask4, pc.gid2cell(self.bask4[0]).name))
+        self.layers.append((self.bask4, pc.gid2cell(self.bask4[0]).id))
         num+=Nbask4
 
-        rec_neurons5=[]
+        self.tuftIB5=[]
         epi=int(value*NtuftIB5/100)
         for i in range(rank, NtuftIB5-epi, nhost):
-            rec_neurons5.append(TuftIB5(
+            self.tuftIB5.append(self.addpool(TuftIB5(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(-150,50), i+num))
+            random.uniform(-150,50), i+num)))
         num+=NtuftIB5-epi
 
         if value!=0:
             for i in range(rank, epi, nhost):
-                rec_neurons5.append(EpilepsyTuftIB5(
+                self.tuftIB5.append(self.addpool(EpilepsyTuftIB5(
                     random.uniform(somaR, Lx - somaR),
                     random.uniform(somaR, Ly - somaR),
-                    random.uniform(-150, 50), i + num))
+                    random.uniform(-150, 50), i + num)))
 
-        self.tuftIB5 = self.addpool(rec_neurons5)
+        self.groups.append((self.tuftIB5, pc.gid2cell(self.tuftIB5[0]).name))
+        self.layers.append((self.tuftIB5, pc.gid2cell(self.tuftIB5[0]).id))
         num+=epi
 
         #700-1200
-        rec_neurons6=[]
+        self.tuftRS5=[]
         epi=int(value*NtuftRS5/100)
         for i in range(rank, NtuftRS5-epi, nhost):
-            rec_neurons6.append(TuftRS5(
+            self.tuftRS5.append(self.addpool(TuftRS5(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(-150,350), i+num))
+            random.uniform(-150,350), i+num)))
         num+=NtuftRS5-epi
 
         if value!=0:
             for i in range(rank, epi, nhost):
-                rec_neurons6.append(EpilepsyTuftRS5(
+                self.tuftRS5.append(self.addpool(EpilepsyTuftRS5(
                     random.uniform(somaR, Lx - somaR),
                     random.uniform(somaR, Ly - somaR),
-                    random.uniform(-150, 350), i + num))
+                    random.uniform(-150, 350), i + num)))
 
-        self.tuftRS5 = self.addpool(rec_neurons6)
+        self.groups.append((self.tuftRS5, pc.gid2cell(self.tuftRS5[0]).name))
+        self.layers.append((self.tuftRS5, pc.gid2cell(self.tuftRS5[0]).id))
         num+=epi
 
-        rec_neurons7=[]
+        self.bask56=[]
         for i in range(rank, Nbask56, nhost):
-            rec_neurons7.append(Bask56(
+            self.bask56.append(self.addpool(Bask56(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(-150,350), i+num))
+            random.uniform(-150,350), i+num)))
 
-        self.bask56 = self.addpool(rec_neurons7)
+        self.groups.append((self.bask56, pc.gid2cell(self.bask56[0]).name))
+        self.layers.append((self.bask56, pc.gid2cell(self.bask56[0]).id))
         num+=Nbask56
 
         #700-1700
-        rec_neurons8=[]
+        self.axax56=[]
         for i in range(rank, Naxax56, nhost):
-            rec_neurons8.append(Axax56(
+            self.axax56.append(self.addpool(Axax56(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(-150,850), i+num))
+            random.uniform(-150,850), i+num)))
 
-        self.axax56 = self.addpool(rec_neurons8)
+        self.groups.append((self.axax56, pc.gid2cell(self.axax56[0]).name))
+        self.layers.append((self.axax56, pc.gid2cell(self.axax56[0]).id))
         num+=Naxax56
 
-        rec_neurons9=[]
+        self.lts56=[]
         for i in range(rank, NLTS56, nhost):
-            rec_neurons9.append(LTS56(
+            self.lts56.append(self.addpool(LTS56(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(-150,850), i+num))
+            random.uniform(-150,850), i+num)))
 
-
-        self.lts56 = self.addpool(rec_neurons9)
+        self.groups.append((self.lts56, pc.gid2cell(self.lts56[0]).name))
+        self.layers.append((self.lts56, pc.gid2cell(self.lts56[0]).id))
         num+=NLTS56
 
-        rec_neurons10=[]
+        self.nontuftRS6=[]
         epi=int(value*NnontuftRS6/100)
         for i in range(rank, NnontuftRS6-epi, nhost):
-            rec_neurons10.append(NontuftRS6(
+            self.nontuftRS6.append(self.addpool(NontuftRS6(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(350,850-somaR), i+num))
+            random.uniform(350,850-somaR), i+num)))
         num+=NnontuftRS6-epi
 
         if value!=0:
             for i in range(rank, epi, nhost):
-                rec_neurons10.append(EpilepsyNontuftRS6(
+                self.nontuftRS6.append(self.addpool(EpilepsyNontuftRS6(
                     random.uniform(somaR, Lx - somaR),
                     random.uniform(somaR, Ly - somaR),
-                    random.uniform(350, 850 - somaR), i + num))
+                    random.uniform(350, 850 - somaR), i + num)))
         num += epi
-        self.nontuftRS6 = self.addpool(rec_neurons10)
+        self.groups.append((self.nontuftRS6, pc.gid2cell(self.nontuftRS6[0]).name))
+        self.layers.append((self.nontuftRS6, pc.gid2cell(self.nontuftRS6[0]).id))
 
 
-        rec_neurons14=[]
+        self.tcr=[]
         for i in range(rank, NTCR, nhost):
-            rec_neurons14.append(TCR(
+            self.tcr.append(self.addpool(TCR(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(1000,1300-somaR), i+num))
+            random.uniform(1000,1300-somaR), i+num)))
 
-        self.tcr = self.addpool(rec_neurons14)
+        self.groups.append((self.tcr, pc.gid2cell(self.tcr[0]).name))
+        self.layers.append((self.tcr, pc.gid2cell(self.tcr[0]).id))
         num +=NTCR
 
-        rec_neurons15=[]
+        self.nrt=[]
         for i in range(rank, NnRT, nhost):
-            rec_neurons15.append(nRT(
+            self.nrt.append(self.addpool(nRT(
             random.uniform(somaR,Lx-somaR),
             random.uniform(somaR,Ly-somaR),
-            random.uniform(1100,1300-somaR), i+num))
+            random.uniform(1100,1300-somaR), i+num)))
 
-        self.nrt = self.addpool(rec_neurons15)
+        self.groups.append((self.nrt, pc.gid2cell(self.nrt[0]).name))
+        self.layers.append((self.nrt, pc.gid2cell(self.nrt[0]).id))
         num +=NnRT
 
         self.thalamus_generator = self.addgener(2, 10, 10)
@@ -523,7 +543,7 @@ class CC_circuit:
         logging.info('added conections')
 
 
-    def addpool(self, cell_list, name="test"):
+    def addpool(self, cell, name="test"):
         '''
         Creates interneuronal pool and returns gids of pool
         Parameters
@@ -539,28 +559,24 @@ class CC_circuit:
         '''
         gids = []
 
-        for i in range(rank, len(cell_list)-1, nhost):
-            cell = cell_list[i]
-            self.neurons.append(cell)
-            self.data['cells'].append({
-                'name': cell.name,
-                'id': cell.id,
-                'num': cell.number,
-                'x': cell.x,
-                'y' : cell.y,
-                'z' : cell.z
-            })
+        # for i in range(rank, len(cell_list)-1, nhost):
+            # cell = cell_list[i]
+        self.neurons.append(cell)
+        self.data['cells'].append({
+            'name': cell.name,
+            'id': cell.id,
+            'num': cell.number,
+            'x': cell.x,
+            'y' : cell.y,
+            'z' : cell.z
+        })
 
-            gid = cell.number
-            gids.append(gid)
-            pc.set_gid2node(gid, rank)
-            pc.cell(gid, cell._spike_detector)
+        gid = cell.number
+        # gids.append(gid)
+        pc.set_gid2node(gid, rank)
+        pc.cell(gid, cell._spike_detector)
 
-        self.groups.append((gids, cell_list[0].name))
-        self.layers.append((gids, cell_list[0].id))
-
-
-        return gids
+        return gid
 
     def addgener(self, start, freq, nums, r=True):
         '''
@@ -581,7 +597,7 @@ class CC_circuit:
         gid = 0
         gids = []
 
-        for i in range(rank, 20, nhost):
+        for i in range(rank, nhost+1, nhost):
             stim = h.NetStim()
             stim.number = nums
             if r:
@@ -639,8 +655,8 @@ def connectcells(pre, post, weight, delay, type, N = 50):
                     nc = pc.gid_connect(srcgid, syn)
                     NMDA_nclist.append(nc)
                     # nc.weight[0] = random.gauss(weight, weight / 6) # str
-                nc.weight[0] = random.gauss(weight, weight / 5) * 5
-                nc.delay = random.gauss(delay, 1 / 4)
+                nc.weight[0] = random.gauss(weight, weight / 5) * 2
+                nc.delay = random.gauss(delay, 1 / 4) + 1 # idk but should be more than 1 for parallel
 
 def prun():
     ''' simulation control
