@@ -9,7 +9,7 @@ color = ['red', 'blue', 'yellow', 'black', 'green', 'cyan', 'magenta']
 fig, ax = plt.subplots()
 data_ = []
 layers=[]
-with os.scandir(r'path/') as it:
+with os.scandir(r'C:\Users\User\OneDrive\Рабочий стол\последние результаты') as it:
     for entry in it:
         if entry.name.endswith(".txt") and entry.is_file():
             with open(entry.path, 'r') as f:
@@ -46,95 +46,17 @@ for layer, spks in data_:
 
 # ISIs - interspike intervals
 
-for i in layer_23:
-    ISIs=np.diff(i, axis=0)
-    mu = ISIs.mean()
-    lbda = 1 / (1 / ISIs - 1 / mu).mean()
-    model = (
-            sqrt(abs(lbda) / 2 / pi / bins ** 3) *
-            exp(-abs(lbda) * (bins - mu) ** 2 /
-                2 / mu ** 2 / bins) * 0.1
-    )
-    model[0] = 0
-    print(model)
-    counts, _ = histogram(ISIs, bins)
-    prob = counts / len(ISIs)
-    bar(bins[:-1], prob, width=0.1)
-    plot(model) # plot the model of probability
-    plt.hist(ISIs, bins, color=color[0])
-    fig.savefig('path/' + '23')
-plt.clf()
-for i in layer_4:
-    ISIs = np.diff(i, axis=0)
-    print(ISIs)
-    ISIs = np.diff(i, axis=0)
-    mu = ISIs.mean()
-    lbda = 1 / (1 / ISIs - 1 / mu).mean()
-    model = (
-            sqrt(abs(lbda) / 2 / pi / bins ** 3) *
-            exp(-abs(lbda) * (bins - mu) ** 2 /
-                2 / mu ** 2 / bins) * 0.1
-    )
-    model[0] = 0
-    print(model)
-    counts, _ = histogram(ISIs, bins)
-    prob = counts / len(ISIs)
-    bar(bins[:-1], prob, width=0.1)
-    plot(model)  # plot the model of probability
-    plt.hist(ISIs, bins, color=color[1])
-    fig.savefig('path/' + '4')
-plt.clf()
-for i in layer_5:
-    ISIs = np.diff(i, axis=0)
-    mu = ISIs.mean()
-    lbda = 1 / (1 / ISIs - 1 / mu).mean()
-    model = (
-            sqrt(abs(lbda) / 2 / pi / bins ** 3) *
-            exp(-abs(lbda) * (bins - mu) ** 2 /
-                2 / mu ** 2 / bins) * 0.1
-    )
-    model[0] = 0
-    print(model)
-    counts, _ = histogram(ISIs, bins)
-    prob = counts / len(ISIs)
-    bar(bins[:-1], prob, width=0.1)
-    plot(model)
-    plt.hist(ISIs, bins, color=color[2])
-    fig.savefig('path/' + '5')
-plt.clf()
-for i in layer_56:
-    ISIs = np.diff(i, axis=0)
-    mu = ISIs.mean()
-    lbda = 1 / (1 / ISIs - 1 / mu).mean()
-    model = (
-            sqrt(abs(lbda) / 2 / pi / bins ** 3) *
-            exp(-abs(lbda) * (bins - mu) ** 2 /
-                2 / mu ** 2 / bins) * 0.1
-    )
-    model[0] = 0
-    print(model)
-    counts, _ = histogram(ISIs, bins)
-    prob = counts / len(ISIs)
-    bar(bins[:-1], prob, width=0.1)
-    plot(model)
-    plt.hist(ISIs, bins, color=color[3])
-    fig.savefig('path/' + '56')
-plt.clf()
-for i in layer_6:
-    ISIs = np.diff(i, axis=0)
-    mu = ISIs.mean()
-    lbda = 1 / (1 / ISIs - 1 / mu).mean()
-    model = (
-            sqrt(abs(lbda) / 2 / pi / bins ** 3) *
-            exp(-abs(lbda) * (bins - mu) ** 2 /
-                2 / mu ** 2 / bins) * 0.1
-    )
-    model[0] = 0
-    print(model)
-    counts, _ = histogram(ISIs, bins)
-    prob = counts / len(ISIs)
-    bar(bins[:-1], prob, width=0.1)
-    plot(model)
-    plt.hist(ISIs, bins, color=color[4])
-    fig.savefig('path/' + '6')
+bins = np.arange(0.1, 10, 0.1)
+
+data_0=np.concatenate(layer_56)
+ISIs = np.diff(data_0)
+counts, _ = histogram(ISIs, bins)
+prob = counts / len(ISIs)
+bar(bins[:-1], prob, width=0.1)
+lbda = 1 / ISIs.mean()
+model = lbda * exp(-lbda * bins) * 0.01
+plt.plot(bins, model, 'b')
+plt.xlabel('ISIs')
+plt.ylabel('Probability')
 plt.show()
+
