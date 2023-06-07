@@ -26,7 +26,7 @@ layer_4=[]
 layer_5=[]
 layer_56=[]
 layer_6=[]
-bins = np.arange(0.1, 100, 0.1)
+bins = np.arange(1, 100, 0.1)
 for layer, spks in data_:
     '''L-23'''
     if layer=="1" or layer=="2" or layer=="3" or layer=="12" or layer=="13":
@@ -48,7 +48,7 @@ for layer, spks in data_:
 
 bins = np.arange(0.1, 10, 0.1)
 
-data_0=np.concatenate(layer_56)
+data_0=np.concatenate(layer_23)
 ISIs = np.diff(data_0)
 counts, _ = histogram(ISIs, bins)
 prob = counts / len(ISIs)
