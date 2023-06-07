@@ -47,7 +47,7 @@ NsyppyrFRB = 50  # 40
 NsyppyrRS = 500  # 1000
 # L4 (400-700)
 Nspinstel4 = 240
-Nbask4 = 90  # 40
+NLTS4 = 90  # 40
 # L5 (700-1200)
 NtuftRS5 = 200
 Nbask56 = 100
@@ -212,16 +212,16 @@ class CC_circuit:
         self.layers.append((self.spinstel4, pc.gid2cell(self.spinstel4[0]).id))
         num += epi
 
-        # self.bask4 = []
-        # for i in range(rank, Nbask4, nhost):
-        #     self.bask4.append(self.addpool(Bask4(
-        #         random.uniform(somaR, Lx - somaR),
-        #         random.uniform(somaR, Ly - somaR),
-        #         random.uniform(-450, -150), i + num)))
-        #
-        # self.groups.append((self.bask4, pc.gid2cell(self.bask4[0]).name))
-        # self.layers.append((self.bask4, pc.gid2cell(self.bask4[0]).id))
-        # num += Nbask4
+        self.LTS4 = []
+        for i in range(rank, NLTS4, nhost):
+            self.LTS4.append(self.addpool(LTS4(
+                random.uniform(somaR, Lx - somaR),
+                random.uniform(somaR, Ly - somaR),
+                random.uniform(-450, -150), i + num)))
+
+        self.groups.append((self.LTS4, pc.gid2cell(self.LTS4[0]).name))
+        self.layers.append((self.LTS4, pc.gid2cell(self.LTS4[0]).id))
+        num += NLTS4
 
         self.tuftIB5 = []
         epi = int(value * NtuftIB5 / 100)
@@ -361,24 +361,24 @@ class CC_circuit:
         connectcells(self.tcr, self.spinstel4, 5/3, 1, 0)
         connectcells(self.tcr, self.nrt, 3, 1, 1)
         connectcells(self.tcr, self.nrt, 3/3, 1, 0)
-        connectcells(self.tcr, self.tuftRS5, 3, 1, 1)
-        connectcells(self.tcr, self.tuftRS5, 3/3, 1, 0)
-        connectcells(self.tcr, self.tuftIB5, 3, 1, 1)
-        connectcells(self.tcr, self.tuftIB5, 3/3, 1, 0)
+        # connectcells(self.tcr, self.tuftRS5, 3, 1, 1)
+        # connectcells(self.tcr, self.tuftRS5, 3/3, 1, 0)
+        # connectcells(self.tcr, self.tuftIB5, 3, 1, 1)
+        # connectcells(self.tcr, self.tuftIB5, 3/3, 1, 0)
 
-        connectcells(self.tcr, self.bask56, 1.5, 1, 1)
-        connectcells(self.tcr, self.bask56, 1.5/3, 1, 0)
-        connectcells(self.tcr, self.axax56, 1.5, 1, 1)
-        connectcells(self.tcr, self.axax56, 1.5/3, 1, 0)
-        connectcells(self.tcr, self.nontuftRS6, 1.5, 1, 1)
-        connectcells(self.tcr, self.nontuftRS6, 1.5/3, 1, 0)
+        # connectcells(self.tcr, self.bask56, 1.5, 1, 1)
+        # connectcells(self.tcr, self.bask56, 1.5/3, 1, 0)
+        # connectcells(self.tcr, self.axax56, 1.5, 1, 1)
+        # connectcells(self.tcr, self.axax56, 1.5/3, 1, 0)
+        # connectcells(self.tcr, self.nontuftRS6, 1.5, 1, 1)
+        # connectcells(self.tcr, self.nontuftRS6, 1.5/3, 1, 0)
 
-        connectcells(self.tcr, self.syppyrFRB, 0.25/2, 1, 1)
-        connectcells(self.tcr, self.syppyrFRB, 0.083, 1, 0)
-        connectcells(self.tcr, self.syppyrRS, 0.25/2, 1, 1)
-        connectcells(self.tcr, self.syppyrRS, 0.083, 1, 0)
-        connectcells(self.nrt, self.bask23, 0.25/2, 1, 1)
-        connectcells(self.nrt, self.axax23, 0.25/2, 1, 1)
+        # connectcells(self.tcr, self.syppyrFRB, 0.25/2, 1, 1)
+        # connectcells(self.tcr, self.syppyrFRB, 0.083, 1, 0)
+        # connectcells(self.tcr, self.syppyrRS, 0.25/2, 1, 1)
+        # connectcells(self.tcr, self.syppyrRS, 0.083, 1, 0)
+        # connectcells(self.nrt, self.bask23, 0.25/2, 1, 1)
+        # connectcells(self.nrt, self.axax23, 0.25/2, 1, 1)
         connectcells(self.nrt, self.tcr, 3, 1, -1)
         connectcells(self.nrt, self.nrt, 3/3, 1, -1)
 
@@ -453,8 +453,10 @@ class CC_circuit:
 
         connectcells(self.syppyrRS, self.spinstel4, 0.3253, 1, 0)
 
-        # connectcells(self.spinstel4, self.bask4, 0.01, 1, 1)
-        # connectcells(self.spinstel4, self.bask4, 0.0033, 1, 0)
+        connectcells(self.spinstel4, self.LTS4, 0.03, 1, 1)
+        connectcells(self.spinstel4, self.LTS4, 0.0033*2, 1, 0)
+        connectcells(self.LTS4, self.spinstel4, 0.02, 1, 1)
+        connectcells(self.LTS4, self.spinstel4, 0.0033, 1, 0)
         connectcells(self.spinstel4, self.LTS23, 0.3*2, 1, 1)
         connectcells(self.spinstel4, self.LTS23, 0.1*2, 1, 0)
         connectcells(self.spinstel4, self.spinstel4, 0.099*5, 1, 1)
