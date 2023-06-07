@@ -16,14 +16,23 @@ def load_data(filepath):
     return spks
 
 data = load_data(filepath)
-data = np.moveaxis(data, [0, 1, 2], [2, 1,0])
-data_0=[]
-yx=0
-for era, items in enumerate(data):
-    if era<=4:
-        for channel, varb in enumerate(items):
-            plt.plot(np.array(items[0])+yx*850)
-            yx+=1
+# 0. ?? 1. channel 2. experiment
+data_=data[:, :, 2]
 
+def plot_lfp(X):
+    mS = X.shape
+    mInter = max(X.flatten())
+    mShift = -abs(mInter) * range(mS[1])
+    X2 = X + mShift
 
-plt.show()
+    plt.plot(X2)
+
+    # bar
+    mCoorX = [int(0.9 * mS[0]), int(0.9 * mS[0])]
+    mCoorY = [int(mShift[-1]), int(mShift[-2])]
+    plt.plot(mCoorX, mCoorY)
+    plt.text(mCoorX[0] + 5, int(mCoorY[1] - mInter / 2), str(int(mInter)), dict(size=10))
+    plt.show()
+    # print(mS)
+
+plot_lfp(data_)
