@@ -1,0 +1,3230 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="720pt" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2023-04-28T10:28:07.727845</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.6.3, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 720 
+L 720 720 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 455.466942 607.924531 
+C 466.168216 607.924531 476.432634 606.307059 483.999577 603.428345 
+C 491.566521 600.549631 495.818182 596.644709 495.818182 592.573593 
+C 495.818182 588.502476 491.566521 584.597554 483.999577 581.71884 
+C 476.432634 578.840126 466.168216 577.222654 455.466942 577.222654 
+C 444.765668 577.222654 434.50125 578.840126 426.934307 581.71884 
+C 419.367364 584.597554 415.115702 588.502476 415.115702 592.573593 
+C 415.115702 596.644709 419.367364 600.549631 426.934307 603.428345 
+C 434.50125 606.307059 444.765668 607.924531 455.466942 607.924531 
+L 455.466942 607.924531 
+z
+" clip-path="url(#pcb76c140e4)" style="fill: none; opacity: 0.3; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 316.045651 586.261402 
+Q 383.456532 434.779214 290.027256 299.930922 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.567806; stroke-linecap: round"/>
+    <path d="M 290.661326 304.35788 
+L 290.027256 299.930922 
+L 293.949265 302.079841 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.567806; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 321.153974 601.79081 
+Q 368.997887 625.617569 416.483275 601.971448 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.358235; stroke-linecap: round"/>
+    <path d="M 412.011144 601.964166 
+L 416.483275 601.971448 
+L 413.794171 605.544783 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.358235; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 316.926842 586.71744 
+Q 374.862436 481.280542 317.045456 376.057009 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.217751; stroke-linecap: round"/>
+    <path d="M 317.218874 380.525782 
+L 317.045456 376.057009 
+L 320.724524 378.599538 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.217751; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 320.692822 590.254381 
+Q 433.078743 513.361695 427.339099 378.013671 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.62937; stroke-linecap: round"/>
+    <path d="M 425.510368 382.094817 
+L 427.339099 378.013671 
+L 429.506777 381.925343 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.62937; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 313.076714 585.365611 
+Q 323.441989 504.295343 263.085358 450.800953 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.965128; stroke-linecap: round"/>
+    <path d="M 264.752267 454.950822 
+L 263.085358 450.800953 
+L 267.405399 451.957348 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.965128; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 319.921662 589.228741 
+Q 381.086285 535.018814 370.811411 454.652151 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.634287; stroke-linecap: round"/>
+    <path d="M 369.33483 458.87349 
+L 370.811411 454.652151 
+L 373.302534 458.36622 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.634287; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 321.507076 591.722311 
+Q 358.965152 572.143597 367.242873 531.127549 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.378605; stroke-linecap: round"/>
+    <path d="M 364.491087 534.65284 
+L 367.242873 531.127549 
+L 368.412034 535.444152 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.378605; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 315.50506 586.030518 
+Q 392.081579 388.071197 260.840641 221.485736 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.161557; stroke-linecap: round"/>
+    <path d="M 261.745013 225.865474 
+L 260.840641 221.485736 
+L 264.887055 223.390081 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.161557; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 312.547998 585.295871 
+Q 334.865812 354.966481 149.413163 220.467464 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.072847; stroke-linecap: round"/>
+    <path d="M 151.477026 224.43489 
+L 149.413163 220.467464 
+L 153.825421 221.196828 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.072847; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 311.355372 327.769907 
+C 340.177686 327.769907 340.177686 366.147253 311.355372 366.147253 
+C 282.533058 366.147253 282.533058 327.769907 310.660353 327.769907 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.621643; stroke-linecap: round"/>
+    <path d="M 306.660353 325.769907 
+L 310.660353 327.769907 
+L 306.660353 329.769907 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.621643; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 313.028839 377.20363 
+Q 321.390436 418.634502 358.6837 438.126897 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.166474; stroke-linecap: round"/>
+    <path d="M 356.065168 434.501529 
+L 358.6837 438.126897 
+L 354.212286 438.046501 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.166474; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 301.203668 370.836269 
+Q 263.745592 390.414983 255.516965 431.187771 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.600571; stroke-linecap: round"/>
+    <path d="M 258.268751 427.66248 
+L 255.516965 431.187771 
+L 254.347804 426.871168 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.600571; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 309.63403 377.192969 
+Q 299.268755 458.263237 359.371491 511.532599 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.268574; stroke-linecap: round"/>
+    <path d="M 357.704583 507.38273 
+L 359.371491 511.532599 
+L 355.051451 510.376205 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.268574; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 312.763782 355.053341 
+Q 315.08531 320.956186 292.310813 298.229748 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.791176; stroke-linecap: round"/>
+    <path d="M 293.729507 302.470892 
+L 292.310813 298.229748 
+L 296.554945 299.639479 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.791176; stroke-linecap: round"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 307.805559 355.545864 
+Q 267.242262 241.678974 153.05197 215.741983 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 3.378649; stroke-linecap: round"/>
+    <path d="M 156.509622 218.578291 
+L 153.05197 215.741983 
+L 157.395608 214.677647 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 3.378649; stroke-linecap: round"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 313.076714 355.101537 
+Q 323.441989 274.031269 262.349536 219.884716 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.085695; stroke-linecap: round"/>
+    <path d="M 264.016445 224.034585 
+L 262.349536 219.884716 
+L 266.669577 221.04111 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.085695; stroke-linecap: round"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 322.302916 363.879676 
+Q 440.176603 337.105743 480.559417 223.744622 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.480457; stroke-linecap: round"/>
+    <path d="M 477.33309 226.841526 
+L 480.559417 223.744622 
+L 481.101144 228.183825 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.480457; stroke-linecap: round"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 319.921662 358.964667 
+Q 381.086285 304.75474 370.81649 224.427805 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.67011; stroke-linecap: round"/>
+    <path d="M 369.339909 228.649145 
+L 370.81649 224.427805 
+L 373.307613 228.141874 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.67011; stroke-linecap: round"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 322.530313 366.570649 
+Q 498.875026 370.893096 593.629716 222.247932 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.107471; stroke-linecap: round"/>
+    <path d="M 589.793105 224.545848 
+L 593.629716 222.247932 
+L 593.166082 226.695971 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.107471; stroke-linecap: round"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 317.991598 375.142392 
+Q 377.039237 451.350817 472.570333 444.060522 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.535245; stroke-linecap: round"/>
+    <path d="M 468.429746 442.370689 
+L 472.570333 444.060522 
+L 468.734114 446.359092 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.535245; stroke-linecap: round"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 321.153974 371.526735 
+Q 368.997887 395.353495 414.538796 372.675658 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.301134; stroke-linecap: round"/>
+    <path d="M 410.066666 372.668376 
+L 414.538796 372.675658 
+L 411.849693 376.248993 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.301134; stroke-linecap: round"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 437.592172 363.879676 
+Q 555.465859 337.105743 595.643114 224.32166 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.028346; stroke-linecap: round"/>
+    <path d="M 592.416787 227.418564 
+L 595.643114 224.32166 
+L 596.184841 228.760864 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.028346; stroke-linecap: round"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 428.318095 377.20363 
+Q 436.679693 418.634502 473.881084 438.078878 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.259194; stroke-linecap: round"/>
+    <path d="M 471.262553 434.45351 
+L 473.881084 438.078878 
+L 469.409671 437.998482 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.259194; stroke-linecap: round"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 416.492924 370.836269 
+Q 379.034848 390.414983 370.832322 431.058442 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.718578; stroke-linecap: round"/>
+    <path d="M 373.584108 427.533152 
+L 370.832322 431.058442 
+L 369.663161 426.741839 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.718578; stroke-linecap: round"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 415.521989 365.034179 
+Q 319.394283 357.698524 260.509781 433.696676 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.238121; stroke-linecap: round"/>
+    <path d="M 264.540674 431.759693 
+L 260.509781 433.696676 
+L 261.37873 429.309772 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.238121; stroke-linecap: round"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 416.846026 360.76777 
+Q 369.002113 336.941011 322.328682 360.182805 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.169532; stroke-linecap: round"/>
+    <path d="M 326.800812 360.190087 
+L 322.328682 360.182805 
+L 325.017786 356.60947 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.169532; stroke-linecap: round"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 428.36597 355.101537 
+Q 438.731245 274.031269 377.685222 219.925866 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.141187; stroke-linecap: round"/>
+    <path d="M 379.352131 224.075736 
+L 377.685222 219.925866 
+L 382.005263 221.082261 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.141187; stroke-linecap: round"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 420.759975 356.637814 
+Q 325.940507 207.891688 153.963875 212.107413 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 3.908275; stroke-linecap: round"/>
+    <path d="M 158.011686 214.008788 
+L 153.963875 212.107413 
+L 157.913662 210.009989 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 3.908275; stroke-linecap: round"/>
+   </g>
+   <g id="patch_31">
+    <path d="M 423.094815 355.545864 
+Q 382.531519 241.678974 265.398927 215.073674 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.679944; stroke-linecap: round"/>
+    <path d="M 268.856579 217.909983 
+L 265.398927 215.073674 
+L 269.742565 214.009338 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.679944; stroke-linecap: round"/>
+   </g>
+   <g id="patch_32">
+    <path d="M 418.078338 373.329839 
+Q 356.913715 427.539766 367.047763 506.804936 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.627512; stroke-linecap: round"/>
+    <path d="M 368.524345 502.583596 
+L 367.047763 506.804936 
+L 364.55664 503.090867 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.627512; stroke-linecap: round"/>
+   </g>
+   <g id="patch_33">
+    <path d="M 420.631913 356.719261 
+Q 375.032238 289.386328 295.026651 289.125175 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.175854; stroke-linecap: round"/>
+    <path d="M 299.020102 291.138221 
+L 295.026651 289.125175 
+L 299.033158 287.138242 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.175854; stroke-linecap: round"/>
+   </g>
+   <g id="patch_34">
+    <path d="M 435.210918 358.964667 
+Q 496.375541 304.75474 486.145484 224.738622 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.950377; stroke-linecap: round"/>
+    <path d="M 484.668903 228.959962 
+L 486.145484 224.738622 
+L 488.636607 228.452691 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.950377; stroke-linecap: round"/>
+   </g>
+   <g id="patch_35">
+    <path d="M 426.644628 327.769907 
+C 455.466942 327.769907 455.466942 366.147253 426.644628 366.147253 
+C 397.822314 366.147253 397.822314 327.769907 424.83601 327.769907 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.617678; stroke-linecap: round"/>
+    <path d="M 420.83601 325.769907 
+L 424.83601 327.769907 
+L 420.83601 329.769907 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.617678; stroke-linecap: round"/>
+   </g>
+   <g id="patch_36">
+    <path d="M 293.249404 292.587229 
+Q 462.759026 340.660537 590.94465 220.908356 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.69329; stroke-linecap: round"/>
+    <path d="M 586.656386 222.177525 
+L 590.94465 220.908356 
+L 589.387027 225.100469 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.69329; stroke-linecap: round"/>
+   </g>
+   <g id="patch_37">
+    <path d="M 282.533058 251.015216 
+C 311.355372 251.015216 311.355372 289.392561 282.533058 289.392561 
+C 253.710744 289.392561 253.710744 251.015216 281.835683 251.015216 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.623751; stroke-linecap: round"/>
+    <path d="M 277.835683 249.015216 
+L 281.835683 251.015216 
+L 277.835683 253.015216 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.623751; stroke-linecap: round"/>
+   </g>
+   <g id="patch_38">
+    <path d="M 293.575888 291.138783 
+Q 404.462086 306.346855 476.960328 221.561948 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.330841; stroke-linecap: round"/>
+    <path d="M 472.840713 223.302287 
+L 476.960328 221.561948 
+L 475.88083 225.901842 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.330841; stroke-linecap: round"/>
+   </g>
+   <g id="patch_39">
+    <path d="M 283.941468 278.29865 
+Q 286.262996 244.201494 262.156564 220.145932 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.108173; stroke-linecap: round"/>
+    <path d="M 263.575258 224.387076 
+L 262.156564 220.145932 
+L 266.400696 221.555663 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.108173; stroke-linecap: round"/>
+   </g>
+   <g id="patch_40">
+    <path d="M 276.520343 279.96457 
+Q 230.920668 212.631636 151.111413 212.371125 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.35146; stroke-linecap: round"/>
+    <path d="M 155.104863 214.384171 
+L 151.111413 212.371125 
+L 155.11792 210.384192 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.35146; stroke-linecap: round"/>
+   </g>
+   <g id="patch_41">
+    <path d="M 275.346537 297.958833 
+Q 227.45721 358.512329 249.822836 431.341892 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.908232; stroke-linecap: round"/>
+    <path d="M 250.560456 426.931006 
+L 249.822836 431.341892 
+L 246.736699 428.105264 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.908232; stroke-linecap: round"/>
+   </g>
+   <g id="patch_42">
+    <path d="M 280.711581 300.423762 
+Q 261.914161 428.501577 358.352059 510.829994 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.369971; stroke-linecap: round"/>
+    <path d="M 356.608409 506.71178 
+L 358.352059 510.829994 
+L 354.011298 509.753986 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.369971; stroke-linecap: round"/>
+   </g>
+   <g id="patch_43">
+    <path d="M 293.432995 286.911903 
+Q 345.219333 272.931609 365.037287 223.681065 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.4931; stroke-linecap: round"/>
+    <path d="M 361.68866 226.645301 
+L 365.037287 223.681065 
+L 365.3995 228.138508 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.4931; stroke-linecap: round"/>
+   </g>
+   <g id="patch_44">
+    <path d="M 282.502411 300.570194 
+Q 284.516538 389.381019 358.900735 436.800705 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.554211; stroke-linecap: round"/>
+    <path d="M 356.602932 432.964027 
+L 358.900735 436.800705 
+L 354.452711 436.336941 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.554211; stroke-linecap: round"/>
+   </g>
+   <g id="patch_45">
+    <path d="M 286.855268 299.702302 
+Q 340.741236 422.226135 472.551842 441.391519 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.583713; stroke-linecap: round"/>
+    <path d="M 468.881242 438.83678 
+L 472.551842 441.391519 
+L 468.30569 442.795156 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.583713; stroke-linecap: round"/>
+   </g>
+   <g id="patch_46">
+    <path d="M 369 481.27929 
+C 397.822314 481.27929 397.822314 519.656636 369 519.656636 
+C 340.177686 519.656636 340.177686 481.27929 366.25134 481.27929 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.458477; stroke-linecap: round"/>
+    <path d="M 362.25134 479.27929 
+L 366.25134 481.27929 
+L 362.25134 483.27929 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.458477; stroke-linecap: round"/>
+   </g>
+   <g id="patch_47">
+    <path d="M 377.66257 512.590384 
+Q 513.482904 398.75713 486.266436 224.343674 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.617429; stroke-linecap: round"/>
+    <path d="M 484.907069 228.604205 
+L 486.266436 224.343674 
+L 488.85924 227.987486 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.617429; stroke-linecap: round"/>
+   </g>
+   <g id="patch_48">
+    <path d="M 370.821477 508.625434 
+Q 389.618897 380.54762 291.878918 297.107624 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.838692; stroke-linecap: round"/>
+    <path d="M 293.622568 301.225838 
+L 291.878918 297.107624 
+L 296.219679 298.183633 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.838692; stroke-linecap: round"/>
+   </g>
+   <g id="patch_49">
+    <path d="M 370.870398 508.635127 
+Q 398.194342 333.539226 262.897493 220.143449 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.609702; stroke-linecap: round"/>
+    <path d="M 264.678441 224.245671 
+L 262.897493 220.143449 
+L 267.247839 221.180023 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.609702; stroke-linecap: round"/>
+   </g>
+   <g id="patch_50">
+    <path d="M 367.717966 508.548078 
+Q 341.301728 300.362578 150.4814 217.722956 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.707588; stroke-linecap: round"/>
+    <path d="M 153.357151 221.147873 
+L 150.4814 217.722956 
+L 154.946784 217.477305 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.707588; stroke-linecap: round"/>
+   </g>
+   <g id="patch_51">
+    <path d="M 363.887959 509.708947 
+Q 331.361463 451.224378 265.76068 443.881436 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.815512; stroke-linecap: round"/>
+    <path d="M 269.513377 446.31398 
+L 265.76068 443.881436 
+L 269.958333 442.338805 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.815512; stroke-linecap: round"/>
+   </g>
+   <g id="patch_52">
+    <path d="M 374.178544 509.74608 
+Q 386.848001 481.27898 374.456081 453.436088 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.611107; stroke-linecap: round"/>
+    <path d="M 374.25533 457.903716 
+L 374.456081 453.436088 
+L 377.909733 456.277266 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.611107; stroke-linecap: round"/>
+   </g>
+   <g id="patch_53">
+    <path d="M 380.149767 518.777903 
+Q 446.655144 511.331256 478.756456 453.606248 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.779688; stroke-linecap: round"/>
+    <path d="M 475.064505 456.130034 
+L 478.756456 453.606248 
+L 478.560315 458.07408 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.779688; stroke-linecap: round"/>
+   </g>
+   <g id="patch_54">
+    <path d="M 370.721342 508.61092 
+Q 381.086617 427.540652 321.17724 374.442664 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.499671; stroke-linecap: round"/>
+    <path d="M 322.844148 378.592534 
+L 321.17724 374.442664 
+L 325.49728 375.599059 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.499671; stroke-linecap: round"/>
+   </g>
+   <g id="patch_55">
+    <path d="M 377.56629 512.474049 
+Q 438.730913 458.264123 428.654729 379.451546 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.035619; stroke-linecap: round"/>
+    <path d="M 427.178148 383.672886 
+L 428.654729 379.451546 
+L 431.145852 383.165615 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.035619; stroke-linecap: round"/>
+   </g>
+   <g id="patch_56">
+    <path d="M 374.617543 509.989686 
+Q 455.488195 366.147061 375.178468 223.302521 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.024131; stroke-linecap: round"/>
+    <path d="M 375.395404 227.769393 
+L 375.178468 223.302521 
+L 378.882127 225.809096 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.024131; stroke-linecap: round"/>
+   </g>
+   <g id="patch_57">
+    <path d="M 370.673467 530.713012 
+Q 379.035065 572.143885 415.971282 591.44966 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.526816; stroke-linecap: round"/>
+    <path d="M 413.352751 587.824292 
+L 415.971282 591.44966 
+L 411.499869 591.369264 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.526816; stroke-linecap: round"/>
+   </g>
+   <g id="patch_58">
+    <path d="M 358.848296 524.345652 
+Q 321.39022 543.924366 313.539896 582.822664 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.310968; stroke-linecap: round"/>
+    <path d="M 316.291682 579.297373 
+L 313.539896 582.822664 
+L 312.370735 578.506061 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.310968; stroke-linecap: round"/>
+   </g>
+   <g id="patch_59">
+    <path d="M 263.403795 218.209215 
+Q 369.001511 276.240909 473.769204 218.66371 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.847121; stroke-linecap: round"/>
+    <path d="M 469.300446 218.837478 
+L 473.769204 218.66371 
+L 471.226964 222.342978 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.847121; stroke-linecap: round"/>
+   </g>
+   <g id="patch_60">
+    <path d="M 253.710744 174.260524 
+C 282.533058 174.260524 282.533058 212.63787 253.710744 212.63787 
+C 224.88843 212.63787 224.88843 174.260524 253.591373 174.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.106768; stroke-linecap: round"/>
+    <path d="M 249.591373 172.260524 
+L 253.591373 174.260524 
+L 249.591373 176.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.106768; stroke-linecap: round"/>
+   </g>
+   <g id="patch_61">
+    <path d="M 243.912142 207.258387 
+Q 196.068229 183.431628 151.039098 205.854616 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.812497; stroke-linecap: round"/>
+    <path d="M 155.511228 205.861898 
+L 151.039098 205.854616 
+L 153.728202 202.281281 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.812497; stroke-linecap: round"/>
+   </g>
+   <g id="patch_62">
+    <path d="M 263.509345 218.017352 
+Q 311.353259 241.844112 358.804903 218.214794 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.391951; stroke-linecap: round"/>
+    <path d="M 354.332773 218.207512 
+L 358.804903 218.214794 
+L 356.115799 221.788129 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.391951; stroke-linecap: round"/>
+   </g>
+   <g id="patch_63">
+    <path d="M 251.989402 223.683586 
+Q 241.624127 304.753854 301.407145 357.739848 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.650691; stroke-linecap: round"/>
+    <path d="M 299.740236 353.589979 
+L 301.407145 357.739848 
+L 297.087104 356.583454 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.650691; stroke-linecap: round"/>
+   </g>
+   <g id="patch_64">
+    <path d="M 251.840346 223.659378 
+Q 224.516401 398.755279 359.716347 512.069839 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.722792; stroke-linecap: round"/>
+    <path d="M 357.935399 507.967617 
+L 359.716347 512.069839 
+L 355.366001 511.033264 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.722792; stroke-linecap: round"/>
+   </g>
+   <g id="patch_65">
+    <path d="M 248.139273 222.331757 
+Q 190.20368 327.768655 247.940485 432.846273 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.366664; stroke-linecap: round"/>
+    <path d="M 247.767067 428.377501 
+L 247.940485 432.846273 
+L 244.261416 430.303744 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.366664; stroke-linecap: round"/>
+   </g>
+   <g id="patch_66">
+    <path d="M 257.260557 223.239259 
+Q 297.823853 337.106148 413.917986 363.475574 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.632428; stroke-linecap: round"/>
+    <path d="M 410.460334 360.639266 
+L 413.917986 363.475574 
+L 409.574348 364.539911 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.632428; stroke-linecap: round"/>
+   </g>
+   <g id="patch_67">
+    <path d="M 256.573006 223.447534 
+Q 303.896722 392.963442 472.429032 439.763784 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.973557; stroke-linecap: round"/>
+    <path d="M 469.110014 436.766432 
+L 472.429032 439.763784 
+L 468.03974 440.620587 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.973557; stroke-linecap: round"/>
+   </g>
+   <g id="patch_68">
+    <path d="M 253.046024 223.80273 
+Q 247.277203 359.85346 358.969593 436.270893 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.752294; stroke-linecap: round"/>
+    <path d="M 356.797645 432.361591 
+L 358.969593 436.270893 
+L 354.538983 435.662871 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.752294; stroke-linecap: round"/>
+   </g>
+   <g id="patch_69">
+    <path d="M 263.365973 218.269286 
+Q 426.643445 310.766114 589.781523 218.349592 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.143294; stroke-linecap: round"/>
+    <path d="M 585.315379 218.58101 
+L 589.781523 218.349592 
+L 587.286971 222.061358 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.143294; stroke-linecap: round"/>
+   </g>
+   <g id="patch_70">
+    <path d="M 148.058245 218.299097 
+Q 368.997344 345.322223 589.397222 218.612155 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.556318; stroke-linecap: round"/>
+    <path d="M 584.932637 218.871924 
+L 589.397222 218.612155 
+L 586.926287 222.339684 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.556318; stroke-linecap: round"/>
+   </g>
+   <g id="patch_71">
+    <path d="M 148.076717 218.269286 
+Q 311.354189 310.766114 474.223728 218.501718 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.419346; stroke-linecap: round"/>
+    <path d="M 469.757583 218.733136 
+L 474.223728 218.501718 
+L 471.729175 222.213484 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.419346; stroke-linecap: round"/>
+   </g>
+   <g id="patch_72">
+    <path d="M 148.114539 218.209215 
+Q 253.712255 276.240909 358.420071 218.696616 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.908232; stroke-linecap: round"/>
+    <path d="M 353.951312 218.870385 
+L 358.420071 218.696616 
+L 355.87783 222.375884 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.908232; stroke-linecap: round"/>
+   </g>
+   <g id="patch_73">
+    <path d="M 148.220089 218.017352 
+Q 196.064003 241.844112 243.504399 218.220395 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.40319; stroke-linecap: round"/>
+    <path d="M 239.032269 218.213113 
+L 243.504399 218.220395 
+L 240.815295 221.79373 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.40319; stroke-linecap: round"/>
+   </g>
+   <g id="patch_74">
+    <path d="M 144.306141 222.147309 
+Q 239.125609 370.893434 413.404141 366.621282 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.848774; stroke-linecap: round"/>
+    <path d="M 409.356331 364.719907 
+L 413.404141 366.621282 
+L 409.454355 368.718706 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.848774; stroke-linecap: round"/>
+   </g>
+   <g id="patch_75">
+    <path d="M 143.318185 222.689736 
+Q 245.409464 426.824759 472.549364 442.222953 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.518387; stroke-linecap: round"/>
+    <path d="M 468.693797 439.956988 
+L 472.549364 442.222953 
+L 468.423251 443.947828 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.518387; stroke-linecap: round"/>
+   </g>
+   <g id="patch_76">
+    <path d="M 141.28375 223.447534 
+Q 188.607466 392.963442 357.160207 439.769457 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.954591; stroke-linecap: round"/>
+    <path d="M 353.841188 436.772105 
+L 357.160207 439.769457 
+L 352.770914 440.626261 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.954591; stroke-linecap: round"/>
+   </g>
+   <g id="patch_77">
+    <path d="M 138.421488 174.260524 
+C 167.243802 174.260524 167.243802 212.63787 138.421488 212.63787 
+C 109.599174 212.63787 109.599174 174.260524 136.451091 174.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.762377; stroke-linecap: round"/>
+    <path d="M 132.451091 172.260524 
+L 136.451091 174.260524 
+L 132.451091 176.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.762377; stroke-linecap: round"/>
+   </g>
+   <g id="patch_78">
+    <path d="M 141.9713 223.239259 
+Q 182.534597 337.106148 299.232966 363.61282 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.078218; stroke-linecap: round"/>
+    <path d="M 295.775314 360.776511 
+L 299.232966 363.61282 
+L 294.889328 364.677156 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 1.078218; stroke-linecap: round"/>
+   </g>
+   <g id="patch_79">
+    <path d="M 137.756768 223.80273 
+Q 131.987947 359.85346 244.220894 436.64073 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.166474; stroke-linecap: round"/>
+    <path d="M 242.048945 432.731428 
+L 244.220894 436.64073 
+L 239.790284 436.032708 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.166474; stroke-linecap: round"/>
+   </g>
+   <g id="patch_80">
+    <path d="M 139.703522 223.746428 
+Q 166.11976 431.931928 356.270601 514.281612 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.360138; stroke-linecap: round"/>
+    <path d="M 353.39485 510.856695 
+L 356.270601 514.281612 
+L 351.805217 514.527262 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 2.360138; stroke-linecap: round"/>
+   </g>
+   <g id="patch_81">
+    <path d="M 433.660891 587.707698 
+Q 565.015077 420.980574 488.61002 223.460938 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.421453; stroke-linecap: round"/>
+    <path d="M 488.187799 227.913098 
+L 488.61002 223.460938 
+L 491.918415 226.470011 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.421453; stroke-linecap: round"/>
+   </g>
+   <g id="patch_82">
+    <path d="M 430.794316 586.030518 
+Q 507.370835 388.071197 376.311176 221.715834 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.42356; stroke-linecap: round"/>
+    <path d="M 377.215548 226.095573 
+L 376.311176 221.715834 
+L 380.35759 223.62018 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #ff0000; stroke-opacity: 0.2; stroke-width: 0.42356; stroke-linecap: round"/>
+   </g>
+   <g id="patch_83">
+    <path d="M 418.450394 588.799501 
+Q 368.999673 546.378244 321.326393 587.275267 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.094622; stroke-linecap: round"/>
+    <path d="M 325.664553 586.18882 
+L 321.326393 587.275267 
+L 323.060132 583.152871 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.094622; stroke-linecap: round"/>
+   </g>
+   <g id="patch_84">
+    <path d="M 426.644628 558.033981 
+C 455.466942 558.033981 455.466942 596.411327 426.644628 596.411327 
+C 397.822314 596.411327 397.822314 558.033981 426.246465 558.033981 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.356128; stroke-linecap: round"/>
+    <path d="M 422.246465 556.033981 
+L 426.246465 558.033981 
+L 422.246465 560.033981 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.356128; stroke-linecap: round"/>
+   </g>
+   <g id="patch_85">
+    <path d="M 256.241576 453.794115 
+Q 277.225524 532.545184 356.347812 521.745712 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.470169; stroke-linecap: round"/>
+    <path d="M 352.114084 520.305033 
+L 356.347812 521.745712 
+L 352.655032 524.268286 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.470169; stroke-linecap: round"/>
+   </g>
+   <g id="patch_86">
+    <path d="M 264.227353 446.691764 
+Q 375.41672 483.925144 421.444305 378.67407 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.129041; stroke-linecap: round"/>
+    <path d="M 418.009166 381.537603 
+L 421.444305 378.67407 
+L 421.674048 383.140301 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.129041; stroke-linecap: round"/>
+   </g>
+   <g id="patch_87">
+    <path d="M 253.710744 404.524598 
+C 282.533058 404.524598 282.533058 442.901944 253.710744 442.901944 
+C 224.88843 442.901944 224.88843 404.524598 252.744786 404.524598 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.863979; stroke-linecap: round"/>
+    <path d="M 248.744786 402.524598 
+L 252.744786 404.524598 
+L 248.744786 406.524598 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.863979; stroke-linecap: round"/>
+   </g>
+   <g id="patch_88">
+    <path d="M 261.904978 450.51377 
+Q 311.355699 492.935027 360.452363 450.81694 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.417239; stroke-linecap: round"/>
+    <path d="M 356.114202 451.903387 
+L 360.452363 450.81694 
+L 358.718624 454.939336 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.417239; stroke-linecap: round"/>
+   </g>
+   <g id="patch_89">
+    <path d="M 261.757208 450.667612 
+Q 369.00118 550.42663 475.61379 451.252727 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.771259; stroke-linecap: round"/>
+    <path d="M 471.322831 452.512756 
+L 475.61379 451.252727 
+L 474.047238 455.441511 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.771259; stroke-linecap: round"/>
+   </g>
+   <g id="patch_90">
+    <path d="M 262.769612 436.345877 
+Q 337.315951 379.138157 289.719775 300.639872 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.938684; stroke-linecap: round"/>
+    <path d="M 290.083477 305.097194 
+L 289.719775 300.639872 
+L 293.503854 303.023304 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.938684; stroke-linecap: round"/>
+   </g>
+   <g id="patch_91">
+    <path d="M 264.697531 440.833067 
+Q 314.877434 428.817766 312.462979 377.949626 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.600571; stroke-linecap: round"/>
+    <path d="M 310.654874 382.039951 
+L 312.462979 377.949626 
+L 314.650376 381.850304 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.600571; stroke-linecap: round"/>
+   </g>
+   <g id="patch_92">
+    <path d="M 379.986788 440.833067 
+Q 430.16669 428.817766 427.819442 379.365555 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.868442; stroke-linecap: round"/>
+    <path d="M 426.011338 383.45588 
+L 427.819442 379.365555 
+L 430.006839 383.266234 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.868442; stroke-linecap: round"/>
+   </g>
+   <g id="patch_93">
+    <path d="M 361.561625 451.247799 
+Q 338.06047 481.280005 360.302431 509.701729 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.829107; stroke-linecap: round"/>
+    <path d="M 359.412315 505.319071 
+L 360.302431 509.701729 
+L 356.262235 507.784226 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.829107; stroke-linecap: round"/>
+   </g>
+   <g id="patch_94">
+    <path d="M 370.075599 431.773924 
+Q 372.523752 380.233681 323.334751 368.453837 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.909636; stroke-linecap: round"/>
+    <path d="M 326.758966 371.330424 
+L 323.334751 368.453837 
+L 327.690549 367.440417 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.909636; stroke-linecap: round"/>
+   </g>
+   <g id="patch_95">
+    <path d="M 368.853395 431.723174 
+Q 363.326645 218.005957 152.879845 212.849572 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.931207; stroke-linecap: round"/>
+    <path d="M 156.829655 214.946951 
+L 152.879845 212.849572 
+L 156.927634 210.948151 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.931207; stroke-linecap: round"/>
+   </g>
+   <g id="patch_96">
+    <path d="M 372.361188 432.239223 
+Q 419.531177 273.608635 264.967189 216.59527 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.671515; stroke-linecap: round"/>
+    <path d="M 268.027875 219.855976 
+L 264.967189 216.59527 
+L 269.412166 216.103146 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.671515; stroke-linecap: round"/>
+   </g>
+   <g id="patch_97">
+    <path d="M 476.242792 204.872202 
+Q 368.99882 105.113184 261.983703 204.661511 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.279564; stroke-linecap: round"/>
+    <path d="M 266.274661 203.401482 
+L 261.983703 204.661511 
+L 263.550255 200.472726 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.279564; stroke-linecap: round"/>
+   </g>
+   <g id="patch_98">
+    <path d="M 492.483491 220.249696 
+Q 541.934212 262.670953 590.989747 220.588148 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.465706; stroke-linecap: round"/>
+    <path d="M 586.651587 221.674594 
+L 590.989747 220.588148 
+L 589.256008 224.710544 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.465706; stroke-linecap: round"/>
+   </g>
+   <g id="patch_99">
+    <path d="M 474.005477 208.255164 
+Q 347.793023 157.384374 287.506884 278.872735 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.404595; stroke-linecap: round"/>
+    <path d="M 291.076471 276.178658 
+L 287.506884 278.872735 
+L 287.493375 274.40062 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.404595; stroke-linecap: round"/>
+   </g>
+   <g id="patch_100">
+    <path d="M 484.289256 174.260524 
+C 513.11157 174.260524 513.11157 212.63787 484.289256 212.63787 
+C 455.466942 212.63787 455.466942 174.260524 483.730885 174.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.499422; stroke-linecap: round"/>
+    <path d="M 479.730885 172.260524 
+L 483.730885 174.260524 
+L 479.730885 176.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.499422; stroke-linecap: round"/>
+   </g>
+   <g id="patch_101">
+    <path d="M 476.29117 204.824737 
+Q 311.355694 47.517426 149.959026 201.448996 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 4.373981; stroke-linecap: round"/>
+    <path d="M 154.233949 200.135591 
+L 149.959026 201.448996 
+L 151.473256 197.241014 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 4.373981; stroke-linecap: round"/>
+   </g>
+   <g id="patch_102">
+    <path d="M 364.637026 222.932975 
+Q 328.279343 315.507302 416.233417 361.086984 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.354021; stroke-linecap: round"/>
+    <path d="M 413.602186 357.470823 
+L 416.233417 361.086984 
+L 411.761749 361.022272 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.354021; stroke-linecap: round"/>
+   </g>
+   <g id="patch_103">
+    <path d="M 360.805765 205.026044 
+Q 311.355044 162.604787 262.137978 204.826163 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.275349; stroke-linecap: round"/>
+    <path d="M 266.476138 203.739717 
+L 262.137978 204.826163 
+L 263.871717 200.703767 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.275349; stroke-linecap: round"/>
+   </g>
+   <g id="patch_104">
+    <path d="M 357.823884 212.383749 
+Q 292.443041 213.472461 283.800273 276.841294 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.281218; stroke-linecap: round"/>
+    <path d="M 286.322476 273.148261 
+L 283.800273 276.841294 
+L 282.359168 272.607712 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.281218; stroke-linecap: round"/>
+   </g>
+   <g id="patch_105">
+    <path d="M 361.200349 220.646424 
+Q 223.29073 366.146766 359.33126 509.676103 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.428975; stroke-linecap: round"/>
+    <path d="M 358.03116 505.397115 
+L 359.33126 509.676103 
+L 355.12801 508.14879 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.428975; stroke-linecap: round"/>
+   </g>
+   <g id="patch_106">
+    <path d="M 360.953536 204.872202 
+Q 253.709564 105.113184 150.128412 201.467144 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 4.474427; stroke-linecap: round"/>
+    <path d="M 154.419371 200.207115 
+L 150.128412 201.467144 
+L 151.694964 197.278359 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 4.474427; stroke-linecap: round"/>
+   </g>
+   <g id="patch_107">
+    <path d="M 358.93906 217.51662 
+Q 270.634376 263.278723 306.878036 355.560964 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.280969; stroke-linecap: round"/>
+    <path d="M 307.277351 351.106691 
+L 306.878036 355.560964 
+L 303.554206 352.568949 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.280969; stroke-linecap: round"/>
+   </g>
+   <g id="patch_108">
+    <path d="M 476.095022 435.290118 
+Q 426.644301 392.868861 377.620952 434.924054 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.503636; stroke-linecap: round"/>
+    <path d="M 381.959113 433.837608 
+L 377.620952 434.924054 
+L 379.354691 430.801658 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.503636; stroke-linecap: round"/>
+   </g>
+   <g id="patch_109">
+    <path d="M 484.289256 404.524598 
+C 513.11157 404.524598 513.11157 442.901944 484.289256 442.901944 
+C 455.466942 442.901944 455.466942 404.524598 483.130107 404.524598 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.036775; stroke-linecap: round"/>
+    <path d="M 479.130107 402.524598 
+L 483.130107 404.524598 
+L 479.130107 406.524598 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.036775; stroke-linecap: round"/>
+   </g>
+   <g id="patch_110">
+    <path d="M 485.364855 431.773924 
+Q 487.813008 380.233681 439.281584 368.611314 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.514422; stroke-linecap: round"/>
+    <path d="M 442.705799 371.487901 
+L 439.281584 368.611314 
+L 443.637382 367.597894 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.514422; stroke-linecap: round"/>
+   </g>
+   <g id="patch_111">
+    <path d="M 473.26389 441.034914 
+Q 392.513661 430.014141 371.596893 508.516534 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.231097; stroke-linecap: round"/>
+    <path d="M 374.559328 505.166313 
+L 371.596893 508.516534 
+L 370.694177 504.136453 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.231097; stroke-linecap: round"/>
+   </g>
+   <g id="patch_112">
+    <path d="M 476.242792 435.136277 
+Q 368.99882 335.377258 261.832475 435.066261 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.094827; stroke-linecap: round"/>
+    <path d="M 266.123433 433.806232 
+L 261.832475 435.066261 
+L 263.399027 430.877477 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.094827; stroke-linecap: round"/>
+   </g>
+   <g id="patch_113">
+    <path d="M 482.606449 431.847948 
+Q 455.456059 271.45936 295.370091 287.888401 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.559377; stroke-linecap: round"/>
+    <path d="M 299.553371 289.46959 
+L 295.370091 287.888401 
+L 299.145011 285.49049 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.559377; stroke-linecap: round"/>
+   </g>
+   <g id="patch_114">
+    <path d="M 480.044633 432.560523 
+Q 433.064646 325.125517 323.254301 361.894575 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.299481; stroke-linecap: round"/>
+    <path d="M 327.682344 362.521024 
+L 323.254301 361.894575 
+L 326.412285 358.72801 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.299481; stroke-linecap: round"/>
+   </g>
+   <g id="patch_115">
+    <path d="M 481.984384 431.96592 
+Q 422.150853 161.351757 151.462871 210.173417 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.871954; stroke-linecap: round"/>
+    <path d="M 155.754351 211.43167 
+L 151.462871 210.173417 
+L 155.044361 207.495185 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.871954; stroke-linecap: round"/>
+   </g>
+   <g id="patch_116">
+    <path d="M 494.84019 439.204783 
+Q 650.109297 381.931963 603.149553 224.006323 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.657467; stroke-linecap: round"/>
+    <path d="M 602.372588 228.410449 
+L 603.149553 224.006323 
+L 606.206675 227.27037 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.657467; stroke-linecap: round"/>
+   </g>
+   <g id="patch_117">
+    <path d="M 487.650444 432.239223 
+Q 534.820433 273.608635 380.29697 216.610218 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.710149; stroke-linecap: round"/>
+    <path d="M 383.357655 219.870924 
+L 380.29697 216.610218 
+L 384.741946 216.118094 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.710149; stroke-linecap: round"/>
+   </g>
+   <g id="patch_118">
+    <path d="M 492.05087 434.859426 
+Q 591.657853 327.77187 492.383458 221.037966 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.431989; stroke-linecap: round"/>
+    <path d="M 493.643221 225.329003 
+L 492.383458 221.037966 
+L 496.572145 222.604778 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.431989; stroke-linecap: round"/>
+   </g>
+   <g id="patch_119">
+    <path d="M 484.142651 431.723174 
+Q 478.615901 218.005957 265.084459 212.773992 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.171391; stroke-linecap: round"/>
+    <path d="M 269.034269 214.871371 
+L 265.084459 212.773992 
+L 269.132248 210.872571 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.171391; stroke-linecap: round"/>
+   </g>
+   <g id="patch_120">
+    <path d="M 591.384278 205.026044 
+Q 541.933557 162.604787 492.903056 204.666116 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.495207; stroke-linecap: round"/>
+    <path d="M 497.241216 203.579669 
+L 492.903056 204.666116 
+L 494.636795 200.54372 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.495207; stroke-linecap: round"/>
+   </g>
+   <g id="patch_121">
+    <path d="M 591.580426 204.824737 
+Q 426.64495 47.517426 261.973166 204.572627 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.325924; stroke-linecap: round"/>
+    <path d="M 266.248089 203.259222 
+L 261.973166 204.572627 
+L 263.487396 200.364646 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.325924; stroke-linecap: round"/>
+   </g>
+   <g id="patch_122">
+    <path d="M 599.578512 174.260524 
+C 628.400826 174.260524 628.400826 212.63787 599.578512 212.63787 
+C 570.756198 212.63787 570.756198 174.260524 598.621979 174.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.85555; stroke-linecap: round"/>
+    <path d="M 594.621979 172.260524 
+L 598.621979 174.260524 
+L 594.621979 176.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.85555; stroke-linecap: round"/>
+   </g>
+   <g id="patch_123">
+    <path d="M 591.532049 204.872202 
+Q 484.288076 105.113184 377.385661 204.556672 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.417239; stroke-linecap: round"/>
+    <path d="M 381.67662 203.296643 
+L 377.385661 204.556672 
+L 378.952213 200.367888 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.417239; stroke-linecap: round"/>
+   </g>
+   <g id="patch_124">
+    <path d="M 589.965363 206.934647 
+Q 404.516618 100.079358 289.499757 278.333035 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.690027; stroke-linecap: round"/>
+    <path d="M 293.348989 276.056323 
+L 289.499757 278.333035 
+L 289.987926 273.887623 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.690027; stroke-linecap: round"/>
+   </g>
+   <g id="patch_125">
+    <path d="M 588.526505 214.328046 
+Q 337.034726 255.555438 367.493146 508.161976 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.368771; stroke-linecap: round"/>
+    <path d="M 368.999926 503.951321 
+L 367.493146 508.161976 
+L 365.028691 504.430159 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.368771; stroke-linecap: round"/>
+   </g>
+   <g id="patch_126">
+    <path d="M 588.412156 212.171513 
+Q 441.513899 208.730334 427.747655 352.478369 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.261798; stroke-linecap: round"/>
+    <path d="M 430.119868 348.687247 
+L 427.747655 352.478369 
+L 426.138085 348.305926 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 2.261798; stroke-linecap: round"/>
+   </g>
+   <g id="patch_127">
+    <path d="M 588.842459 209.508792 
+Q 382.381824 152.17275 315.256013 353.970599 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.436453; stroke-linecap: round"/>
+    <path d="M 318.416314 350.806345 
+L 315.256013 353.970599 
+L 314.62079 349.543806 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 1.436453; stroke-linecap: round"/>
+   </g>
+   <g id="patch_128">
+    <path d="M 588.399552 212.76922 
+Q 374.674992 218.004322 369.17325 430.693112 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.918768; stroke-linecap: round"/>
+    <path d="M 371.276017 426.746167 
+L 369.17325 430.693112 
+L 367.277355 426.642732 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.918768; stroke-linecap: round"/>
+   </g>
+   <g id="patch_129">
+    <path d="M 589.027578 216.335031 
+Q 433.758472 273.607851 480.626891 431.226366 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.944055; stroke-linecap: round"/>
+    <path d="M 481.403856 426.82224 
+L 480.626891 431.226366 
+L 477.569769 427.962319 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.944055; stroke-linecap: round"/>
+   </g>
+   <g id="patch_130">
+    <path d="M 591.602415 204.799726 
+Q 369.000173 -10.102332 146.919426 204.295937 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.648335; stroke-linecap: round"/>
+    <path d="M 151.186297 202.956606 
+L 146.919426 204.295937 
+L 148.408084 200.078841 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.648335; stroke-linecap: round"/>
+   </g>
+   <g id="patch_131">
+    <path d="M 588.599858 210.545454 
+Q 315.851009 161.350518 256.126662 431.463697 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.457277; stroke-linecap: round"/>
+    <path d="M 258.943072 427.989818 
+L 256.126662 431.463697 
+L 255.037405 427.126242 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #0000ff; stroke-opacity: 0.2; stroke-width: 0.457277; stroke-linecap: round"/>
+   </g>
+   <g id="patch_132">
+    <path d="M 304.857981 587.311678 
+Q 210.431688 451.022444 277.546878 300.207407 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.653252; stroke-linecap: round"/>
+    <path d="M 274.093344 303.048727 
+L 277.546878 300.207407 
+L 277.747814 304.675027 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.653252; stroke-linecap: round"/>
+   </g>
+   <g id="patch_133">
+    <path d="M 321.153974 591.031845 
+Q 368.997887 567.205085 415.787312 590.50464 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.053633; stroke-linecap: round"/>
+    <path d="M 413.098208 586.931305 
+L 415.787312 590.50464 
+L 411.315182 590.511922 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.053633; stroke-linecap: round"/>
+   </g>
+   <g id="patch_134">
+    <path d="M 305.783901 586.71744 
+Q 247.848308 481.280542 305.130156 377.030918 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.211678; stroke-linecap: round"/>
+    <path d="M 301.451088 379.573447 
+L 305.130156 377.030918 
+L 304.956738 381.49969 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.211678; stroke-linecap: round"/>
+   </g>
+   <g id="patch_135">
+    <path d="M 310.690652 585.246467 
+Q 304.921831 449.195737 417.086075 372.455473 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.240931; stroke-linecap: round"/>
+    <path d="M 412.655464 373.063495 
+L 417.086075 372.455473 
+L 414.914126 376.364775 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.240931; stroke-linecap: round"/>
+   </g>
+   <g id="patch_136">
+    <path d="M 302.789082 589.228741 
+Q 241.624459 535.018814 251.925028 454.451171 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.453062; stroke-linecap: round"/>
+    <path d="M 249.433905 458.16524 
+L 251.925028 454.451171 
+L 253.401609 458.672511 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.453062; stroke-linecap: round"/>
+   </g>
+   <g id="patch_137">
+    <path d="M 309.63403 585.365611 
+Q 299.268755 504.295343 359.865174 450.588427 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.67854; stroke-linecap: round"/>
+    <path d="M 355.545133 451.744822 
+L 359.865174 450.588427 
+L 358.198265 454.738296 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.67854; stroke-linecap: round"/>
+   </g>
+   <g id="patch_138">
+    <path d="M 313.028839 585.35495 
+Q 321.390436 543.924078 358.439405 524.55937 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.413024; stroke-linecap: round"/>
+    <path d="M 353.967992 524.639766 
+L 358.439405 524.55937 
+L 355.820874 528.184738 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.413024; stroke-linecap: round"/>
+   </g>
+   <g id="patch_139">
+    <path d="M 304.339109 587.707698 
+Q 172.984923 420.980574 249.344648 223.578129 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.533841; stroke-linecap: round"/>
+    <path d="M 246.036252 226.587202 
+L 249.344648 223.578129 
+L 249.766869 228.030289 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.533841; stroke-linecap: round"/>
+   </g>
+   <g id="patch_140">
+    <path d="M 302.238544 589.941461 
+Q 114.910512 454.081528 137.134479 224.727356 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.876623; stroke-linecap: round"/>
+    <path d="M 134.758018 228.515816 
+L 137.134479 224.727356 
+L 138.739371 228.901602 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.876623; stroke-linecap: round"/>
+   </g>
+   <g id="patch_141">
+    <path d="M 430.194441 355.545864 
+Q 470.757738 241.678974 588.36514 214.965826 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.244443; stroke-linecap: round"/>
+    <path d="M 584.021503 213.90149 
+L 588.36514 214.965826 
+L 584.907489 217.802135 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.244443; stroke-linecap: round"/>
+   </g>
+   <g id="patch_142">
+    <path d="M 436.796332 370.836269 
+Q 474.254408 390.414983 482.528245 431.411786 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.396166; stroke-linecap: round"/>
+    <path d="M 483.697406 427.095183 
+L 482.528245 431.411786 
+L 479.776459 427.886495 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.396166; stroke-linecap: round"/>
+   </g>
+   <g id="patch_143">
+    <path d="M 424.971161 377.20363 
+Q 416.609564 418.634502 379.62741 437.964286 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.480457; stroke-linecap: round"/>
+    <path d="M 384.098823 437.883891 
+L 379.62741 437.964286 
+L 382.245942 434.338919 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.480457; stroke-linecap: round"/>
+   </g>
+   <g id="patch_144">
+    <path d="M 416.846026 371.526735 
+Q 369.002113 395.353495 322.191599 372.043438 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.03256; stroke-linecap: round"/>
+    <path d="M 324.880702 375.616772 
+L 322.191599 372.043438 
+L 326.663729 372.036156 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.03256; stroke-linecap: round"/>
+   </g>
+   <g id="patch_145">
+    <path d="M 418.078338 358.964667 
+Q 356.913715 304.75474 367.171558 224.521284 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.754401; stroke-linecap: round"/>
+    <path d="M 364.680436 228.235353 
+L 367.171558 224.521284 
+L 368.64814 228.742624 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.754401; stroke-linecap: round"/>
+   </g>
+   <g id="patch_146">
+    <path d="M 415.469687 366.570649 
+Q 239.124974 370.893096 146.769727 226.012026 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 4.100037; stroke-linecap: round"/>
+    <path d="M 147.233361 230.460065 
+L 146.769727 226.012026 
+L 150.606338 228.309942 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 4.100037; stroke-linecap: round"/>
+   </g>
+   <g id="patch_147">
+    <path d="M 415.697084 363.879676 
+Q 297.823397 337.105743 257.303543 223.359929 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.115197; stroke-linecap: round"/>
+    <path d="M 256.761816 227.799133 
+L 257.303543 223.359929 
+L 260.52987 226.456833 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.115197; stroke-linecap: round"/>
+   </g>
+   <g id="patch_148">
+    <path d="M 428.36597 377.192969 
+Q 438.731245 458.263237 378.51743 511.631049 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.135816; stroke-linecap: round"/>
+    <path d="M 382.837471 510.474654 
+L 378.51743 511.631049 
+L 380.184339 507.48118 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.135816; stroke-linecap: round"/>
+   </g>
+   <g id="patch_149">
+    <path d="M 415.465811 366.418931 
+Q 334.145556 366.153544 289.185262 299.764828 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.019917; stroke-linecap: round"/>
+    <path d="M 289.772236 304.198276 
+L 289.185262 299.764828 
+L 293.084205 301.955318 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.019917; stroke-linecap: round"/>
+   </g>
+   <g id="patch_150">
+    <path d="M 290.601616 281.650187 
+Q 419.353825 161.369584 588.505498 209.342049 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.332948; stroke-linecap: round"/>
+    <path d="M 585.202958 206.326551 
+L 588.505498 209.342049 
+L 584.111576 210.174782 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.332948; stroke-linecap: round"/>
+   </g>
+   <g id="patch_151">
+    <path d="M 282.533058 251.015216 
+C 311.355372 251.015216 311.355372 289.392561 282.533058 289.392561 
+C 253.710744 289.392561 253.710744 251.015216 281.510556 251.015216 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.914553; stroke-linecap: round"/>
+    <path d="M 277.510556 249.015216 
+L 281.510556 251.015216 
+L 277.510556 253.015216 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.914553; stroke-linecap: round"/>
+   </g>
+   <g id="patch_152">
+    <path d="M 289.622918 280.748068 
+Q 362.361894 195.682942 472.433823 210.780193 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.735436; stroke-linecap: round"/>
+    <path d="M 468.742696 208.2552 
+L 472.433823 210.780193 
+L 468.199153 212.218098 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.735436; stroke-linecap: round"/>
+   </g>
+   <g id="patch_153">
+    <path d="M 274.170631 281.967717 
+Q 249.979804 257.826271 252.28568 223.976251 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.221965; stroke-linecap: round"/>
+    <path d="M 250.018453 227.831076 
+L 252.28568 223.976251 
+L 254.009205 228.102928 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.221965; stroke-linecap: round"/>
+   </g>
+   <g id="patch_154">
+    <path d="M 271.354241 289.664239 
+Q 190.033986 289.398852 146.060113 224.466693 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 2.593342; stroke-linecap: round"/>
+    <path d="M 146.647086 228.900141 
+L 146.060113 224.466693 
+L 149.959055 226.657183 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 2.593342; stroke-linecap: round"/>
+   </g>
+   <g id="patch_155">
+    <path d="M 286.122947 299.982169 
+Q 308.786549 373.782403 261.350156 433.763018 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.653252; stroke-linecap: round"/>
+    <path d="M 265.400121 431.866236 
+L 261.350156 433.763018 
+L 262.26271 429.384977 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.653252; stroke-linecap: round"/>
+   </g>
+   <g id="patch_156">
+    <path d="M 291.165179 296.49831 
+Q 389.618662 380.546994 370.986028 507.504234 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.012892; stroke-linecap: round"/>
+    <path d="M 373.545661 503.837044 
+L 370.986028 507.504234 
+L 369.588056 503.256214 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.012892; stroke-linecap: round"/>
+   </g>
+   <g id="patch_157">
+    <path d="M 286.288803 278.863712 
+Q 306.311635 229.100677 357.669433 215.234792 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.396166; stroke-linecap: round"/>
+    <path d="M 353.286396 214.34654 
+L 357.669433 215.234792 
+L 354.329009 218.20827 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.396166; stroke-linecap: round"/>
+   </g>
+   <g id="patch_158">
+    <path d="M 292.108105 295.159613 
+Q 367.015631 342.911909 369.011308 430.871964 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.760723; stroke-linecap: round"/>
+    <path d="M 370.920063 426.827628 
+L 369.011308 430.871964 
+L 366.921092 426.918358 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.760723; stroke-linecap: round"/>
+   </g>
+   <g id="patch_159">
+    <path d="M 293.622096 290.808712 
+Q 426.079279 310.067002 479.913838 432.471224 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.1159; stroke-linecap: round"/>
+    <path d="M 480.134226 428.004522 
+L 479.913838 432.471224 
+L 476.472709 429.614892 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.1159; stroke-linecap: round"/>
+   </g>
+   <g id="patch_160">
+    <path d="M 290.895484 296.817406 
+Q 315.086311 320.958851 312.777179 354.856666 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.179118; stroke-linecap: round"/>
+    <path d="M 315.044407 351.001841 
+L 312.777179 354.856666 
+L 311.053655 350.729989 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.179118; stroke-linecap: round"/>
+   </g>
+   <g id="patch_161">
+    <path d="M 293.711875 289.120883 
+Q 375.03213 289.38627 419.750222 355.417349 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.406249; stroke-linecap: round"/>
+    <path d="M 419.163249 350.983901 
+L 419.750222 355.417349 
+L 415.85128 353.226859 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.406249; stroke-linecap: round"/>
+   </g>
+   <g id="patch_162">
+    <path d="M 369 481.27929 
+C 397.822314 481.27929 397.822314 519.656636 369 519.656636 
+C 340.177686 519.656636 340.177686 481.27929 367.895039 481.27929 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.988308; stroke-linecap: round"/>
+    <path d="M 363.895039 479.27929 
+L 367.895039 481.27929 
+L 363.895039 483.27929 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.988308; stroke-linecap: round"/>
+   </g>
+   <g id="patch_163">
+    <path d="M 367.129602 508.635127 
+Q 339.805658 333.539226 475.337845 219.946206 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.335055; stroke-linecap: round"/>
+    <path d="M 470.987499 220.982781 
+L 475.337845 219.946206 
+L 473.556897 224.048428 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.335055; stroke-linecap: round"/>
+   </g>
+   <g id="patch_164">
+    <path d="M 360.367879 512.550887 
+Q 261.914396 428.502203 280.614995 301.081867 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.594249; stroke-linecap: round"/>
+    <path d="M 278.055363 304.749056 
+L 280.614995 301.081867 
+L 282.012967 305.329887 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.594249; stroke-linecap: round"/>
+   </g>
+   <g id="patch_165">
+    <path d="M 360.33743 512.590384 
+Q 224.517096 398.75713 251.760081 224.173743 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.463598; stroke-linecap: round"/>
+    <path d="M 249.167277 227.817555 
+L 251.760081 224.173743 
+L 253.119448 228.434274 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.463598; stroke-linecap: round"/>
+   </g>
+   <g id="patch_166">
+    <path d="M 358.689075 515.328993 
+Q 166.118099 431.929716 139.895881 225.262486 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.369723; stroke-linecap: round"/>
+    <path d="M 138.415277 229.482416 
+L 139.895881 225.262486 
+L 142.383463 228.978928 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.369723; stroke-linecap: round"/>
+   </g>
+   <g id="patch_167">
+    <path d="M 357.850233 518.777903 
+Q 291.344856 511.331256 259.383239 453.857449 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.036775; stroke-linecap: round"/>
+    <path d="M 259.57938 458.325281 
+L 259.383239 453.857449 
+L 263.07519 456.381235 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.036775; stroke-linecap: round"/>
+   </g>
+   <g id="patch_168">
+    <path d="M 374.112041 509.708947 
+Q 406.638537 451.224378 472.960463 443.800716 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.166474; stroke-linecap: round"/>
+    <path d="M 468.76281 442.258085 
+L 472.960463 443.800716 
+L 469.207766 446.23326 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.166474; stroke-linecap: round"/>
+   </g>
+   <g id="patch_169">
+    <path d="M 367.278658 508.61092 
+Q 356.913383 427.540652 417.164224 374.140023 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.091564; stroke-linecap: round"/>
+    <path d="M 412.844184 375.296418 
+L 417.164224 374.140023 
+L 415.497316 378.289892 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.091564; stroke-linecap: round"/>
+   </g>
+   <g id="patch_170">
+    <path d="M 379.151704 524.345652 
+Q 416.60978 543.924366 424.754978 584.283765 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.977771; stroke-linecap: round"/>
+    <path d="M 425.924139 579.967162 
+L 424.754978 584.283765 
+L 422.003192 580.758474 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.977771; stroke-linecap: round"/>
+   </g>
+   <g id="patch_171">
+    <path d="M 367.326533 530.713012 
+Q 358.964935 572.143885 323.665001 590.594409 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 2.17821; stroke-linecap: round"/>
+    <path d="M 328.136414 590.514014 
+L 323.665001 590.594409 
+L 326.283533 586.969041 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 2.17821; stroke-linecap: round"/>
+   </g>
+   <g id="patch_172">
+    <path d="M 263.403795 207.066525 
+Q 369.001511 149.034831 474.064462 206.774294 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.545782; stroke-linecap: round"/>
+    <path d="M 471.522221 203.095026 
+L 474.064462 206.774294 
+L 469.595703 206.600526 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.545782; stroke-linecap: round"/>
+   </g>
+   <g id="patch_173">
+    <path d="M 253.710744 174.260524 
+C 282.533058 174.260524 282.533058 212.63787 253.710744 212.63787 
+C 224.88843 212.63787 224.88843 174.260524 253.098185 174.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.547889; stroke-linecap: round"/>
+    <path d="M 249.098185 172.260524 
+L 253.098185 174.260524 
+L 249.098185 176.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.547889; stroke-linecap: round"/>
+   </g>
+   <g id="patch_174">
+    <path d="M 243.912142 218.017352 
+Q 196.068229 241.844112 151.898155 219.848905 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 3.670857; stroke-linecap: round"/>
+    <path d="M 154.587259 223.42224 
+L 151.898155 219.848905 
+L 156.370285 219.841623 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 3.670857; stroke-linecap: round"/>
+   </g>
+   <g id="patch_175">
+    <path d="M 263.509345 207.258387 
+Q 311.353259 183.431628 358.904025 207.110305 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.29291; stroke-linecap: round"/>
+    <path d="M 356.214921 203.53697 
+L 358.904025 207.110305 
+L 354.431895 207.117587 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.29291; stroke-linecap: round"/>
+   </g>
+   <g id="patch_176">
+    <path d="M 262.277033 219.820456 
+Q 323.441656 274.030383 313.310895 353.269846 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.650691; stroke-linecap: round"/>
+    <path d="M 315.802018 349.555778 
+L 313.310895 353.269846 
+L 311.834314 349.048507 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.650691; stroke-linecap: round"/>
+   </g>
+   <g id="patch_177">
+    <path d="M 262.373314 219.704121 
+Q 398.193647 333.537375 370.959744 508.062567 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.51628; stroke-linecap: round"/>
+    <path d="M 373.552548 504.418755 
+L 370.959744 508.062567 
+L 369.600377 503.802036 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.51628; stroke-linecap: round"/>
+   </g>
+   <g id="patch_178">
+    <path d="M 259.282214 222.331757 
+Q 317.217808 327.768655 259.730605 432.392012 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.830263; stroke-linecap: round"/>
+    <path d="M 263.409674 429.849483 
+L 259.730605 432.392012 
+L 259.904023 427.92324 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.830263; stroke-linecap: round"/>
+   </g>
+   <g id="patch_179">
+    <path d="M 264.658288 214.905447 
+Q 382.531975 241.679379 422.333162 353.407778 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 2.030702; stroke-linecap: round"/>
+    <path d="M 422.874889 348.968574 
+L 422.333162 353.407778 
+L 419.106835 350.310874 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 2.030702; stroke-linecap: round"/>
+   </g>
+   <g id="patch_180">
+    <path d="M 263.048194 218.794816 
+Q 375.434115 295.687502 369.707979 430.716967 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.914553; stroke-linecap: round"/>
+    <path d="M 371.875657 426.805296 
+L 369.707979 430.716967 
+L 367.879249 426.635822 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.914553; stroke-linecap: round"/>
+   </g>
+   <g id="patch_181">
+    <path d="M 263.365973 207.006453 
+Q 426.643445 114.509626 588.953355 206.456996 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.994629; stroke-linecap: round"/>
+    <path d="M 586.458803 202.74523 
+L 588.953355 206.456996 
+L 584.487211 206.225579 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.994629; stroke-linecap: round"/>
+   </g>
+   <g id="patch_182">
+    <path d="M 262.07317 220.062714 
+Q 286.263997 244.20416 284.086965 276.162773 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.917612; stroke-linecap: round"/>
+    <path d="M 286.354192 272.307948 
+L 284.086965 276.162773 
+L 282.36344 272.036096 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.917612; stroke-linecap: round"/>
+   </g>
+   <g id="patch_183">
+    <path d="M 148.058245 206.976642 
+Q 368.997344 79.953517 589.813893 206.903133 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.126436; stroke-linecap: round"/>
+    <path d="M 587.342958 203.175604 
+L 589.813893 206.903133 
+L 585.349308 206.643364 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.126436; stroke-linecap: round"/>
+   </g>
+   <g id="patch_184">
+    <path d="M 148.076717 207.006453 
+Q 311.354189 114.509626 473.711247 206.483705 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.946162; stroke-linecap: round"/>
+    <path d="M 471.216695 202.771939 
+L 473.711247 206.483705 
+L 469.245103 206.252288 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.946162; stroke-linecap: round"/>
+   </g>
+   <g id="patch_185">
+    <path d="M 148.114539 207.066525 
+Q 253.712255 149.034831 359.035362 206.917269 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.280266; stroke-linecap: round"/>
+    <path d="M 356.493121 203.238001 
+L 359.035362 206.917269 
+L 354.566603 206.7435 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.280266; stroke-linecap: round"/>
+   </g>
+   <g id="patch_186">
+    <path d="M 148.220089 207.258387 
+Q 196.064003 183.431628 243.297719 206.952425 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.609702; stroke-linecap: round"/>
+    <path d="M 240.608615 203.37909 
+L 243.297719 206.952425 
+L 238.825589 206.959707 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.609702; stroke-linecap: round"/>
+   </g>
+   <g id="patch_187">
+    <path d="M 149.596429 212.214474 
+Q 325.941142 207.892027 419.92416 355.326641 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.391498; stroke-linecap: round"/>
+    <path d="M 419.460526 350.878602 
+L 419.92416 355.326641 
+L 416.087549 353.028725 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.391498; stroke-linecap: round"/>
+   </g>
+   <g id="patch_188">
+    <path d="M 149.584293 213.277739 
+Q 377.302121 228.715614 478.987357 432.039858 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.811297; stroke-linecap: round"/>
+    <path d="M 478.98695 427.567722 
+L 478.987357 432.039858 
+L 475.409404 429.356902 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.811297; stroke-linecap: round"/>
+   </g>
+   <g id="patch_189">
+    <path d="M 149.235048 215.485378 
+Q 318.815376 262.577725 365.909007 431.272936 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.76283; stroke-linecap: round"/>
+    <path d="M 366.759819 426.882479 
+L 365.909007 431.272936 
+L 362.907128 427.958012 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.76283; stroke-linecap: round"/>
+   </g>
+   <g id="patch_190">
+    <path d="M 138.421488 174.260524 
+C 167.243802 174.260524 167.243802 212.63787 138.421488 212.63787 
+C 109.599174 212.63787 109.599174 174.260524 137.043231 174.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.23275; stroke-linecap: round"/>
+    <path d="M 133.043231 172.260524 
+L 137.043231 174.260524 
+L 133.043231 176.260524 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 1.23275; stroke-linecap: round"/>
+   </g>
+   <g id="patch_191">
+    <path d="M 149.369031 214.905447 
+Q 267.242718 241.679379 307.465829 354.592187 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.906124; stroke-linecap: round"/>
+    <path d="M 308.007556 350.152983 
+L 307.465829 354.592187 
+L 304.239502 351.495282 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.906124; stroke-linecap: round"/>
+   </g>
+   <g id="patch_192">
+    <path d="M 147.758937 218.794816 
+Q 260.144859 295.687502 254.396863 431.232467 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.453062; stroke-linecap: round"/>
+    <path d="M 256.564541 427.320796 
+L 254.396863 431.232467 
+L 252.568132 427.151322 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.453062; stroke-linecap: round"/>
+   </g>
+   <g id="patch_193">
+    <path d="M 148.732413 216.965512 
+Q 341.303389 300.364789 367.375154 505.846251 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 2.438809; stroke-linecap: round"/>
+    <path d="M 368.855759 501.626321 
+L 367.375154 505.846251 
+L 364.887573 502.12981 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 2.438809; stroke-linecap: round"/>
+   </g>
+   <g id="patch_194">
+    <path d="M 149.600305 212.366192 
+Q 230.92056 212.631579 276.04467 279.262187 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.758616; stroke-linecap: round"/>
+    <path d="M 275.457696 274.828739 
+L 276.04467 279.262187 
+L 272.145727 277.071697 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #bfbf00; stroke-opacity: 0.2; stroke-width: 0.758616; stroke-linecap: round"/>
+   </g>
+   <g id="patch_195">
+    <path d="M 360.918353 209.518514 
+Q 253.708312 169.640619 149.641927 208.350954 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #800080; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 154.088233 208.830915 
+L 149.641927 208.350954 
+L 152.693679 205.081886 
+L 154.088233 208.830915 
+z
+" clip-path="url(#pcb76c140e4)" style="fill: #800080; stroke: #800080; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_196">
+    <path d="M 365.857055 220.707325 
+Q 310.739197 366.147241 364.668423 508.45073 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #800080; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 365.121113 504.001565 
+L 364.668423 508.45073 
+L 361.380705 505.419079 
+L 365.121113 504.001565 
+z
+" clip-path="url(#pcb76c140e4)" style="fill: #800080; stroke: #800080; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_197">
+    <path d="M 140.739257 220.982921 
+Q 194.832677 410.368012 358.793984 513.322718 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #800080; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 356.469998 509.501842 
+L 358.793984 513.322718 
+L 354.342892 512.889381 
+L 356.469998 509.501842 
+z
+" clip-path="url(#pcb76c140e4)" style="fill: #800080; stroke: #800080; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_198">
+    <path d="M 591.079061 210.979753 
+Q 426.645725 179.709418 265.507439 210.352724 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #008000; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 269.810655 211.570233 
+L 265.507439 210.352724 
+L 269.063376 207.640656 
+L 269.810655 211.570233 
+z
+" clip-path="url(#pcb76c140e4)" style="fill: #008000; stroke: #008000; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_199">
+    <path d="M 591.299643 215.171681 
+Q 440.894029 262.031395 320.692477 358.590895 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #008000; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 325.063443 357.645034 
+L 320.692477 358.590895 
+L 322.558368 354.526605 
+L 325.063443 357.645034 
+z
+" clip-path="url(#pcb76c140e4)" style="fill: #008000; stroke: #008000; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_200">
+    <path d="M 255.191625 221.171508 
+Q 268.692966 294.591147 305.140096 355.867787 
+" clip-path="url(#pcb76c140e4)" style="fill: none; stroke: #008000; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 304.814201 351.407541 
+L 305.140096 355.867787 
+L 301.376363 353.452356 
+L 304.814201 351.407541 
+z
+" clip-path="url(#pcb76c140e4)" style="fill: #008000; stroke: #008000; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="C0_0_c84e1212e0" d="M 0 11.18034 
+C 2.965061 11.18034 5.80908 10.002309 7.905694 7.905694 
+C 10.002309 5.80908 11.18034 2.965061 11.18034 -0 
+C 11.18034 -2.965061 10.002309 -5.80908 7.905694 -7.905694 
+C 5.80908 -10.002309 2.965061 -11.18034 0 -11.18034 
+C -2.965061 -11.18034 -5.80908 -10.002309 -7.905694 -7.905694 
+C -10.002309 -5.80908 -11.18034 -2.965061 -11.18034 0 
+C -11.18034 2.965061 -10.002309 5.80908 -7.905694 7.905694 
+C -5.80908 10.002309 -2.965061 11.18034 0 11.18034 
+z
+"/>
+    </defs>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="311.355372" y="596.411327" style="fill: #ff0000; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="311.355372" y="366.147253" style="fill: #ff0000; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="426.644628" y="366.147253" style="fill: #ff0000; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="282.533058" y="289.392561" style="fill: #ff0000; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="369" y="519.656636" style="fill: #ff0000; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="253.710744" y="212.63787" style="fill: #ff0000; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="138.421488" y="212.63787" style="fill: #ff0000; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="426.644628" y="596.411327" style="fill: #0000ff; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="253.710744" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="369" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="484.289256" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="369" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="484.289256" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C0_0_c84e1212e0" x="599.578512" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #000000; stroke-opacity: 0.2"/>
+    </g>
+   </g>
+   <g id="PathCollection_2">
+    <defs>
+     <path id="C1_0_c26621f43a" d="M 0 11.18034 
+C 2.965061 11.18034 5.80908 10.002309 7.905694 7.905694 
+C 10.002309 5.80908 11.18034 2.965061 11.18034 -0 
+C 11.18034 -2.965061 10.002309 -5.80908 7.905694 -7.905694 
+C 5.80908 -10.002309 2.965061 -11.18034 0 -11.18034 
+C -2.965061 -11.18034 -5.80908 -10.002309 -7.905694 -7.905694 
+C -10.002309 -5.80908 -11.18034 -2.965061 -11.18034 0 
+C -11.18034 2.965061 -10.002309 5.80908 -7.905694 7.905694 
+C -5.80908 10.002309 -2.965061 11.18034 0 11.18034 
+z
+"/>
+    </defs>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="311.355372" y="596.411327" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="311.355372" y="366.147253" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="426.644628" y="366.147253" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="282.533058" y="289.392561" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="369" y="519.656636" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="253.710744" y="212.63787" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="138.421488" y="212.63787" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="426.644628" y="596.411327" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="253.710744" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="369" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="484.289256" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="369" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="484.289256" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C1_0_c26621f43a" x="599.578512" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+   </g>
+   <g id="PathCollection_3">
+    <defs>
+     <path id="C2_0_b7e49cf0a8" d="M 0 11.18034 
+C 2.965061 11.18034 5.80908 10.002309 7.905694 7.905694 
+C 10.002309 5.80908 11.18034 2.965061 11.18034 -0 
+C 11.18034 -2.965061 10.002309 -5.80908 7.905694 -7.905694 
+C 5.80908 -10.002309 2.965061 -11.18034 0 -11.18034 
+C -2.965061 -11.18034 -5.80908 -10.002309 -7.905694 -7.905694 
+C -10.002309 -5.80908 -11.18034 -2.965061 -11.18034 0 
+C -11.18034 2.965061 -10.002309 5.80908 -7.905694 7.905694 
+C -5.80908 10.002309 -2.965061 11.18034 0 11.18034 
+z
+"/>
+    </defs>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="311.355372" y="596.411327" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="311.355372" y="366.147253" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="426.644628" y="366.147253" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="282.533058" y="289.392561" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="369" y="519.656636" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="253.710744" y="212.63787" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="138.421488" y="212.63787" style="fill: #ff0000; fill-opacity: 0.2; stroke: #ff0000; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="426.644628" y="596.411327" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="253.710744" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="369" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="484.289256" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="369" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="484.289256" y="442.901944" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+    <g clip-path="url(#pcb76c140e4)">
+     <use xlink:href="#C2_0_b7e49cf0a8" x="599.578512" y="212.63787" style="fill: #0000ff; fill-opacity: 0.2; stroke: #0000ff; stroke-opacity: 0.2"/>
+    </g>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TCR -->
+     <g style="opacity: 0.2" transform="translate(299.684434 599.722577) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-54" d="M -19 4666 
+L 3928 4666 
+L 3928 4134 
+L 2272 4134 
+L 2272 0 
+L 1638 0 
+L 1638 4134 
+L -19 4134 
+L -19 4666 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-43" d="M 4122 4306 
+L 4122 3641 
+Q 3803 3938 3442 4084 
+Q 3081 4231 2675 4231 
+Q 1875 4231 1450 3742 
+Q 1025 3253 1025 2328 
+Q 1025 1406 1450 917 
+Q 1875 428 2675 428 
+Q 3081 428 3442 575 
+Q 3803 722 4122 1019 
+L 4122 359 
+Q 3791 134 3420 21 
+Q 3050 -91 2638 -91 
+Q 1578 -91 968 557 
+Q 359 1206 359 2328 
+Q 359 3453 968 4101 
+Q 1578 4750 2638 4750 
+Q 3056 4750 3426 4639 
+Q 3797 4528 4122 4306 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-52" d="M 2841 2188 
+Q 3044 2119 3236 1894 
+Q 3428 1669 3622 1275 
+L 4263 0 
+L 3584 0 
+L 2988 1197 
+Q 2756 1666 2539 1819 
+Q 2322 1972 1947 1972 
+L 1259 1972 
+L 1259 0 
+L 628 0 
+L 628 4666 
+L 2053 4666 
+Q 2853 4666 3247 4331 
+Q 3641 3997 3641 3322 
+Q 3641 2881 3436 2590 
+Q 3231 2300 2841 2188 
+z
+M 1259 4147 
+L 1259 2491 
+L 2053 2491 
+Q 2509 2491 2742 2702 
+Q 2975 2913 2975 3322 
+Q 2975 3731 2742 3939 
+Q 2509 4147 2053 4147 
+L 1259 4147 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-43" x="55.208984"/>
+      <use xlink:href="#DejaVuSans-52" x="125.033203"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TuftRS5 -->
+     <g style="opacity: 0.2" transform="translate(288.640684 369.458503) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-75" d="M 544 1381 
+L 544 3500 
+L 1119 3500 
+L 1119 1403 
+Q 1119 906 1312 657 
+Q 1506 409 1894 409 
+Q 2359 409 2629 706 
+Q 2900 1003 2900 1516 
+L 2900 3500 
+L 3475 3500 
+L 3475 0 
+L 2900 0 
+L 2900 538 
+Q 2691 219 2414 64 
+Q 2138 -91 1772 -91 
+Q 1169 -91 856 284 
+Q 544 659 544 1381 
+z
+M 1991 3584 
+L 1991 3584 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-66" d="M 2375 4863 
+L 2375 4384 
+L 1825 4384 
+Q 1516 4384 1395 4259 
+Q 1275 4134 1275 3809 
+L 1275 3500 
+L 2222 3500 
+L 2222 3053 
+L 1275 3053 
+L 1275 0 
+L 697 0 
+L 697 3053 
+L 147 3053 
+L 147 3500 
+L 697 3500 
+L 697 3744 
+Q 697 4328 969 4595 
+Q 1241 4863 1831 4863 
+L 2375 4863 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-74" d="M 1172 4494 
+L 1172 3500 
+L 2356 3500 
+L 2356 3053 
+L 1172 3053 
+L 1172 1153 
+Q 1172 725 1289 603 
+Q 1406 481 1766 481 
+L 2356 481 
+L 2356 0 
+L 1766 0 
+Q 1100 0 847 248 
+Q 594 497 594 1153 
+L 594 3053 
+L 172 3053 
+L 172 3500 
+L 594 3500 
+L 594 4494 
+L 1172 4494 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-53" d="M 3425 4513 
+L 3425 3897 
+Q 3066 4069 2747 4153 
+Q 2428 4238 2131 4238 
+Q 1616 4238 1336 4038 
+Q 1056 3838 1056 3469 
+Q 1056 3159 1242 3001 
+Q 1428 2844 1947 2747 
+L 2328 2669 
+Q 3034 2534 3370 2195 
+Q 3706 1856 3706 1288 
+Q 3706 609 3251 259 
+Q 2797 -91 1919 -91 
+Q 1588 -91 1214 -16 
+Q 841 59 441 206 
+L 441 856 
+Q 825 641 1194 531 
+Q 1563 422 1919 422 
+Q 2459 422 2753 634 
+Q 3047 847 3047 1241 
+Q 3047 1584 2836 1778 
+Q 2625 1972 2144 2069 
+L 1759 2144 
+Q 1053 2284 737 2584 
+Q 422 2884 422 3419 
+Q 422 4038 858 4394 
+Q 1294 4750 2059 4750 
+Q 2388 4750 2728 4690 
+Q 3069 4631 3425 4513 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-35" d="M 691 4666 
+L 3169 4666 
+L 3169 4134 
+L 1269 4134 
+L 1269 2991 
+Q 1406 3038 1543 3061 
+Q 1681 3084 1819 3084 
+Q 2600 3084 3056 2656 
+Q 3513 2228 3513 1497 
+Q 3513 744 3044 326 
+Q 2575 -91 1722 -91 
+Q 1428 -91 1123 -41 
+Q 819 9 494 109 
+L 494 744 
+Q 775 591 1075 516 
+Q 1375 441 1709 441 
+Q 2250 441 2565 725 
+Q 2881 1009 2881 1497 
+Q 2881 1984 2565 2268 
+Q 2250 2553 1709 2553 
+Q 1456 2553 1204 2497 
+Q 953 2441 691 2322 
+L 691 4666 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-75" x="45.958984"/>
+      <use xlink:href="#DejaVuSans-66" x="109.337891"/>
+      <use xlink:href="#DejaVuSans-74" x="142.792969"/>
+      <use xlink:href="#DejaVuSans-52" x="182.001953"/>
+      <use xlink:href="#DejaVuSans-53" x="251.484375"/>
+      <use xlink:href="#DejaVuSans-35" x="314.960938"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TuftIB5 -->
+     <g style="opacity: 0.2" transform="translate(406.021503 369.458503) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-49" d="M 628 4666 
+L 1259 4666 
+L 1259 0 
+L 628 0 
+L 628 4666 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-42" d="M 1259 2228 
+L 1259 519 
+L 2272 519 
+Q 2781 519 3026 730 
+Q 3272 941 3272 1375 
+Q 3272 1813 3026 2020 
+Q 2781 2228 2272 2228 
+L 1259 2228 
+z
+M 1259 4147 
+L 1259 2741 
+L 2194 2741 
+Q 2656 2741 2882 2914 
+Q 3109 3088 3109 3444 
+Q 3109 3797 2882 3972 
+Q 2656 4147 2194 4147 
+L 1259 4147 
+z
+M 628 4666 
+L 2241 4666 
+Q 2963 4666 3353 4366 
+Q 3744 4066 3744 3513 
+Q 3744 3084 3544 2831 
+Q 3344 2578 2956 2516 
+Q 3422 2416 3680 2098 
+Q 3938 1781 3938 1306 
+Q 3938 681 3513 340 
+Q 3088 0 2303 0 
+L 628 0 
+L 628 4666 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-75" x="45.958984"/>
+      <use xlink:href="#DejaVuSans-66" x="109.337891"/>
+      <use xlink:href="#DejaVuSans-74" x="142.792969"/>
+      <use xlink:href="#DejaVuSans-49" x="182.001953"/>
+      <use xlink:href="#DejaVuSans-42" x="211.494141"/>
+      <use xlink:href="#DejaVuSans-35" x="280.097656"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Spinstel4 -->
+     <g style="opacity: 0.2" transform="translate(254.791495 292.703811) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-70" d="M 1159 525 
+L 1159 -1331 
+L 581 -1331 
+L 581 3500 
+L 1159 3500 
+L 1159 2969 
+Q 1341 3281 1617 3432 
+Q 1894 3584 2278 3584 
+Q 2916 3584 3314 3078 
+Q 3713 2572 3713 1747 
+Q 3713 922 3314 415 
+Q 2916 -91 2278 -91 
+Q 1894 -91 1617 61 
+Q 1341 213 1159 525 
+z
+M 3116 1747 
+Q 3116 2381 2855 2742 
+Q 2594 3103 2138 3103 
+Q 1681 3103 1420 2742 
+Q 1159 2381 1159 1747 
+Q 1159 1113 1420 752 
+Q 1681 391 2138 391 
+Q 2594 391 2855 752 
+Q 3116 1113 3116 1747 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-69" d="M 603 3500 
+L 1178 3500 
+L 1178 0 
+L 603 0 
+L 603 3500 
+z
+M 603 4863 
+L 1178 4863 
+L 1178 4134 
+L 603 4134 
+L 603 4863 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-6e" d="M 3513 2113 
+L 3513 0 
+L 2938 0 
+L 2938 2094 
+Q 2938 2591 2744 2837 
+Q 2550 3084 2163 3084 
+Q 1697 3084 1428 2787 
+Q 1159 2491 1159 1978 
+L 1159 0 
+L 581 0 
+L 581 3500 
+L 1159 3500 
+L 1159 2956 
+Q 1366 3272 1645 3428 
+Q 1925 3584 2291 3584 
+Q 2894 3584 3203 3211 
+Q 3513 2838 3513 2113 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-73" d="M 2834 3397 
+L 2834 2853 
+Q 2591 2978 2328 3040 
+Q 2066 3103 1784 3103 
+Q 1356 3103 1142 2972 
+Q 928 2841 928 2578 
+Q 928 2378 1081 2264 
+Q 1234 2150 1697 2047 
+L 1894 2003 
+Q 2506 1872 2764 1633 
+Q 3022 1394 3022 966 
+Q 3022 478 2636 193 
+Q 2250 -91 1575 -91 
+Q 1294 -91 989 -36 
+Q 684 19 347 128 
+L 347 722 
+Q 666 556 975 473 
+Q 1284 391 1588 391 
+Q 1994 391 2212 530 
+Q 2431 669 2431 922 
+Q 2431 1156 2273 1281 
+Q 2116 1406 1581 1522 
+L 1381 1569 
+Q 847 1681 609 1914 
+Q 372 2147 372 2553 
+Q 372 3047 722 3315 
+Q 1072 3584 1716 3584 
+Q 2034 3584 2315 3537 
+Q 2597 3491 2834 3397 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-65" d="M 3597 1894 
+L 3597 1613 
+L 953 1613 
+Q 991 1019 1311 708 
+Q 1631 397 2203 397 
+Q 2534 397 2845 478 
+Q 3156 559 3463 722 
+L 3463 178 
+Q 3153 47 2828 -22 
+Q 2503 -91 2169 -91 
+Q 1331 -91 842 396 
+Q 353 884 353 1716 
+Q 353 2575 817 3079 
+Q 1281 3584 2069 3584 
+Q 2775 3584 3186 3129 
+Q 3597 2675 3597 1894 
+z
+M 3022 2063 
+Q 3016 2534 2758 2815 
+Q 2500 3097 2075 3097 
+Q 1594 3097 1305 2825 
+Q 1016 2553 972 2059 
+L 3022 2063 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-6c" d="M 603 4863 
+L 1178 4863 
+L 1178 0 
+L 603 0 
+L 603 4863 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-34" d="M 2419 4116 
+L 825 1625 
+L 2419 1625 
+L 2419 4116 
+z
+M 2253 4666 
+L 3047 4666 
+L 3047 1625 
+L 3713 1625 
+L 3713 1100 
+L 3047 1100 
+L 3047 0 
+L 2419 0 
+L 2419 1100 
+L 313 1100 
+L 313 1709 
+L 2253 4666 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-70" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-69" x="126.953125"/>
+      <use xlink:href="#DejaVuSans-6e" x="154.736328"/>
+      <use xlink:href="#DejaVuSans-73" x="218.115234"/>
+      <use xlink:href="#DejaVuSans-74" x="270.214844"/>
+      <use xlink:href="#DejaVuSans-65" x="309.423828"/>
+      <use xlink:href="#DejaVuSans-6c" x="370.947266"/>
+      <use xlink:href="#DejaVuSans-34" x="398.730469"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- NontuftRS6 -->
+     <g style="opacity: 0.2" transform="translate(334.727813 522.967886) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-4e" d="M 628 4666 
+L 1478 4666 
+L 3547 763 
+L 3547 4666 
+L 4159 4666 
+L 4159 0 
+L 3309 0 
+L 1241 3903 
+L 1241 0 
+L 628 0 
+L 628 4666 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-6f" d="M 1959 3097 
+Q 1497 3097 1228 2736 
+Q 959 2375 959 1747 
+Q 959 1119 1226 758 
+Q 1494 397 1959 397 
+Q 2419 397 2687 759 
+Q 2956 1122 2956 1747 
+Q 2956 2369 2687 2733 
+Q 2419 3097 1959 3097 
+z
+M 1959 3584 
+Q 2709 3584 3137 3096 
+Q 3566 2609 3566 1747 
+Q 3566 888 3137 398 
+Q 2709 -91 1959 -91 
+Q 1206 -91 779 398 
+Q 353 888 353 1747 
+Q 353 2609 779 3096 
+Q 1206 3584 1959 3584 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-36" d="M 2113 2584 
+Q 1688 2584 1439 2293 
+Q 1191 2003 1191 1497 
+Q 1191 994 1439 701 
+Q 1688 409 2113 409 
+Q 2538 409 2786 701 
+Q 3034 994 3034 1497 
+Q 3034 2003 2786 2293 
+Q 2538 2584 2113 2584 
+z
+M 3366 4563 
+L 3366 3988 
+Q 3128 4100 2886 4159 
+Q 2644 4219 2406 4219 
+Q 1781 4219 1451 3797 
+Q 1122 3375 1075 2522 
+Q 1259 2794 1537 2939 
+Q 1816 3084 2150 3084 
+Q 2853 3084 3261 2657 
+Q 3669 2231 3669 1497 
+Q 3669 778 3244 343 
+Q 2819 -91 2113 -91 
+Q 1303 -91 875 529 
+Q 447 1150 447 2328 
+Q 447 3434 972 4092 
+Q 1497 4750 2381 4750 
+Q 2619 4750 2861 4703 
+Q 3103 4656 3366 4563 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-4e"/>
+      <use xlink:href="#DejaVuSans-6f" x="74.804688"/>
+      <use xlink:href="#DejaVuSans-6e" x="135.986328"/>
+      <use xlink:href="#DejaVuSans-74" x="199.365234"/>
+      <use xlink:href="#DejaVuSans-75" x="238.574219"/>
+      <use xlink:href="#DejaVuSans-66" x="301.953125"/>
+      <use xlink:href="#DejaVuSans-74" x="335.408203"/>
+      <use xlink:href="#DejaVuSans-52" x="374.617188"/>
+      <use xlink:href="#DejaVuSans-53" x="444.099609"/>
+      <use xlink:href="#DejaVuSans-36" x="507.576172"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- SyppyrFRB -->
+     <g style="opacity: 0.2" transform="translate(220.977931 215.94912) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-79" d="M 2059 -325 
+Q 1816 -950 1584 -1140 
+Q 1353 -1331 966 -1331 
+L 506 -1331 
+L 506 -850 
+L 844 -850 
+Q 1081 -850 1212 -737 
+Q 1344 -625 1503 -206 
+L 1606 56 
+L 191 3500 
+L 800 3500 
+L 1894 763 
+L 2988 3500 
+L 3597 3500 
+L 2059 -325 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-72" d="M 2631 2963 
+Q 2534 3019 2420 3045 
+Q 2306 3072 2169 3072 
+Q 1681 3072 1420 2755 
+Q 1159 2438 1159 1844 
+L 1159 0 
+L 581 0 
+L 581 3500 
+L 1159 3500 
+L 1159 2956 
+Q 1341 3275 1631 3429 
+Q 1922 3584 2338 3584 
+Q 2397 3584 2469 3576 
+Q 2541 3569 2628 3553 
+L 2631 2963 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-46" d="M 628 4666 
+L 3309 4666 
+L 3309 4134 
+L 1259 4134 
+L 1259 2759 
+L 3109 2759 
+L 3109 2228 
+L 1259 2228 
+L 1259 0 
+L 628 0 
+L 628 4666 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-79" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-70" x="122.65625"/>
+      <use xlink:href="#DejaVuSans-70" x="186.132812"/>
+      <use xlink:href="#DejaVuSans-79" x="249.609375"/>
+      <use xlink:href="#DejaVuSans-72" x="308.789062"/>
+      <use xlink:href="#DejaVuSans-46" x="349.902344"/>
+      <use xlink:href="#DejaVuSans-52" x="407.421875"/>
+      <use xlink:href="#DejaVuSans-42" x="476.904297"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- SyppyrRS -->
+     <g style="opacity: 0.2" transform="translate(109.447113 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-79" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-70" x="122.65625"/>
+      <use xlink:href="#DejaVuSans-70" x="186.132812"/>
+      <use xlink:href="#DejaVuSans-79" x="249.609375"/>
+      <use xlink:href="#DejaVuSans-72" x="308.789062"/>
+      <use xlink:href="#DejaVuSans-52" x="349.902344"/>
+      <use xlink:href="#DejaVuSans-53" x="419.384766"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- nRT -->
+     <g style="opacity: 0.2" transform="translate(415.443378 599.722577) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-6e"/>
+      <use xlink:href="#DejaVuSans-52" x="63.378906"/>
+      <use xlink:href="#DejaVuSans-54" x="125.611328"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Bask56 -->
+     <g style="opacity: 0.2" transform="translate(231.682306 446.213194) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-61" d="M 2194 1759 
+Q 1497 1759 1228 1600 
+Q 959 1441 959 1056 
+Q 959 750 1161 570 
+Q 1363 391 1709 391 
+Q 2188 391 2477 730 
+Q 2766 1069 2766 1631 
+L 2766 1759 
+L 2194 1759 
+z
+M 3341 1997 
+L 3341 0 
+L 2766 0 
+L 2766 531 
+Q 2569 213 2275 61 
+Q 1981 -91 1556 -91 
+Q 1019 -91 701 211 
+Q 384 513 384 1019 
+Q 384 1609 779 1909 
+Q 1175 2209 1959 2209 
+L 2766 2209 
+L 2766 2266 
+Q 2766 2663 2505 2880 
+Q 2244 3097 1772 3097 
+Q 1472 3097 1187 3025 
+Q 903 2953 641 2809 
+L 641 3341 
+Q 956 3463 1253 3523 
+Q 1550 3584 1831 3584 
+Q 2591 3584 2966 3190 
+Q 3341 2797 3341 1997 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-6b" d="M 581 4863 
+L 1159 4863 
+L 1159 1991 
+L 2875 3500 
+L 3609 3500 
+L 1753 1863 
+L 3688 0 
+L 2938 0 
+L 1159 1709 
+L 1159 0 
+L 581 0 
+L 581 4863 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-42"/>
+      <use xlink:href="#DejaVuSans-61" x="68.603516"/>
+      <use xlink:href="#DejaVuSans-73" x="129.882812"/>
+      <use xlink:href="#DejaVuSans-6b" x="181.982422"/>
+      <use xlink:href="#DejaVuSans-35" x="239.892578"/>
+      <use xlink:href="#DejaVuSans-36" x="303.515625"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Axax56 -->
+     <g style="opacity: 0.2" transform="translate(346.48125 446.213194) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-41" d="M 2188 4044 
+L 1331 1722 
+L 3047 1722 
+L 2188 4044 
+z
+M 1831 4666 
+L 2547 4666 
+L 4325 0 
+L 3669 0 
+L 3244 1197 
+L 1141 1197 
+L 716 0 
+L 50 0 
+L 1831 4666 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-78" d="M 3513 3500 
+L 2247 1797 
+L 3578 0 
+L 2900 0 
+L 1881 1375 
+L 863 0 
+L 184 0 
+L 1544 1831 
+L 300 3500 
+L 978 3500 
+L 1906 2253 
+L 2834 3500 
+L 3513 3500 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-41"/>
+      <use xlink:href="#DejaVuSans-78" x="68.408203"/>
+      <use xlink:href="#DejaVuSans-61" x="127.587891"/>
+      <use xlink:href="#DejaVuSans-78" x="188.867188"/>
+      <use xlink:href="#DejaVuSans-35" x="248.046875"/>
+      <use xlink:href="#DejaVuSans-36" x="311.669922"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Bask23 -->
+     <g style="opacity: 0.2" transform="translate(462.260819 215.94912) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-32" d="M 1228 531 
+L 3431 531 
+L 3431 0 
+L 469 0 
+L 469 531 
+Q 828 903 1448 1529 
+Q 2069 2156 2228 2338 
+Q 2531 2678 2651 2914 
+Q 2772 3150 2772 3378 
+Q 2772 3750 2511 3984 
+Q 2250 4219 1831 4219 
+Q 1534 4219 1204 4116 
+Q 875 4013 500 3803 
+L 500 4441 
+Q 881 4594 1212 4672 
+Q 1544 4750 1819 4750 
+Q 2544 4750 2975 4387 
+Q 3406 4025 3406 3419 
+Q 3406 3131 3298 2873 
+Q 3191 2616 2906 2266 
+Q 2828 2175 2409 1742 
+Q 1991 1309 1228 531 
+z
+" transform="scale(0.015625)"/>
+       <path id="DejaVuSans-33" d="M 2597 2516 
+Q 3050 2419 3304 2112 
+Q 3559 1806 3559 1356 
+Q 3559 666 3084 287 
+Q 2609 -91 1734 -91 
+Q 1441 -91 1130 -33 
+Q 819 25 488 141 
+L 488 750 
+Q 750 597 1062 519 
+Q 1375 441 1716 441 
+Q 2309 441 2620 675 
+Q 2931 909 2931 1356 
+Q 2931 1769 2642 2001 
+Q 2353 2234 1838 2234 
+L 1294 2234 
+L 1294 2753 
+L 1863 2753 
+Q 2328 2753 2575 2939 
+Q 2822 3125 2822 3475 
+Q 2822 3834 2567 4026 
+Q 2313 4219 1838 4219 
+Q 1578 4219 1281 4162 
+Q 984 4106 628 3988 
+L 628 4550 
+Q 988 4650 1302 4700 
+Q 1616 4750 1894 4750 
+Q 2613 4750 3031 4423 
+Q 3450 4097 3450 3541 
+Q 3450 3153 3228 2886 
+Q 3006 2619 2597 2516 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-42"/>
+      <use xlink:href="#DejaVuSans-61" x="68.603516"/>
+      <use xlink:href="#DejaVuSans-73" x="129.882812"/>
+      <use xlink:href="#DejaVuSans-6b" x="181.982422"/>
+      <use xlink:href="#DejaVuSans-32" x="239.892578"/>
+      <use xlink:href="#DejaVuSans-33" x="303.515625"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Axax23 -->
+     <g style="opacity: 0.2" transform="translate(346.48125 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-41"/>
+      <use xlink:href="#DejaVuSans-78" x="68.408203"/>
+      <use xlink:href="#DejaVuSans-61" x="127.587891"/>
+      <use xlink:href="#DejaVuSans-78" x="188.867188"/>
+      <use xlink:href="#DejaVuSans-32" x="248.046875"/>
+      <use xlink:href="#DejaVuSans-33" x="311.669922"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- LTS56 -->
+     <g style="opacity: 0.2" transform="translate(466.662381 446.213194) scale(0.12 -0.12)">
+      <defs>
+       <path id="DejaVuSans-4c" d="M 628 4666 
+L 1259 4666 
+L 1259 531 
+L 3531 531 
+L 3531 0 
+L 628 0 
+L 628 4666 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#DejaVuSans-4c"/>
+      <use xlink:href="#DejaVuSans-54" x="41.962891"/>
+      <use xlink:href="#DejaVuSans-53" x="103.046875"/>
+      <use xlink:href="#DejaVuSans-35" x="166.523438"/>
+      <use xlink:href="#DejaVuSans-36" x="230.146484"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- LTS23 -->
+     <g style="opacity: 0.2" transform="translate(581.951637 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-4c"/>
+      <use xlink:href="#DejaVuSans-54" x="41.962891"/>
+      <use xlink:href="#DejaVuSans-53" x="103.046875"/>
+      <use xlink:href="#DejaVuSans-32" x="166.523438"/>
+      <use xlink:href="#DejaVuSans-33" x="230.146484"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TCR -->
+     <g style="opacity: 0.2" transform="translate(299.684434 599.722577) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-43" x="55.208984"/>
+      <use xlink:href="#DejaVuSans-52" x="125.033203"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TuftRS5 -->
+     <g style="opacity: 0.2" transform="translate(288.640684 369.458503) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-75" x="45.958984"/>
+      <use xlink:href="#DejaVuSans-66" x="109.337891"/>
+      <use xlink:href="#DejaVuSans-74" x="142.792969"/>
+      <use xlink:href="#DejaVuSans-52" x="182.001953"/>
+      <use xlink:href="#DejaVuSans-53" x="251.484375"/>
+      <use xlink:href="#DejaVuSans-35" x="314.960938"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TuftIB5 -->
+     <g style="opacity: 0.2" transform="translate(406.021503 369.458503) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-75" x="45.958984"/>
+      <use xlink:href="#DejaVuSans-66" x="109.337891"/>
+      <use xlink:href="#DejaVuSans-74" x="142.792969"/>
+      <use xlink:href="#DejaVuSans-49" x="182.001953"/>
+      <use xlink:href="#DejaVuSans-42" x="211.494141"/>
+      <use xlink:href="#DejaVuSans-35" x="280.097656"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_18">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Spinstel4 -->
+     <g style="opacity: 0.2" transform="translate(254.791495 292.703811) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-70" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-69" x="126.953125"/>
+      <use xlink:href="#DejaVuSans-6e" x="154.736328"/>
+      <use xlink:href="#DejaVuSans-73" x="218.115234"/>
+      <use xlink:href="#DejaVuSans-74" x="270.214844"/>
+      <use xlink:href="#DejaVuSans-65" x="309.423828"/>
+      <use xlink:href="#DejaVuSans-6c" x="370.947266"/>
+      <use xlink:href="#DejaVuSans-34" x="398.730469"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_19">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- NontuftRS6 -->
+     <g style="opacity: 0.2" transform="translate(334.727813 522.967886) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-4e"/>
+      <use xlink:href="#DejaVuSans-6f" x="74.804688"/>
+      <use xlink:href="#DejaVuSans-6e" x="135.986328"/>
+      <use xlink:href="#DejaVuSans-74" x="199.365234"/>
+      <use xlink:href="#DejaVuSans-75" x="238.574219"/>
+      <use xlink:href="#DejaVuSans-66" x="301.953125"/>
+      <use xlink:href="#DejaVuSans-74" x="335.408203"/>
+      <use xlink:href="#DejaVuSans-52" x="374.617188"/>
+      <use xlink:href="#DejaVuSans-53" x="444.099609"/>
+      <use xlink:href="#DejaVuSans-36" x="507.576172"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_20">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- SyppyrFRB -->
+     <g style="opacity: 0.2" transform="translate(220.977931 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-79" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-70" x="122.65625"/>
+      <use xlink:href="#DejaVuSans-70" x="186.132812"/>
+      <use xlink:href="#DejaVuSans-79" x="249.609375"/>
+      <use xlink:href="#DejaVuSans-72" x="308.789062"/>
+      <use xlink:href="#DejaVuSans-46" x="349.902344"/>
+      <use xlink:href="#DejaVuSans-52" x="407.421875"/>
+      <use xlink:href="#DejaVuSans-42" x="476.904297"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_21">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- SyppyrRS -->
+     <g style="opacity: 0.2" transform="translate(109.447113 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-79" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-70" x="122.65625"/>
+      <use xlink:href="#DejaVuSans-70" x="186.132812"/>
+      <use xlink:href="#DejaVuSans-79" x="249.609375"/>
+      <use xlink:href="#DejaVuSans-72" x="308.789062"/>
+      <use xlink:href="#DejaVuSans-52" x="349.902344"/>
+      <use xlink:href="#DejaVuSans-53" x="419.384766"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_22">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- nRT -->
+     <g style="opacity: 0.2" transform="translate(415.443378 599.722577) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-6e"/>
+      <use xlink:href="#DejaVuSans-52" x="63.378906"/>
+      <use xlink:href="#DejaVuSans-54" x="125.611328"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_23">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Bask56 -->
+     <g style="opacity: 0.2" transform="translate(231.682306 446.213194) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-42"/>
+      <use xlink:href="#DejaVuSans-61" x="68.603516"/>
+      <use xlink:href="#DejaVuSans-73" x="129.882812"/>
+      <use xlink:href="#DejaVuSans-6b" x="181.982422"/>
+      <use xlink:href="#DejaVuSans-35" x="239.892578"/>
+      <use xlink:href="#DejaVuSans-36" x="303.515625"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_24">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Axax56 -->
+     <g style="opacity: 0.2" transform="translate(346.48125 446.213194) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-41"/>
+      <use xlink:href="#DejaVuSans-78" x="68.408203"/>
+      <use xlink:href="#DejaVuSans-61" x="127.587891"/>
+      <use xlink:href="#DejaVuSans-78" x="188.867188"/>
+      <use xlink:href="#DejaVuSans-35" x="248.046875"/>
+      <use xlink:href="#DejaVuSans-36" x="311.669922"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_25">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Bask23 -->
+     <g style="opacity: 0.2" transform="translate(462.260819 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-42"/>
+      <use xlink:href="#DejaVuSans-61" x="68.603516"/>
+      <use xlink:href="#DejaVuSans-73" x="129.882812"/>
+      <use xlink:href="#DejaVuSans-6b" x="181.982422"/>
+      <use xlink:href="#DejaVuSans-32" x="239.892578"/>
+      <use xlink:href="#DejaVuSans-33" x="303.515625"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_26">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Axax23 -->
+     <g style="opacity: 0.2" transform="translate(346.48125 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-41"/>
+      <use xlink:href="#DejaVuSans-78" x="68.408203"/>
+      <use xlink:href="#DejaVuSans-61" x="127.587891"/>
+      <use xlink:href="#DejaVuSans-78" x="188.867188"/>
+      <use xlink:href="#DejaVuSans-32" x="248.046875"/>
+      <use xlink:href="#DejaVuSans-33" x="311.669922"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_27">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- LTS56 -->
+     <g style="opacity: 0.2" transform="translate(466.662381 446.213194) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-4c"/>
+      <use xlink:href="#DejaVuSans-54" x="41.962891"/>
+      <use xlink:href="#DejaVuSans-53" x="103.046875"/>
+      <use xlink:href="#DejaVuSans-35" x="166.523438"/>
+      <use xlink:href="#DejaVuSans-36" x="230.146484"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_28">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- LTS23 -->
+     <g style="opacity: 0.2" transform="translate(581.951637 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-4c"/>
+      <use xlink:href="#DejaVuSans-54" x="41.962891"/>
+      <use xlink:href="#DejaVuSans-53" x="103.046875"/>
+      <use xlink:href="#DejaVuSans-32" x="166.523438"/>
+      <use xlink:href="#DejaVuSans-33" x="230.146484"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_29">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TCR -->
+     <g style="opacity: 0.2" transform="translate(299.684434 599.722577) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-43" x="55.208984"/>
+      <use xlink:href="#DejaVuSans-52" x="125.033203"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_30">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TuftRS5 -->
+     <g style="opacity: 0.2" transform="translate(288.640684 369.458503) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-75" x="45.958984"/>
+      <use xlink:href="#DejaVuSans-66" x="109.337891"/>
+      <use xlink:href="#DejaVuSans-74" x="142.792969"/>
+      <use xlink:href="#DejaVuSans-52" x="182.001953"/>
+      <use xlink:href="#DejaVuSans-53" x="251.484375"/>
+      <use xlink:href="#DejaVuSans-35" x="314.960938"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_31">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- TuftIB5 -->
+     <g style="opacity: 0.2" transform="translate(406.021503 369.458503) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-54"/>
+      <use xlink:href="#DejaVuSans-75" x="45.958984"/>
+      <use xlink:href="#DejaVuSans-66" x="109.337891"/>
+      <use xlink:href="#DejaVuSans-74" x="142.792969"/>
+      <use xlink:href="#DejaVuSans-49" x="182.001953"/>
+      <use xlink:href="#DejaVuSans-42" x="211.494141"/>
+      <use xlink:href="#DejaVuSans-35" x="280.097656"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_32">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Spinstel4 -->
+     <g style="opacity: 0.2" transform="translate(254.791495 292.703811) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-70" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-69" x="126.953125"/>
+      <use xlink:href="#DejaVuSans-6e" x="154.736328"/>
+      <use xlink:href="#DejaVuSans-73" x="218.115234"/>
+      <use xlink:href="#DejaVuSans-74" x="270.214844"/>
+      <use xlink:href="#DejaVuSans-65" x="309.423828"/>
+      <use xlink:href="#DejaVuSans-6c" x="370.947266"/>
+      <use xlink:href="#DejaVuSans-34" x="398.730469"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_33">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- NontuftRS6 -->
+     <g style="opacity: 0.2" transform="translate(334.727813 522.967886) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-4e"/>
+      <use xlink:href="#DejaVuSans-6f" x="74.804688"/>
+      <use xlink:href="#DejaVuSans-6e" x="135.986328"/>
+      <use xlink:href="#DejaVuSans-74" x="199.365234"/>
+      <use xlink:href="#DejaVuSans-75" x="238.574219"/>
+      <use xlink:href="#DejaVuSans-66" x="301.953125"/>
+      <use xlink:href="#DejaVuSans-74" x="335.408203"/>
+      <use xlink:href="#DejaVuSans-52" x="374.617188"/>
+      <use xlink:href="#DejaVuSans-53" x="444.099609"/>
+      <use xlink:href="#DejaVuSans-36" x="507.576172"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_34">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- SyppyrFRB -->
+     <g style="opacity: 0.2" transform="translate(220.977931 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-79" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-70" x="122.65625"/>
+      <use xlink:href="#DejaVuSans-70" x="186.132812"/>
+      <use xlink:href="#DejaVuSans-79" x="249.609375"/>
+      <use xlink:href="#DejaVuSans-72" x="308.789062"/>
+      <use xlink:href="#DejaVuSans-46" x="349.902344"/>
+      <use xlink:href="#DejaVuSans-52" x="407.421875"/>
+      <use xlink:href="#DejaVuSans-42" x="476.904297"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_35">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- SyppyrRS -->
+     <g style="opacity: 0.2" transform="translate(109.447113 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-53"/>
+      <use xlink:href="#DejaVuSans-79" x="63.476562"/>
+      <use xlink:href="#DejaVuSans-70" x="122.65625"/>
+      <use xlink:href="#DejaVuSans-70" x="186.132812"/>
+      <use xlink:href="#DejaVuSans-79" x="249.609375"/>
+      <use xlink:href="#DejaVuSans-72" x="308.789062"/>
+      <use xlink:href="#DejaVuSans-52" x="349.902344"/>
+      <use xlink:href="#DejaVuSans-53" x="419.384766"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_36">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- nRT -->
+     <g style="opacity: 0.2" transform="translate(415.443378 599.722577) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-6e"/>
+      <use xlink:href="#DejaVuSans-52" x="63.378906"/>
+      <use xlink:href="#DejaVuSans-54" x="125.611328"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_37">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Bask56 -->
+     <g style="opacity: 0.2" transform="translate(231.682306 446.213194) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-42"/>
+      <use xlink:href="#DejaVuSans-61" x="68.603516"/>
+      <use xlink:href="#DejaVuSans-73" x="129.882812"/>
+      <use xlink:href="#DejaVuSans-6b" x="181.982422"/>
+      <use xlink:href="#DejaVuSans-35" x="239.892578"/>
+      <use xlink:href="#DejaVuSans-36" x="303.515625"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_38">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Axax56 -->
+     <g style="opacity: 0.2" transform="translate(346.48125 446.213194) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-41"/>
+      <use xlink:href="#DejaVuSans-78" x="68.408203"/>
+      <use xlink:href="#DejaVuSans-61" x="127.587891"/>
+      <use xlink:href="#DejaVuSans-78" x="188.867188"/>
+      <use xlink:href="#DejaVuSans-35" x="248.046875"/>
+      <use xlink:href="#DejaVuSans-36" x="311.669922"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_39">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Bask23 -->
+     <g style="opacity: 0.2" transform="translate(462.260819 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-42"/>
+      <use xlink:href="#DejaVuSans-61" x="68.603516"/>
+      <use xlink:href="#DejaVuSans-73" x="129.882812"/>
+      <use xlink:href="#DejaVuSans-6b" x="181.982422"/>
+      <use xlink:href="#DejaVuSans-32" x="239.892578"/>
+      <use xlink:href="#DejaVuSans-33" x="303.515625"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_40">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- Axax23 -->
+     <g style="opacity: 0.2" transform="translate(346.48125 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-41"/>
+      <use xlink:href="#DejaVuSans-78" x="68.408203"/>
+      <use xlink:href="#DejaVuSans-61" x="127.587891"/>
+      <use xlink:href="#DejaVuSans-78" x="188.867188"/>
+      <use xlink:href="#DejaVuSans-32" x="248.046875"/>
+      <use xlink:href="#DejaVuSans-33" x="311.669922"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_41">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- LTS56 -->
+     <g style="opacity: 0.2" transform="translate(466.662381 446.213194) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-4c"/>
+      <use xlink:href="#DejaVuSans-54" x="41.962891"/>
+      <use xlink:href="#DejaVuSans-53" x="103.046875"/>
+      <use xlink:href="#DejaVuSans-35" x="166.523438"/>
+      <use xlink:href="#DejaVuSans-36" x="230.146484"/>
+     </g>
+    </g>
+   </g>
+   <g id="text_42">
+    <g clip-path="url(#pcb76c140e4)">
+     <!-- LTS23 -->
+     <g style="opacity: 0.2" transform="translate(581.951637 215.94912) scale(0.12 -0.12)">
+      <use xlink:href="#DejaVuSans-4c"/>
+      <use xlink:href="#DejaVuSans-54" x="41.962891"/>
+      <use xlink:href="#DejaVuSans-53" x="103.046875"/>
+      <use xlink:href="#DejaVuSans-32" x="166.523438"/>
+      <use xlink:href="#DejaVuSans-33" x="230.146484"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcb76c140e4">
+   <rect x="90" y="86.4" width="558" height="554.4"/>
+  </clipPath>
+ </defs>
+</svg>
