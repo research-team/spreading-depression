@@ -4,7 +4,7 @@ import json
 # from SD.rxd_ecs.Thalamus import thalamus_cell
 
 logging.basicConfig(filename='logs.log',
-                    filemode='a',
+                    filemode='w',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     datefmt='%H:%M:%S',
                     level=logging.DEBUG)
@@ -47,7 +47,7 @@ NsyppyrFRB = 50  # 40
 NsyppyrRS = 500  # 1000
 # L4 (400-700)
 Nspinstel4 = 240
-NLTS4 = 90  # 40
+NLTS4 = 100  # 40
 # L5 (700-1200)
 NtuftRS5 = 200
 Nbask56 = 100
@@ -81,7 +81,7 @@ count_syn = 0
 data = {}
 data['cells'] = []
 
-value = 0  # 100 #% epilepsy
+value = 100  # 100 #% epilepsy
 
 
 class CC_circuit:
@@ -355,12 +355,12 @@ class CC_circuit:
         ''' CONNECTIONS '''
 
         '''connections thalamus'''
-        connectcells(self.thalamus_generator, self.tcr, 5, 1, 1)
-        connectcells(self.thalamus_generator, self.nrt, 5, 1, 1)
+        connectcells(self.thalamus_generator, self.tcr, 4, 1, 1)
+        connectcells(self.thalamus_generator, self.nrt, 3, 1, 1)
         connectcells(self.tcr, self.spinstel4, 5, 1, 1)
         connectcells(self.tcr, self.spinstel4, 5/3, 1, 0)
-        connectcells(self.tcr, self.nrt, 3, 1, 1)
-        connectcells(self.tcr, self.nrt, 3/3, 1, 0)
+        connectcells(self.tcr, self.nrt, 2, 1, 1)
+        connectcells(self.tcr, self.nrt, 2/3, 1, 0)
         # connectcells(self.tcr, self.tuftRS5, 3, 1, 1)
         # connectcells(self.tcr, self.tuftRS5, 3/3, 1, 0)
         # connectcells(self.tcr, self.tuftIB5, 3, 1, 1)
@@ -379,8 +379,8 @@ class CC_circuit:
         # connectcells(self.tcr, self.syppyrRS, 0.083, 1, 0)
         # connectcells(self.nrt, self.bask23, 0.25/2, 1, 1)
         # connectcells(self.nrt, self.axax23, 0.25/2, 1, 1)
-        connectcells(self.nrt, self.tcr, 3, 1, -1)
-        connectcells(self.nrt, self.nrt, 3/3, 1, -1)
+        connectcells(self.nrt, self.tcr, 2, 1, -1)
+        connectcells(self.nrt, self.nrt, 2, 1, -1)
 
         '''
         Connections AMPA and NMDA
@@ -389,9 +389,9 @@ class CC_circuit:
         connectcells(self.syppyrFRB, self.bask23, 0.23, 1, 1)
         connectcells(self.syppyrFRB, self.bask23, 0.077, 1, 0)
         connectcells(self.syppyrFRB, self.syppyrFRB, 9.373/3, 1, 1)
-        connectcells(self.syppyrFRB, self.syppyrFRB, 3.124/2, 1, 0)
+        connectcells(self.syppyrFRB, self.syppyrFRB, 3.124/3, 1, 0)
         connectcells(self.syppyrFRB, self.syppyrRS, 9.373/3, 1, 1)
-        connectcells(self.syppyrFRB, self.syppyrRS, 3.124/2, 1, 0)
+        connectcells(self.syppyrFRB, self.syppyrRS, 3.124/3, 1, 0)
 
         connectcells(self.syppyrFRB, self.axax23, 0.08*2, 1, 1)
         connectcells(self.syppyrFRB, self.axax23, 0.027*2, 1, 0)
@@ -405,16 +405,16 @@ class CC_circuit:
         # connectcells(self.syppyrFRB, self.axax56, 1.485, 1, 1)
         # connectcells(self.syppyrFRB, self.axax56, 0.495, 1, 0)
 
-        connectcells(self.syppyrFRB, self.bask56, 0.1113, 1, 1)
-        connectcells(self.syppyrFRB, self.bask56, 0.0371, 1, 0)
-        connectcells(self.syppyrFRB, self.tuftIB5, 4.444, 1, 1)
-        connectcells(self.syppyrFRB, self.tuftIB5, 1.48, 1, 0)
+        connectcells(self.syppyrFRB, self.bask56, 0.1113*5, 1, 1)
+        connectcells(self.syppyrFRB, self.bask56, 0.0371*5, 1, 0)
+        connectcells(self.syppyrFRB, self.tuftIB5, 4.444/3, 1, 1)
+        connectcells(self.syppyrFRB, self.tuftIB5, 1.48/3, 1, 0)
         # connectcells(self.syppyrFRB, self.lts56, 4.444, 1, 1)
         # connectcells(self.syppyrFRB, self.lts56, 1.48, 1, 0)
 
         connectcells(self.syppyrFRB, self.lts56, 0.27, 1, 1)
-        connectcells(self.syppyrFRB, self.axax56, 0.03, 1, 1)
-        connectcells(self.syppyrFRB, self.axax56, 0.01, 1, 0)
+        connectcells(self.syppyrFRB, self.axax56, 0.03*5, 1, 1)
+        connectcells(self.syppyrFRB, self.axax56, 0.01*5, 1, 0)
         connectcells(self.syppyrFRB, self.LTS23, 0.55, 1, 1)
         connectcells(self.syppyrFRB, self.LTS23, 0.18, 1, 0)
 
@@ -426,8 +426,8 @@ class CC_circuit:
         connectcells(self.syppyrRS, self.bask23, 0.076, 1, 0)
         connectcells(self.syppyrRS, self.axax23, 0.08, 1, 1)
         connectcells(self.syppyrRS, self.axax23, 0.027, 1, 0)
-        connectcells(self.syppyrRS, self.syppyrFRB, 9.37, 1, 1)
-        connectcells(self.syppyrRS, self.syppyrFRB, 3.124, 1, 0)
+        connectcells(self.syppyrRS, self.syppyrFRB, 9.37/3, 1, 1)
+        connectcells(self.syppyrRS, self.syppyrFRB, 3.124/3, 1, 0)
         connectcells(self.syppyrRS, self.tuftIB5, 4.95, 1, 1)
         connectcells(self.syppyrRS, self.tuftIB5, 1.65, 1, 0)
         # connectcells(self.syppyrRS, self.lts56, 4.95, 1, 1)
@@ -435,8 +435,8 @@ class CC_circuit:
 
         connectcells(self.syppyrRS, self.lts56, 0.53, 1, 1)
         connectcells(self.syppyrRS, self.lts56, 0.177, 1, 0)
-        connectcells(self.syppyrRS, self.axax56, 0.03, 1, 1)
-        connectcells(self.syppyrRS, self.axax56, 0.01, 1, 0)
+        connectcells(self.syppyrRS, self.axax56, 0.03*5, 1, 1)
+        connectcells(self.syppyrRS, self.axax56, 0.01*5, 1, 0)
         connectcells(self.syppyrRS, self.syppyrRS, 9.37, 1, 1)
         connectcells(self.syppyrRS, self.syppyrRS, 3.124, 1, 0)
         connectcells(self.syppyrRS, self.tuftRS5, 4.44, 1, 1)
@@ -453,20 +453,18 @@ class CC_circuit:
 
         connectcells(self.syppyrRS, self.spinstel4, 0.3253, 1, 0)
 
-        connectcells(self.spinstel4, self.LTS4, 0.03, 1, 1)
-        connectcells(self.spinstel4, self.LTS4, 0.0033*2, 1, 0)
-        connectcells(self.LTS4, self.spinstel4, 0.02, 1, 1)
-        connectcells(self.LTS4, self.spinstel4, 0.0033, 1, 0)
+        connectcells(self.spinstel4, self.LTS4, 1.5*1.5, 1, 1)
+        connectcells(self.spinstel4, self.LTS4, 0.75*1.5, 1, 0)
         connectcells(self.spinstel4, self.LTS23, 0.3*2, 1, 1)
         connectcells(self.spinstel4, self.LTS23, 0.1*2, 1, 0)
         connectcells(self.spinstel4, self.spinstel4, 0.099*5, 1, 1)
         connectcells(self.spinstel4, self.spinstel4, 0.033*5, 1, 0)
         connectcells(self.spinstel4, self.bask23, 0.02*2, 1, 1)
         connectcells(self.spinstel4, self.bask23, 0.0067*2, 1, 0)
-        connectcells(self.spinstel4, self.syppyrFRB, 0.58*2, 1, 1)
-        connectcells(self.spinstel4, self.syppyrFRB, 0.19*2, 1, 0)
-        connectcells(self.spinstel4, self.syppyrRS, 0.58*1, 1, 1)
-        connectcells(self.spinstel4, self.syppyrRS, 0.19*2, 1, 0)
+        connectcells(self.spinstel4, self.syppyrFRB, 0.58, 1, 1)
+        connectcells(self.spinstel4, self.syppyrFRB, 0.19, 1, 0)
+        connectcells(self.spinstel4, self.syppyrRS, 0.58*4, 1, 1)
+        connectcells(self.spinstel4, self.syppyrRS, 0.19*4, 1, 0)
         connectcells(self.spinstel4, self.bask56, 0.0108*2, 1, 1)
         connectcells(self.spinstel4, self.bask56, 0.0036*2, 1, 0)
         connectcells(self.spinstel4, self.nontuftRS6, 0.14*2, 1, 1)
@@ -486,8 +484,8 @@ class CC_circuit:
         # connectcells(self.spinstel4, self.lts56, 0.157, 1, 0)
 
         connectcells(self.tuftRS5, self.tuftRS5, 2.25/4, 1, 1)
-        connectcells(self.tuftRS5, self.axax56, 0.027/4, 1, 1)
-        connectcells(self.tuftRS5, self.bask56, 0.127/4, 1, 1)
+        connectcells(self.tuftRS5, self.axax56, 0.027, 1, 1)
+        connectcells(self.tuftRS5, self.bask56, 0.127, 1, 1)
         connectcells(self.tuftRS5, self.nontuftRS6, 0.976/5, 1, 1)
         connectcells(self.tuftRS5, self.spinstel4, 0.108, 1, 1)
         connectcells(self.tuftRS5, self.syppyrRS, 0.36, 1, 1)
@@ -513,31 +511,31 @@ class CC_circuit:
         connectcells(self.tuftIB5, self.syppyrRS, 0.12, 1, 0)
         connectcells(self.tuftIB5, self.syppyrFRB, 0.36, 1, 1)
         connectcells(self.tuftIB5, self.syppyrFRB, 0.12, 1, 0)
-        connectcells(self.tuftIB5, self.nontuftRS6, 0.9763/5, 1, 1)
-        connectcells(self.tuftIB5, self.nontuftRS6, 0.325/5, 1, 0)
-        connectcells(self.tuftIB5, self.spinstel4, 0.108, 1, 1)
-        connectcells(self.tuftIB5, self.spinstel4, 0.036, 1, 0)
+        connectcells(self.tuftIB5, self.nontuftRS6, 0.9763*3, 1, 1)
+        connectcells(self.tuftIB5, self.nontuftRS6, 0.325*3, 1, 0)
+        connectcells(self.tuftIB5, self.spinstel4, 0.108*3, 1, 1)
+        connectcells(self.tuftIB5, self.spinstel4, 0.036*3, 1, 0)
         connectcells(self.tuftIB5, self.bask23, 0.0128, 1, 1)
-        connectcells(self.tuftIB5, self.tuftIB5, 1.916/6, 1, 1)
+        connectcells(self.tuftIB5, self.tuftIB5, 1.916, 1, 1)
 
         connectcells(self.nontuftRS6, self.nontuftRS6, 0.68/5, 1, 1)
         connectcells(self.nontuftRS6, self.nontuftRS6, 0.23/5, 1, 0)
         connectcells(self.nontuftRS6, self.bask23, 0.004, 1, 1)
         connectcells(self.nontuftRS6, self.bask23, 0.0013, 1, 0)
-        connectcells(self.nontuftRS6, self.spinstel4, 0.044, 1, 1)
-        connectcells(self.nontuftRS6, self.spinstel4, 0.0147, 1, 0)
+        connectcells(self.nontuftRS6, self.spinstel4, 0.044*3, 1, 1)
+        connectcells(self.nontuftRS6, self.spinstel4, 0.0147*3, 1, 0)
         connectcells(self.nontuftRS6, self.syppyrFRB, 0.093, 1, 1)
         connectcells(self.nontuftRS6, self.syppyrFRB, 0.031, 1, 0)
         connectcells(self.nontuftRS6, self.syppyrRS, 0.093, 1, 1)
         connectcells(self.nontuftRS6, self.syppyrRS, 0.031, 1, 0)
-        connectcells(self.nontuftRS6, self.bask56, 0.072/2, 1, 1)
-        connectcells(self.nontuftRS6, self.bask56, 0.024/2, 1, 0)
-        connectcells(self.nontuftRS6, self.axax56, 0.014/2, 1, 1)
+        connectcells(self.nontuftRS6, self.bask56, 0.072, 1, 1)
+        connectcells(self.nontuftRS6, self.bask56, 0.024, 1, 0)
+        connectcells(self.nontuftRS6, self.axax56, 0.014, 1, 1)
         connectcells(self.nontuftRS6, self.lts56, 0.16/2, 1, 1)
         connectcells(self.nontuftRS6, self.lts56, 0.053/2, 1, 0)
-        connectcells(self.nontuftRS6, self.tuftRS5, 0.85/5, 1, 1)
-        connectcells(self.nontuftRS6, self.tuftIB5, 0.85/5, 1, 1)
-        connectcells(self.nontuftRS6, self.tuftIB5, 0.283/5, 1, 0)
+        connectcells(self.nontuftRS6, self.tuftRS5, 0.85*3, 1, 1)
+        connectcells(self.nontuftRS6, self.tuftIB5, 0.85*3, 1, 1)
+        connectcells(self.nontuftRS6, self.tuftIB5, 0.283*3, 1, 0)
         connectcells(self.nontuftRS6, self.axax23, 0.00096, 1, 1)
         connectcells(self.nontuftRS6, self.nrt, 0.5/4, 1, 1)
         connectcells(self.nontuftRS6, self.tcr, 0.5, 1, 1)
@@ -548,7 +546,7 @@ class CC_circuit:
             Connections GABA
         '''
 
-        connectcells(self.bask23, self.syppyrFRB, 9.37, 1, -1)
+        connectcells(self.bask23, self.syppyrFRB, 9.37/3, 1, -1)
 
         connectcells(self.axax23, self.tuftIB5, 0.082, 1, -1)
 
@@ -570,12 +568,14 @@ class CC_circuit:
 
         connectcells(self.bask56, self.bask56, 0.0765*5, 1, -1)
 
+        connectcells(self.LTS4, self.spinstel4, 1.2, 1, -1)
+
         '''
         Connections GABA NEW
         '''
         connectcells(self.bask23, self.LTS23, 0.149*3, 1, -1)
         # connectcells(self.bask23, self.LTS23, 0.149*3, 1, -1)
-        connectcells(self.axax23, self.syppyrFRB, 0.271*3, 1, -1)
+        connectcells(self.axax23, self.syppyrFRB, 0.271, 1, -1)
 
         connectcells(self.LTS23, self.axax23, 0.03*3, 1, -1)
 
@@ -599,7 +599,7 @@ class CC_circuit:
 
         connectcells(self.lts56, self.bask56, 0.028*5, 1, -1)
         connectcells(self.bask56, self.lts56, 0.082*5, 1, -1)
-        connectcells(self.bask56, self.spinstel4, 0.144*5, 1, -1)
+        connectcells(self.bask56, self.spinstel4, 0.144, 1, -1)
         connectcells(self.lts56, self.spinstel4, 0.27, 1, -1)
         connectcells(self.bask56, self.tuftRS5, 1.589 * 5, 1, -1)
         connectcells(self.lts56, self.tuftRS5, 1.877 * 5, 1, -1)
@@ -629,9 +629,9 @@ class CC_circuit:
 
         connectcells(self.lts56, self.syppyrFRB, 4.0983, 1, -1)
         #
-        # connectcells(self.bask23, self.tuftIB5, 1.27486*25, 1, -1)
-        # connectcells(self.bask23, self.tuftRS5, 1.27486*25, 1, -1)
-        # connectcells(self.bask23, self.nontuftRS6, 0.1618*, 1, -1)
+        connectcells(self.bask23, self.tuftIB5, 1.27486*2, 1, -1)
+        connectcells(self.bask23, self.tuftRS5, 1.27486*2, 1, -1)
+        connectcells(self.bask23, self.nontuftRS6, 0.1618*3, 1, -1)
 
         logging.info('added conections')
 
@@ -754,7 +754,7 @@ def connectcells(pre, post, weight, delay, type, N=50):
                 w = random.gauss(weight, weight / 5) * 2
                 nc.weight[0] = w
                 # nc.weight[0] = random.gauss(weight, weight / 6) * 2
-                nc.delay = random.gauss(delay, 1 / 4) + 1  # idk but should be more than 1 for parallel
+                nc.delay = random.gauss(delay*2, 1 / 4) + 1  # idk but should be more than 1 for parallel
                 # nc.delay = random.gauss(delay, 1 / 5) + 1  # idk but should be more than 1 for parallel
                 from_cell = pc.gid2cell(pre[0]).__str__().split(' ')[0].split('.')[-1]
                 to_cell = target.__str__().split(' ')[0].split('.')[-1]
@@ -857,7 +857,10 @@ def spikeout(pool, id, name, v_vec):
     if rank == 0:
         logging.info("start recording")
         result = np.mean(np.array(result), axis=0, dtype=np.float32)
-        with hdf5.File('./results/voltage_{}_{}.hdf5'.format(id, name), 'w') as file:
+        s_id = str(id)
+        if value == 100:
+            s_id += 'e'
+        with hdf5.File('./results/voltage_{}_{}.hdf5'.format(s_id, name), 'w') as file:
             file.create_dataset('#0_step', data=np.array(result), compression="gzip")
     else:
         logging.info(rank)
@@ -1004,14 +1007,16 @@ if __name__ == '__main__':
     '''
     k_nrns = 0
     k_name = 1
-    if rank == 0:
-        if os.path.exists('./results_csv/connections.csv'):
-            os.remove('./results_csv/connections.csv')
-        # if os.path.exists('./results/cells.csv'):
-        #     os.remove('./results/cells.csv')
-        with open('./results_csv/connections.csv', 'a') as ofile:
-            writer = csv.writer(ofile, delimiter='\t')
-            writer.writerow(['type', 'source', 'target', 'count', 'weight', 'count/weight'])
+    # if os.path.exists('./results_csv/connections.csv'):
+    #     os.remove('./results_csv/connections.csv')
+    # if os.path.exists('./results/cells.csv'):
+    #     os.remove('./results/cells.csv')
+    name = 'connections'
+    if value == 100:
+        name = 'connections_e'
+    with open('./results_csv/{}.csv'.format(name), 'a') as ofile:
+        writer = csv.writer(ofile, delimiter='\t')
+        writer.writerow(['type', 'source', 'target', 'count', 'weight', 'count/weight'])
 
     CC_c = CC_circuit()
     logging.info("created")
@@ -1029,10 +1034,14 @@ if __name__ == '__main__':
     print("- " * 10, "\nstart")
     t = prun()
 
-    with open('./results/time.txt', 'w') as time_file:
+    name_time = 'time'
+    if value == 100:
+        name_time = 'time_e'
+    with open('./results/{}.txt'.format(name_time), 'w') as time_file:
         for time in t:
             time_file.write(str(time) + "\n")
     print("- " * 10, "\nend")
+
 
     for group, layer, recorder in zip(CC_c.groups, CC_c.layers, recorders):
         spikeout(group[k_nrns], layer[k_name], group[k_name], recorder)
@@ -1047,13 +1056,16 @@ if __name__ == '__main__':
     # datacel(CC_c.data['cells'])
 
     if rank == 0:
-        with open('./results_csv/connections.csv', 'a') as file:
+        with open('./results_csv/{}.csv'.format(name), 'a') as file:
             writer = csv.writer(file, delimiter='\t')
-            for key, value in conn_dict.items():
+            for key, val in conn_dict.items():
                 splited = key.split(' - ')
-                writer.writerow([splited[0], splited[1], splited[2], value[0], value[1], value[1]/value[0]])
+                writer.writerow([splited[0], splited[1], splited[2], val[0], val[1], val[1]/val[0]])
 
-        with open('./results/AGN.txt', 'w') as n_file:
+        agn_name = 'AGN'
+        if value == 100:
+            agn_name = 'AGN_e'
+        with open('./results/{}.txt'.format(agn_name), 'w') as n_file:
             logging.info("in file AGN")
             syn = num_syn[0]
             a = len(AMPA_nclist)
