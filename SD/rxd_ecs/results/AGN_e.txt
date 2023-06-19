@@ -1,0 +1,1 @@
+{'AMPA ': 524190, ' GABA ': 432120, ' NMDA ': 422500, ' Count synapses ': 7740}
