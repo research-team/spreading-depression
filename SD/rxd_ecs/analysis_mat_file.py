@@ -52,6 +52,5 @@ for i in ISI:
         if y>1:
             data_0.append(y)
 
-# data_0=np.concatenate(data_0, axis=None)
 analysis(data_0)
 
