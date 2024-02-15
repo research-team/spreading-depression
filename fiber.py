@@ -28,7 +28,7 @@ class fiber(object):
     def __init__(self, glia):
         self.glia = glia
         self.diffs = []
-        self.recs = []
+        self.accums = []
         self.L = 100
         self.diam = 2
         self.num = 10
@@ -72,7 +72,9 @@ class fiber(object):
         for sec in self.all: # 'all' defined in build_subsets
             sec.Ra = 100  # Axial resistance in Ohm * cm
             sec.cm = 1      # Membrane capacitance in micro Farads / cm^2
-            sec.insert('nakpump')
+            # sec.insert('nakpump')
+            diff = h.nakpump(sec(0.5))
+            self.diffs.append(diff)
             sec.insert('leak')
             sec.insert('tot')
         if self.glia:
@@ -82,20 +84,21 @@ class fiber(object):
                 sec.insert('kdrglia')
                 sec.gbar_kir = 0.025
                 sec.gkbar_kdrglia = 0.025
-                sec.km_k_nakpump = 5
-                sec.km_na_nakpump = 10
+                diff.km_k = 5
+                diff.km_na = 10
         else:
             for sec in self.all:
-                sec.insert('accum')
+                acc = h.accum(sec(0.5))
+                self.accums.append(acc)
                 sec.insert('capump')
                 sec.insert('nax')
-                sec.k1buf_accum = 20
-                sec.k2buf_accum = 0.5
-                sec.tau_accum = 100
-                sec.setvolout_accum = 0.2
-                sec.setvolglia_accum = 1
-                sec.km_k_nakpump = 2
-                sec.km_na_nakpump = 10
+                acc.k1buf = 20
+                acc.k2buf = 0.5
+                acc.tau = 100
+                acc.setvolout = 0.2
+                acc.setvolglia = 1
+                diff.km_k = 2
+                diff.km_na = 10
                 sec.scale_capump = 4e-6
                 sec.imax_nax = 3.2
 
