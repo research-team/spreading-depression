@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+SD/rxd_ecs/x86_64/*
+
 # C extensions
 *.so
 

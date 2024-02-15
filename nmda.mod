@@ -37,8 +37,8 @@ NEURON {
 	USEION k READ ko, ki, ek WRITE ik
 	USEION na READ nai, nao, ena WRITE ina
 	USEION ca READ cai, cao, eca WRITE ica VALENCE 2
-	GLOBAL mg, act_99, act_01, ina_99, ina_01, tau_ina, tau_act, scaleca
-	RANGE ik, ina, itot, ica, qna, qk, gbar
+	GLOBAL mg, act_99, act_01, ina_99, ina_01, gbar, tau_ina, tau_act, scaleca
+	RANGE ik, ina, itot, ica, qna, qk
 }
 
 PARAMETER {

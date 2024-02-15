@@ -3,7 +3,7 @@ TITLE Natrium-Kalium Pump
 INDEPENDENT {t FROM 0 TO 1 WITH 10 (ms)}
 
 NEURON {
-	POINT_PROCESS nakpump
+	SUFFIX nakpump
 	USEION k READ ko WRITE ik
 	USEION na READ nai WRITE ina
 	RANGE ik, ina, km_k, km_na, totalpump, qna, qk
